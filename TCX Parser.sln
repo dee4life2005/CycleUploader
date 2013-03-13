@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.3
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCX Parser", "TCX Parser.csproj", "{C43BB53D-B6D1-49C8-A481-584600A8DD2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthGraphNet", "..\HealthGraphNet\HealthGraphNet.csproj", "{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravan", "..\Stravan-master\Stravan\Stravan.csproj", "{AFD13B76-96B2-491F-8CC5-DA1FFFF6E2F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43BB53D-B6D1-49C8-A481-584600A8DD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43BB53D-B6D1-49C8-A481-584600A8DD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43BB53D-B6D1-49C8-A481-584600A8DD2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43BB53D-B6D1-49C8-A481-584600A8DD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD13B76-96B2-491F-8CC5-DA1FFFF6E2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD13B76-96B2-491F-8CC5-DA1FFFF6E2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD13B76-96B2-491F-8CC5-DA1FFFF6E2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD13B76-96B2-491F-8CC5-DA1FFFF6E2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal

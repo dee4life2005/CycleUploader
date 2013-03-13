@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ClassDiagram Zoom="1" MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="TCX_Parser.MainForm" Collapsed="False">
+    <Position X="0.5" Y="0.5" Width="2.999211" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="TCX_Parser.GeoMath" Collapsed="False">
+    <Position X="0.5" Y="14.1" Width="2.314294" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="TCX_Parser.WebUpload" Collapsed="False">
+    <Position X="0.5" Y="17.4" Width="2.256066" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="TCX_Parser.FullscreenMap" Collapsed="False">
+    <Position X="0.5" Y="20.8" Width="2.06695" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="TCX_Parser.FullscreenChart" Collapsed="False">
+    <Position X="0.5" Y="23.2" Width="2.180172" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="TCX_Parser.Program" Collapsed="False">
+    <Position X="0.5" Y="25.5" Width="1.444186" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+</ClassDiagram>
