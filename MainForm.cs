@@ -2409,6 +2409,7 @@ namespace TCX_Parser
 			if(rwg.ShowDialog() == DialogResult.OK){
 				
 				EnableMenuItem(menuConnectToRideWithGps, false);
+				EnableMenuItem(menuViewAccountRideWithGps, true);
 				EnableMenuItem(menuUploadToRideWithGps, true);
 				
 				_ridewithgps_token = _rwgps.getAuthToken();
