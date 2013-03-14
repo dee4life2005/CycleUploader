@@ -39,7 +39,7 @@ namespace TCX_Parser
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerGarmin));
 			this.pnlActivities = new System.Windows.Forms.GroupBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.lstActivities = new System.Windows.Forms.ListView();
+			this.lstActivities = new ListViewNF.ListViewNF();
 			this.colActivityId = new System.Windows.Forms.ColumnHeader();
 			this.colStartTime = new System.Windows.Forms.ColumnHeader();
 			this.colActivityName = new System.Windows.Forms.ColumnHeader();
@@ -60,7 +60,7 @@ namespace TCX_Parser
 			this.label15 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.lstUserMetrics = new System.Windows.Forms.ListView();
+			this.lstUserMetrics = new ListViewNF.ListViewNF();
 			this.colMonth = new System.Windows.Forms.ColumnHeader();
 			this.colActivities = new System.Windows.Forms.ColumnHeader();
 			this.colDistance = new System.Windows.Forms.ColumnHeader();

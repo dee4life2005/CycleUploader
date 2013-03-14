@@ -170,7 +170,7 @@ namespace TCX_Parser
 							_profile.total_trip_distance = (double)jsonProfile.currentUser.total_trip_distance;
 							_profile.total_trip_duration = (double)jsonProfile.currentUser.total_trip_duration;
 							_profile.total_trip_elevation = (double)jsonProfile.currentUser.total_trip_elevation_gain;
-							_profile.total_trip_count = (int)jsonProfile.currentUser.trips_included_in_totals_count;
+							//_profile.total_trip_count = (int)jsonProfile.currentUser.trips_included_in_totals_count;
 						}
 					}
 				}

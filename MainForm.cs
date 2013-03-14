@@ -41,6 +41,7 @@ using System.Net;
 using EmpyrealNight.Core.Json;
 using System.Threading;
 using System.Reflection;
+using ListViewNF;
 
 namespace TCX_Parser
 {
@@ -728,6 +729,7 @@ namespace TCX_Parser
 		
 		void processFile_GPX(string filename)
 		{
+			activity = new Activity();
 			clear_summary();
 			XmlNodeList nodeList;
 			string ext_prefix = "";
@@ -774,6 +776,7 @@ namespace TCX_Parser
 			nodeList = doc.GetElementsByTagName("name");
 			lblActivityDateTime.Text = nodeList[0].InnerText;
 			
+					
 			// get the track points
 			XmlNodeList trackpoints = doc.GetElementsByTagName("trkpt");
 			double lng=0;
@@ -818,8 +821,6 @@ namespace TCX_Parser
 				if(t > 0){
 					distance += (GeoMath.Distance(lat, lng, lat_prev, lng_prev, GeoMath.MeasureUnits.Kilometers) * 1000);
 				}
-				
-				//gradient = GeoMath.Gradient(distance,altitude/3.2808399,elev_prev/3.2808399);
 				
 				// copy the lng/lat to act as the "prev" for next coord
 				lng_prev = lng;
@@ -900,7 +901,8 @@ namespace TCX_Parser
 					speed.ToString(),
 					lng.ToString(),
 					lat.ToString(),
-					gradient.ToString()
+					"0",
+					""
 				};
 				lstTrackpoints.Items.Add(new ListViewItem(row));
 				
@@ -930,16 +932,27 @@ namespace TCX_Parser
 			double avg_cadence = 0;
 			
 			if(!bIsMioGPX && !bIsStravaGPX){
+				
 				double dist_miles = (distance/1000) * 0.621371192;
 				double dist_km = distance / 1000;
 				double sec_start = ((TimeSpan)(System.DateTime.Parse(trackpoints[0]["time"].InnerText, null, DateTimeStyles.RoundtripKind)-new System.DateTime(1970, 1, 1))).TotalSeconds;
 				double sec_end = ((TimeSpan)(System.DateTime.Parse(trackpoints[trackpoints.Count-1]["time"].InnerText, null, DateTimeStyles.RoundtripKind)-new System.DateTime(1970, 1, 1))).TotalSeconds;
 				TimeSpan tot_duration = TimeSpan.FromSeconds(sec_end-sec_start);
+				
+				
 				double mph = dist_miles / (tot_duration.TotalSeconds / 3600);
 				double kph = dist_km / (tot_duration.TotalSeconds/3600);
 				avg_speed = mph;
+				double avg_speed_metres_per_sec = avg_speed / 2.23693629; // convert MPH to m/sec
 				avg_heart = tot_heart / tot_duration.TotalSeconds;
 				avg_cadence = tot_cadence / tot_duration.TotalSeconds;
+				
+				activity._distance = distance;
+				activity._duration = tot_duration.TotalSeconds;
+				activity._avgCadence = avg_cadence;
+				activity._avgHeartRate = avg_heart;		
+				activity._avgSpeed = avg_speed_metres_per_sec;		
+			
 				
 				// set the summary information
 				this.lblAvgHeartRate.Text = string.Format("{0:0.00} bpm", avg_heart);
@@ -955,16 +968,23 @@ namespace TCX_Parser
 				
 			}
 			else if(bIsMioGPX){
-				distance = Convert.ToDouble(doc.GetElementsByTagName("length").Item(0).InnerText);
+				
 				double dist_miles = (distance/1000) * 0.621371192;
 				double dist_km = (distance/1000);
 				TimeSpan tot_duration = TimeSpan.FromSeconds(Convert.ToDouble(doc.GetElementsByTagName("timelength").Item(0).InnerText));;
 				
-				avg_speed = Convert.ToDouble(doc.GetElementsByTagName("avgspeed").Item(0).InnerText);
+				double avg_speed_metres_per_sec = Convert.ToDouble(doc.GetElementsByTagName("avgspeed").Item(0).InnerText);
 				// convert avg_speed from metres/sec to miles/hour
-				avg_speed = avg_speed * 2.23693629;
+				avg_speed = avg_speed_metres_per_sec * 2.23693629;
 				avg_cadence = Convert.ToDouble(doc.GetElementsByTagName("avgcadence").Item(0).InnerText);
 				avg_heart = Convert.ToDouble(doc.GetElementsByTagName("avgheartrate").Item(0).InnerText);
+				
+				activity._distance = distance;
+				activity._duration = tot_duration.TotalSeconds;
+				activity._avgCadence = avg_cadence;
+				activity._avgHeartRate = avg_heart;
+				activity._avgSpeed = avg_speed_metres_per_sec;
+				activity._calories = Convert.ToDouble(doc.GetElementsByTagName("calories").Item(0).InnerText);
 				
 				// set the summary information
 				this.lblAvgHeartRate.Text = string.Format("{0:0.00} bpm", avg_heart);
@@ -1153,7 +1173,13 @@ namespace TCX_Parser
             StreamWriter writer = new StreamWriter(fs);  
             writer.Write(routeHTML);  
             writer.Close();  
-			
+            
+            
+            // Build the [activity] object. Can't buld this as we go, as Mio (and possibly others) set the Time in the <extensions> tag
+            // based on when the file was created rather than when the activity took place. So we need to build the activity here so we 
+            // can get the correct information from the trackpoints and using [lstTrackpoints] makes this easier.
+            activity._startTime = System.DateTime.Parse(lstTrackpoints.Items[0].SubItems[0].Text);
+            			
             setTab(tabControlOverview, "tabMap");
             
             NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
@@ -1164,6 +1190,10 @@ namespace TCX_Parser
             EnableMenuItem(menuUploadToRideWithGps, true);
 			
             ResizeListView(lstTrackpoints);
+            
+            
+            
+            
 		}
 	
 		void processFile_TCX(string filename)
@@ -1214,8 +1244,6 @@ namespace TCX_Parser
 			
 			activity._duration = total_time_seconds;
 			activity._startTime = d2;
-			
-			
 					
 			TimeSpan tDuration = TimeSpan.FromSeconds(Convert.ToDouble(nodeList[0].InnerText));
 			this.lblDuration.Text = string.Format("{0:D2} h {1:D2} m {2:D2} s", tDuration.Hours, tDuration.Minutes, tDuration.Seconds);
@@ -1981,6 +2009,7 @@ namespace TCX_Parser
 			catch(Exception ex){
 				setUpdateRideMsg("runkeeper","Exception uploading activity. " + ex.ToString());
 				setUpdateRideImg("runkeeper",Image.FromFile("failure-icon.png"));
+				Debug.Write(ex.ToString());
 			}
 			
 			ResizeListView(lstTrackpoints);
@@ -2131,7 +2160,9 @@ namespace TCX_Parser
 					}
 				}
 			}
-			catch{}
+			catch(Exception ex){
+				MessageBox.Show(ex.ToString());
+			}
 		}
 		
 		void checkForStravaConnectToken()

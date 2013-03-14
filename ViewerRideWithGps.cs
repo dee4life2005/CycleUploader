@@ -228,7 +228,7 @@ namespace TCX_Parser
 			TimeSpan totDur = TimeSpan.FromSeconds(_rwgps._profile.total_trip_duration);
 			SetControlPropertyThreadSafe(lblTotalDuration, "Text", string.Format("{0:D2} d {1:D2} h {2:D2} m {3:D2} s", Convert.ToInt32(Math.Floor(totDur.TotalDays)), totDur.Hours, totDur.Minutes, totDur.Seconds));
 			SetControlPropertyThreadSafe(lblTotalDistance, "Text", string.Format("{0:0.00} miles",(_rwgps._profile.total_trip_distance*0.000621371192)));
-			SetControlPropertyThreadSafe(lblTotalActivities, "Text", string.Format("{0:0} Activities", _rwgps._profile.total_trip_count));
+			
 			
 			activities = _rwgps.GetActivities(this);
 			
@@ -249,6 +249,7 @@ namespace TCX_Parser
 					activities[a].created_at					
 				};
 				AddListViewItem(lstActivities, new ListViewItem(row));
+				SetControlPropertyThreadSafe(lblTotalActivities, "Text", string.Format("{0:0} Activities",a+1));
 			}
 			SetStatusTextThreadSafe(statusBar, "Done.");
 			

@@ -44,7 +44,7 @@ namespace TCX_Parser
 			this.lblTotalActivities = new System.Windows.Forms.Label();
 			this.pnlActivities = new System.Windows.Forms.GroupBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.lstActivities = new System.Windows.Forms.ListView();
+			this.lstActivities = new ListViewNF.ListViewNF();
 			this.colId = new System.Windows.Forms.ColumnHeader();
 			this.colDateTime = new System.Windows.Forms.ColumnHeader();
 			this.colName = new System.Windows.Forms.ColumnHeader();

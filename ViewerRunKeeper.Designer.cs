@@ -52,7 +52,7 @@ namespace TCX_Parser
 			this.lblAthleteType = new System.Windows.Forms.Label();
 			this.lblProfileName = new System.Windows.Forms.Label();
 			this.pbProfileMedium = new System.Windows.Forms.PictureBox();
-			this.lstStreetTeam = new System.Windows.Forms.ListView();
+			this.lstStreetTeam = new ListViewNF.ListViewNF();
 			this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
@@ -63,7 +63,7 @@ namespace TCX_Parser
 			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
 			this.pnlActivities = new System.Windows.Forms.GroupBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.lstActivities = new System.Windows.Forms.ListView();
+			this.lstActivities = new ListViewNF.ListViewNF();
 			this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
@@ -74,7 +74,7 @@ namespace TCX_Parser
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabSummary = new System.Windows.Forms.TabPage();
 			this.label12 = new System.Windows.Forms.Label();
-			this.lstSplits = new System.Windows.Forms.ListView();
+			this.lstSplits = new ListViewNF.ListViewNF();
 			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
@@ -393,6 +393,7 @@ namespace TCX_Parser
 									this.columnHeader5,
 									this.columnHeader8});
 			this.lstActivities.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lstActivities.Enabled = false;
 			this.lstActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lstActivities.FullRowSelect = true;
 			this.lstActivities.GridLines = true;
@@ -965,7 +966,7 @@ namespace TCX_Parser
 			// statusBarStatus
 			// 
 			this.statusBarStatus.Name = "statusBarStatus";
-			this.statusBarStatus.Size = new System.Drawing.Size(715, 17);
+			this.statusBarStatus.Size = new System.Drawing.Size(746, 17);
 			this.statusBarStatus.Spring = true;
 			this.statusBarStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1019,7 +1020,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader columnHeader15;
 		private System.Windows.Forms.ColumnHeader columnHeader14;
 		private System.Windows.Forms.ColumnHeader columnHeader11;
-		private System.Windows.Forms.ListView lstSplits;
+		private ListViewNF.ListViewNF lstSplits;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.PictureBox pictureBox1;
@@ -1027,7 +1028,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader columnHeader13;
 		private System.Windows.Forms.ColumnHeader columnHeader12;
 		private System.Windows.Forms.ColumnHeader columnHeader10;
-		private System.Windows.Forms.ListView lstStreetTeam;
+		private ListViewNF.ListViewNF lstStreetTeam;
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.RichTextBox richActivityComments;
 		private System.Windows.Forms.TextBox txtNotes;
@@ -1067,7 +1068,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader columnHeader7;
 		private System.Windows.Forms.ColumnHeader columnHeader6;
 		private System.Windows.Forms.ColumnHeader columnHeader4;
-		private System.Windows.Forms.ListView lstActivities;
+		private ListViewNF.ListViewNF lstActivities;
 		private System.Windows.Forms.GroupBox pnlActivities;
 		private System.Windows.Forms.Label lblTotalActivities;
 		private System.Windows.Forms.ColumnHeader columnHeader3;

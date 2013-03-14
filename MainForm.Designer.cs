@@ -74,7 +74,7 @@ namespace TCX_Parser
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
-			this.lstTrackpoints = new System.Windows.Forms.ListView();
+			this.lstTrackpoints = new ListViewNF.ListViewNF();
 			this.colTime = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -156,6 +156,7 @@ namespace TCX_Parser
 			this.statusBar = new System.Windows.Forms.StatusStrip();
 			this.statusBarProgress = new System.Windows.Forms.ToolStripProgressBar();
 			this.statusbarStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.statusBarVersion = new System.Windows.Forms.ToolStripStatusLabel();
 			this.grpProviders = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label19 = new System.Windows.Forms.Label();
@@ -169,7 +170,6 @@ namespace TCX_Parser
 			this.pictureBox7 = new System.Windows.Forms.PictureBox();
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
-			this.statusBarVersion = new System.Windows.Forms.ToolStripStatusLabel();
 			this.grpSummary.SuspendLayout();
 			this.tabControlOverview.SuspendLayout();
 			this.tabMap.SuspendLayout();
@@ -269,7 +269,7 @@ namespace TCX_Parser
 			this.btnUploadAllProviders.Location = new System.Drawing.Point(563, 165);
 			this.btnUploadAllProviders.Name = "btnUploadAllProviders";
 			this.btnUploadAllProviders.Size = new System.Drawing.Size(216, 23);
-			this.btnUploadAllProviders.TabIndex = 27;
+			this.btnUploadAllProviders.TabIndex = 2;
 			this.btnUploadAllProviders.Text = "Upload to All Active Providers ...";
 			this.btnUploadAllProviders.UseVisualStyleBackColor = true;
 			this.btnUploadAllProviders.Click += new System.EventHandler(this.BtnUploadAllProvidersClick);
@@ -300,7 +300,7 @@ namespace TCX_Parser
 			this.txtActivityName.Location = new System.Drawing.Point(563, 38);
 			this.txtActivityName.Name = "txtActivityName";
 			this.txtActivityName.Size = new System.Drawing.Size(214, 20);
-			this.txtActivityName.TabIndex = 36;
+			this.txtActivityName.TabIndex = 0;
 			// 
 			// label11
 			// 
@@ -330,7 +330,7 @@ namespace TCX_Parser
 			this.txtActivityNotes.Multiline = true;
 			this.txtActivityNotes.Name = "txtActivityNotes";
 			this.txtActivityNotes.Size = new System.Drawing.Size(216, 86);
-			this.txtActivityNotes.TabIndex = 31;
+			this.txtActivityNotes.TabIndex = 1;
 			// 
 			// lblMaxSpeed
 			// 
@@ -978,7 +978,7 @@ namespace TCX_Parser
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(145, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(186, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
@@ -1040,7 +1040,7 @@ namespace TCX_Parser
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(186, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
@@ -1102,7 +1102,7 @@ namespace TCX_Parser
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(186, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
@@ -1164,7 +1164,7 @@ namespace TCX_Parser
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(186, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
@@ -1408,7 +1408,7 @@ namespace TCX_Parser
 			// 
 			this.menuAbout.Image = ((System.Drawing.Image)(resources.GetObject("menuAbout.Image")));
 			this.menuAbout.Name = "menuAbout";
-			this.menuAbout.Size = new System.Drawing.Size(107, 22);
+			this.menuAbout.Size = new System.Drawing.Size(152, 22);
 			this.menuAbout.Text = "About";
 			this.menuAbout.Click += new System.EventHandler(this.MenuAboutClick);
 			// 
@@ -1436,10 +1436,16 @@ namespace TCX_Parser
 			// 
 			this.statusbarStatus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.statusbarStatus.Name = "statusbarStatus";
-			this.statusbarStatus.Size = new System.Drawing.Size(884, 17);
+			this.statusbarStatus.Size = new System.Drawing.Size(915, 17);
 			this.statusbarStatus.Spring = true;
 			this.statusbarStatus.Text = "Loading...";
 			this.statusbarStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// statusBarVersion
+			// 
+			this.statusBarVersion.Name = "statusBarVersion";
+			this.statusBarVersion.Size = new System.Drawing.Size(0, 17);
+			this.statusBarVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// grpProviders
 			// 
@@ -1491,7 +1497,7 @@ namespace TCX_Parser
 			this.cbkProviderRideWithGps.Location = new System.Drawing.Point(18, 149);
 			this.cbkProviderRideWithGps.Name = "cbkProviderRideWithGps";
 			this.cbkProviderRideWithGps.Size = new System.Drawing.Size(15, 14);
-			this.cbkProviderRideWithGps.TabIndex = 9;
+			this.cbkProviderRideWithGps.TabIndex = 4;
 			this.cbkProviderRideWithGps.UseVisualStyleBackColor = true;
 			this.cbkProviderRideWithGps.CheckedChanged += new System.EventHandler(this.CbkProviderRideWithGpsCheckedChanged);
 			// 
@@ -1501,7 +1507,7 @@ namespace TCX_Parser
 			this.cbkProviderGarmin.Location = new System.Drawing.Point(18, 115);
 			this.cbkProviderGarmin.Name = "cbkProviderGarmin";
 			this.cbkProviderGarmin.Size = new System.Drawing.Size(15, 14);
-			this.cbkProviderGarmin.TabIndex = 8;
+			this.cbkProviderGarmin.TabIndex = 3;
 			this.cbkProviderGarmin.UseVisualStyleBackColor = true;
 			this.cbkProviderGarmin.CheckedChanged += new System.EventHandler(this.CbkProviderGarminCheckedChanged);
 			// 
@@ -1511,7 +1517,7 @@ namespace TCX_Parser
 			this.cbkProviderEndomondo.Location = new System.Drawing.Point(18, 81);
 			this.cbkProviderEndomondo.Name = "cbkProviderEndomondo";
 			this.cbkProviderEndomondo.Size = new System.Drawing.Size(15, 14);
-			this.cbkProviderEndomondo.TabIndex = 7;
+			this.cbkProviderEndomondo.TabIndex = 2;
 			this.cbkProviderEndomondo.UseVisualStyleBackColor = true;
 			this.cbkProviderEndomondo.CheckedChanged += new System.EventHandler(this.CbkProviderEndomondoCheckedChanged);
 			// 
@@ -1521,7 +1527,7 @@ namespace TCX_Parser
 			this.cbkProviderStrava.Location = new System.Drawing.Point(19, 47);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
 			this.cbkProviderStrava.Size = new System.Drawing.Size(15, 14);
-			this.cbkProviderStrava.TabIndex = 6;
+			this.cbkProviderStrava.TabIndex = 1;
 			this.cbkProviderStrava.UseVisualStyleBackColor = true;
 			this.cbkProviderStrava.CheckedChanged += new System.EventHandler(this.CbkProviderStravaCheckedChanged);
 			// 
@@ -1531,7 +1537,7 @@ namespace TCX_Parser
 			this.cbkProviderRunkeeper.Location = new System.Drawing.Point(19, 13);
 			this.cbkProviderRunkeeper.Name = "cbkProviderRunkeeper";
 			this.cbkProviderRunkeeper.Size = new System.Drawing.Size(15, 14);
-			this.cbkProviderRunkeeper.TabIndex = 5;
+			this.cbkProviderRunkeeper.TabIndex = 0;
 			this.cbkProviderRunkeeper.UseVisualStyleBackColor = true;
 			this.cbkProviderRunkeeper.CheckedChanged += new System.EventHandler(this.CbkProviderRunkeeperCheckedChanged);
 			// 
@@ -1584,12 +1590,6 @@ namespace TCX_Parser
 			this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox5.TabIndex = 0;
 			this.pictureBox5.TabStop = false;
-			// 
-			// statusBarVersion
-			// 
-			this.statusBarVersion.Name = "statusBarVersion";
-			this.statusBarVersion.Size = new System.Drawing.Size(0, 17);
-			this.statusBarVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// MainForm
 			// 
@@ -1769,7 +1769,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.ColumnHeader colTime;
-		private System.Windows.Forms.ListView lstTrackpoints;
+		private ListViewNF.ListViewNF lstTrackpoints;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label lblAvgSpeed;
 		private System.Windows.Forms.Label label7;

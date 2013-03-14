@@ -49,38 +49,44 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Reference Include="EmpyrealNight.Core">
-      <HintPath>..\Stravan-master\Stravan\bin\Debug\EmpyrealNight.Core.dll</HintPath>
+      <HintPath>dll\EmpyrealNight.Core.dll</HintPath>
     </Reference>
     <Reference Include="FileHelpers">
-      <HintPath>bin\Debug\FileHelpers.dll</HintPath>
+      <HintPath>dll\FileHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Fit">
-      <HintPath>bin\Debug\Fit.dll</HintPath>
+      <HintPath>dll\Fit.dll</HintPath>
+    </Reference>
+    <Reference Include="HealthGraphNet">
+      <HintPath>dll\HealthGraphNet.dll</HintPath>
+    </Reference>
+    <Reference Include="ListViewNF">
+      <HintPath>dll\ListViewNF.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\Stravan-master\Stravan\bin\Debug\log4net.dll</HintPath>
+      <HintPath>dll\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq">
-      <HintPath>bin\Debug\Moq.dll</HintPath>
+      <HintPath>dll\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
-      <HintPath>..\Stravan-master\Stravan\bin\Debug\Ninject.dll</HintPath>
+      <HintPath>dll\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="nunit.core">
-      <HintPath>bin\Debug\nunit.core.dll</HintPath>
+      <HintPath>dll\nunit.core.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>bin\Debug\nunit.framework.dll</HintPath>
+      <HintPath>dll\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>bin\Debug\RestSharp.dll</HintPath>
+      <HintPath>dll\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="Stravan">
-      <HintPath>..\Stravan-master\Stravan\bin\Debug\Stravan.dll</HintPath>
+      <HintPath>dll\Stravan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -93,8 +99,9 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Json">
-      <HintPath>bin\Debug\System.Json.dll</HintPath>
+      <HintPath>dll\System.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -105,7 +112,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="ZedGraph">
-      <HintPath>ZedGraph.dll</HintPath>
+      <HintPath>dll\ZedGraph.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -221,12 +228,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HealthGraphNet\HealthGraphNet.csproj">
-      <Project>{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}</Project>
-      <Name>HealthGraphNet</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TCX Parser.cd" />

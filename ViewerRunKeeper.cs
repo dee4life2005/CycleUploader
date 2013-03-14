@@ -106,6 +106,21 @@ namespace TCX_Parser
 			}
 		}
 		
+		private delegate void AppendControlTextThreadSafeDelegate(Control ctrl, string appendText, FontStyle style);
+		public static void AppendControlTextThreadSafe(Control ctrl, string appendText, FontStyle style)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new AppendControlTextThreadSafeDelegate(AppendControlTextThreadSafe), new object[] { ctrl, appendText, style});
+			}
+			else{
+				int startIdx = ctrl.Text.Length;
+				((RichTextBox)ctrl).AppendText(appendText);
+				((RichTextBox)ctrl).SelectionStart = startIdx;
+				((RichTextBox)ctrl).SelectionLength = appendText.Length;
+				((RichTextBox)ctrl).SelectionFont = new Font(ctrl.Font.FontFamily, ctrl.Font.Size, style);
+			}
+		}
+		
 		private delegate void AddListViewItemDelegate(Control ctrl, ListViewItem newItem);			
 		private static void AddListViewItem(Control ctrl, ListViewItem newItem)
 		{
@@ -123,8 +138,6 @@ namespace TCX_Parser
 	            return (int) varControl.Invoke(new Func<int>(() => listViewCountItems(varControl)));
 	        } else {
 	            return varControl.Items.Count;
-	            //string varText = varControl.Text;
-	            //return varText;
 	        }
     	}
 		
@@ -340,8 +353,9 @@ namespace TCX_Parser
 			{
 				MessageBox.Show(ex.Message);
 			}
-			finally{}
-			
+			finally{
+				SetControlPropertyThreadSafe(lstActivities, "Enabled", true);
+			}
 		}
 		
 		void LblProfileLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -365,7 +379,6 @@ namespace TCX_Parser
 		void loadActivity()
 		{
 			int progress = 0;
-			SetControlPropertyThreadSafe(lstActivities, "Enabled", false);
 
 			zedActivityChart.GraphPane.Legend.IsVisible = true;
 			zedActivityChart.GraphPane.Title.Text = "Activity Chart";
@@ -375,11 +388,6 @@ namespace TCX_Parser
 			SetStatusProgressThreadSafe(statusBar, "Maximum",6);
 			SetStatusProgressThreadSafe(statusBar, "Value", progress);
 			SetStatusTextThreadSafe(statusBar, "Loading selected activity...");
-			
-			// set the "open in browser" link so that we can 
-			// open the activity in web browser if we choose
-			//lnkRunkeper.Links.Clear();
-			//lnkRunkeper.Links.Add(0,0,(lblProfile.Text + lstActivities.SelectedItems[0].SubItems[5].Text.Replace("fitnessActivities","activity")));
 			
 			// load activity
 			SetStatusTextThreadSafe(statusBar, "Downloading Activity Information from Runkeeper...");
@@ -405,7 +413,7 @@ namespace TCX_Parser
 			SetControlPropertyThreadSafe(lblLastModified, "Text", activity.Source);
 			SetControlPropertyThreadSafe(txtNotes, "Text", activity.Notes);
 			
-			setTab(tabControl1, "tabMap");
+			setTab(tabControl1, "tabSummary");
 			SetControlPropertyThreadSafe(tabMap, "Enabled", true);
 			
 			SetStatusProgressThreadSafe(statusBar, "Value", ++progress);
@@ -415,15 +423,12 @@ namespace TCX_Parser
 			SetControlPropertyThreadSafe(richActivityComments, "Text", "");
 			CommentThreadsEndpoint comments = new CommentThreadsEndpoint(_tm);
 			CommentThreadsModel comment_thread = comments.GetCommentThread(activity.Comments);
-			string comment = "";
 			
-			//SetControlPropertyThreadSafe(richActivityComments, "SelectionFont", new Font(richActivityComments.Font.FontFamily, richActivityComments.Font.Size, FontStyle.Bold));
+			AppendControlTextThreadSafe(richActivityComments, "", FontStyle.Regular);
 			for(int c = 0; c < comment_thread.Comments.Count; c++){
-				
-				//richActivityComments.AppendText(comment_thread.Comments[c].Timestamp.ToString("dd/MM/yyyy HH:mm") + " by " + comment_thread.Comments[c].Name);
-				//richActivityComments.AppendText("\r\n");
-				//richActivityComments.SelectionFont = new Font(richActivityComments.Font.FontFamily, richActivityComments.Font.Size,FontStyle.Regular);
-				//richActivityComments.AppendText(comment_thread.Comments[c].Comment + "\r\n");
+				AppendControlTextThreadSafe(richActivityComments, comment_thread.Comments[c].Timestamp.ToString("dd/MM/yyyy HH:mm") + " by " + comment_thread.Comments[c].Name, FontStyle.Bold);
+				AppendControlTextThreadSafe(richActivityComments, "\r\n", FontStyle.Regular);
+				AppendControlTextThreadSafe(richActivityComments, comment_thread.Comments[c].Comment + "\r\n", FontStyle.Regular);
 			}
 			SetStatusProgressThreadSafe(statusBar, "Value", ++progress);
 			
@@ -570,7 +575,7 @@ namespace TCX_Parser
 
 			zedActivityChart.AxisChange();
 			
-			setTab(tabControl1, "tabMap");
+			setTab(tabControl1, "tabSummary");
 			
 			double start_lat = 0;
 			double start_lng = 0;
@@ -626,17 +631,9 @@ namespace TCX_Parser
 					js_mile_markers += "\r\nnew google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (current_mile_marker_search+1) + "|95E978|004400',position: new google.maps.LatLng(" + activity.Path[t].Latitude.ToString() + "," + activity.Path[t].Longitude.ToString() + "),map: map,title: 'Mile " + (current_mile_marker_search+1) + "\\r\\n" + mile_marker_tag + "'});";
 					current_mile_marker_search++;
 				}
-				/*
-				if(activity.Path[t].Timestamp > mile_markers[mile_count]){
-					if(mile_count < (mile_markers.Count-1)){
-						js_mile_markers += "\r\nnew google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (mile_count+1) + "|95E978|004400',position: new google.maps.LatLng(" + activity.Path[t].Latitude.ToString() + "," + activity.Path[t].Longitude.ToString() + "),map: map,title: 'Mile " + mile_count + "'});";
-						mile_count++;
-					}
-				}
-				*/
+				
 				
 			}
-			//js_mile_markers += "\r\nnew google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (mile_count+1) + "|95E978|004400',position: new google.maps.LatLng(" + activity.Path[t].Latitude.ToString() + "," + activity.Path[t].Longitude.ToString() + "),map: map,title: 'Mile " + mile_count + "'});";
 			
 			// add markers to signify the START / END of route
 			js_mile_markers = 	"\r\nnew google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=S|000088|FFFFFF',position: new google.maps.LatLng(" + start_lat + "," + start_lng + "),map: map,title: 'Start'});" +
@@ -733,8 +730,11 @@ namespace TCX_Parser
 				SetControlPropertyThreadSafe(tabMap, "Enabled", true);
 			}
 			SetStatusProgressThreadSafe(statusBar, "Value", ++progress);
+			
 			SetStatusTextThreadSafe(statusBar, "Done.");
+			
 		}
+		
 		
 		void LnkRunkeperLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{

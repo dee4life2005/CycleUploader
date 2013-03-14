@@ -41,7 +41,7 @@ namespace TCX_Parser
 			this.label15 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.pnlActivities = new System.Windows.Forms.GroupBox();
-			this.lstActivities = new System.Windows.Forms.ListView();
+			this.lstActivities = new ListViewNF.ListViewNF();
 			this.colActivityId = new System.Windows.Forms.ColumnHeader();
 			this.colStartTime = new System.Windows.Forms.ColumnHeader();
 			this.colActivityName = new System.Windows.Forms.ColumnHeader();
@@ -73,7 +73,7 @@ namespace TCX_Parser
 			this.lblAvgCadence = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
-			this.lstSplits = new System.Windows.Forms.ListView();
+			this.lstSplits = new ListViewNF.ListViewNF();
 			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
