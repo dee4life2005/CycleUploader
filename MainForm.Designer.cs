@@ -40,13 +40,17 @@ namespace TCX_Parser
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.openFile = new System.Windows.Forms.OpenFileDialog();
 			this.grpSummary = new System.Windows.Forms.GroupBox();
+			this.pnlNoFile = new System.Windows.Forms.Panel();
+			this.btnOpenFile = new System.Windows.Forms.Button();
+			this.label26 = new System.Windows.Forms.Label();
+			this.panel5 = new System.Windows.Forms.Panel();
+			this.label10 = new System.Windows.Forms.Label();
 			this.label14 = new System.Windows.Forms.Label();
 			this.btnUploadAllProviders = new System.Windows.Forms.Button();
 			this.txtAutoPauseThreshold = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.txtActivityName = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
-			this.label10 = new System.Windows.Forms.Label();
 			this.txtActivityNotes = new System.Windows.Forms.TextBox();
 			this.lblMaxSpeed = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
@@ -92,6 +96,73 @@ namespace TCX_Parser
 			this.zedCadence = new ZedGraph.ZedGraphControl();
 			this.zedAltitude = new ZedGraph.ZedGraphControl();
 			this.tabControlOverview = new System.Windows.Forms.TabControl();
+			this.tabFileHistory = new System.Windows.Forms.TabPage();
+			this.tabControlHistory = new System.Windows.Forms.TabControl();
+			this.tabHistorySummary = new System.Windows.Forms.TabPage();
+			this.label25 = new System.Windows.Forms.Label();
+			this.pnlHistoryUploadRideWithGPS = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadRideWithGPS = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadRideWithGPS = new System.Windows.Forms.CheckBox();
+			this.pictureBox13 = new System.Windows.Forms.PictureBox();
+			this.pnlHistoryUploadRunkeeper = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadRunkeeper = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadRunkeeper = new System.Windows.Forms.CheckBox();
+			this.pictureBox12 = new System.Windows.Forms.PictureBox();
+			this.pnlHistoryUploadStrava = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadStrava = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadStrava = new System.Windows.Forms.CheckBox();
+			this.pictureBox11 = new System.Windows.Forms.PictureBox();
+			this.pnlHistoryUploadGarmin = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadGarmin = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadGarmin = new System.Windows.Forms.CheckBox();
+			this.pictureBox10 = new System.Windows.Forms.PictureBox();
+			this.txtHistoryNotes = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.lblHistoryMaxSpeed = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.lblHistoryMaxCadence = new System.Windows.Forms.Label();
+			this.lblHistoryMaxHeartRate = new System.Windows.Forms.Label();
+			this.lblHistoryTotalDescent = new System.Windows.Forms.Label();
+			this.lblHistoryTotalAscent = new System.Windows.Forms.Label();
+			this.lblHistoryMovingTime = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label31 = new System.Windows.Forms.Label();
+			this.label32 = new System.Windows.Forms.Label();
+			this.label33 = new System.Windows.Forms.Label();
+			this.label34 = new System.Windows.Forms.Label();
+			this.lblHistoryAvgSpeed = new System.Windows.Forms.Label();
+			this.label36 = new System.Windows.Forms.Label();
+			this.lblHistoryName = new System.Windows.Forms.Label();
+			this.lblHistoryAvgCadence = new System.Windows.Forms.Label();
+			this.lblHistoryAvgHeartRate = new System.Windows.Forms.Label();
+			this.lblHistoryCalories = new System.Windows.Forms.Label();
+			this.lblHistoryDistance = new System.Windows.Forms.Label();
+			this.lblHistoryDuration = new System.Windows.Forms.Label();
+			this.label44 = new System.Windows.Forms.Label();
+			this.label45 = new System.Windows.Forms.Label();
+			this.label46 = new System.Windows.Forms.Label();
+			this.label47 = new System.Windows.Forms.Label();
+			this.label48 = new System.Windows.Forms.Label();
+			this.tabHistoryMap = new System.Windows.Forms.TabPage();
+			this.btnFullscreenHistoryMap = new System.Windows.Forms.Button();
+			this.webBrowserHistoryMap = new System.Windows.Forms.WebBrowser();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.zedHistoryAltitude = new ZedGraph.ZedGraphControl();
+			this.tabPage9 = new System.Windows.Forms.TabPage();
+			this.zedHistorySpeed = new ZedGraph.ZedGraphControl();
+			this.tabPage10 = new System.Windows.Forms.TabPage();
+			this.zedHistoryCadence = new ZedGraph.ZedGraphControl();
+			this.tabPage11 = new System.Windows.Forms.TabPage();
+			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
+			this.lstFileHistory = new System.Windows.Forms.ListView();
+			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
 			this.tabMap = new System.Windows.Forms.TabPage();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -101,8 +172,6 @@ namespace TCX_Parser
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.zedTemperature = new ZedGraph.ZedGraphControl();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.txtDebug = new System.Windows.Forms.TextBox();
 			this.tabUploadStatus = new System.Windows.Forms.TabPage();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.pbUploadStatusRideWithGps = new System.Windows.Forms.PictureBox();
@@ -128,9 +197,11 @@ namespace TCX_Parser
 			this.sUploadRunkeeperMsg = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.txtDebug = new System.Windows.Forms.TextBox();
 			this.menubar = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuOpenFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuProviderRunkeeper = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuConnectToRunkeeper = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,7 +242,25 @@ namespace TCX_Parser
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.grpSummary.SuspendLayout();
+			this.pnlNoFile.SuspendLayout();
+			this.panel5.SuspendLayout();
 			this.tabControlOverview.SuspendLayout();
+			this.tabFileHistory.SuspendLayout();
+			this.tabControlHistory.SuspendLayout();
+			this.tabHistorySummary.SuspendLayout();
+			this.pnlHistoryUploadRideWithGPS.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
+			this.pnlHistoryUploadRunkeeper.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+			this.pnlHistoryUploadStrava.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+			this.pnlHistoryUploadGarmin.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+			this.tabHistoryMap.SuspendLayout();
+			this.tabPage8.SuspendLayout();
+			this.tabPage9.SuspendLayout();
+			this.tabPage10.SuspendLayout();
+			this.tabPage11.SuspendLayout();
 			this.tabMap.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage4.SuspendLayout();
@@ -179,7 +268,6 @@ namespace TCX_Parser
 			this.tabPage6.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage7.SuspendLayout();
-			this.tabPage1.SuspendLayout();
 			this.tabUploadStatus.SuspendLayout();
 			this.panel4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbUploadStatusRideWithGps)).BeginInit();
@@ -193,6 +281,7 @@ namespace TCX_Parser
 			this.pnlStatusRunkeeper.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbUploadStatusRunkeeper)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.tabPage1.SuspendLayout();
 			this.menubar.SuspendLayout();
 			this.statusBar.SuspendLayout();
 			this.grpProviders.SuspendLayout();
@@ -208,65 +297,118 @@ namespace TCX_Parser
 			// 
 			this.grpSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.grpSummary.Controls.Add(this.label14);
-			this.grpSummary.Controls.Add(this.btnUploadAllProviders);
-			this.grpSummary.Controls.Add(this.txtAutoPauseThreshold);
-			this.grpSummary.Controls.Add(this.label13);
-			this.grpSummary.Controls.Add(this.txtActivityName);
-			this.grpSummary.Controls.Add(this.label11);
-			this.grpSummary.Controls.Add(this.label10);
-			this.grpSummary.Controls.Add(this.txtActivityNotes);
-			this.grpSummary.Controls.Add(this.lblMaxSpeed);
-			this.grpSummary.Controls.Add(this.label12);
-			this.grpSummary.Controls.Add(this.lblMaxCadence);
-			this.grpSummary.Controls.Add(this.lblMaxHeartRate);
-			this.grpSummary.Controls.Add(this.lblTotalDescent);
-			this.grpSummary.Controls.Add(this.lblTotalAscent);
-			this.grpSummary.Controls.Add(this.lblMovingTime);
-			this.grpSummary.Controls.Add(this.label20);
-			this.grpSummary.Controls.Add(this.label21);
-			this.grpSummary.Controls.Add(this.label22);
-			this.grpSummary.Controls.Add(this.label23);
-			this.grpSummary.Controls.Add(this.label24);
-			this.grpSummary.Controls.Add(this.lblAvgSpeed);
-			this.grpSummary.Controls.Add(this.label8);
-			this.grpSummary.Controls.Add(this.lblActivityDateTime);
-			this.grpSummary.Controls.Add(this.label7);
-			this.grpSummary.Controls.Add(this.lblCadence);
-			this.grpSummary.Controls.Add(this.lblAvgHeartRate);
-			this.grpSummary.Controls.Add(this.lblCalories);
-			this.grpSummary.Controls.Add(this.lblDistance);
-			this.grpSummary.Controls.Add(this.lblDuration);
-			this.grpSummary.Controls.Add(this.label5);
-			this.grpSummary.Controls.Add(this.label4);
-			this.grpSummary.Controls.Add(this.label3);
-			this.grpSummary.Controls.Add(this.label2);
-			this.grpSummary.Controls.Add(this.label1);
+			this.grpSummary.Controls.Add(this.pnlNoFile);
+			this.grpSummary.Controls.Add(this.panel5);
 			this.grpSummary.Enabled = false;
 			this.grpSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpSummary.ForeColor = System.Drawing.Color.RoyalBlue;
 			this.grpSummary.Location = new System.Drawing.Point(5, 51);
 			this.grpSummary.Name = "grpSummary";
-			this.grpSummary.Size = new System.Drawing.Size(790, 194);
+			this.grpSummary.Size = new System.Drawing.Size(799, 194);
 			this.grpSummary.TabIndex = 1;
 			this.grpSummary.TabStop = false;
-			this.grpSummary.Text = "Summary";
+			this.grpSummary.Text = "File Contents Summary";
+			// 
+			// pnlNoFile
+			// 
+			this.pnlNoFile.Controls.Add(this.btnOpenFile);
+			this.pnlNoFile.Controls.Add(this.label26);
+			this.pnlNoFile.Location = new System.Drawing.Point(4, 16);
+			this.pnlNoFile.Name = "pnlNoFile";
+			this.pnlNoFile.Size = new System.Drawing.Size(789, 175);
+			this.pnlNoFile.TabIndex = 41;
+			// 
+			// btnOpenFile
+			// 
+			this.btnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnOpenFile.Location = new System.Drawing.Point(341, 98);
+			this.btnOpenFile.Name = "btnOpenFile";
+			this.btnOpenFile.Size = new System.Drawing.Size(105, 23);
+			this.btnOpenFile.TabIndex = 1;
+			this.btnOpenFile.Text = "Open File...";
+			this.btnOpenFile.UseVisualStyleBackColor = true;
+			this.btnOpenFile.Click += new System.EventHandler(this.BtnOpenFileClick);
+			// 
+			// label26
+			// 
+			this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label26.Location = new System.Drawing.Point(0, 0);
+			this.label26.Margin = new System.Windows.Forms.Padding(0);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(789, 175);
+			this.label26.TabIndex = 0;
+			this.label26.Text = "[ No File Loaded ]";
+			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// panel5
+			// 
+			this.panel5.Controls.Add(this.label10);
+			this.panel5.Controls.Add(this.label14);
+			this.panel5.Controls.Add(this.btnUploadAllProviders);
+			this.panel5.Controls.Add(this.txtAutoPauseThreshold);
+			this.panel5.Controls.Add(this.label13);
+			this.panel5.Controls.Add(this.txtActivityName);
+			this.panel5.Controls.Add(this.label11);
+			this.panel5.Controls.Add(this.txtActivityNotes);
+			this.panel5.Controls.Add(this.lblMaxSpeed);
+			this.panel5.Controls.Add(this.label12);
+			this.panel5.Controls.Add(this.lblMaxCadence);
+			this.panel5.Controls.Add(this.lblMaxHeartRate);
+			this.panel5.Controls.Add(this.lblTotalDescent);
+			this.panel5.Controls.Add(this.lblTotalAscent);
+			this.panel5.Controls.Add(this.lblMovingTime);
+			this.panel5.Controls.Add(this.label20);
+			this.panel5.Controls.Add(this.label21);
+			this.panel5.Controls.Add(this.label22);
+			this.panel5.Controls.Add(this.label23);
+			this.panel5.Controls.Add(this.label24);
+			this.panel5.Controls.Add(this.lblAvgSpeed);
+			this.panel5.Controls.Add(this.label8);
+			this.panel5.Controls.Add(this.lblActivityDateTime);
+			this.panel5.Controls.Add(this.label7);
+			this.panel5.Controls.Add(this.lblCadence);
+			this.panel5.Controls.Add(this.lblAvgHeartRate);
+			this.panel5.Controls.Add(this.lblCalories);
+			this.panel5.Controls.Add(this.lblDistance);
+			this.panel5.Controls.Add(this.lblDuration);
+			this.panel5.Controls.Add(this.label5);
+			this.panel5.Controls.Add(this.label4);
+			this.panel5.Controls.Add(this.label3);
+			this.panel5.Controls.Add(this.label2);
+			this.panel5.Controls.Add(this.label1);
+			this.panel5.Location = new System.Drawing.Point(9, 19);
+			this.panel5.Name = "panel5";
+			this.panel5.Size = new System.Drawing.Size(784, 174);
+			this.panel5.TabIndex = 40;
+			// 
+			// label10
+			// 
+			this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label10.Location = new System.Drawing.Point(552, 45);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(227, 14);
+			this.label10.TabIndex = 32;
+			this.label10.Text = "Activity Notes (ex. Strava / GarminConnect)";
 			// 
 			// label14
 			// 
 			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label14.Location = new System.Drawing.Point(463, 20);
+			this.label14.ForeColor = System.Drawing.Color.LightSlateGray;
+			this.label14.Location = new System.Drawing.Point(430, 9);
 			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(77, 27);
+			this.label14.Size = new System.Drawing.Size(98, 16);
 			this.label14.TabIndex = 39;
 			this.label14.Text = "* as defined in device";
 			// 
 			// btnUploadAllProviders
 			// 
-			this.btnUploadAllProviders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUploadAllProviders.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUploadAllProviders.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUploadAllProviders.Location = new System.Drawing.Point(563, 165);
+			this.btnUploadAllProviders.Location = new System.Drawing.Point(552, 149);
 			this.btnUploadAllProviders.Name = "btnUploadAllProviders";
 			this.btnUploadAllProviders.Size = new System.Drawing.Size(216, 23);
 			this.btnUploadAllProviders.TabIndex = 2;
@@ -277,7 +419,7 @@ namespace TCX_Parser
 			// txtAutoPauseThreshold
 			// 
 			this.txtAutoPauseThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtAutoPauseThreshold.Location = new System.Drawing.Point(423, 20);
+			this.txtAutoPauseThreshold.Location = new System.Drawing.Point(390, 5);
 			this.txtAutoPauseThreshold.Name = "txtAutoPauseThreshold";
 			this.txtAutoPauseThreshold.Size = new System.Drawing.Size(38, 20);
 			this.txtAutoPauseThreshold.TabIndex = 38;
@@ -285,9 +427,9 @@ namespace TCX_Parser
 			// 
 			// label13
 			// 
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label13.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label13.Location = new System.Drawing.Point(280, 24);
+			this.label13.Location = new System.Drawing.Point(272, 8);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(137, 12);
 			this.label13.TabIndex = 37;
@@ -297,36 +439,26 @@ namespace TCX_Parser
 			// 
 			this.txtActivityName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtActivityName.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.txtActivityName.Location = new System.Drawing.Point(563, 38);
+			this.txtActivityName.Location = new System.Drawing.Point(552, 22);
 			this.txtActivityName.Name = "txtActivityName";
 			this.txtActivityName.Size = new System.Drawing.Size(214, 20);
 			this.txtActivityName.TabIndex = 0;
 			// 
 			// label11
 			// 
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label11.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label11.Location = new System.Drawing.Point(563, 24);
+			this.label11.Location = new System.Drawing.Point(552, 5);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(216, 11);
+			this.label11.Size = new System.Drawing.Size(216, 15);
 			this.label11.TabIndex = 35;
-			this.label11.Text = "Activity Name (Strava/GarminConnect Only):";
-			// 
-			// label10
-			// 
-			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label10.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label10.Location = new System.Drawing.Point(563, 64);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(214, 11);
-			this.label10.TabIndex = 32;
-			this.label10.Text = "Activity Notes (RunKeeper Only)";
+			this.label11.Text = "Activity Name (ex. Strava)";
 			// 
 			// txtActivityNotes
 			// 
 			this.txtActivityNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtActivityNotes.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.txtActivityNotes.Location = new System.Drawing.Point(563, 78);
+			this.txtActivityNotes.Location = new System.Drawing.Point(552, 62);
 			this.txtActivityNotes.Multiline = true;
 			this.txtActivityNotes.Name = "txtActivityNotes";
 			this.txtActivityNotes.Size = new System.Drawing.Size(216, 86);
@@ -334,9 +466,9 @@ namespace TCX_Parser
 			// 
 			// lblMaxSpeed
 			// 
-			this.lblMaxSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMaxSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblMaxSpeed.Location = new System.Drawing.Point(398, 163);
+			this.lblMaxSpeed.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMaxSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblMaxSpeed.Location = new System.Drawing.Point(390, 147);
 			this.lblMaxSpeed.Name = "lblMaxSpeed";
 			this.lblMaxSpeed.Size = new System.Drawing.Size(156, 23);
 			this.lblMaxSpeed.TabIndex = 29;
@@ -344,9 +476,9 @@ namespace TCX_Parser
 			// 
 			// label12
 			// 
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label12.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label12.Location = new System.Drawing.Point(280, 163);
+			this.label12.Location = new System.Drawing.Point(272, 147);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(100, 19);
 			this.label12.TabIndex = 28;
@@ -354,9 +486,9 @@ namespace TCX_Parser
 			// 
 			// lblMaxCadence
 			// 
-			this.lblMaxCadence.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMaxCadence.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblMaxCadence.Location = new System.Drawing.Point(398, 139);
+			this.lblMaxCadence.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMaxCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblMaxCadence.Location = new System.Drawing.Point(390, 123);
 			this.lblMaxCadence.Name = "lblMaxCadence";
 			this.lblMaxCadence.Size = new System.Drawing.Size(156, 23);
 			this.lblMaxCadence.TabIndex = 25;
@@ -364,9 +496,9 @@ namespace TCX_Parser
 			// 
 			// lblMaxHeartRate
 			// 
-			this.lblMaxHeartRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMaxHeartRate.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblMaxHeartRate.Location = new System.Drawing.Point(398, 116);
+			this.lblMaxHeartRate.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMaxHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblMaxHeartRate.Location = new System.Drawing.Point(390, 100);
 			this.lblMaxHeartRate.Name = "lblMaxHeartRate";
 			this.lblMaxHeartRate.Size = new System.Drawing.Size(156, 23);
 			this.lblMaxHeartRate.TabIndex = 24;
@@ -374,9 +506,9 @@ namespace TCX_Parser
 			// 
 			// lblTotalDescent
 			// 
-			this.lblTotalDescent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalDescent.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalDescent.Location = new System.Drawing.Point(398, 93);
+			this.lblTotalDescent.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalDescent.ForeColor = System.Drawing.Color.Gray;
+			this.lblTotalDescent.Location = new System.Drawing.Point(390, 77);
 			this.lblTotalDescent.Name = "lblTotalDescent";
 			this.lblTotalDescent.Size = new System.Drawing.Size(156, 23);
 			this.lblTotalDescent.TabIndex = 23;
@@ -384,9 +516,9 @@ namespace TCX_Parser
 			// 
 			// lblTotalAscent
 			// 
-			this.lblTotalAscent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalAscent.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalAscent.Location = new System.Drawing.Point(398, 70);
+			this.lblTotalAscent.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalAscent.ForeColor = System.Drawing.Color.Gray;
+			this.lblTotalAscent.Location = new System.Drawing.Point(390, 54);
 			this.lblTotalAscent.Name = "lblTotalAscent";
 			this.lblTotalAscent.Size = new System.Drawing.Size(156, 23);
 			this.lblTotalAscent.TabIndex = 22;
@@ -394,9 +526,9 @@ namespace TCX_Parser
 			// 
 			// lblMovingTime
 			// 
-			this.lblMovingTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMovingTime.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblMovingTime.Location = new System.Drawing.Point(398, 47);
+			this.lblMovingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMovingTime.ForeColor = System.Drawing.Color.Gray;
+			this.lblMovingTime.Location = new System.Drawing.Point(390, 31);
 			this.lblMovingTime.Name = "lblMovingTime";
 			this.lblMovingTime.Size = new System.Drawing.Size(156, 23);
 			this.lblMovingTime.TabIndex = 21;
@@ -404,9 +536,9 @@ namespace TCX_Parser
 			// 
 			// label20
 			// 
-			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label20.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label20.Location = new System.Drawing.Point(280, 139);
+			this.label20.Location = new System.Drawing.Point(272, 123);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(93, 19);
 			this.label20.TabIndex = 20;
@@ -414,9 +546,9 @@ namespace TCX_Parser
 			// 
 			// label21
 			// 
-			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label21.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label21.Location = new System.Drawing.Point(280, 116);
+			this.label21.Location = new System.Drawing.Point(272, 100);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(118, 23);
 			this.label21.TabIndex = 19;
@@ -424,9 +556,9 @@ namespace TCX_Parser
 			// 
 			// label22
 			// 
-			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label22.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label22.Location = new System.Drawing.Point(280, 93);
+			this.label22.Location = new System.Drawing.Point(272, 77);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(100, 23);
 			this.label22.TabIndex = 18;
@@ -434,9 +566,9 @@ namespace TCX_Parser
 			// 
 			// label23
 			// 
-			this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label23.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label23.Location = new System.Drawing.Point(280, 70);
+			this.label23.Location = new System.Drawing.Point(272, 54);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(100, 23);
 			this.label23.TabIndex = 17;
@@ -444,9 +576,9 @@ namespace TCX_Parser
 			// 
 			// label24
 			// 
-			this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label24.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label24.Location = new System.Drawing.Point(280, 47);
+			this.label24.Location = new System.Drawing.Point(272, 31);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(100, 23);
 			this.label24.TabIndex = 16;
@@ -454,9 +586,9 @@ namespace TCX_Parser
 			// 
 			// lblAvgSpeed
 			// 
-			this.lblAvgSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAvgSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblAvgSpeed.Location = new System.Drawing.Point(137, 163);
+			this.lblAvgSpeed.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblAvgSpeed.Location = new System.Drawing.Point(129, 147);
 			this.lblAvgSpeed.Name = "lblAvgSpeed";
 			this.lblAvgSpeed.Size = new System.Drawing.Size(137, 19);
 			this.lblAvgSpeed.TabIndex = 13;
@@ -464,19 +596,19 @@ namespace TCX_Parser
 			// 
 			// label8
 			// 
-			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label8.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label8.Location = new System.Drawing.Point(19, 163);
+			this.label8.Location = new System.Drawing.Point(11, 147);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(100, 19);
 			this.label8.TabIndex = 12;
-			this.label8.Text = "Average Speed";
+			this.label8.Text = "Avg. Speed";
 			// 
 			// lblActivityDateTime
 			// 
-			this.lblActivityDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityDateTime.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblActivityDateTime.Location = new System.Drawing.Point(137, 24);
+			this.lblActivityDateTime.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblActivityDateTime.ForeColor = System.Drawing.Color.Gray;
+			this.lblActivityDateTime.Location = new System.Drawing.Point(129, 8);
 			this.lblActivityDateTime.Name = "lblActivityDateTime";
 			this.lblActivityDateTime.Size = new System.Drawing.Size(137, 23);
 			this.lblActivityDateTime.TabIndex = 11;
@@ -484,9 +616,9 @@ namespace TCX_Parser
 			// 
 			// label7
 			// 
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label7.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label7.Location = new System.Drawing.Point(19, 24);
+			this.label7.Location = new System.Drawing.Point(11, 8);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(100, 23);
 			this.label7.TabIndex = 10;
@@ -494,9 +626,9 @@ namespace TCX_Parser
 			// 
 			// lblCadence
 			// 
-			this.lblCadence.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCadence.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblCadence.Location = new System.Drawing.Point(137, 139);
+			this.lblCadence.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblCadence.Location = new System.Drawing.Point(129, 123);
 			this.lblCadence.Name = "lblCadence";
 			this.lblCadence.Size = new System.Drawing.Size(137, 19);
 			this.lblCadence.TabIndex = 9;
@@ -504,9 +636,9 @@ namespace TCX_Parser
 			// 
 			// lblAvgHeartRate
 			// 
-			this.lblAvgHeartRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAvgHeartRate.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblAvgHeartRate.Location = new System.Drawing.Point(137, 116);
+			this.lblAvgHeartRate.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblAvgHeartRate.Location = new System.Drawing.Point(129, 100);
 			this.lblAvgHeartRate.Name = "lblAvgHeartRate";
 			this.lblAvgHeartRate.Size = new System.Drawing.Size(137, 23);
 			this.lblAvgHeartRate.TabIndex = 8;
@@ -514,9 +646,9 @@ namespace TCX_Parser
 			// 
 			// lblCalories
 			// 
-			this.lblCalories.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCalories.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblCalories.Location = new System.Drawing.Point(137, 93);
+			this.lblCalories.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCalories.ForeColor = System.Drawing.Color.Gray;
+			this.lblCalories.Location = new System.Drawing.Point(129, 77);
 			this.lblCalories.Name = "lblCalories";
 			this.lblCalories.Size = new System.Drawing.Size(137, 23);
 			this.lblCalories.TabIndex = 7;
@@ -524,9 +656,9 @@ namespace TCX_Parser
 			// 
 			// lblDistance
 			// 
-			this.lblDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDistance.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblDistance.Location = new System.Drawing.Point(137, 70);
+			this.lblDistance.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDistance.ForeColor = System.Drawing.Color.Gray;
+			this.lblDistance.Location = new System.Drawing.Point(129, 54);
 			this.lblDistance.Name = "lblDistance";
 			this.lblDistance.Size = new System.Drawing.Size(137, 23);
 			this.lblDistance.TabIndex = 6;
@@ -534,9 +666,9 @@ namespace TCX_Parser
 			// 
 			// lblDuration
 			// 
-			this.lblDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDuration.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblDuration.Location = new System.Drawing.Point(137, 47);
+			this.lblDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDuration.ForeColor = System.Drawing.Color.Gray;
+			this.lblDuration.Location = new System.Drawing.Point(129, 31);
 			this.lblDuration.Name = "lblDuration";
 			this.lblDuration.Size = new System.Drawing.Size(137, 23);
 			this.lblDuration.TabIndex = 5;
@@ -544,29 +676,29 @@ namespace TCX_Parser
 			// 
 			// label5
 			// 
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label5.Location = new System.Drawing.Point(19, 139);
+			this.label5.Location = new System.Drawing.Point(11, 123);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(93, 19);
+			this.label5.Size = new System.Drawing.Size(112, 19);
 			this.label5.TabIndex = 4;
-			this.label5.Text = "Average Cadence";
+			this.label5.Text = "Avg. Cadence";
 			// 
 			// label4
 			// 
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label4.Location = new System.Drawing.Point(19, 116);
+			this.label4.Location = new System.Drawing.Point(11, 100);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(100, 23);
 			this.label4.TabIndex = 3;
-			this.label4.Text = "Average Heart Rate";
+			this.label4.Text = "Avg. Heart Rate";
 			// 
 			// label3
 			// 
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label3.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label3.Location = new System.Drawing.Point(19, 93);
+			this.label3.Location = new System.Drawing.Point(11, 77);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(100, 23);
 			this.label3.TabIndex = 2;
@@ -574,9 +706,9 @@ namespace TCX_Parser
 			// 
 			// label2
 			// 
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label2.Location = new System.Drawing.Point(19, 70);
+			this.label2.Location = new System.Drawing.Point(11, 54);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(100, 23);
 			this.label2.TabIndex = 1;
@@ -584,9 +716,9 @@ namespace TCX_Parser
 			// 
 			// label1
 			// 
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label1.Location = new System.Drawing.Point(19, 47);
+			this.label1.Location = new System.Drawing.Point(11, 31);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(100, 23);
 			this.label1.TabIndex = 0;
@@ -614,7 +746,7 @@ namespace TCX_Parser
 			this.lstTrackpoints.Location = new System.Drawing.Point(3, 3);
 			this.lstTrackpoints.Name = "lstTrackpoints";
 			this.lstTrackpoints.ShowGroups = false;
-			this.lstTrackpoints.Size = new System.Drawing.Size(1001, 296);
+			this.lstTrackpoints.Size = new System.Drawing.Size(1010, 358);
 			this.lstTrackpoints.TabIndex = 2;
 			this.lstTrackpoints.UseCompatibleStateImageBehavior = false;
 			this.lstTrackpoints.View = System.Windows.Forms.View.Details;
@@ -677,7 +809,7 @@ namespace TCX_Parser
 			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser1.Name = "webBrowser1";
 			this.webBrowser1.ScrollBarsEnabled = false;
-			this.webBrowser1.Size = new System.Drawing.Size(967, 296);
+			this.webBrowser1.Size = new System.Drawing.Size(976, 358);
 			this.webBrowser1.TabIndex = 0;
 			// 
 			// zedSpeed
@@ -696,7 +828,7 @@ namespace TCX_Parser
 			this.zedSpeed.ScrollMinX = 0D;
 			this.zedSpeed.ScrollMinY = 0D;
 			this.zedSpeed.ScrollMinY2 = 0D;
-			this.zedSpeed.Size = new System.Drawing.Size(1007, 302);
+			this.zedSpeed.Size = new System.Drawing.Size(1016, 364);
 			this.zedSpeed.TabIndex = 18;
 			// 
 			// zedHeart
@@ -715,7 +847,7 @@ namespace TCX_Parser
 			this.zedHeart.ScrollMinX = 0D;
 			this.zedHeart.ScrollMinY = 0D;
 			this.zedHeart.ScrollMinY2 = 0D;
-			this.zedHeart.Size = new System.Drawing.Size(1007, 302);
+			this.zedHeart.Size = new System.Drawing.Size(1016, 364);
 			this.zedHeart.TabIndex = 19;
 			// 
 			// zedCadence
@@ -734,7 +866,7 @@ namespace TCX_Parser
 			this.zedCadence.ScrollMinX = 0D;
 			this.zedCadence.ScrollMinY = 0D;
 			this.zedCadence.ScrollMinY2 = 0D;
-			this.zedCadence.Size = new System.Drawing.Size(1007, 302);
+			this.zedCadence.Size = new System.Drawing.Size(1016, 364);
 			this.zedCadence.TabIndex = 20;
 			// 
 			// zedAltitude
@@ -753,7 +885,7 @@ namespace TCX_Parser
 			this.zedAltitude.ScrollMinX = 0D;
 			this.zedAltitude.ScrollMinY = 0D;
 			this.zedAltitude.ScrollMinY2 = 0D;
-			this.zedAltitude.Size = new System.Drawing.Size(1007, 302);
+			this.zedAltitude.Size = new System.Drawing.Size(1016, 364);
 			this.zedAltitude.TabIndex = 21;
 			// 
 			// tabControlOverview
@@ -761,6 +893,7 @@ namespace TCX_Parser
 			this.tabControlOverview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControlOverview.Controls.Add(this.tabFileHistory);
 			this.tabControlOverview.Controls.Add(this.tabMap);
 			this.tabControlOverview.Controls.Add(this.tabPage3);
 			this.tabControlOverview.Controls.Add(this.tabPage4);
@@ -768,16 +901,784 @@ namespace TCX_Parser
 			this.tabControlOverview.Controls.Add(this.tabPage6);
 			this.tabControlOverview.Controls.Add(this.tabPage2);
 			this.tabControlOverview.Controls.Add(this.tabPage7);
-			this.tabControlOverview.Controls.Add(this.tabPage1);
 			this.tabControlOverview.Controls.Add(this.tabUploadStatus);
+			this.tabControlOverview.Controls.Add(this.tabPage1);
 			this.tabControlOverview.Enabled = false;
+			this.tabControlOverview.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControlOverview.HotTrack = true;
 			this.tabControlOverview.Location = new System.Drawing.Point(5, 262);
 			this.tabControlOverview.Name = "tabControlOverview";
 			this.tabControlOverview.SelectedIndex = 0;
-			this.tabControlOverview.Size = new System.Drawing.Size(1015, 328);
+			this.tabControlOverview.Size = new System.Drawing.Size(1024, 390);
 			this.tabControlOverview.TabIndex = 24;
 			this.tabControlOverview.SelectedIndexChanged += new System.EventHandler(this.TabControlOverviewSelectedIndexChanged);
+			// 
+			// tabFileHistory
+			// 
+			this.tabFileHistory.Controls.Add(this.tabControlHistory);
+			this.tabFileHistory.Controls.Add(this.lstFileHistory);
+			this.tabFileHistory.Location = new System.Drawing.Point(4, 22);
+			this.tabFileHistory.Name = "tabFileHistory";
+			this.tabFileHistory.Padding = new System.Windows.Forms.Padding(3);
+			this.tabFileHistory.Size = new System.Drawing.Size(1016, 364);
+			this.tabFileHistory.TabIndex = 9;
+			this.tabFileHistory.Text = "File History";
+			this.tabFileHistory.UseVisualStyleBackColor = true;
+			// 
+			// tabControlHistory
+			// 
+			this.tabControlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControlHistory.Controls.Add(this.tabHistorySummary);
+			this.tabControlHistory.Controls.Add(this.tabHistoryMap);
+			this.tabControlHistory.Controls.Add(this.tabPage8);
+			this.tabControlHistory.Controls.Add(this.tabPage9);
+			this.tabControlHistory.Controls.Add(this.tabPage10);
+			this.tabControlHistory.Controls.Add(this.tabPage11);
+			this.tabControlHistory.Location = new System.Drawing.Point(375, 6);
+			this.tabControlHistory.Name = "tabControlHistory";
+			this.tabControlHistory.SelectedIndex = 0;
+			this.tabControlHistory.Size = new System.Drawing.Size(635, 352);
+			this.tabControlHistory.TabIndex = 1;
+			// 
+			// tabHistorySummary
+			// 
+			this.tabHistorySummary.Controls.Add(this.label25);
+			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadRideWithGPS);
+			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadRunkeeper);
+			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadStrava);
+			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadGarmin);
+			this.tabHistorySummary.Controls.Add(this.txtHistoryNotes);
+			this.tabHistorySummary.Controls.Add(this.label6);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryMaxSpeed);
+			this.tabHistorySummary.Controls.Add(this.label9);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryMaxCadence);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryMaxHeartRate);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryTotalDescent);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryTotalAscent);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryMovingTime);
+			this.tabHistorySummary.Controls.Add(this.label30);
+			this.tabHistorySummary.Controls.Add(this.label31);
+			this.tabHistorySummary.Controls.Add(this.label32);
+			this.tabHistorySummary.Controls.Add(this.label33);
+			this.tabHistorySummary.Controls.Add(this.label34);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryAvgSpeed);
+			this.tabHistorySummary.Controls.Add(this.label36);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryName);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryAvgCadence);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryAvgHeartRate);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryCalories);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryDistance);
+			this.tabHistorySummary.Controls.Add(this.lblHistoryDuration);
+			this.tabHistorySummary.Controls.Add(this.label44);
+			this.tabHistorySummary.Controls.Add(this.label45);
+			this.tabHistorySummary.Controls.Add(this.label46);
+			this.tabHistorySummary.Controls.Add(this.label47);
+			this.tabHistorySummary.Controls.Add(this.label48);
+			this.tabHistorySummary.Location = new System.Drawing.Point(4, 22);
+			this.tabHistorySummary.Name = "tabHistorySummary";
+			this.tabHistorySummary.Padding = new System.Windows.Forms.Padding(3);
+			this.tabHistorySummary.Size = new System.Drawing.Size(627, 326);
+			this.tabHistorySummary.TabIndex = 4;
+			this.tabHistorySummary.Text = "Summary";
+			this.tabHistorySummary.UseVisualStyleBackColor = true;
+			// 
+			// label25
+			// 
+			this.label25.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label25.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label25.Location = new System.Drawing.Point(478, 57);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(89, 14);
+			this.label25.TabIndex = 64;
+			this.label25.Text = "Uploads";
+			// 
+			// pnlHistoryUploadRideWithGPS
+			// 
+			this.pnlHistoryUploadRideWithGPS.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadRideWithGPS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.linkHistoryUploadRideWithGPS);
+			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.cbkHistoryUploadRideWithGPS);
+			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.pictureBox13);
+			this.pnlHistoryUploadRideWithGPS.Enabled = false;
+			this.pnlHistoryUploadRideWithGPS.Location = new System.Drawing.Point(478, 259);
+			this.pnlHistoryUploadRideWithGPS.Name = "pnlHistoryUploadRideWithGPS";
+			this.pnlHistoryUploadRideWithGPS.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadRideWithGPS.Size = new System.Drawing.Size(143, 60);
+			this.pnlHistoryUploadRideWithGPS.TabIndex = 63;
+			// 
+			// linkHistoryUploadRideWithGPS
+			// 
+			this.linkHistoryUploadRideWithGPS.Enabled = false;
+			this.linkHistoryUploadRideWithGPS.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadRideWithGPS.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRideWithGPS.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRideWithGPS.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadRideWithGPS.Name = "linkHistoryUploadRideWithGPS";
+			this.linkHistoryUploadRideWithGPS.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadRideWithGPS.TabIndex = 61;
+			this.linkHistoryUploadRideWithGPS.TabStop = true;
+			this.linkHistoryUploadRideWithGPS.Text = "Click to View";
+			this.linkHistoryUploadRideWithGPS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			// 
+			// cbkHistoryUploadRideWithGPS
+			// 
+			this.cbkHistoryUploadRideWithGPS.AutoSize = true;
+			this.cbkHistoryUploadRideWithGPS.Enabled = false;
+			this.cbkHistoryUploadRideWithGPS.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadRideWithGPS.Name = "cbkHistoryUploadRideWithGPS";
+			this.cbkHistoryUploadRideWithGPS.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadRideWithGPS.TabIndex = 59;
+			this.cbkHistoryUploadRideWithGPS.UseVisualStyleBackColor = true;
+			// 
+			// pictureBox13
+			// 
+			this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
+			this.pictureBox13.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox13.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox13.Name = "pictureBox13";
+			this.pictureBox13.Size = new System.Drawing.Size(116, 32);
+			this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pictureBox13.TabIndex = 58;
+			this.pictureBox13.TabStop = false;
+			// 
+			// pnlHistoryUploadRunkeeper
+			// 
+			this.pnlHistoryUploadRunkeeper.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadRunkeeper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.linkHistoryUploadRunkeeper);
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.cbkHistoryUploadRunkeeper);
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.pictureBox12);
+			this.pnlHistoryUploadRunkeeper.Enabled = false;
+			this.pnlHistoryUploadRunkeeper.Location = new System.Drawing.Point(478, 76);
+			this.pnlHistoryUploadRunkeeper.Name = "pnlHistoryUploadRunkeeper";
+			this.pnlHistoryUploadRunkeeper.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadRunkeeper.Size = new System.Drawing.Size(143, 60);
+			this.pnlHistoryUploadRunkeeper.TabIndex = 62;
+			// 
+			// linkHistoryUploadRunkeeper
+			// 
+			this.linkHistoryUploadRunkeeper.Enabled = false;
+			this.linkHistoryUploadRunkeeper.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadRunkeeper.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRunkeeper.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRunkeeper.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadRunkeeper.Name = "linkHistoryUploadRunkeeper";
+			this.linkHistoryUploadRunkeeper.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadRunkeeper.TabIndex = 60;
+			this.linkHistoryUploadRunkeeper.TabStop = true;
+			this.linkHistoryUploadRunkeeper.Text = "Click to View";
+			this.linkHistoryUploadRunkeeper.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			// 
+			// cbkHistoryUploadRunkeeper
+			// 
+			this.cbkHistoryUploadRunkeeper.AutoSize = true;
+			this.cbkHistoryUploadRunkeeper.Enabled = false;
+			this.cbkHistoryUploadRunkeeper.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadRunkeeper.Name = "cbkHistoryUploadRunkeeper";
+			this.cbkHistoryUploadRunkeeper.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadRunkeeper.TabIndex = 59;
+			this.cbkHistoryUploadRunkeeper.UseVisualStyleBackColor = true;
+			// 
+			// pictureBox12
+			// 
+			this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+			this.pictureBox12.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox12.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox12.Name = "pictureBox12";
+			this.pictureBox12.Size = new System.Drawing.Size(32, 32);
+			this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox12.TabIndex = 58;
+			this.pictureBox12.TabStop = false;
+			// 
+			// pnlHistoryUploadStrava
+			// 
+			this.pnlHistoryUploadStrava.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadStrava.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadStrava.Controls.Add(this.linkHistoryUploadStrava);
+			this.pnlHistoryUploadStrava.Controls.Add(this.cbkHistoryUploadStrava);
+			this.pnlHistoryUploadStrava.Controls.Add(this.pictureBox11);
+			this.pnlHistoryUploadStrava.Enabled = false;
+			this.pnlHistoryUploadStrava.Location = new System.Drawing.Point(478, 137);
+			this.pnlHistoryUploadStrava.Name = "pnlHistoryUploadStrava";
+			this.pnlHistoryUploadStrava.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadStrava.Size = new System.Drawing.Size(143, 60);
+			this.pnlHistoryUploadStrava.TabIndex = 61;
+			// 
+			// linkHistoryUploadStrava
+			// 
+			this.linkHistoryUploadStrava.Enabled = false;
+			this.linkHistoryUploadStrava.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadStrava.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadStrava.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadStrava.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadStrava.Name = "linkHistoryUploadStrava";
+			this.linkHistoryUploadStrava.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadStrava.TabIndex = 61;
+			this.linkHistoryUploadStrava.TabStop = true;
+			this.linkHistoryUploadStrava.Text = "Click to View";
+			this.linkHistoryUploadStrava.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			// 
+			// cbkHistoryUploadStrava
+			// 
+			this.cbkHistoryUploadStrava.AutoSize = true;
+			this.cbkHistoryUploadStrava.Enabled = false;
+			this.cbkHistoryUploadStrava.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadStrava.Name = "cbkHistoryUploadStrava";
+			this.cbkHistoryUploadStrava.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadStrava.TabIndex = 59;
+			this.cbkHistoryUploadStrava.UseVisualStyleBackColor = true;
+			// 
+			// pictureBox11
+			// 
+			this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+			this.pictureBox11.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox11.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox11.Name = "pictureBox11";
+			this.pictureBox11.Size = new System.Drawing.Size(32, 32);
+			this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox11.TabIndex = 58;
+			this.pictureBox11.TabStop = false;
+			// 
+			// pnlHistoryUploadGarmin
+			// 
+			this.pnlHistoryUploadGarmin.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadGarmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadGarmin.Controls.Add(this.linkHistoryUploadGarmin);
+			this.pnlHistoryUploadGarmin.Controls.Add(this.cbkHistoryUploadGarmin);
+			this.pnlHistoryUploadGarmin.Controls.Add(this.pictureBox10);
+			this.pnlHistoryUploadGarmin.Enabled = false;
+			this.pnlHistoryUploadGarmin.Location = new System.Drawing.Point(478, 198);
+			this.pnlHistoryUploadGarmin.Name = "pnlHistoryUploadGarmin";
+			this.pnlHistoryUploadGarmin.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadGarmin.Size = new System.Drawing.Size(143, 60);
+			this.pnlHistoryUploadGarmin.TabIndex = 60;
+			// 
+			// linkHistoryUploadGarmin
+			// 
+			this.linkHistoryUploadGarmin.Enabled = false;
+			this.linkHistoryUploadGarmin.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadGarmin.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadGarmin.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadGarmin.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadGarmin.Name = "linkHistoryUploadGarmin";
+			this.linkHistoryUploadGarmin.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadGarmin.TabIndex = 61;
+			this.linkHistoryUploadGarmin.TabStop = true;
+			this.linkHistoryUploadGarmin.Text = "Click to View";
+			this.linkHistoryUploadGarmin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			// 
+			// cbkHistoryUploadGarmin
+			// 
+			this.cbkHistoryUploadGarmin.AutoSize = true;
+			this.cbkHistoryUploadGarmin.Enabled = false;
+			this.cbkHistoryUploadGarmin.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadGarmin.Name = "cbkHistoryUploadGarmin";
+			this.cbkHistoryUploadGarmin.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadGarmin.TabIndex = 59;
+			this.cbkHistoryUploadGarmin.UseVisualStyleBackColor = true;
+			// 
+			// pictureBox10
+			// 
+			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+			this.pictureBox10.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox10.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox10.Name = "pictureBox10";
+			this.pictureBox10.Size = new System.Drawing.Size(32, 32);
+			this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox10.TabIndex = 58;
+			this.pictureBox10.TabStop = false;
+			// 
+			// txtHistoryNotes
+			// 
+			this.txtHistoryNotes.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtHistoryNotes.Location = new System.Drawing.Point(110, 198);
+			this.txtHistoryNotes.Multiline = true;
+			this.txtHistoryNotes.Name = "txtHistoryNotes";
+			this.txtHistoryNotes.ReadOnly = true;
+			this.txtHistoryNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtHistoryNotes.Size = new System.Drawing.Size(349, 122);
+			this.txtHistoryNotes.TabIndex = 57;
+			// 
+			// label6
+			// 
+			this.label6.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label6.Location = new System.Drawing.Point(15, 197);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(89, 19);
+			this.label6.TabIndex = 56;
+			this.label6.Text = "Notes";
+			// 
+			// lblHistoryMaxSpeed
+			// 
+			this.lblHistoryMaxSpeed.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryMaxSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxSpeed.Location = new System.Drawing.Point(333, 172);
+			this.lblHistoryMaxSpeed.Name = "lblHistoryMaxSpeed";
+			this.lblHistoryMaxSpeed.Size = new System.Drawing.Size(117, 23);
+			this.lblHistoryMaxSpeed.TabIndex = 55;
+			this.lblHistoryMaxSpeed.Text = "-";
+			// 
+			// label9
+			// 
+			this.label9.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label9.Location = new System.Drawing.Point(238, 172);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(89, 19);
+			this.label9.TabIndex = 54;
+			this.label9.Text = "Max Speed";
+			// 
+			// lblHistoryMaxCadence
+			// 
+			this.lblHistoryMaxCadence.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryMaxCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxCadence.Location = new System.Drawing.Point(333, 148);
+			this.lblHistoryMaxCadence.Name = "lblHistoryMaxCadence";
+			this.lblHistoryMaxCadence.Size = new System.Drawing.Size(117, 23);
+			this.lblHistoryMaxCadence.TabIndex = 53;
+			this.lblHistoryMaxCadence.Text = "-";
+			// 
+			// lblHistoryMaxHeartRate
+			// 
+			this.lblHistoryMaxHeartRate.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryMaxHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxHeartRate.Location = new System.Drawing.Point(333, 125);
+			this.lblHistoryMaxHeartRate.Name = "lblHistoryMaxHeartRate";
+			this.lblHistoryMaxHeartRate.Size = new System.Drawing.Size(117, 23);
+			this.lblHistoryMaxHeartRate.TabIndex = 52;
+			this.lblHistoryMaxHeartRate.Text = "-";
+			// 
+			// lblHistoryTotalDescent
+			// 
+			this.lblHistoryTotalDescent.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryTotalDescent.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryTotalDescent.Location = new System.Drawing.Point(333, 102);
+			this.lblHistoryTotalDescent.Name = "lblHistoryTotalDescent";
+			this.lblHistoryTotalDescent.Size = new System.Drawing.Size(117, 23);
+			this.lblHistoryTotalDescent.TabIndex = 51;
+			this.lblHistoryTotalDescent.Text = "-";
+			// 
+			// lblHistoryTotalAscent
+			// 
+			this.lblHistoryTotalAscent.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryTotalAscent.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryTotalAscent.Location = new System.Drawing.Point(333, 80);
+			this.lblHistoryTotalAscent.Name = "lblHistoryTotalAscent";
+			this.lblHistoryTotalAscent.Size = new System.Drawing.Size(117, 15);
+			this.lblHistoryTotalAscent.TabIndex = 50;
+			this.lblHistoryTotalAscent.Text = "-";
+			// 
+			// lblHistoryMovingTime
+			// 
+			this.lblHistoryMovingTime.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryMovingTime.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMovingTime.Location = new System.Drawing.Point(333, 56);
+			this.lblHistoryMovingTime.Name = "lblHistoryMovingTime";
+			this.lblHistoryMovingTime.Size = new System.Drawing.Size(117, 23);
+			this.lblHistoryMovingTime.TabIndex = 49;
+			this.lblHistoryMovingTime.Text = "-";
+			// 
+			// label30
+			// 
+			this.label30.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label30.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label30.Location = new System.Drawing.Point(238, 148);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(82, 19);
+			this.label30.TabIndex = 48;
+			this.label30.Text = "Max Cadence";
+			// 
+			// label31
+			// 
+			this.label31.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label31.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label31.Location = new System.Drawing.Point(238, 125);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(89, 23);
+			this.label31.TabIndex = 47;
+			this.label31.Text = "Max Heart Rate";
+			// 
+			// label32
+			// 
+			this.label32.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label32.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label32.Location = new System.Drawing.Point(238, 102);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(89, 23);
+			this.label32.TabIndex = 46;
+			this.label32.Text = "Total Descent";
+			// 
+			// label33
+			// 
+			this.label33.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label33.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label33.Location = new System.Drawing.Point(238, 80);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(89, 15);
+			this.label33.TabIndex = 45;
+			this.label33.Text = "Total Ascent";
+			// 
+			// label34
+			// 
+			this.label34.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label34.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label34.Location = new System.Drawing.Point(238, 57);
+			this.label34.Name = "label34";
+			this.label34.Size = new System.Drawing.Size(89, 22);
+			this.label34.TabIndex = 44;
+			this.label34.Text = "Moving Time";
+			// 
+			// lblHistoryAvgSpeed
+			// 
+			this.lblHistoryAvgSpeed.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryAvgSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgSpeed.Location = new System.Drawing.Point(110, 173);
+			this.lblHistoryAvgSpeed.Name = "lblHistoryAvgSpeed";
+			this.lblHistoryAvgSpeed.Size = new System.Drawing.Size(122, 19);
+			this.lblHistoryAvgSpeed.TabIndex = 43;
+			this.lblHistoryAvgSpeed.Text = "-";
+			// 
+			// label36
+			// 
+			this.label36.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label36.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label36.Location = new System.Drawing.Point(15, 173);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(89, 19);
+			this.label36.TabIndex = 42;
+			this.label36.Text = "Avg. Speed";
+			// 
+			// lblHistoryName
+			// 
+			this.lblHistoryName.BackColor = System.Drawing.Color.Gainsboro;
+			this.lblHistoryName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lblHistoryName.Dock = System.Windows.Forms.DockStyle.Top;
+			this.lblHistoryName.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryName.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblHistoryName.Location = new System.Drawing.Point(3, 3);
+			this.lblHistoryName.Name = "lblHistoryName";
+			this.lblHistoryName.Padding = new System.Windows.Forms.Padding(5);
+			this.lblHistoryName.Size = new System.Drawing.Size(621, 40);
+			this.lblHistoryName.TabIndex = 41;
+			this.lblHistoryName.Text = "<Activity History : Summary Information>";
+			// 
+			// lblHistoryAvgCadence
+			// 
+			this.lblHistoryAvgCadence.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryAvgCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgCadence.Location = new System.Drawing.Point(110, 149);
+			this.lblHistoryAvgCadence.Name = "lblHistoryAvgCadence";
+			this.lblHistoryAvgCadence.Size = new System.Drawing.Size(122, 19);
+			this.lblHistoryAvgCadence.TabIndex = 39;
+			this.lblHistoryAvgCadence.Text = "-";
+			// 
+			// lblHistoryAvgHeartRate
+			// 
+			this.lblHistoryAvgHeartRate.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryAvgHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgHeartRate.Location = new System.Drawing.Point(110, 126);
+			this.lblHistoryAvgHeartRate.Name = "lblHistoryAvgHeartRate";
+			this.lblHistoryAvgHeartRate.Size = new System.Drawing.Size(122, 23);
+			this.lblHistoryAvgHeartRate.TabIndex = 38;
+			this.lblHistoryAvgHeartRate.Text = "-";
+			// 
+			// lblHistoryCalories
+			// 
+			this.lblHistoryCalories.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryCalories.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryCalories.Location = new System.Drawing.Point(110, 103);
+			this.lblHistoryCalories.Name = "lblHistoryCalories";
+			this.lblHistoryCalories.Size = new System.Drawing.Size(122, 23);
+			this.lblHistoryCalories.TabIndex = 37;
+			this.lblHistoryCalories.Text = "-";
+			// 
+			// lblHistoryDistance
+			// 
+			this.lblHistoryDistance.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryDistance.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryDistance.Location = new System.Drawing.Point(110, 80);
+			this.lblHistoryDistance.Name = "lblHistoryDistance";
+			this.lblHistoryDistance.Size = new System.Drawing.Size(122, 23);
+			this.lblHistoryDistance.TabIndex = 36;
+			this.lblHistoryDistance.Text = "-";
+			// 
+			// lblHistoryDuration
+			// 
+			this.lblHistoryDuration.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblHistoryDuration.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryDuration.Location = new System.Drawing.Point(110, 57);
+			this.lblHistoryDuration.Name = "lblHistoryDuration";
+			this.lblHistoryDuration.Size = new System.Drawing.Size(122, 23);
+			this.lblHistoryDuration.TabIndex = 35;
+			this.lblHistoryDuration.Text = "-";
+			// 
+			// label44
+			// 
+			this.label44.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label44.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label44.Location = new System.Drawing.Point(15, 149);
+			this.label44.Name = "label44";
+			this.label44.Size = new System.Drawing.Size(99, 19);
+			this.label44.TabIndex = 34;
+			this.label44.Text = "Avg. Cadence";
+			// 
+			// label45
+			// 
+			this.label45.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label45.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label45.Location = new System.Drawing.Point(15, 126);
+			this.label45.Name = "label45";
+			this.label45.Size = new System.Drawing.Size(89, 23);
+			this.label45.TabIndex = 33;
+			this.label45.Text = "Avg. Heart Rate";
+			// 
+			// label46
+			// 
+			this.label46.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label46.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label46.Location = new System.Drawing.Point(15, 103);
+			this.label46.Name = "label46";
+			this.label46.Size = new System.Drawing.Size(89, 23);
+			this.label46.TabIndex = 32;
+			this.label46.Text = "Calories";
+			// 
+			// label47
+			// 
+			this.label47.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label47.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label47.Location = new System.Drawing.Point(15, 80);
+			this.label47.Name = "label47";
+			this.label47.Size = new System.Drawing.Size(89, 23);
+			this.label47.TabIndex = 31;
+			this.label47.Text = "Distance";
+			// 
+			// label48
+			// 
+			this.label48.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label48.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label48.Location = new System.Drawing.Point(15, 57);
+			this.label48.Name = "label48";
+			this.label48.Size = new System.Drawing.Size(89, 23);
+			this.label48.TabIndex = 30;
+			this.label48.Text = "Duration";
+			// 
+			// tabHistoryMap
+			// 
+			this.tabHistoryMap.Controls.Add(this.btnFullscreenHistoryMap);
+			this.tabHistoryMap.Controls.Add(this.webBrowserHistoryMap);
+			this.tabHistoryMap.Location = new System.Drawing.Point(4, 22);
+			this.tabHistoryMap.Name = "tabHistoryMap";
+			this.tabHistoryMap.Padding = new System.Windows.Forms.Padding(3);
+			this.tabHistoryMap.Size = new System.Drawing.Size(627, 326);
+			this.tabHistoryMap.TabIndex = 5;
+			this.tabHistoryMap.Text = "Map";
+			this.tabHistoryMap.UseVisualStyleBackColor = true;
+			// 
+			// btnFullscreenHistoryMap
+			// 
+			this.btnFullscreenHistoryMap.AutoSize = true;
+			this.btnFullscreenHistoryMap.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnFullscreenHistoryMap.Image = ((System.Drawing.Image)(resources.GetObject("btnFullscreenHistoryMap.Image")));
+			this.btnFullscreenHistoryMap.Location = new System.Drawing.Point(590, 3);
+			this.btnFullscreenHistoryMap.Name = "btnFullscreenHistoryMap";
+			this.btnFullscreenHistoryMap.Size = new System.Drawing.Size(34, 320);
+			this.btnFullscreenHistoryMap.TabIndex = 2;
+			this.btnFullscreenHistoryMap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btnFullscreenHistoryMap.UseVisualStyleBackColor = true;
+			this.btnFullscreenHistoryMap.Click += new System.EventHandler(this.BtnFullscreenHistoryMapClick);
+			// 
+			// webBrowserHistoryMap
+			// 
+			this.webBrowserHistoryMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.webBrowserHistoryMap.Location = new System.Drawing.Point(3, 3);
+			this.webBrowserHistoryMap.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowserHistoryMap.Name = "webBrowserHistoryMap";
+			this.webBrowserHistoryMap.ScrollBarsEnabled = false;
+			this.webBrowserHistoryMap.Size = new System.Drawing.Size(581, 320);
+			this.webBrowserHistoryMap.TabIndex = 1;
+			// 
+			// tabPage8
+			// 
+			this.tabPage8.Controls.Add(this.zedHistoryAltitude);
+			this.tabPage8.Location = new System.Drawing.Point(4, 22);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage8.Size = new System.Drawing.Size(627, 326);
+			this.tabPage8.TabIndex = 0;
+			this.tabPage8.Text = "Altitude";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// zedHistoryAltitude
+			// 
+			this.zedHistoryAltitude.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.zedHistoryAltitude.IsAntiAlias = true;
+			this.zedHistoryAltitude.IsShowPointValues = true;
+			this.zedHistoryAltitude.Location = new System.Drawing.Point(3, 3);
+			this.zedHistoryAltitude.Name = "zedHistoryAltitude";
+			this.zedHistoryAltitude.ScrollGrace = 0D;
+			this.zedHistoryAltitude.ScrollMaxX = 0D;
+			this.zedHistoryAltitude.ScrollMaxY = 0D;
+			this.zedHistoryAltitude.ScrollMaxY2 = 0D;
+			this.zedHistoryAltitude.ScrollMinX = 0D;
+			this.zedHistoryAltitude.ScrollMinY = 0D;
+			this.zedHistoryAltitude.ScrollMinY2 = 0D;
+			this.zedHistoryAltitude.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryAltitude.TabIndex = 0;
+			// 
+			// tabPage9
+			// 
+			this.tabPage9.Controls.Add(this.zedHistorySpeed);
+			this.tabPage9.Location = new System.Drawing.Point(4, 22);
+			this.tabPage9.Name = "tabPage9";
+			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage9.Size = new System.Drawing.Size(627, 326);
+			this.tabPage9.TabIndex = 1;
+			this.tabPage9.Text = "Speed";
+			this.tabPage9.UseVisualStyleBackColor = true;
+			// 
+			// zedHistorySpeed
+			// 
+			this.zedHistorySpeed.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.zedHistorySpeed.IsAntiAlias = true;
+			this.zedHistorySpeed.IsShowPointValues = true;
+			this.zedHistorySpeed.Location = new System.Drawing.Point(3, 3);
+			this.zedHistorySpeed.Name = "zedHistorySpeed";
+			this.zedHistorySpeed.ScrollGrace = 0D;
+			this.zedHistorySpeed.ScrollMaxX = 0D;
+			this.zedHistorySpeed.ScrollMaxY = 0D;
+			this.zedHistorySpeed.ScrollMaxY2 = 0D;
+			this.zedHistorySpeed.ScrollMinX = 0D;
+			this.zedHistorySpeed.ScrollMinY = 0D;
+			this.zedHistorySpeed.ScrollMinY2 = 0D;
+			this.zedHistorySpeed.Size = new System.Drawing.Size(621, 320);
+			this.zedHistorySpeed.TabIndex = 1;
+			// 
+			// tabPage10
+			// 
+			this.tabPage10.Controls.Add(this.zedHistoryCadence);
+			this.tabPage10.Location = new System.Drawing.Point(4, 22);
+			this.tabPage10.Name = "tabPage10";
+			this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage10.Size = new System.Drawing.Size(627, 326);
+			this.tabPage10.TabIndex = 2;
+			this.tabPage10.Text = "Cadence";
+			this.tabPage10.UseVisualStyleBackColor = true;
+			// 
+			// zedHistoryCadence
+			// 
+			this.zedHistoryCadence.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.zedHistoryCadence.IsAntiAlias = true;
+			this.zedHistoryCadence.IsShowPointValues = true;
+			this.zedHistoryCadence.Location = new System.Drawing.Point(3, 3);
+			this.zedHistoryCadence.Name = "zedHistoryCadence";
+			this.zedHistoryCadence.ScrollGrace = 0D;
+			this.zedHistoryCadence.ScrollMaxX = 0D;
+			this.zedHistoryCadence.ScrollMaxY = 0D;
+			this.zedHistoryCadence.ScrollMaxY2 = 0D;
+			this.zedHistoryCadence.ScrollMinX = 0D;
+			this.zedHistoryCadence.ScrollMinY = 0D;
+			this.zedHistoryCadence.ScrollMinY2 = 0D;
+			this.zedHistoryCadence.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryCadence.TabIndex = 1;
+			// 
+			// tabPage11
+			// 
+			this.tabPage11.Controls.Add(this.zedHistoryHeart);
+			this.tabPage11.Location = new System.Drawing.Point(4, 22);
+			this.tabPage11.Name = "tabPage11";
+			this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage11.Size = new System.Drawing.Size(627, 326);
+			this.tabPage11.TabIndex = 3;
+			this.tabPage11.Text = "Heart Rate";
+			this.tabPage11.UseVisualStyleBackColor = true;
+			// 
+			// zedHistoryHeart
+			// 
+			this.zedHistoryHeart.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.zedHistoryHeart.IsAntiAlias = true;
+			this.zedHistoryHeart.IsShowPointValues = true;
+			this.zedHistoryHeart.Location = new System.Drawing.Point(3, 3);
+			this.zedHistoryHeart.Name = "zedHistoryHeart";
+			this.zedHistoryHeart.ScrollGrace = 0D;
+			this.zedHistoryHeart.ScrollMaxX = 0D;
+			this.zedHistoryHeart.ScrollMaxY = 0D;
+			this.zedHistoryHeart.ScrollMaxY2 = 0D;
+			this.zedHistoryHeart.ScrollMinX = 0D;
+			this.zedHistoryHeart.ScrollMinY = 0D;
+			this.zedHistoryHeart.ScrollMinY2 = 0D;
+			this.zedHistoryHeart.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryHeart.TabIndex = 1;
+			// 
+			// lstFileHistory
+			// 
+			this.lstFileHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
+			this.lstFileHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+									this.columnHeader11,
+									this.columnHeader13,
+									this.columnHeader12,
+									this.columnHeader14,
+									this.columnHeader15,
+									this.columnHeader16,
+									this.columnHeader17,
+									this.columnHeader18});
+			this.lstFileHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstFileHistory.FullRowSelect = true;
+			this.lstFileHistory.HideSelection = false;
+			this.lstFileHistory.Location = new System.Drawing.Point(3, 3);
+			this.lstFileHistory.MultiSelect = false;
+			this.lstFileHistory.Name = "lstFileHistory";
+			this.lstFileHistory.Size = new System.Drawing.Size(366, 354);
+			this.lstFileHistory.TabIndex = 0;
+			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
+			this.lstFileHistory.View = System.Windows.Forms.View.Details;
+			this.lstFileHistory.DoubleClick += new System.EventHandler(this.LstFileHistoryDoubleClick);
+			this.lstFileHistory.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LstFileHistoryMouseClick);
+			// 
+			// columnHeader11
+			// 
+			this.columnHeader11.Text = "File ID";
+			this.columnHeader11.Width = 45;
+			// 
+			// columnHeader13
+			// 
+			this.columnHeader13.Text = "Date/Time (Opened)";
+			this.columnHeader13.Width = 113;
+			// 
+			// columnHeader12
+			// 
+			this.columnHeader12.Text = "Activity / FileName";
+			this.columnHeader12.Width = 127;
+			// 
+			// columnHeader14
+			// 
+			this.columnHeader14.Text = "Notes";
+			this.columnHeader14.Width = 500;
+			// 
+			// columnHeader15
+			// 
+			this.columnHeader15.Text = "Runkeeper";
+			this.columnHeader15.Width = 0;
+			// 
+			// columnHeader16
+			// 
+			this.columnHeader16.Text = "Strava";
+			this.columnHeader16.Width = 0;
+			// 
+			// columnHeader17
+			// 
+			this.columnHeader17.Text = "Garmin";
+			this.columnHeader17.Width = 0;
+			// 
+			// columnHeader18
+			// 
+			this.columnHeader18.Text = "RideWithGPS";
+			this.columnHeader18.Width = 0;
 			// 
 			// tabMap
 			// 
@@ -786,7 +1687,7 @@ namespace TCX_Parser
 			this.tabMap.Location = new System.Drawing.Point(4, 22);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(1007, 302);
+			this.tabMap.Size = new System.Drawing.Size(1016, 364);
 			this.tabMap.TabIndex = 5;
 			this.tabMap.Text = "Map";
 			this.tabMap.UseVisualStyleBackColor = true;
@@ -796,9 +1697,9 @@ namespace TCX_Parser
 			this.btnMapFullscreen.AutoSize = true;
 			this.btnMapFullscreen.Dock = System.Windows.Forms.DockStyle.Right;
 			this.btnMapFullscreen.Image = ((System.Drawing.Image)(resources.GetObject("btnMapFullscreen.Image")));
-			this.btnMapFullscreen.Location = new System.Drawing.Point(970, 3);
+			this.btnMapFullscreen.Location = new System.Drawing.Point(979, 3);
 			this.btnMapFullscreen.Name = "btnMapFullscreen";
-			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 296);
+			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 358);
 			this.btnMapFullscreen.TabIndex = 1;
 			this.btnMapFullscreen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnMapFullscreen.UseVisualStyleBackColor = true;
@@ -810,7 +1711,7 @@ namespace TCX_Parser
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage3.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Altitude";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -821,7 +1722,7 @@ namespace TCX_Parser
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage4.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Speed";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -831,7 +1732,7 @@ namespace TCX_Parser
 			this.tabPage5.Controls.Add(this.zedCadence);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage5.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage5.TabIndex = 2;
 			this.tabPage5.Text = "Cadence";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -841,7 +1742,7 @@ namespace TCX_Parser
 			this.tabPage6.Controls.Add(this.zedHeart);
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage6.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage6.TabIndex = 3;
 			this.tabPage6.Text = "Heart Rate";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -852,7 +1753,7 @@ namespace TCX_Parser
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage2.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage2.TabIndex = 7;
 			this.tabPage2.Text = "Temperature";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -873,7 +1774,7 @@ namespace TCX_Parser
 			this.zedTemperature.ScrollMinX = 0D;
 			this.zedTemperature.ScrollMinY = 0D;
 			this.zedTemperature.ScrollMinY2 = 0D;
-			this.zedTemperature.Size = new System.Drawing.Size(1001, 296);
+			this.zedTemperature.Size = new System.Drawing.Size(1010, 358);
 			this.zedTemperature.TabIndex = 20;
 			// 
 			// tabPage7
@@ -882,30 +1783,10 @@ namespace TCX_Parser
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(1007, 302);
+			this.tabPage7.Size = new System.Drawing.Size(1016, 364);
 			this.tabPage7.TabIndex = 4;
 			this.tabPage7.Text = "Track Points";
 			this.tabPage7.UseVisualStyleBackColor = true;
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.txtDebug);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(1007, 302);
-			this.tabPage1.TabIndex = 6;
-			this.tabPage1.Text = "Debug";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// txtDebug
-			// 
-			this.txtDebug.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtDebug.Location = new System.Drawing.Point(3, 3);
-			this.txtDebug.Multiline = true;
-			this.txtDebug.Name = "txtDebug";
-			this.txtDebug.Size = new System.Drawing.Size(1001, 296);
-			this.txtDebug.TabIndex = 0;
 			// 
 			// tabUploadStatus
 			// 
@@ -917,27 +1798,30 @@ namespace TCX_Parser
 			this.tabUploadStatus.Location = new System.Drawing.Point(4, 22);
 			this.tabUploadStatus.Name = "tabUploadStatus";
 			this.tabUploadStatus.Padding = new System.Windows.Forms.Padding(3);
-			this.tabUploadStatus.Size = new System.Drawing.Size(1007, 302);
+			this.tabUploadStatus.Size = new System.Drawing.Size(1016, 364);
 			this.tabUploadStatus.TabIndex = 8;
 			this.tabUploadStatus.Text = "Upload Status";
 			// 
 			// panel4
 			// 
+			this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.panel4.Controls.Add(this.pbUploadStatusRideWithGps);
 			this.panel4.Controls.Add(this.sUploadRideWithGpsId);
 			this.panel4.Controls.Add(this.sUploadRideWithGpsMsg);
 			this.panel4.Controls.Add(this.label18);
 			this.panel4.Controls.Add(this.pictureBox4);
-			this.panel4.Location = new System.Drawing.Point(575, 18);
+			this.panel4.Location = new System.Drawing.Point(755, 15);
 			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(186, 278);
+			this.panel4.Size = new System.Drawing.Size(240, 340);
 			this.panel4.TabIndex = 8;
 			// 
 			// pbUploadStatusRideWithGps
 			// 
+			this.pbUploadStatusRideWithGps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.pbUploadStatusRideWithGps.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.pbUploadStatusRideWithGps.Location = new System.Drawing.Point(151, 243);
+			this.pbUploadStatusRideWithGps.Location = new System.Drawing.Point(205, 305);
 			this.pbUploadStatusRideWithGps.Name = "pbUploadStatusRideWithGps";
 			this.pbUploadStatusRideWithGps.Size = new System.Drawing.Size(32, 32);
 			this.pbUploadStatusRideWithGps.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -954,11 +1838,13 @@ namespace TCX_Parser
 			// 
 			// sUploadRideWithGpsMsg
 			// 
+			this.sUploadRideWithGpsMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.sUploadRideWithGpsMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sUploadRideWithGpsMsg.ForeColor = System.Drawing.Color.Black;
 			this.sUploadRideWithGpsMsg.Location = new System.Drawing.Point(4, 64);
 			this.sUploadRideWithGpsMsg.Name = "sUploadRideWithGpsMsg";
-			this.sUploadRideWithGpsMsg.Size = new System.Drawing.Size(178, 212);
+			this.sUploadRideWithGpsMsg.Size = new System.Drawing.Size(213, 238);
 			this.sUploadRideWithGpsMsg.TabIndex = 12;
 			// 
 			// label18
@@ -978,28 +1864,31 @@ namespace TCX_Parser
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(186, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
 			// 
 			// panel2
 			// 
+			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.panel2.Controls.Add(this.pbUploadStatusGarmin);
 			this.panel2.Controls.Add(this.sUploadGarminId);
 			this.panel2.Controls.Add(this.sUploadGarminMsg);
 			this.panel2.Controls.Add(this.label17);
 			this.panel2.Controls.Add(this.pictureBox3);
-			this.panel2.Location = new System.Drawing.Point(388, 18);
+			this.panel2.Location = new System.Drawing.Point(510, 15);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(186, 278);
+			this.panel2.Size = new System.Drawing.Size(240, 340);
 			this.panel2.TabIndex = 7;
 			// 
 			// pbUploadStatusGarmin
 			// 
+			this.pbUploadStatusGarmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.pbUploadStatusGarmin.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.pbUploadStatusGarmin.Location = new System.Drawing.Point(151, 243);
+			this.pbUploadStatusGarmin.Location = new System.Drawing.Point(205, 305);
 			this.pbUploadStatusGarmin.Name = "pbUploadStatusGarmin";
 			this.pbUploadStatusGarmin.Size = new System.Drawing.Size(32, 32);
 			this.pbUploadStatusGarmin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1016,11 +1905,13 @@ namespace TCX_Parser
 			// 
 			// sUploadGarminMsg
 			// 
+			this.sUploadGarminMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.sUploadGarminMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sUploadGarminMsg.ForeColor = System.Drawing.Color.Black;
 			this.sUploadGarminMsg.Location = new System.Drawing.Point(5, 64);
 			this.sUploadGarminMsg.Name = "sUploadGarminMsg";
-			this.sUploadGarminMsg.Size = new System.Drawing.Size(178, 212);
+			this.sUploadGarminMsg.Size = new System.Drawing.Size(212, 238);
 			this.sUploadGarminMsg.TabIndex = 12;
 			// 
 			// label17
@@ -1040,28 +1931,31 @@ namespace TCX_Parser
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(186, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
 			// 
 			// panel3
 			// 
+			this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.panel3.Controls.Add(this.pbUploadStatusStrava);
 			this.panel3.Controls.Add(this.sUploadStravaId);
 			this.panel3.Controls.Add(this.sUploadStravaMsg);
 			this.panel3.Controls.Add(this.label16);
 			this.panel3.Controls.Add(this.pictureBox2);
-			this.panel3.Location = new System.Drawing.Point(201, 18);
+			this.panel3.Location = new System.Drawing.Point(266, 15);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(186, 278);
+			this.panel3.Size = new System.Drawing.Size(240, 340);
 			this.panel3.TabIndex = 6;
 			// 
 			// pbUploadStatusStrava
 			// 
+			this.pbUploadStatusStrava.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.pbUploadStatusStrava.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.pbUploadStatusStrava.Location = new System.Drawing.Point(151, 243);
+			this.pbUploadStatusStrava.Location = new System.Drawing.Point(205, 305);
 			this.pbUploadStatusStrava.Name = "pbUploadStatusStrava";
 			this.pbUploadStatusStrava.Size = new System.Drawing.Size(32, 32);
 			this.pbUploadStatusStrava.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1078,11 +1972,13 @@ namespace TCX_Parser
 			// 
 			// sUploadStravaMsg
 			// 
+			this.sUploadStravaMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.sUploadStravaMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sUploadStravaMsg.ForeColor = System.Drawing.Color.Black;
 			this.sUploadStravaMsg.Location = new System.Drawing.Point(5, 64);
 			this.sUploadStravaMsg.Name = "sUploadStravaMsg";
-			this.sUploadStravaMsg.Size = new System.Drawing.Size(178, 212);
+			this.sUploadStravaMsg.Size = new System.Drawing.Size(212, 238);
 			this.sUploadStravaMsg.TabIndex = 12;
 			// 
 			// label16
@@ -1102,28 +1998,31 @@ namespace TCX_Parser
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(186, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
 			// 
 			// pnlStatusRunkeeper
 			// 
+			this.pnlStatusRunkeeper.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.pnlStatusRunkeeper.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.pnlStatusRunkeeper.Controls.Add(this.pbUploadStatusRunkeeper);
 			this.pnlStatusRunkeeper.Controls.Add(this.sUploadRunkeeperId);
 			this.pnlStatusRunkeeper.Controls.Add(this.sUploadRunkeeperMsg);
 			this.pnlStatusRunkeeper.Controls.Add(this.label15);
 			this.pnlStatusRunkeeper.Controls.Add(this.pictureBox1);
-			this.pnlStatusRunkeeper.Location = new System.Drawing.Point(14, 18);
+			this.pnlStatusRunkeeper.Location = new System.Drawing.Point(22, 15);
 			this.pnlStatusRunkeeper.Name = "pnlStatusRunkeeper";
-			this.pnlStatusRunkeeper.Size = new System.Drawing.Size(186, 278);
+			this.pnlStatusRunkeeper.Size = new System.Drawing.Size(240, 340);
 			this.pnlStatusRunkeeper.TabIndex = 4;
 			// 
 			// pbUploadStatusRunkeeper
 			// 
+			this.pbUploadStatusRunkeeper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.pbUploadStatusRunkeeper.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.pbUploadStatusRunkeeper.Location = new System.Drawing.Point(151, 243);
+			this.pbUploadStatusRunkeeper.Location = new System.Drawing.Point(205, 305);
 			this.pbUploadStatusRunkeeper.Name = "pbUploadStatusRunkeeper";
 			this.pbUploadStatusRunkeeper.Size = new System.Drawing.Size(32, 32);
 			this.pbUploadStatusRunkeeper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1140,11 +2039,13 @@ namespace TCX_Parser
 			// 
 			// sUploadRunkeeperMsg
 			// 
+			this.sUploadRunkeeperMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.sUploadRunkeeperMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sUploadRunkeeperMsg.ForeColor = System.Drawing.Color.Black;
 			this.sUploadRunkeeperMsg.Location = new System.Drawing.Point(5, 64);
 			this.sUploadRunkeeperMsg.Name = "sUploadRunkeeperMsg";
-			this.sUploadRunkeeperMsg.Size = new System.Drawing.Size(178, 212);
+			this.sUploadRunkeeperMsg.Size = new System.Drawing.Size(212, 238);
 			this.sUploadRunkeeperMsg.TabIndex = 11;
 			// 
 			// label15
@@ -1164,10 +2065,30 @@ namespace TCX_Parser
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(186, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.txtDebug);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage1.TabIndex = 6;
+			this.tabPage1.Text = "Debug";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// txtDebug
+			// 
+			this.txtDebug.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtDebug.Location = new System.Drawing.Point(3, 3);
+			this.txtDebug.Multiline = true;
+			this.txtDebug.Name = "txtDebug";
+			this.txtDebug.Size = new System.Drawing.Size(1010, 358);
+			this.txtDebug.TabIndex = 0;
 			// 
 			// menubar
 			// 
@@ -1185,26 +2106,26 @@ namespace TCX_Parser
 			this.menubar.Location = new System.Drawing.Point(0, 0);
 			this.menubar.Name = "menubar";
 			this.menubar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.menubar.Size = new System.Drawing.Size(1032, 40);
+			this.menubar.Size = new System.Drawing.Size(1041, 40);
 			this.menubar.TabIndex = 25;
 			this.menubar.Text = "menuStrip1";
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.openToolStripMenuItem,
+									this.menuOpenFile,
 									this.exitToolStripMenuItem});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(37, 36);
 			this.toolStripMenuItem1.Text = "File";
 			// 
-			// openToolStripMenuItem
+			// menuOpenFile
 			// 
-			this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-			this.openToolStripMenuItem.Text = "Open...";
-			this.openToolStripMenuItem.Click += new System.EventHandler(this.BtnOpenFileClick);
+			this.menuOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("menuOpenFile.Image")));
+			this.menuOpenFile.Name = "menuOpenFile";
+			this.menuOpenFile.Size = new System.Drawing.Size(112, 22);
+			this.menuOpenFile.Text = "Open...";
+			this.menuOpenFile.Click += new System.EventHandler(this.BtnOpenFileClick);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -1212,6 +2133,7 @@ namespace TCX_Parser
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
 			// 
 			// menuProviderRunkeeper
 			// 
@@ -1408,7 +2330,7 @@ namespace TCX_Parser
 			// 
 			this.menuAbout.Image = ((System.Drawing.Image)(resources.GetObject("menuAbout.Image")));
 			this.menuAbout.Name = "menuAbout";
-			this.menuAbout.Size = new System.Drawing.Size(152, 22);
+			this.menuAbout.Size = new System.Drawing.Size(107, 22);
 			this.menuAbout.Text = "About";
 			this.menuAbout.Click += new System.EventHandler(this.MenuAboutClick);
 			// 
@@ -1422,9 +2344,9 @@ namespace TCX_Parser
 									this.statusBarProgress,
 									this.statusbarStatus,
 									this.statusBarVersion});
-			this.statusBar.Location = new System.Drawing.Point(0, 593);
+			this.statusBar.Location = new System.Drawing.Point(0, 655);
 			this.statusBar.Name = "statusBar";
-			this.statusBar.Size = new System.Drawing.Size(1032, 22);
+			this.statusBar.Size = new System.Drawing.Size(1041, 22);
 			this.statusBar.TabIndex = 26;
 			// 
 			// statusBarProgress
@@ -1436,7 +2358,7 @@ namespace TCX_Parser
 			// 
 			this.statusbarStatus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.statusbarStatus.Name = "statusbarStatus";
-			this.statusbarStatus.Size = new System.Drawing.Size(915, 17);
+			this.statusbarStatus.Size = new System.Drawing.Size(924, 17);
 			this.statusbarStatus.Spring = true;
 			this.statusbarStatus.Text = "Loading...";
 			this.statusbarStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1454,7 +2376,7 @@ namespace TCX_Parser
 			this.grpProviders.Enabled = false;
 			this.grpProviders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpProviders.ForeColor = System.Drawing.Color.RoyalBlue;
-			this.grpProviders.Location = new System.Drawing.Point(801, 51);
+			this.grpProviders.Location = new System.Drawing.Point(810, 51);
 			this.grpProviders.Name = "grpProviders";
 			this.grpProviders.Size = new System.Drawing.Size(219, 194);
 			this.grpProviders.TabIndex = 28;
@@ -1483,7 +2405,7 @@ namespace TCX_Parser
 			// 
 			// label19
 			// 
-			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label19.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label19.Location = new System.Drawing.Point(78, 82);
 			this.label19.Name = "label19";
@@ -1514,6 +2436,7 @@ namespace TCX_Parser
 			// cbkProviderEndomondo
 			// 
 			this.cbkProviderEndomondo.AutoSize = true;
+			this.cbkProviderEndomondo.Enabled = false;
 			this.cbkProviderEndomondo.Location = new System.Drawing.Point(18, 81);
 			this.cbkProviderEndomondo.Name = "cbkProviderEndomondo";
 			this.cbkProviderEndomondo.Size = new System.Drawing.Size(15, 14);
@@ -1595,7 +2518,7 @@ namespace TCX_Parser
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1032, 615);
+			this.ClientSize = new System.Drawing.Size(1041, 677);
 			this.Controls.Add(this.grpProviders);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.tabControlOverview);
@@ -1603,15 +2526,39 @@ namespace TCX_Parser
 			this.Controls.Add(this.menubar);
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(1048, 653);
+			this.MinimumSize = new System.Drawing.Size(1057, 715);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Cycling Activity File Uploader";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
 			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.grpSummary.ResumeLayout(false);
-			this.grpSummary.PerformLayout();
+			this.pnlNoFile.ResumeLayout(false);
+			this.panel5.ResumeLayout(false);
+			this.panel5.PerformLayout();
 			this.tabControlOverview.ResumeLayout(false);
+			this.tabFileHistory.ResumeLayout(false);
+			this.tabControlHistory.ResumeLayout(false);
+			this.tabHistorySummary.ResumeLayout(false);
+			this.tabHistorySummary.PerformLayout();
+			this.pnlHistoryUploadRideWithGPS.ResumeLayout(false);
+			this.pnlHistoryUploadRideWithGPS.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
+			this.pnlHistoryUploadRunkeeper.ResumeLayout(false);
+			this.pnlHistoryUploadRunkeeper.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+			this.pnlHistoryUploadStrava.ResumeLayout(false);
+			this.pnlHistoryUploadStrava.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+			this.pnlHistoryUploadGarmin.ResumeLayout(false);
+			this.pnlHistoryUploadGarmin.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+			this.tabHistoryMap.ResumeLayout(false);
+			this.tabHistoryMap.PerformLayout();
+			this.tabPage8.ResumeLayout(false);
+			this.tabPage9.ResumeLayout(false);
+			this.tabPage10.ResumeLayout(false);
+			this.tabPage11.ResumeLayout(false);
 			this.tabMap.ResumeLayout(false);
 			this.tabMap.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
@@ -1620,8 +2567,6 @@ namespace TCX_Parser
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
 			this.tabUploadStatus.ResumeLayout(false);
 			this.panel4.ResumeLayout(false);
 			this.panel4.PerformLayout();
@@ -1639,6 +2584,8 @@ namespace TCX_Parser
 			this.pnlStatusRunkeeper.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbUploadStatusRunkeeper)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.menubar.ResumeLayout(false);
 			this.menubar.PerformLayout();
 			this.statusBar.ResumeLayout(false);
@@ -1654,6 +2601,77 @@ namespace TCX_Parser
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Button btnOpenFile;
+		private System.Windows.Forms.Panel panel5;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.Panel pnlNoFile;
+		private System.Windows.Forms.ColumnHeader columnHeader18;
+		private System.Windows.Forms.ColumnHeader columnHeader17;
+		private System.Windows.Forms.ColumnHeader columnHeader16;
+		private System.Windows.Forms.ColumnHeader columnHeader15;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.LinkLabel linkHistoryUploadGarmin;
+		private System.Windows.Forms.PictureBox pictureBox11;
+		private System.Windows.Forms.CheckBox cbkHistoryUploadStrava;
+		private System.Windows.Forms.LinkLabel linkHistoryUploadStrava;
+		private System.Windows.Forms.Panel pnlHistoryUploadStrava;
+		private System.Windows.Forms.PictureBox pictureBox12;
+		private System.Windows.Forms.CheckBox cbkHistoryUploadRunkeeper;
+		private System.Windows.Forms.LinkLabel linkHistoryUploadRunkeeper;
+		private System.Windows.Forms.Panel pnlHistoryUploadRunkeeper;
+		private System.Windows.Forms.PictureBox pictureBox13;
+		private System.Windows.Forms.CheckBox cbkHistoryUploadRideWithGPS;
+		private System.Windows.Forms.LinkLabel linkHistoryUploadRideWithGPS;
+		private System.Windows.Forms.Panel pnlHistoryUploadRideWithGPS;
+		private System.Windows.Forms.PictureBox pictureBox10;
+		private System.Windows.Forms.CheckBox cbkHistoryUploadGarmin;
+		private System.Windows.Forms.Panel pnlHistoryUploadGarmin;
+		private System.Windows.Forms.ColumnHeader columnHeader14;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.TextBox txtHistoryNotes;
+		private System.Windows.Forms.Label label48;
+		private System.Windows.Forms.Label label47;
+		private System.Windows.Forms.Label label46;
+		private System.Windows.Forms.Label label45;
+		private System.Windows.Forms.Label label44;
+		private System.Windows.Forms.Label lblHistoryDuration;
+		private System.Windows.Forms.Label lblHistoryDistance;
+		private System.Windows.Forms.Label lblHistoryCalories;
+		private System.Windows.Forms.Label lblHistoryAvgHeartRate;
+		private System.Windows.Forms.Label lblHistoryAvgCadence;
+		private System.Windows.Forms.Label lblHistoryName;
+		private System.Windows.Forms.Label label36;
+		private System.Windows.Forms.Label lblHistoryAvgSpeed;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.Label label33;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label lblHistoryMovingTime;
+		private System.Windows.Forms.Label lblHistoryTotalAscent;
+		private System.Windows.Forms.Label lblHistoryTotalDescent;
+		private System.Windows.Forms.Label lblHistoryMaxHeartRate;
+		private System.Windows.Forms.Label lblHistoryMaxCadence;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label lblHistoryMaxSpeed;
+		private System.Windows.Forms.Button btnFullscreenHistoryMap;
+		private System.Windows.Forms.WebBrowser webBrowserHistoryMap;
+		private System.Windows.Forms.TabPage tabHistoryMap;
+		private System.Windows.Forms.ColumnHeader columnHeader12;
+		private System.Windows.Forms.ColumnHeader columnHeader13;
+		private System.Windows.Forms.ColumnHeader columnHeader11;
+		private System.Windows.Forms.TabPage tabHistorySummary;
+		private ZedGraph.ZedGraphControl zedHistoryHeart;
+		private System.Windows.Forms.TabPage tabPage11;
+		private ZedGraph.ZedGraphControl zedHistoryCadence;
+		private System.Windows.Forms.TabPage tabPage10;
+		private ZedGraph.ZedGraphControl zedHistorySpeed;
+		private ZedGraph.ZedGraphControl zedHistoryAltitude;
+		private System.Windows.Forms.ListView lstFileHistory;
+		private System.Windows.Forms.TabPage tabPage9;
+		private System.Windows.Forms.TabPage tabPage8;
+		private System.Windows.Forms.TabControl tabControlHistory;
+		private System.Windows.Forms.TabPage tabFileHistory;
 		private System.Windows.Forms.ToolStripStatusLabel statusBarVersion;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 		private System.Windows.Forms.ToolStripProgressBar statusBarProgress;
@@ -1725,7 +2743,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ToolStripMenuItem menuUploadToRunKeeper;
 		private System.Windows.Forms.ToolStripMenuItem menuViewAccountRunKeeper;
 		private System.Windows.Forms.ToolStripMenuItem menuProviderRunkeeper;
-		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem menuOpenFile;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 		private System.Windows.Forms.MenuStrip menubar;
 		private System.Windows.Forms.Label label10;

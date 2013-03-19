@@ -69,6 +69,21 @@ namespace TCX_Parser
 			System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Mio Cyclo 100", new System.Windows.Forms.TreeNode[] {
 									treeNode12,
 									treeNode16});
+			System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode(".TCX");
+			System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode18});
+			System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("GarminConnect");
+			System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("RideWithGPS");
+			System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode20,
+									treeNode21,
+									treeNode22,
+									treeNode23});
+			System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Bryton", new System.Windows.Forms.TreeNode[] {
+									treeNode19,
+									treeNode24});
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -173,9 +188,26 @@ namespace TCX_Parser
 			treeNode16.Text = "Provider Support";
 			treeNode17.Name = "nodeMioCyclo100";
 			treeNode17.Text = "Mio Cyclo 100";
+			treeNode18.Name = "Node7";
+			treeNode18.Text = ".TCX";
+			treeNode19.Name = "Node1";
+			treeNode19.Text = "File Support";
+			treeNode20.Name = "Node3";
+			treeNode20.Text = "RunKeeper";
+			treeNode21.Name = "Node4";
+			treeNode21.Text = "Strava";
+			treeNode22.Name = "Node5";
+			treeNode22.Text = "GarminConnect";
+			treeNode23.Name = "Node6";
+			treeNode23.Text = "RideWithGPS";
+			treeNode24.Name = "Node2";
+			treeNode24.Text = "Provider Support";
+			treeNode25.Name = "nodeBryton";
+			treeNode25.Text = "Bryton";
 			this.tvSupportedDevices.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
 									treeNode10,
-									treeNode17});
+									treeNode17,
+									treeNode25});
 			this.tvSupportedDevices.Size = new System.Drawing.Size(419, 162);
 			this.tvSupportedDevices.TabIndex = 5;
 			// 

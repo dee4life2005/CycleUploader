@@ -211,7 +211,7 @@ namespace TCX_Parser
 			
 			SetStatusProgressThreadSafe(statusBar, "Value", 0);
 			SetStatusProgressThreadSafe(statusBar, "Maximum", 3);
-			SetStatusTextThreadSafe(statusBar, "Authenticting with RideWithGPS...");
+			SetStatusTextThreadSafe(statusBar, "Authenticating with RideWithGPS...");
 			
 			// Log in to RideWithGPS, display error if failed
 			if(!_rwgps.login(_username, _password)){
@@ -228,9 +228,13 @@ namespace TCX_Parser
 			TimeSpan totDur = TimeSpan.FromSeconds(_rwgps._profile.total_trip_duration);
 			SetControlPropertyThreadSafe(lblTotalDuration, "Text", string.Format("{0:D2} d {1:D2} h {2:D2} m {3:D2} s", Convert.ToInt32(Math.Floor(totDur.TotalDays)), totDur.Hours, totDur.Minutes, totDur.Seconds));
 			SetControlPropertyThreadSafe(lblTotalDistance, "Text", string.Format("{0:0.00} miles",(_rwgps._profile.total_trip_distance*0.000621371192)));
+			SetControlPropertyThreadSafe(lblTotalActivities, "Text", string.Format("{0:0}", _rwgps._profile.total_trip_count));
+			
+			SetControlPropertyThreadSafe(pbProfilePhoto, "ImageLocation", _rwgps._profile.profile_photo_url);
 			
 			
-			activities = _rwgps.GetActivities(this);
+			activities = _rwgps.GetActivities(this);		
+			
 			
 			SetStatusTextThreadSafe(statusBar, "Processing activities, and adding to profile page...");
 			for(int a = 0; a < activities.Count; a++){
@@ -249,7 +253,7 @@ namespace TCX_Parser
 					activities[a].created_at					
 				};
 				AddListViewItem(lstActivities, new ListViewItem(row));
-				SetControlPropertyThreadSafe(lblTotalActivities, "Text", string.Format("{0:0} Activities",a+1));
+				SetControlPropertyThreadSafe(lblTotalActivities, "Text", string.Format("{0}", lstActivities.Items.Count));
 			}
 			SetStatusTextThreadSafe(statusBar, "Done.");
 			
@@ -365,6 +369,12 @@ namespace TCX_Parser
 					_threadActivity.Abort();
 				}
 			}catch{}
+		}
+		
+		void LstActivitiesDoubleClick(object sender, EventArgs e)
+		{
+			LstActivitiesSelectedIndexChanged(sender, e);
+			
 		}
 	}
 }

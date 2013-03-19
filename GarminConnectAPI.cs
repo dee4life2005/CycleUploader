@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Web.Script.Serialization;
 using System.Json;
 using Microsoft.CSharp;
+using System.Data.SQLite;
 
 namespace TCX_Parser
 {
@@ -191,7 +192,7 @@ namespace TCX_Parser
 		
 		
 		
-		public void UploadFile(string file, string activity_name)
+		public void UploadFile(string file, string activity_name, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes)
 		{
 			
 			int wId = 0;
@@ -270,6 +271,16 @@ namespace TCX_Parser
 	            	((MainForm)Application.OpenForms[0]).setUpdateRideImg("garmin",Image.FromFile("success-icon.png"));
 	            	
 	            	wId = Convert.ToInt32(sRec.internalId);
+	            	
+	            	SQLiteCommand cmd = new SQLiteCommand(dbConnection);
+					string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadGarmin = \"{0}\" where idFile = {1}", 
+					                           string.Format("http://connect.garmin.com/activity/{0}",sRec.internalId), 
+					                           fileId,
+					                           activityName, 
+					                           activityNotes
+					                          );
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery();
 	            	
 	            	bSetName = true;
 	            }

@@ -52,6 +52,11 @@ namespace TCX_Parser
 			this.colElevationGain = new System.Windows.Forms.ColumnHeader();
 			this.colCreatedAt = new System.Windows.Forms.ColumnHeader();
 			this.pnlProfile = new System.Windows.Forms.GroupBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.lblProfileCity = new System.Windows.Forms.Label();
+			this.lblDOB = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.pbProfilePhoto = new System.Windows.Forms.PictureBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.lblMemberSince = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -60,9 +65,6 @@ namespace TCX_Parser
 			this.lblTotalDuration = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.lblTotalDistance = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.lblDOB = new System.Windows.Forms.Label();
-			this.lblProfileCity = new System.Windows.Forms.Label();
 			this.lblProfileName = new System.Windows.Forms.Label();
 			this.lblTotalActivities = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -106,6 +108,7 @@ namespace TCX_Parser
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.pnlActivities.SuspendLayout();
 			this.pnlProfile.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pbProfilePhoto)).BeginInit();
 			this.groupBox4.SuspendLayout();
 			this.tabChart.SuspendLayout();
 			this.tabSummary.SuspendLayout();
@@ -172,7 +175,7 @@ namespace TCX_Parser
 			this.lstActivities.TabIndex = 1;
 			this.lstActivities.UseCompatibleStateImageBehavior = false;
 			this.lstActivities.View = System.Windows.Forms.View.Details;
-			this.lstActivities.SelectedIndexChanged += new System.EventHandler(this.LstActivitiesSelectedIndexChanged);
+			this.lstActivities.DoubleClick += new System.EventHandler(this.LstActivitiesDoubleClick);
 			// 
 			// colActivityId
 			// 
@@ -214,6 +217,11 @@ namespace TCX_Parser
 			// 
 			// pnlProfile
 			// 
+			this.pnlProfile.Controls.Add(this.label10);
+			this.pnlProfile.Controls.Add(this.lblProfileCity);
+			this.pnlProfile.Controls.Add(this.lblDOB);
+			this.pnlProfile.Controls.Add(this.label1);
+			this.pnlProfile.Controls.Add(this.pbProfilePhoto);
 			this.pnlProfile.Controls.Add(this.label3);
 			this.pnlProfile.Controls.Add(this.lblMemberSince);
 			this.pnlProfile.Controls.Add(this.label6);
@@ -222,9 +230,6 @@ namespace TCX_Parser
 			this.pnlProfile.Controls.Add(this.lblTotalDuration);
 			this.pnlProfile.Controls.Add(this.label2);
 			this.pnlProfile.Controls.Add(this.lblTotalDistance);
-			this.pnlProfile.Controls.Add(this.label1);
-			this.pnlProfile.Controls.Add(this.lblDOB);
-			this.pnlProfile.Controls.Add(this.lblProfileCity);
 			this.pnlProfile.Controls.Add(this.lblProfileName);
 			this.pnlProfile.Controls.Add(this.lblTotalActivities);
 			this.pnlProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -236,30 +241,83 @@ namespace TCX_Parser
 			this.pnlProfile.TabStop = false;
 			this.pnlProfile.Text = "Profile";
 			// 
+			// label10
+			// 
+			this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label10.Location = new System.Drawing.Point(148, 81);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(74, 15);
+			this.label10.TabIndex = 31;
+			this.label10.Text = "Date of Birth";
+			// 
+			// lblProfileCity
+			// 
+			this.lblProfileCity.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblProfileCity.ForeColor = System.Drawing.Color.DimGray;
+			this.lblProfileCity.Location = new System.Drawing.Point(148, 43);
+			this.lblProfileCity.Name = "lblProfileCity";
+			this.lblProfileCity.Size = new System.Drawing.Size(113, 17);
+			this.lblProfileCity.TabIndex = 30;
+			this.lblProfileCity.Text = "-";
+			// 
+			// lblDOB
+			// 
+			this.lblDOB.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDOB.ForeColor = System.Drawing.Color.DimGray;
+			this.lblDOB.Location = new System.Drawing.Point(238, 81);
+			this.lblDOB.Name = "lblDOB";
+			this.lblDOB.Size = new System.Drawing.Size(126, 15);
+			this.lblDOB.TabIndex = 29;
+			this.lblDOB.Text = "-";
+			// 
+			// label1
+			// 
+			this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label1.Location = new System.Drawing.Point(499, 45);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(96, 15);
+			this.label1.TabIndex = 28;
+			this.label1.Text = "No. Activities";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// pbProfilePhoto
+			// 
+			this.pbProfilePhoto.BackColor = System.Drawing.SystemColors.Window;
+			this.pbProfilePhoto.Location = new System.Drawing.Point(7, 19);
+			this.pbProfilePhoto.Name = "pbProfilePhoto";
+			this.pbProfilePhoto.Size = new System.Drawing.Size(135, 104);
+			this.pbProfilePhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbProfilePhoto.TabIndex = 27;
+			this.pbProfilePhoto.TabStop = false;
+			// 
 			// label3
 			// 
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label3.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label3.Location = new System.Drawing.Point(6, 92);
+			this.label3.Location = new System.Drawing.Point(148, 107);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(94, 13);
+			this.label3.Size = new System.Drawing.Size(84, 16);
 			this.label3.TabIndex = 26;
 			this.label3.Text = "Member Since";
 			// 
 			// lblMemberSince
 			// 
-			this.lblMemberSince.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMemberSince.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblMemberSince.Location = new System.Drawing.Point(6, 108);
+			this.lblMemberSince.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMemberSince.ForeColor = System.Drawing.Color.DimGray;
+			this.lblMemberSince.Location = new System.Drawing.Point(238, 107);
 			this.lblMemberSince.Name = "lblMemberSince";
-			this.lblMemberSince.Size = new System.Drawing.Size(113, 13);
+			this.lblMemberSince.Size = new System.Drawing.Size(126, 16);
 			this.lblMemberSince.TabIndex = 25;
+			this.lblMemberSince.Text = "-";
 			// 
 			// label6
 			// 
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label6.Location = new System.Drawing.Point(289, 86);
+			this.label6.Location = new System.Drawing.Point(613, 89);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(98, 13);
 			this.label6.TabIndex = 24;
@@ -267,18 +325,19 @@ namespace TCX_Parser
 			// 
 			// lblTotalElevation
 			// 
-			this.lblTotalElevation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalElevation.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalElevation.Location = new System.Drawing.Point(395, 86);
+			this.lblTotalElevation.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalElevation.ForeColor = System.Drawing.Color.DimGray;
+			this.lblTotalElevation.Location = new System.Drawing.Point(719, 89);
 			this.lblTotalElevation.Name = "lblTotalElevation";
 			this.lblTotalElevation.Size = new System.Drawing.Size(113, 13);
 			this.lblTotalElevation.TabIndex = 23;
+			this.lblTotalElevation.Text = "-";
 			// 
 			// label4
 			// 
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label4.Location = new System.Drawing.Point(289, 60);
+			this.label4.Location = new System.Drawing.Point(613, 63);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(98, 13);
 			this.label4.TabIndex = 22;
@@ -286,18 +345,19 @@ namespace TCX_Parser
 			// 
 			// lblTotalDuration
 			// 
-			this.lblTotalDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalDuration.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalDuration.Location = new System.Drawing.Point(395, 60);
+			this.lblTotalDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalDuration.ForeColor = System.Drawing.Color.DimGray;
+			this.lblTotalDuration.Location = new System.Drawing.Point(719, 63);
 			this.lblTotalDuration.Name = "lblTotalDuration";
 			this.lblTotalDuration.Size = new System.Drawing.Size(113, 13);
 			this.lblTotalDuration.TabIndex = 21;
+			this.lblTotalDuration.Text = "-";
 			// 
 			// label2
 			// 
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label2.Location = new System.Drawing.Point(289, 34);
+			this.label2.Location = new System.Drawing.Point(613, 37);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(98, 13);
 			this.label2.TabIndex = 20;
@@ -305,60 +365,34 @@ namespace TCX_Parser
 			// 
 			// lblTotalDistance
 			// 
-			this.lblTotalDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalDistance.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalDistance.Location = new System.Drawing.Point(395, 34);
+			this.lblTotalDistance.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalDistance.ForeColor = System.Drawing.Color.DimGray;
+			this.lblTotalDistance.Location = new System.Drawing.Point(719, 37);
 			this.lblTotalDistance.Name = "lblTotalDistance";
 			this.lblTotalDistance.Size = new System.Drawing.Size(113, 13);
 			this.lblTotalDistance.TabIndex = 19;
-			// 
-			// label1
-			// 
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label1.Location = new System.Drawing.Point(6, 55);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(40, 13);
-			this.label1.TabIndex = 18;
-			this.label1.Text = "DOB";
-			// 
-			// lblDOB
-			// 
-			this.lblDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDOB.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblDOB.Location = new System.Drawing.Point(6, 71);
-			this.lblDOB.Name = "lblDOB";
-			this.lblDOB.Size = new System.Drawing.Size(113, 13);
-			this.lblDOB.TabIndex = 17;
-			// 
-			// lblProfileCity
-			// 
-			this.lblProfileCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblProfileCity.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblProfileCity.Location = new System.Drawing.Point(6, 32);
-			this.lblProfileCity.Name = "lblProfileCity";
-			this.lblProfileCity.Size = new System.Drawing.Size(237, 15);
-			this.lblProfileCity.TabIndex = 16;
+			this.lblTotalDistance.Text = "-";
 			// 
 			// lblProfileName
 			// 
-			this.lblProfileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblProfileName.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblProfileName.Location = new System.Drawing.Point(6, 16);
+			this.lblProfileName.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblProfileName.ForeColor = System.Drawing.Color.DimGray;
+			this.lblProfileName.Location = new System.Drawing.Point(146, 16);
 			this.lblProfileName.Name = "lblProfileName";
-			this.lblProfileName.Size = new System.Drawing.Size(264, 23);
+			this.lblProfileName.Size = new System.Drawing.Size(264, 27);
 			this.lblProfileName.TabIndex = 14;
+			this.lblProfileName.Text = "-";
 			// 
 			// lblTotalActivities
 			// 
 			this.lblTotalActivities.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.lblTotalActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalActivities.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblTotalActivities.Location = new System.Drawing.Point(656, 34);
+			this.lblTotalActivities.Font = new System.Drawing.Font("Courier New", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalActivities.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblTotalActivities.Location = new System.Drawing.Point(499, 60);
 			this.lblTotalActivities.Name = "lblTotalActivities";
-			this.lblTotalActivities.Size = new System.Drawing.Size(79, 63);
+			this.lblTotalActivities.Size = new System.Drawing.Size(96, 37);
 			this.lblTotalActivities.TabIndex = 15;
-			this.lblTotalActivities.Text = "0 Activities";
+			this.lblTotalActivities.Text = "-";
 			this.lblTotalActivities.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// groupBox4
@@ -424,7 +458,7 @@ namespace TCX_Parser
 			// 
 			// lblMovingTime
 			// 
-			this.lblMovingTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMovingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblMovingTime.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblMovingTime.Location = new System.Drawing.Point(415, 107);
 			this.lblMovingTime.Name = "lblMovingTime";
@@ -434,7 +468,7 @@ namespace TCX_Parser
 			// 
 			// label17
 			// 
-			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label17.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label17.Location = new System.Drawing.Point(297, 107);
 			this.label17.Name = "label17";
@@ -444,7 +478,7 @@ namespace TCX_Parser
 			// 
 			// lblAvgCadence
 			// 
-			this.lblAvgCadence.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgCadence.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAvgCadence.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblAvgCadence.Location = new System.Drawing.Point(415, 77);
 			this.lblAvgCadence.Name = "lblAvgCadence";
@@ -454,7 +488,7 @@ namespace TCX_Parser
 			// 
 			// label16
 			// 
-			this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label16.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label16.Location = new System.Drawing.Point(297, 77);
 			this.label16.Name = "label16";
@@ -512,7 +546,7 @@ namespace TCX_Parser
 									| System.Windows.Forms.AnchorStyles.Left)));
 			this.txtNotes.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtNotes.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtNotes.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.txtNotes.Location = new System.Drawing.Point(17, 168);
 			this.txtNotes.Multiline = true;
@@ -524,17 +558,17 @@ namespace TCX_Parser
 			// 
 			// label5
 			// 
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label5.Location = new System.Drawing.Point(17, 155);
+			this.label5.Location = new System.Drawing.Point(17, 146);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(100, 10);
+			this.label5.Size = new System.Drawing.Size(100, 19);
 			this.label5.TabIndex = 83;
 			this.label5.Text = "Notes";
 			// 
 			// lblTotalAscent
 			// 
-			this.lblTotalAscent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalAscent.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblTotalAscent.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblTotalAscent.Location = new System.Drawing.Point(135, 107);
 			this.lblTotalAscent.Name = "lblTotalAscent";
@@ -544,7 +578,7 @@ namespace TCX_Parser
 			// 
 			// label22
 			// 
-			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label22.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label22.Location = new System.Drawing.Point(17, 107);
 			this.label22.Name = "label22";
@@ -554,7 +588,7 @@ namespace TCX_Parser
 			// 
 			// lblAvgSpeed
 			// 
-			this.lblAvgSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgSpeed.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAvgSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblAvgSpeed.Location = new System.Drawing.Point(415, 17);
 			this.lblAvgSpeed.Name = "lblAvgSpeed";
@@ -564,7 +598,7 @@ namespace TCX_Parser
 			// 
 			// label8
 			// 
-			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label8.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label8.Location = new System.Drawing.Point(297, 17);
 			this.label8.Name = "label8";
@@ -574,7 +608,7 @@ namespace TCX_Parser
 			// 
 			// lblActivityDateTime
 			// 
-			this.lblActivityDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblActivityDateTime.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblActivityDateTime.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblActivityDateTime.Location = new System.Drawing.Point(135, 17);
 			this.lblActivityDateTime.Name = "lblActivityDateTime";
@@ -584,7 +618,7 @@ namespace TCX_Parser
 			// 
 			// label7
 			// 
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label7.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label7.Location = new System.Drawing.Point(17, 17);
 			this.label7.Name = "label7";
@@ -594,7 +628,7 @@ namespace TCX_Parser
 			// 
 			// lblAvgHeartRate
 			// 
-			this.lblAvgHeartRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgHeartRate.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAvgHeartRate.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblAvgHeartRate.Location = new System.Drawing.Point(415, 47);
 			this.lblAvgHeartRate.Name = "lblAvgHeartRate";
@@ -604,7 +638,7 @@ namespace TCX_Parser
 			// 
 			// lblDistance
 			// 
-			this.lblDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDistance.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblDistance.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblDistance.Location = new System.Drawing.Point(135, 77);
 			this.lblDistance.Name = "lblDistance";
@@ -614,7 +648,7 @@ namespace TCX_Parser
 			// 
 			// lblDuration
 			// 
-			this.lblDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblDuration.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lblDuration.Location = new System.Drawing.Point(135, 47);
 			this.lblDuration.Name = "lblDuration";
@@ -624,7 +658,7 @@ namespace TCX_Parser
 			// 
 			// label9
 			// 
-			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label9.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label9.Location = new System.Drawing.Point(297, 47);
 			this.label9.Name = "label9";
@@ -634,7 +668,7 @@ namespace TCX_Parser
 			// 
 			// label11
 			// 
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label11.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label11.Location = new System.Drawing.Point(17, 77);
 			this.label11.Name = "label11";
@@ -644,7 +678,7 @@ namespace TCX_Parser
 			// 
 			// label13
 			// 
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label13.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label13.Location = new System.Drawing.Point(17, 47);
 			this.label13.Name = "label13";
@@ -791,7 +825,7 @@ namespace TCX_Parser
 			// statusBarStatus
 			// 
 			this.statusBarStatus.Name = "statusBarStatus";
-			this.statusBarStatus.Size = new System.Drawing.Size(740, 17);
+			this.statusBarStatus.Size = new System.Drawing.Size(771, 17);
 			this.statusBarStatus.Spring = true;
 			this.statusBarStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -817,6 +851,7 @@ namespace TCX_Parser
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.pnlActivities.ResumeLayout(false);
 			this.pnlProfile.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pbProfilePhoto)).EndInit();
 			this.groupBox4.ResumeLayout(false);
 			this.tabChart.ResumeLayout(false);
 			this.tabSummary.ResumeLayout(false);
@@ -830,6 +865,11 @@ namespace TCX_Parser
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.Label lblDOB;
+		private System.Windows.Forms.Label lblProfileCity;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.PictureBox pbProfilePhoto;
 		private System.Windows.Forms.ToolStripStatusLabel statusBarStatus;
 		private System.Windows.Forms.ToolStripProgressBar statusBarProgress;
 		private System.Windows.Forms.StatusStrip statusBar;
@@ -863,22 +903,19 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader columnHeader15;
 		private System.Windows.Forms.ColumnHeader columnHeader14;
 		private System.Windows.Forms.ColumnHeader columnHeader11;
-		private System.Windows.Forms.ListView lstSplits;
+		private ListViewNF.ListViewNF lstSplits;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.TabPage tabSummary;
 		private System.Windows.Forms.TabControl tabChart;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Label lblMemberSince;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label lblDOB;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label lblTotalDistance;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label lblTotalDuration;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label lblTotalElevation;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label lblProfileCity;
 		private System.Windows.Forms.Label lblProfileName;
 		private System.Windows.Forms.Label lblTotalActivities;
 		private System.Windows.Forms.GroupBox pnlProfile;
@@ -891,7 +928,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.ColumnHeader colActivityName;
 		private System.Windows.Forms.ColumnHeader colStartTime;
 		private System.Windows.Forms.ColumnHeader colActivityId;
-		private System.Windows.Forms.ListView lstActivities;
+		private ListViewNF.ListViewNF lstActivities;
 		private System.Windows.Forms.GroupBox pnlActivities;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label label15;

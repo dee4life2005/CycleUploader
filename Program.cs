@@ -17,8 +17,8 @@ namespace TCX_Parser
 	/// </summary>
 	internal sealed class Program
 	{
-		private static string versionStr = "1.0.1.0";
-		private static string versionDate = "14/03/2013";
+		private static string versionStr = "1.0.5.0";
+		private static string versionDate = "19/03/2013";
 		private static string versionAuthor = "Steven Saunders";
 		
 		public static MainForm mf = null;

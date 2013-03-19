@@ -22,9 +22,13 @@ using System.Web.Script.Serialization;
 using System.Json;
 using Microsoft.CSharp;
 using ZedGraph;
+using System.Data.SQLite;
 
 namespace TCX_Parser
 {
+	
+	// APIKEY : jnas82ns 
+	// http://ridewithgps.com/apitest/generic.html
 	
 	public class RideWithGpsActivityListItem
 	{
@@ -50,6 +54,7 @@ namespace TCX_Parser
 		public double total_trip_duration;
 		public double total_trip_elevation;
 		public int total_trip_count;
+		public string profile_photo_url;
 	}
 	
 	public class RideWithGpsActivitySummary
@@ -120,6 +125,7 @@ namespace TCX_Parser
 			httpWebRequest.Credentials = CredentialCache.DefaultCredentials;
 			httpWebRequest.CookieContainer = this._cookies;
 			httpWebRequest.Method = "POST";
+			httpWebRequest.Timeout = 5000;
 			
 			// build the url encoded form post data
 			string postData = string.Format("login[email]={0}&login[password]={1}", username, password);
@@ -137,14 +143,10 @@ namespace TCX_Parser
 				{
 					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
 					string text = streamReader.ReadToEnd();
-					Debug.Write(text);
 					if(text.IndexOf("Incorrect username/password, please try again") != -1){
 						this._isLoggedIn = false;
 					}
 					else{
-						
-							
-						//rwgps.ns('config', {"features_withheld_on_restricted":{},"currentUser":{"abingo_identity":"4680061706","account_level":0,"administrative_area":"Dundee City","age":34,"country_code":"GB","created_at":"2012-04-03T13:20:29+01:00","description":"","display_name":"Steve Saunders","dob":"1979-10-25T00:00:00+01:00","email":"steven.n.saunders@gmail.com","email_bounce_count":0,"email_notifications":false,"email_on_comment":true,"email_on_message":true,"email_on_update":true,"email_visible":false,"facebook_email_hash":null,"first_name":"Steve","hide_home":true,"hr_max":184,"hr_rest":59,"hr_zone_1_high":134,"hr_zone_1_low":122,"hr_zone_2_high":147,"hr_zone_2_low":134,"hr_zone_3_high":159,"hr_zone_3_low":147,"hr_zone_4_high":172,"hr_zone_4_low":159,"hr_zone_5_high":184,"hr_zone_5_low":172,"id":76618,"interests":"","is_male":true,"last_login_at":"2013-03-11T21:44:11+00:00","last_name":"Saunders","lat":56.4738,"lng":-2.85602,"locality":"","metric_units":false,"num_unread_messages":0,"postal_code":"DD5","preferences":{"metric_units":false,"facebook":{"notify_on_activity":false,"notify_on_route":false},"private_trips":true,"profile_default_tab":"activity_preview","route_viewer_options_opened":true,"route_viewer_active_tab":"overview","calendar_show_hr":false,"default_gear_id":"25693","default_home":"welcome","segments_private":false,"receive_segment_notifications":false,"hide_location":"1","calendar_show_route_name":false,"calendar_show_power":false,"calendar_show_elevation":true,"calendar_show_distance":true,"calendar_show_calories":false,"route_planner_directions_type":"cycling","route_viewer_active_subtab":"comments","route_planner_options_opened":true,"route_planner_line_color_opened":false,"route_planner_right_sidebar_closed":false,"route_planner_left_sidebar_closed":false,"activities_user_index_list_mode":"data_table"},"self_membership_id":78438,"site_id":1,"time_zone":"Edinburgh","total_route_distance":238089.0,"total_trip_distance":9099570.0,"total_trip_duration":1276372,"total_trip_elevation_gain":58353.4,"trips_included_in_totals_count":227,"visibility_of_bio_data":0,"visibility_of_email":2,"visibility_of_speed":0,"vo2max":null,"weeks_start_on":0,"weight":92.5328,"name":"Steve Saunders"}});							
 						// check to see if there is a "csrf_token" in the response
 						Match KeywordMatch = Regex.Match(text, "<meta content=\"([^<]*)\" name=\"csrf-token\" />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 						if(KeywordMatch.Success){
@@ -155,22 +157,35 @@ namespace TCX_Parser
 							this._isLoggedIn = false;
 						}
 						
+						// extract the userId
 						Match KeywordMatchUser = Regex.Match(text, "<a class='profile' href='/users/([^<]*)'>", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 						if(KeywordMatchUser.Success){
 							_userId = Convert.ToInt32(KeywordMatchUser.Groups[1].Value);
 						}
 						
+						// extract the profile photo path
+						Match KeywordMatchPhoto = Regex.Match(text, "class=\"profile_photo\" src=\"([^<]*)\"", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+						if(KeywordMatchPhoto.Success){
+							_profile.profile_photo_url = KeywordMatchPhoto.Groups[1].Value;
+						}
+						
 						Match KeywordMatchProfile = Regex.Match(text, "rwgps.ns" + Regex.Escape("(") + "'config', ([^<]*)" + Regex.Escape("});"), RegexOptions.IgnoreCase | RegexOptions.Multiline);
 						if(KeywordMatchProfile.Success){
-							dynamic jsonProfile = JsonValue.Parse(KeywordMatchProfile.Groups[1].Value);
-							_profile.display_name = jsonProfile.currentUser.display_name;
-							_profile.profile_area = jsonProfile.currentUser.administrative_area;
-							_profile.member_since = jsonProfile.currentUser.created_at;
-							_profile.dob = jsonProfile.currentUser.dob;
-							_profile.total_trip_distance = (double)jsonProfile.currentUser.total_trip_distance;
-							_profile.total_trip_duration = (double)jsonProfile.currentUser.total_trip_duration;
-							_profile.total_trip_elevation = (double)jsonProfile.currentUser.total_trip_elevation_gain;
-							//_profile.total_trip_count = (int)jsonProfile.currentUser.trips_included_in_totals_count;
+							try{
+								dynamic jsonProfile = JsonValue.Parse(KeywordMatchProfile.Groups[1].Value);
+								_profile.display_name = jsonProfile.currentUser.display_name;
+								_profile.display_name = jsonProfile.currentUser.name;
+								_profile.profile_area = jsonProfile.currentUser.administrative_area;
+								_profile.member_since = DateTime.Parse((string)jsonProfile.currentUser.created_at).ToString("dd/MM/yyyy HH:mm");
+								_profile.dob = DateTime.Parse((string)jsonProfile.currentUser.dob).ToString("dd/MM/yyyy");
+								_profile.total_trip_distance = (double)jsonProfile.currentUser.total_trip_distance;
+								_profile.total_trip_duration = (double)jsonProfile.currentUser.total_trip_duration;
+								_profile.total_trip_elevation = (double)jsonProfile.currentUser.total_trip_elevation_gain;
+								_profile.total_trip_count = (int)jsonProfile.currentUser.trips_included_in_totals_count;
+							}
+							catch(Exception ex){
+								MessageBox.Show("RideWithGPS: Exception retrieving profile information.\r\n\r\n" + ex.Message);
+							}
 						}
 					}
 				}
@@ -178,7 +193,7 @@ namespace TCX_Parser
 			return this._isLoggedIn;
 		}	
 				
-		public void upload_activity_json(ref StringBuilder jsonData)
+		public void upload_activity_json(ref StringBuilder jsonData, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes)
 		{
 			System.Text.ASCIIEncoding aSCIIEncoding = new System.Text.ASCIIEncoding();
 			
@@ -208,6 +223,16 @@ namespace TCX_Parser
 						((MainForm)Application.OpenForms[0]).setUpdateRideId("ridewithgps",KeywordMatch.Groups[1].Value);
 						((MainForm)Application.OpenForms[0]).setNewActivityLink("ridewithgps",KeywordMatch.Groups[1].Value,string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value));
 						((MainForm)Application.OpenForms[0]).setUpdateRideImg("ridewithgps",Image.FromFile("success-icon.png"));
+						
+						SQLiteCommand cmd = new SQLiteCommand(dbConnection);
+						string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRWGPS = \"{0}\" where idFile = {1}", 
+					                           string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value), 
+					                           fileId,
+					                           activityName, 
+					                           activityNotes
+					                          );
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
 					}
 					else{
 						((MainForm)Application.OpenForms[0]).setUpdateRideMsg("ridewithgps","Ride ID not found, activity may not have been accepted.");

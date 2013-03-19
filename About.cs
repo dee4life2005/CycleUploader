@@ -44,8 +44,8 @@ namespace TCX_Parser
 		
 		void AboutLoad(object sender, EventArgs e)
 		{
-			tvSupportedDevices.Nodes.Find("nodeGarmin500",true)[0].Expand();
-			tvSupportedDevices.Nodes.Find("nodeMioCyclo100",true)[0].Expand();
+			//tvSupportedDevices.Nodes.Find("nodeGarmin500",true)[0].Expand();
+			//tvSupportedDevices.Nodes.Find("nodeMioCyclo100",true)[0].Expand();
 			lblVersionStr.Text = "v " + _versionStr;
 		}
 	}
