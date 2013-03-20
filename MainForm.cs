@@ -43,6 +43,7 @@ using System.Threading;
 using System.Reflection;
 using ListViewNF;
 using System.Data.SQLite;
+using ListViewExtended;
 
 namespace TCX_Parser
 {
@@ -197,6 +198,7 @@ namespace TCX_Parser
 			}
 			else{
 				((ListView)ctrl).Items.Clear();
+				((ListView)ctrl).Groups.Clear();
 			}
 		}
 		
@@ -332,6 +334,29 @@ namespace TCX_Parser
 			}
 			else{
 				return ((ListView)ctrl).SelectedItems[itemIdx].SubItems[subItemIdx].Text;
+			}
+		}
+		
+		private delegate void SetListViewGroupDelegate(ListView ctrl, int idx, ListViewGroup grp);
+		private static void SetListViewGroup(ListView ctrl, int idx, ListViewGroup grp)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new SetListViewGroupDelegate(SetListViewGroup), new object[] { ctrl, idx, grp});
+			}
+			else{
+				ctrl.Items[idx].Group = grp;
+			}
+		}
+		
+		private delegate void AddListViewGroupDelegate(ListView ctrl, ListViewGroup grp);
+		private static void AddListViewGroup(ListView ctrl, ListViewGroup grp)
+		{
+			if(ctrl.InvokeRequired)
+			{
+				ctrl.Invoke(new AddListViewGroupDelegate(AddListViewGroup), new object[] { ctrl, grp });
+			}
+			else{
+				ctrl.Groups.Add(grp);
 			}
 		}
 		
@@ -477,6 +502,14 @@ namespace TCX_Parser
 		
 			ResizeListView(lstTrackpoints);
 			
+			// save the activity time from the trackpoints
+			sql = string.Format("update File set fileActivityDateTime = \"{0}\" where idFile = {1}", 
+			                    GetListViewItemValue(lstTrackpoints,0,0),
+			                    _dbFileId
+			                   );
+			command.CommandText = sql;
+			command.ExecuteNonQuery();
+			
 			// save trackpoints to database
 			dbSaveTrackpoints();
 			
@@ -501,7 +534,7 @@ namespace TCX_Parser
 			                           lblDistance.Text, 
 			                           lblCalories.Text,
 			                           lblAvgHeartRate.Text, 
-			                           lblCalories.Text,
+			                           lblCadence.Text,
 			                           lblAvgSpeed.Text,
 			                           lblMovingTime.Text,
 			                           lblTotalAscent.Text,
@@ -748,9 +781,9 @@ namespace TCX_Parser
 						}
 					}
 				} 
-				
+				//2147483647
 				// only add the point if it has coordinates.
-				if(lng != "" && lat != "" && lng != "0" && lat != "0"){
+				if(lng != "" && lat != "" && lng != "0" && lat != "0" && lat != "2147483647" && lng != "2147483647"){
 					string[] row = {
 						timestamp,
 						duration.ToString(),
@@ -2270,9 +2303,9 @@ namespace TCX_Parser
 			// the same function to reload
 			ClearListView(lstFileHistory);
 			
-			string sql = "select idFile, fileOpenDateTime, case fileActivityName ISNULL when 1 then fileName else fileActivityName end as `fileActivityDescription`, case fileActivityNotes isnull when 1 then \"\" else fileActivityNotes end as `fileActivityNotes`, "+
+			string sql = "select idFile, fileActivityDateTime, case fileActivityName ISNULL when 1 then fileName else fileActivityName end as `fileActivityDescription`, fileOpenDateTime, case fileActivityNotes isnull when 1 then \"\" else fileActivityNotes end as `fileActivityNotes`, "+
 				"fileUploadRunKeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS "+
-				"from File order by idFile desc";
+				"from File order by fileActivityDateTime desc";
 			
 			SQLiteCommand command = new SQLiteCommand(sql, _m_dbConnection);
 			SQLiteDataReader rdr = command.ExecuteReader();
@@ -2283,14 +2316,18 @@ namespace TCX_Parser
 						rdr.GetString(1),
 						rdr.GetString(2),
 						rdr.GetString(3),
-						rdr.IsDBNull(4) ? "" : rdr.GetString(4), // runkeeper
-						rdr.IsDBNull(5) ? "" : rdr.GetString(5), // strava
-						rdr.IsDBNull(6) ? "" : rdr.GetString(6), // garmin
-						rdr.IsDBNull(7) ? "" : rdr.GetString(7)  // ride with gps
+						rdr.GetString(4),
+						rdr.IsDBNull(5) ? "" : rdr.GetString(5), // runkeeper
+						rdr.IsDBNull(6) ? "" : rdr.GetString(6), // strava
+						rdr.IsDBNull(7) ? "" : rdr.GetString(7), // garmin
+						rdr.IsDBNull(8) ? "" : rdr.GetString(8)  // ride with gps
 							
 					};
 					AddListViewItem(lstFileHistory,new ListViewItem(row));
+					GroupFileHistoryItem(lstFileHistory.Items.Count-1);
 				}
+				lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+				
 			}
 			
 		}
@@ -3312,7 +3349,7 @@ namespace TCX_Parser
 		{
 			if(e.Button == MouseButtons.Right)
 			{
-				ActivityName actName = new ActivityName(lstFileHistory.SelectedItems[0].SubItems[2].Text, lstFileHistory.SelectedItems[0].SubItems[3].Text);
+				ActivityName actName = new ActivityName(lstFileHistory.SelectedItems[0].SubItems[2].Text, lstFileHistory.SelectedItems[0].SubItems[4].Text);
 				// if OK, set the activity name in the database
 				if(actName.ShowDialog() == DialogResult.OK){
 					// get the id of the file selected
@@ -3362,6 +3399,54 @@ namespace TCX_Parser
 			catch(Exception ex){
 				MessageBox.Show("There was a problem opening the link for the selected activity.\r\n" + e.Link.LinkData.ToString());
 			}
+		}
+		
+		
+		private void GroupFileHistoryItem(int idx)
+		{
+		    // This flag will tell us if proper group already exists
+		    bool group_exists = false;
+		    // Check each group if it fits to the item
+		    foreach (ListViewGroup group in lstFileHistory.Groups)
+		    {
+		        // Compare group's header to selected subitem's text
+		        if (group.Header == System.DateTime.Parse(GetListViewItemValue(lstFileHistory,idx,1)).ToString("yyyy MMMM")) //  item.SubItems["Month/Year"])
+		        {
+		            // Add item to the group.
+		            // Alternative is: group.Items.Add(item);
+		            //lstFileHistory.Items[idx].Group = group;
+		            SetListViewGroup(lstFileHistory, idx, group);
+		            
+		            if(group.Items.Count == 1){
+		            	lstFileHistory.SetGroupFooter(group, "1 Activity");
+		            }else{
+		            	lstFileHistory.SetGroupFooter(group, group.Items.Count + " Activities");
+		            }
+		            group_exists = true;
+		            break;
+		        }
+		    }
+		    // Create new group if no proper group was found
+		    if (!group_exists)
+		    {
+		        // Create group and specify its header by
+		        // getting selected subitem's text
+		        ListViewGroup group = new ListViewGroup(System.DateTime.Parse(GetListViewItemValue(lstFileHistory,idx,1)).ToString("yyyy MMMM"));
+		        // We need to add the group to the ListView first
+		        
+		        AddListViewGroup(lstFileHistory, group);
+		        SetListViewGroup(lstFileHistory, idx, group);
+		        if(group.Items.Count == 1){
+	            	lstFileHistory.SetGroupFooter(group, "1 Activity");
+	            }else{
+	            	lstFileHistory.SetGroupFooter(group, group.Items.Count + " Activities");
+	            }
+		    }
+		}
+		
+		void Button1Click(object sender, EventArgs e)
+		{
+			lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
 		}
 	}
 }

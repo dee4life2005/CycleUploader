@@ -98,6 +98,17 @@ namespace TCX_Parser
 			this.tabControlOverview = new System.Windows.Forms.TabControl();
 			this.tabFileHistory = new System.Windows.Forms.TabPage();
 			this.tabControlHistory = new System.Windows.Forms.TabControl();
+			this.tabFiles = new System.Windows.Forms.TabPage();
+			this.lstFileHistory = new ListViewExtended.ListViewExtended();
+			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader19 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
 			this.label25 = new System.Windows.Forms.Label();
 			this.pnlHistoryUploadRideWithGPS = new System.Windows.Forms.Panel();
@@ -154,15 +165,6 @@ namespace TCX_Parser
 			this.zedHistoryCadence = new ZedGraph.ZedGraphControl();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
-			this.lstFileHistory = new System.Windows.Forms.ListView();
-			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
 			this.tabMap = new System.Windows.Forms.TabPage();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -247,6 +249,7 @@ namespace TCX_Parser
 			this.tabControlOverview.SuspendLayout();
 			this.tabFileHistory.SuspendLayout();
 			this.tabControlHistory.SuspendLayout();
+			this.tabFiles.SuspendLayout();
 			this.tabHistorySummary.SuspendLayout();
 			this.pnlHistoryUploadRideWithGPS.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
@@ -381,7 +384,7 @@ namespace TCX_Parser
 			this.panel5.Controls.Add(this.label1);
 			this.panel5.Location = new System.Drawing.Point(9, 19);
 			this.panel5.Name = "panel5";
-			this.panel5.Size = new System.Drawing.Size(784, 174);
+			this.panel5.Size = new System.Drawing.Size(784, 172);
 			this.panel5.TabIndex = 40;
 			// 
 			// label10
@@ -909,18 +912,17 @@ namespace TCX_Parser
 			this.tabControlOverview.Location = new System.Drawing.Point(5, 262);
 			this.tabControlOverview.Name = "tabControlOverview";
 			this.tabControlOverview.SelectedIndex = 0;
-			this.tabControlOverview.Size = new System.Drawing.Size(1024, 390);
+			this.tabControlOverview.Size = new System.Drawing.Size(1024, 415);
 			this.tabControlOverview.TabIndex = 24;
 			this.tabControlOverview.SelectedIndexChanged += new System.EventHandler(this.TabControlOverviewSelectedIndexChanged);
 			// 
 			// tabFileHistory
 			// 
 			this.tabFileHistory.Controls.Add(this.tabControlHistory);
-			this.tabFileHistory.Controls.Add(this.lstFileHistory);
 			this.tabFileHistory.Location = new System.Drawing.Point(4, 22);
 			this.tabFileHistory.Name = "tabFileHistory";
 			this.tabFileHistory.Padding = new System.Windows.Forms.Padding(3);
-			this.tabFileHistory.Size = new System.Drawing.Size(1016, 364);
+			this.tabFileHistory.Size = new System.Drawing.Size(1016, 389);
 			this.tabFileHistory.TabIndex = 9;
 			this.tabFileHistory.Text = "File History";
 			this.tabFileHistory.UseVisualStyleBackColor = true;
@@ -930,17 +932,100 @@ namespace TCX_Parser
 			this.tabControlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControlHistory.Controls.Add(this.tabFiles);
 			this.tabControlHistory.Controls.Add(this.tabHistorySummary);
 			this.tabControlHistory.Controls.Add(this.tabHistoryMap);
 			this.tabControlHistory.Controls.Add(this.tabPage8);
 			this.tabControlHistory.Controls.Add(this.tabPage9);
 			this.tabControlHistory.Controls.Add(this.tabPage10);
 			this.tabControlHistory.Controls.Add(this.tabPage11);
-			this.tabControlHistory.Location = new System.Drawing.Point(375, 6);
+			this.tabControlHistory.Location = new System.Drawing.Point(6, 27);
 			this.tabControlHistory.Name = "tabControlHistory";
 			this.tabControlHistory.SelectedIndex = 0;
-			this.tabControlHistory.Size = new System.Drawing.Size(635, 352);
+			this.tabControlHistory.Size = new System.Drawing.Size(1004, 356);
 			this.tabControlHistory.TabIndex = 1;
+			// 
+			// tabFiles
+			// 
+			this.tabFiles.Controls.Add(this.lstFileHistory);
+			this.tabFiles.Location = new System.Drawing.Point(4, 22);
+			this.tabFiles.Name = "tabFiles";
+			this.tabFiles.Padding = new System.Windows.Forms.Padding(3);
+			this.tabFiles.Size = new System.Drawing.Size(996, 330);
+			this.tabFiles.TabIndex = 6;
+			this.tabFiles.Text = "Files";
+			this.tabFiles.UseVisualStyleBackColor = true;
+			// 
+			// lstFileHistory
+			// 
+			this.lstFileHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+									this.columnHeader11,
+									this.columnHeader19,
+									this.columnHeader12,
+									this.columnHeader13,
+									this.columnHeader14,
+									this.columnHeader15,
+									this.columnHeader16,
+									this.columnHeader17,
+									this.columnHeader18});
+			this.lstFileHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lstFileHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstFileHistory.FullRowSelect = true;
+			this.lstFileHistory.HideSelection = false;
+			this.lstFileHistory.Location = new System.Drawing.Point(3, 3);
+			this.lstFileHistory.MultiSelect = false;
+			this.lstFileHistory.Name = "lstFileHistory";
+			this.lstFileHistory.Size = new System.Drawing.Size(990, 324);
+			this.lstFileHistory.TabIndex = 0;
+			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
+			this.lstFileHistory.View = System.Windows.Forms.View.Details;
+			this.lstFileHistory.DoubleClick += new System.EventHandler(this.LstFileHistoryDoubleClick);
+			this.lstFileHistory.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LstFileHistoryMouseClick);
+			// 
+			// columnHeader11
+			// 
+			this.columnHeader11.Text = "File ID";
+			this.columnHeader11.Width = 45;
+			// 
+			// columnHeader19
+			// 
+			this.columnHeader19.Text = "Activity Date/Time";
+			this.columnHeader19.Width = 117;
+			// 
+			// columnHeader12
+			// 
+			this.columnHeader12.Text = "Activity / FileName";
+			this.columnHeader12.Width = 127;
+			// 
+			// columnHeader13
+			// 
+			this.columnHeader13.Text = "Date/Time (Opened)";
+			this.columnHeader13.Width = 113;
+			// 
+			// columnHeader14
+			// 
+			this.columnHeader14.Text = "Notes";
+			this.columnHeader14.Width = 500;
+			// 
+			// columnHeader15
+			// 
+			this.columnHeader15.Text = "Runkeeper";
+			this.columnHeader15.Width = 0;
+			// 
+			// columnHeader16
+			// 
+			this.columnHeader16.Text = "Strava";
+			this.columnHeader16.Width = 0;
+			// 
+			// columnHeader17
+			// 
+			this.columnHeader17.Text = "Garmin";
+			this.columnHeader17.Width = 0;
+			// 
+			// columnHeader18
+			// 
+			this.columnHeader18.Text = "RideWithGPS";
+			this.columnHeader18.Width = 0;
 			// 
 			// tabHistorySummary
 			// 
@@ -979,7 +1064,7 @@ namespace TCX_Parser
 			this.tabHistorySummary.Location = new System.Drawing.Point(4, 22);
 			this.tabHistorySummary.Name = "tabHistorySummary";
 			this.tabHistorySummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHistorySummary.Size = new System.Drawing.Size(627, 326);
+			this.tabHistorySummary.Size = new System.Drawing.Size(996, 330);
 			this.tabHistorySummary.TabIndex = 4;
 			this.tabHistorySummary.Text = "Summary";
 			this.tabHistorySummary.UseVisualStyleBackColor = true;
@@ -1361,7 +1446,7 @@ namespace TCX_Parser
 			this.lblHistoryName.Location = new System.Drawing.Point(3, 3);
 			this.lblHistoryName.Name = "lblHistoryName";
 			this.lblHistoryName.Padding = new System.Windows.Forms.Padding(5);
-			this.lblHistoryName.Size = new System.Drawing.Size(621, 40);
+			this.lblHistoryName.Size = new System.Drawing.Size(990, 40);
 			this.lblHistoryName.TabIndex = 41;
 			this.lblHistoryName.Text = "<Activity History : Summary Information>";
 			// 
@@ -1472,7 +1557,7 @@ namespace TCX_Parser
 			this.tabHistoryMap.Location = new System.Drawing.Point(4, 22);
 			this.tabHistoryMap.Name = "tabHistoryMap";
 			this.tabHistoryMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHistoryMap.Size = new System.Drawing.Size(627, 326);
+			this.tabHistoryMap.Size = new System.Drawing.Size(996, 330);
 			this.tabHistoryMap.TabIndex = 5;
 			this.tabHistoryMap.Text = "Map";
 			this.tabHistoryMap.UseVisualStyleBackColor = true;
@@ -1482,9 +1567,9 @@ namespace TCX_Parser
 			this.btnFullscreenHistoryMap.AutoSize = true;
 			this.btnFullscreenHistoryMap.Dock = System.Windows.Forms.DockStyle.Right;
 			this.btnFullscreenHistoryMap.Image = ((System.Drawing.Image)(resources.GetObject("btnFullscreenHistoryMap.Image")));
-			this.btnFullscreenHistoryMap.Location = new System.Drawing.Point(590, 3);
+			this.btnFullscreenHistoryMap.Location = new System.Drawing.Point(959, 3);
 			this.btnFullscreenHistoryMap.Name = "btnFullscreenHistoryMap";
-			this.btnFullscreenHistoryMap.Size = new System.Drawing.Size(34, 320);
+			this.btnFullscreenHistoryMap.Size = new System.Drawing.Size(34, 324);
 			this.btnFullscreenHistoryMap.TabIndex = 2;
 			this.btnFullscreenHistoryMap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnFullscreenHistoryMap.UseVisualStyleBackColor = true;
@@ -1499,7 +1584,7 @@ namespace TCX_Parser
 			this.webBrowserHistoryMap.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowserHistoryMap.Name = "webBrowserHistoryMap";
 			this.webBrowserHistoryMap.ScrollBarsEnabled = false;
-			this.webBrowserHistoryMap.Size = new System.Drawing.Size(581, 320);
+			this.webBrowserHistoryMap.Size = new System.Drawing.Size(950, 324);
 			this.webBrowserHistoryMap.TabIndex = 1;
 			// 
 			// tabPage8
@@ -1508,7 +1593,7 @@ namespace TCX_Parser
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
 			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage8.Size = new System.Drawing.Size(627, 326);
+			this.tabPage8.Size = new System.Drawing.Size(996, 330);
 			this.tabPage8.TabIndex = 0;
 			this.tabPage8.Text = "Altitude";
 			this.tabPage8.UseVisualStyleBackColor = true;
@@ -1527,7 +1612,7 @@ namespace TCX_Parser
 			this.zedHistoryAltitude.ScrollMinX = 0D;
 			this.zedHistoryAltitude.ScrollMinY = 0D;
 			this.zedHistoryAltitude.ScrollMinY2 = 0D;
-			this.zedHistoryAltitude.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryAltitude.Size = new System.Drawing.Size(990, 324);
 			this.zedHistoryAltitude.TabIndex = 0;
 			// 
 			// tabPage9
@@ -1536,7 +1621,7 @@ namespace TCX_Parser
 			this.tabPage9.Location = new System.Drawing.Point(4, 22);
 			this.tabPage9.Name = "tabPage9";
 			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage9.Size = new System.Drawing.Size(627, 326);
+			this.tabPage9.Size = new System.Drawing.Size(996, 330);
 			this.tabPage9.TabIndex = 1;
 			this.tabPage9.Text = "Speed";
 			this.tabPage9.UseVisualStyleBackColor = true;
@@ -1555,7 +1640,7 @@ namespace TCX_Parser
 			this.zedHistorySpeed.ScrollMinX = 0D;
 			this.zedHistorySpeed.ScrollMinY = 0D;
 			this.zedHistorySpeed.ScrollMinY2 = 0D;
-			this.zedHistorySpeed.Size = new System.Drawing.Size(621, 320);
+			this.zedHistorySpeed.Size = new System.Drawing.Size(990, 324);
 			this.zedHistorySpeed.TabIndex = 1;
 			// 
 			// tabPage10
@@ -1564,7 +1649,7 @@ namespace TCX_Parser
 			this.tabPage10.Location = new System.Drawing.Point(4, 22);
 			this.tabPage10.Name = "tabPage10";
 			this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage10.Size = new System.Drawing.Size(627, 326);
+			this.tabPage10.Size = new System.Drawing.Size(996, 330);
 			this.tabPage10.TabIndex = 2;
 			this.tabPage10.Text = "Cadence";
 			this.tabPage10.UseVisualStyleBackColor = true;
@@ -1583,7 +1668,7 @@ namespace TCX_Parser
 			this.zedHistoryCadence.ScrollMinX = 0D;
 			this.zedHistoryCadence.ScrollMinY = 0D;
 			this.zedHistoryCadence.ScrollMinY2 = 0D;
-			this.zedHistoryCadence.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryCadence.Size = new System.Drawing.Size(990, 324);
 			this.zedHistoryCadence.TabIndex = 1;
 			// 
 			// tabPage11
@@ -1592,7 +1677,7 @@ namespace TCX_Parser
 			this.tabPage11.Location = new System.Drawing.Point(4, 22);
 			this.tabPage11.Name = "tabPage11";
 			this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage11.Size = new System.Drawing.Size(627, 326);
+			this.tabPage11.Size = new System.Drawing.Size(996, 330);
 			this.tabPage11.TabIndex = 3;
 			this.tabPage11.Text = "Heart Rate";
 			this.tabPage11.UseVisualStyleBackColor = true;
@@ -1611,74 +1696,8 @@ namespace TCX_Parser
 			this.zedHistoryHeart.ScrollMinX = 0D;
 			this.zedHistoryHeart.ScrollMinY = 0D;
 			this.zedHistoryHeart.ScrollMinY2 = 0D;
-			this.zedHistoryHeart.Size = new System.Drawing.Size(621, 320);
+			this.zedHistoryHeart.Size = new System.Drawing.Size(990, 324);
 			this.zedHistoryHeart.TabIndex = 1;
-			// 
-			// lstFileHistory
-			// 
-			this.lstFileHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left)));
-			this.lstFileHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.columnHeader11,
-									this.columnHeader13,
-									this.columnHeader12,
-									this.columnHeader14,
-									this.columnHeader15,
-									this.columnHeader16,
-									this.columnHeader17,
-									this.columnHeader18});
-			this.lstFileHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lstFileHistory.FullRowSelect = true;
-			this.lstFileHistory.HideSelection = false;
-			this.lstFileHistory.Location = new System.Drawing.Point(3, 3);
-			this.lstFileHistory.MultiSelect = false;
-			this.lstFileHistory.Name = "lstFileHistory";
-			this.lstFileHistory.Size = new System.Drawing.Size(366, 354);
-			this.lstFileHistory.TabIndex = 0;
-			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
-			this.lstFileHistory.View = System.Windows.Forms.View.Details;
-			this.lstFileHistory.DoubleClick += new System.EventHandler(this.LstFileHistoryDoubleClick);
-			this.lstFileHistory.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LstFileHistoryMouseClick);
-			// 
-			// columnHeader11
-			// 
-			this.columnHeader11.Text = "File ID";
-			this.columnHeader11.Width = 45;
-			// 
-			// columnHeader13
-			// 
-			this.columnHeader13.Text = "Date/Time (Opened)";
-			this.columnHeader13.Width = 113;
-			// 
-			// columnHeader12
-			// 
-			this.columnHeader12.Text = "Activity / FileName";
-			this.columnHeader12.Width = 127;
-			// 
-			// columnHeader14
-			// 
-			this.columnHeader14.Text = "Notes";
-			this.columnHeader14.Width = 500;
-			// 
-			// columnHeader15
-			// 
-			this.columnHeader15.Text = "Runkeeper";
-			this.columnHeader15.Width = 0;
-			// 
-			// columnHeader16
-			// 
-			this.columnHeader16.Text = "Strava";
-			this.columnHeader16.Width = 0;
-			// 
-			// columnHeader17
-			// 
-			this.columnHeader17.Text = "Garmin";
-			this.columnHeader17.Width = 0;
-			// 
-			// columnHeader18
-			// 
-			this.columnHeader18.Text = "RideWithGPS";
-			this.columnHeader18.Width = 0;
 			// 
 			// tabMap
 			// 
@@ -1687,7 +1706,7 @@ namespace TCX_Parser
 			this.tabMap.Location = new System.Drawing.Point(4, 22);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(1016, 364);
+			this.tabMap.Size = new System.Drawing.Size(1016, 389);
 			this.tabMap.TabIndex = 5;
 			this.tabMap.Text = "Map";
 			this.tabMap.UseVisualStyleBackColor = true;
@@ -1711,7 +1730,7 @@ namespace TCX_Parser
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage3.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Altitude";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1722,7 +1741,7 @@ namespace TCX_Parser
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage4.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Speed";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1732,7 +1751,7 @@ namespace TCX_Parser
 			this.tabPage5.Controls.Add(this.zedCadence);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage5.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage5.TabIndex = 2;
 			this.tabPage5.Text = "Cadence";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1742,7 +1761,7 @@ namespace TCX_Parser
 			this.tabPage6.Controls.Add(this.zedHeart);
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage6.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage6.TabIndex = 3;
 			this.tabPage6.Text = "Heart Rate";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -1753,7 +1772,7 @@ namespace TCX_Parser
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage2.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage2.TabIndex = 7;
 			this.tabPage2.Text = "Temperature";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1774,7 +1793,7 @@ namespace TCX_Parser
 			this.zedTemperature.ScrollMinX = 0D;
 			this.zedTemperature.ScrollMinY = 0D;
 			this.zedTemperature.ScrollMinY2 = 0D;
-			this.zedTemperature.Size = new System.Drawing.Size(1010, 358);
+			this.zedTemperature.Size = new System.Drawing.Size(1010, 383);
 			this.zedTemperature.TabIndex = 20;
 			// 
 			// tabPage7
@@ -1783,7 +1802,7 @@ namespace TCX_Parser
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage7.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage7.TabIndex = 4;
 			this.tabPage7.Text = "Track Points";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -1798,7 +1817,7 @@ namespace TCX_Parser
 			this.tabUploadStatus.Location = new System.Drawing.Point(4, 22);
 			this.tabUploadStatus.Name = "tabUploadStatus";
 			this.tabUploadStatus.Padding = new System.Windows.Forms.Padding(3);
-			this.tabUploadStatus.Size = new System.Drawing.Size(1016, 364);
+			this.tabUploadStatus.Size = new System.Drawing.Size(1016, 389);
 			this.tabUploadStatus.TabIndex = 8;
 			this.tabUploadStatus.Text = "Upload Status";
 			// 
@@ -1864,7 +1883,7 @@ namespace TCX_Parser
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(145, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
@@ -1931,7 +1950,7 @@ namespace TCX_Parser
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
@@ -1998,7 +2017,7 @@ namespace TCX_Parser
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
@@ -2065,7 +2084,7 @@ namespace TCX_Parser
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
@@ -2076,7 +2095,7 @@ namespace TCX_Parser
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(1016, 364);
+			this.tabPage1.Size = new System.Drawing.Size(1016, 389);
 			this.tabPage1.TabIndex = 6;
 			this.tabPage1.Text = "Debug";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -2344,7 +2363,7 @@ namespace TCX_Parser
 									this.statusBarProgress,
 									this.statusbarStatus,
 									this.statusBarVersion});
-			this.statusBar.Location = new System.Drawing.Point(0, 655);
+			this.statusBar.Location = new System.Drawing.Point(0, 680);
 			this.statusBar.Name = "statusBar";
 			this.statusBar.Size = new System.Drawing.Size(1041, 22);
 			this.statusBar.TabIndex = 26;
@@ -2518,7 +2537,7 @@ namespace TCX_Parser
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1041, 677);
+			this.ClientSize = new System.Drawing.Size(1041, 702);
 			this.Controls.Add(this.grpProviders);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.tabControlOverview);
@@ -2526,7 +2545,7 @@ namespace TCX_Parser
 			this.Controls.Add(this.menubar);
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(1057, 715);
+			this.MinimumSize = new System.Drawing.Size(1057, 740);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Cycling Activity File Uploader";
@@ -2539,6 +2558,7 @@ namespace TCX_Parser
 			this.tabControlOverview.ResumeLayout(false);
 			this.tabFileHistory.ResumeLayout(false);
 			this.tabControlHistory.ResumeLayout(false);
+			this.tabFiles.ResumeLayout(false);
 			this.tabHistorySummary.ResumeLayout(false);
 			this.tabHistorySummary.PerformLayout();
 			this.pnlHistoryUploadRideWithGPS.ResumeLayout(false);
@@ -2601,6 +2621,9 @@ namespace TCX_Parser
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private ListViewExtended.ListViewExtended listViewExtended1;
+		private System.Windows.Forms.TabPage tabFiles;
+		private System.Windows.Forms.ColumnHeader columnHeader19;
 		private System.Windows.Forms.Button btnOpenFile;
 		private System.Windows.Forms.Panel panel5;
 		private System.Windows.Forms.Label label26;
@@ -2667,7 +2690,7 @@ namespace TCX_Parser
 		private System.Windows.Forms.TabPage tabPage10;
 		private ZedGraph.ZedGraphControl zedHistorySpeed;
 		private ZedGraph.ZedGraphControl zedHistoryAltitude;
-		private System.Windows.Forms.ListView lstFileHistory;
+		private ListViewExtended.ListViewExtended lstFileHistory;
 		private System.Windows.Forms.TabPage tabPage9;
 		private System.Windows.Forms.TabPage tabPage8;
 		private System.Windows.Forms.TabControl tabControlHistory;

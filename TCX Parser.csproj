@@ -60,6 +60,9 @@
     <Reference Include="HealthGraphNet">
       <HintPath>dll\HealthGraphNet.dll</HintPath>
     </Reference>
+    <Reference Include="ListViewExtended">
+      <HintPath>dll\ListViewExtended.dll</HintPath>
+    </Reference>
     <Reference Include="ListViewNF">
       <HintPath>dll\ListViewNF.dll</HintPath>
     </Reference>
@@ -149,7 +152,9 @@
       <DependentUpon>GarminConnect.cs</DependentUpon>
     </Compile>
     <Compile Include="GarminConnectAPI.cs" />
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
@@ -239,7 +244,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="cycleuploader.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
