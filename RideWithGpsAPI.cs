@@ -24,7 +24,7 @@ using Microsoft.CSharp;
 using ZedGraph;
 using System.Data.SQLite;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	
 	// APIKEY : jnas82ns 
@@ -193,7 +193,7 @@ namespace TCX_Parser
 			return this._isLoggedIn;
 		}	
 				
-		public void upload_activity_json(ref StringBuilder jsonData, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes)
+		public void upload_activity_json(ref StringBuilder jsonData, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes, Batch activityBatch)
 		{
 			System.Text.ASCIIEncoding aSCIIEncoding = new System.Text.ASCIIEncoding();
 			
@@ -224,6 +224,11 @@ namespace TCX_Parser
 						((MainForm)Application.OpenForms[0]).setNewActivityLink("ridewithgps",KeywordMatch.Groups[1].Value,string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value));
 						((MainForm)Application.OpenForms[0]).setUpdateRideImg("ridewithgps",Image.FromFile("success-icon.png"));
 						
+						if(activityBatch != null){
+							activityBatch.setUploadStatus("rwgps","success",string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value));
+							activityBatch.setUploadProgressStatus("RideWithGps: Uploaded Succesfully");
+						}
+				
 						SQLiteCommand cmd = new SQLiteCommand(dbConnection);
 						string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRWGPS = \"{0}\" where idFile = {1}", 
 					                           string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value), 
@@ -237,12 +242,20 @@ namespace TCX_Parser
 					else{
 						((MainForm)Application.OpenForms[0]).setUpdateRideMsg("ridewithgps","Ride ID not found, activity may not have been accepted.");
 						((MainForm)Application.OpenForms[0]).setUpdateRideImg("ridewithgps",Image.FromFile("failure-icon.png"));
+						if(activityBatch != null){
+							activityBatch.setUploadStatus("rwgps","error");
+							activityBatch.setUploadProgressStatus("RideWithGps: Error uploading ride");
+						}
 					}
 				}
 			}
 			catch(Exception ex){
 				((MainForm)Application.OpenForms[0]).setUpdateRideMsg("ridewithgps","Exception raised while processing upload request. " + ex.ToString());
 				((MainForm)Application.OpenForms[0]).setUpdateRideImg("ridewithgps",Image.FromFile("failure-icon.png"));
+				if(activityBatch != null){
+					activityBatch.setUploadStatus("rwgps","exception");
+					activityBatch.setUploadProgressStatus("RideWithGps: Exception" + ex.Message);
+				}
 			}
 		}
 		
@@ -295,8 +308,12 @@ namespace TCX_Parser
 							rwli.id = (int)jsonResult.records[a].id;
 							rwli.name = (string)jsonResult.records[a].name;
 							rwli.location_string = (string)jsonResult.records[a].location_string;
-							rwli.avg_power = (double)jsonResult.records[a].avg_power;
-							rwli.avg_speed = (double)jsonResult.records[a].avg_speed;
+							//if(jsonResult.records[a].ContainsKey("avg_power")){
+							//rwli.avg_power = (double)jsonResult.records[a].avg_power;
+							//}
+							try{
+								rwli.avg_speed = (double)jsonResult.records[a].avg_speed;
+							}catch{ rwli.avg_speed = 0;}
 							rwli.created_at = (string)jsonResult.records[a].created_at;
 							rwli.departed_at = (string)jsonResult.records[a].departed_at;
 							rwli.distance = (double)jsonResult.records[a].distance;

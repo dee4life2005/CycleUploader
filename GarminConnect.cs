@@ -19,7 +19,7 @@ using System.IO;
 using System.Text;
 
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of GarminConnect.

@@ -16,7 +16,7 @@ using Stravan.Json;
 
 using Microsoft.Win32;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of StravaConnect.

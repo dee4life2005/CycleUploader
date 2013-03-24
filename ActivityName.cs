@@ -10,7 +10,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of ActivityName.
@@ -19,8 +19,10 @@ namespace TCX_Parser
 	{
 		public string _activityName;
 		public string _activityNotes;
+		public bool _activityIsCommute;
+		public bool _activityIsStationaryTrainer;
 		
-		public ActivityName(string activityName, string activityNotes)
+		public ActivityName(string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -30,10 +32,15 @@ namespace TCX_Parser
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-			_activityName = "";
-			_activityNotes = "";
+			_activityName = activityName;
+			_activityNotes = activityNotes;
+			_activityIsCommute = isCommute;
+			_activityIsStationaryTrainer = isStationaryTrainer;
 			txtActivityName.Text = activityName;
 			txtActivityNotes.Text = activityNotes;
+			cbkIsCommute.Checked = isCommute;
+			cbkIsStationaryTrainer.Checked = isStationaryTrainer;
+			
 		}
 		
 		void BtnCancelClick(object sender, EventArgs e)
@@ -45,6 +52,8 @@ namespace TCX_Parser
 		{
 			_activityName = txtActivityName.Text;
 			_activityNotes = txtActivityNotes.Text;
+			_activityIsCommute = cbkIsCommute.Checked;
+			_activityIsStationaryTrainer = cbkIsStationaryTrainer.Checked;
 			this.DialogResult = DialogResult.OK;	
 		}
 		

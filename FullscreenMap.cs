@@ -11,7 +11,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of FullscreenMap.

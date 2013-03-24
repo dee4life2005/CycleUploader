@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace TCX_Parser
+namespace CycleUploader
 {
 	partial class About
 	{
@@ -84,6 +84,19 @@ namespace TCX_Parser
 			System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Bryton", new System.Windows.Forms.TreeNode[] {
 									treeNode19,
 									treeNode24});
+			System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode(".TCX");
+			System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode26});
+			System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("GarminConnect");
+			System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode28,
+									treeNode29,
+									treeNode30});
+			System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("TrainerRoad", new System.Windows.Forms.TreeNode[] {
+									treeNode27,
+									treeNode31});
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -204,10 +217,25 @@ namespace TCX_Parser
 			treeNode24.Text = "Provider Support";
 			treeNode25.Name = "nodeBryton";
 			treeNode25.Text = "Bryton";
+			treeNode26.Name = "Node3";
+			treeNode26.Text = ".TCX";
+			treeNode27.Name = "Node1";
+			treeNode27.Text = "File Support";
+			treeNode28.Name = "Node4";
+			treeNode28.Text = "RunKeeper";
+			treeNode29.Name = "Node5";
+			treeNode29.Text = "Strava";
+			treeNode30.Name = "Node6";
+			treeNode30.Text = "GarminConnect";
+			treeNode31.Name = "Node2";
+			treeNode31.Text = "Provider Support";
+			treeNode32.Name = "Node0";
+			treeNode32.Text = "TrainerRoad";
 			this.tvSupportedDevices.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
 									treeNode10,
 									treeNode17,
-									treeNode25});
+									treeNode25,
+									treeNode32});
 			this.tvSupportedDevices.Size = new System.Drawing.Size(419, 162);
 			this.tvSupportedDevices.TabIndex = 5;
 			// 

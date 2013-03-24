@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 # SharpDevelop 4.3
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCX Parser", "TCX Parser.csproj", "{C43BB53D-B6D1-49C8-A481-584600A8DD2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleUploader", "CycleUploader.csproj", "{C43BB53D-B6D1-49C8-A481-584600A8DD2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthGraphNet", "..\HealthGraphNet\HealthGraphNet.csproj", "{95267C4F-E409-4D06-9988-1C8C3CA5C0B5}"
 EndProject
@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravan", "..\Stravan-maste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewNF", "..\ListViewNF\ListViewNF.csproj", "{8A45ED96-8A57-433C-A8E5-BAC12CB9FE90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewExtended", "..\ListViewExtended\ListViewExtended.csproj", "{80514EA5-F6B0-4821-A4C8-75F5B1786E4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewExtended", "..\ListViewExtended\ListViewExtended.csproj", "{BD7744E6-24CC-40A6-95A0-7AEE756AE0B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,9 +34,9 @@ Global
 		{8A45ED96-8A57-433C-A8E5-BAC12CB9FE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A45ED96-8A57-433C-A8E5-BAC12CB9FE90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A45ED96-8A57-433C-A8E5-BAC12CB9FE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80514EA5-F6B0-4821-A4C8-75F5B1786E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80514EA5-F6B0-4821-A4C8-75F5B1786E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80514EA5-F6B0-4821-A4C8-75F5B1786E4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80514EA5-F6B0-4821-A4C8-75F5B1786E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7744E6-24CC-40A6-95A0-7AEE756AE0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7744E6-24CC-40A6-95A0-7AEE756AE0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7744E6-24CC-40A6-95A0-7AEE756AE0B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7744E6-24CC-40A6-95A0-7AEE756AE0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -19,7 +19,7 @@ using System.Configuration;
 using System.Collections;
 using System.Collections.Specialized;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of RunkeeperConnect.

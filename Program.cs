@@ -10,15 +10,15 @@
 using System;
 using System.Windows.Forms;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Class with program entry point.
 	/// </summary>
 	internal sealed class Program
 	{
-		private static string versionStr = "1.0.6.0";
-		private static string versionDate = "20/03/2013";
+		private static string versionStr = "1.0.12.0";
+		private static string versionDate = "24/03/2013";
 		private static string versionAuthor = "Steven Saunders";
 		
 		public static MainForm mf = null;

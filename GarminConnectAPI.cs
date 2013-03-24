@@ -25,7 +25,7 @@ using System.Json;
 using Microsoft.CSharp;
 using System.Data.SQLite;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	public class garminImportResult
 	{
@@ -144,6 +144,7 @@ namespace TCX_Parser
 			httpWebRequest.ContentType = "application/x-www-form-urlencoded";
 			httpWebRequest.ContentLength = (long)bytes.Length;
 			httpWebRequest.CookieContainer = this.GetCookieContainer();
+			httpWebRequest.Timeout = 5000;
 			System.IO.Stream requestStream = httpWebRequest.GetRequestStream();
 			requestStream.Write(bytes, 0, bytes.Length);
 			requestStream.Close();
@@ -192,7 +193,7 @@ namespace TCX_Parser
 		
 		
 		
-		public void UploadFile(string file, string activity_name, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes)
+		public void UploadFile(string file, string activity_name, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes, Batch activityBatch)
 		{
 			
 			int wId = 0;
@@ -248,6 +249,10 @@ namespace TCX_Parser
 	        fileStream.Close();
 	        
 	        ((MainForm)Application.OpenForms[0]).setUpdateRideMsg("garmin","Uploading, waiting for response");
+	        
+	        if(activityBatch != null){
+	        	activityBatch.setUploadProgressStatus("Garmin: Uploading activity, waiting for response");
+	        }
 	        	
 	        byte[] trailer = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
 	        rs.Write(trailer, 0, trailer.Length);
@@ -259,7 +264,7 @@ namespace TCX_Parser
 	            Stream stream2 = wresp.GetResponseStream();
 	            StreamReader reader2 = new StreamReader(stream2);
 	            string json = reader2.ReadToEnd();
-	            Debug.Write(string.Format("File uploaded, server response is: {0}", json));
+	            //Debug.Write(string.Format("File uploaded, server response is: {0}", json));
 	            
 	            garminImportResult gOut = new JavaScriptSerializer().Deserialize<garminImportResult>(json);
 	            
@@ -269,6 +274,9 @@ namespace TCX_Parser
 	            	((MainForm)Application.OpenForms[0]).setUpdateRideId("garmin",sRec.internalId);
 	            	((MainForm)Application.OpenForms[0]).setNewActivityLink("garmin",sRec.internalId, string.Format("http://connect.garmin.com/activity/{0}",sRec.internalId));
 	            	((MainForm)Application.OpenForms[0]).setUpdateRideImg("garmin",Image.FromFile("success-icon.png"));
+	            	if(activityBatch != null){
+	            		activityBatch.setUploadProgressStatus("Garmin: Uploaded Successfully");
+	            	}
 	            	
 	            	wId = Convert.ToInt32(sRec.internalId);
 	            	
@@ -283,19 +291,27 @@ namespace TCX_Parser
 					cmd.ExecuteNonQuery();
 	            	
 	            	bSetName = true;
+	            	
+	            	if(activityBatch != null){
+	            		activityBatch.setUploadStatus("garmin","success",string.Format("http://connect.garmin.com/activity/{0}",sRec.internalId));
+	            	}
 	            }
 	            else if(gOut.detailedImportResult.failures.Length > 0){
 	            	garminImportResultRecord fRec = gOut.detailedImportResult.failures[0];
 	            	
 	            	((MainForm)Application.OpenForms[0]).setUpdateRideMsg("garmin","Activity data wasn`t accepted. Code="+fRec.messages[0].code+", Msg=" + fRec.messages[0].content);
 	            	((MainForm)Application.OpenForms[0]).setUpdateRideImg("garmin",Image.FromFile("failure-icon.png"));
+	            	if(activityBatch != null){
+	            		activityBatch.setUploadStatus("garmin","not accepted", "Garmin: Activity data wasn`t accepted. Code="+fRec.messages[0].code+", Msg=" + fRec.messages[0].content);
+	            	}
 	            }
-	            
-	            
 	        } catch(Exception ex) {
 	        	Debug.Write("Error uploading file", ex.ToString());
 	        	((MainForm)Application.OpenForms[0]).setUpdateRideMsg("garmin","Exception raised while processing upload request. " + ex.ToString());
 	        	((MainForm)Application.OpenForms[0]).setUpdateRideImg("garmin",Image.FromFile("failure-icon.png"));
+	        	if(activityBatch != null){
+	        		activityBatch.setUploadStatus("garmin","exception", "Garmin: Exception raised while processing upload request. " + ex.ToString());
+	        	}
 	            if(wresp != null) {
 	                wresp.Close();
 	                wresp = null;

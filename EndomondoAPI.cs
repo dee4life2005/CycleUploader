@@ -13,7 +13,7 @@ using System.Collections.Specialized;
 using System.Text;
 using Microsoft.Win32;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	public class endomondoActivityItems
 	{

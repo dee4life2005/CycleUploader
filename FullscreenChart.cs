@@ -12,7 +12,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ZedGraph;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of FullscreenChart.

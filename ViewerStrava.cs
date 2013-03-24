@@ -13,7 +13,7 @@ using Stravan;
 using Stravan.Json;
 using System.Collections.Generic;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of ViewerStrava.

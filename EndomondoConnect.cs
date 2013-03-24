@@ -18,7 +18,7 @@ using System.Diagnostics;
 using Microsoft.Win32;
 
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of EndomondoConnect.

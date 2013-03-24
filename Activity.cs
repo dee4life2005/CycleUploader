@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of Activity.

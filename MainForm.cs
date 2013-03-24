@@ -45,7 +45,7 @@ using ListViewNF;
 using System.Data.SQLite;
 using ListViewExtended;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 
 	/// <summary>
@@ -84,9 +84,11 @@ namespace TCX_Parser
 		string _activity_file_name = "";
 		//string _activity_file_type;
 		
+		int _autopause;
+		
 		string _previous_file_path = "";
 		
-		TCX_Parser.Activity activity;
+		CycleUploader.Activity activity;
 		
 		RideWithGpsAPI _rwgps;
 		GarminConnectAPI _gc;
@@ -100,8 +102,15 @@ namespace TCX_Parser
 		private string _versionAuthor;
 		private string _opened_file;
 		
+		// indicates whether it's a batch being processed, as we will perform some callbacks to 
+		// the batch processing form to indicate status
+		private bool _bIsBatchProcessing = false; 
+		
+		private Batch _activityBatch;
+		private int _activityBatchRowIdx; // idx of the row being processed in the _activityBatch form
+		
 		// SQLite Database Connection
-		private SQLiteConnection _m_dbConnection;
+		private SQLiteConnection _m_dbConnection = null;
 		// SQLite last `file` record id - audits history of files opened
 		// All trackpoints are saved against each file record. This allows us to easily reload the data from our archive without the need 
 		// to have access to the original file (TODO: Check data usage for this feature).
@@ -112,6 +121,29 @@ namespace TCX_Parser
 			public string id;
 			public string upload_id;
 		}
+		
+		public class FileSummary
+		{
+			public int dbId;
+			public string fileName;
+			public string filePath;
+			// stats
+			public int durationSeconds;
+			public double distanceMiles;
+			public int calories;
+			public double avgHeartRate;
+			public double avgCadence;
+			public double avgSpeedMph;
+			public int movingTimeSeconds;
+			public double totalAscentFeet;
+			public double totalDescentFeet;
+			public int maxHeartRate;
+			public int maxCadence;
+			public double maxSpeedMph;
+			public System.DateTime startTime;
+		}
+		
+		private FileSummary _fileSummary;
 		
 		private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
 		public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
@@ -348,6 +380,26 @@ namespace TCX_Parser
 			}
 		}
 		
+		private delegate void SetListViewGroupHeaderDelegate(ListView ctrl, int gidx, string header);
+		private static void SetListViewGroupHeader(ListView ctrl, int gidx, string header)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new SetListViewGroupHeaderDelegate(SetListViewGroupHeader), new object[] { ctrl, gidx, header });
+			}else{
+				ctrl.Groups[gidx].Header = header;
+			}
+		}
+		
+		private delegate string GetListViewGroupHeaderDelegate(ListView ctrl, int gidx);
+		private static string GetListViewGroupHeader(ListView ctrl, int gidx)
+		{
+			if(ctrl.InvokeRequired){
+				return (string)ctrl.Invoke(new GetListViewGroupHeaderDelegate(GetListViewGroupHeader), new object[] { ctrl, gidx });
+			}else{
+				return ctrl.Groups[gidx].Header;
+			}
+		}
+		
 		private delegate void AddListViewGroupDelegate(ListView ctrl, ListViewGroup grp);
 		private static void AddListViewGroup(ListView ctrl, ListViewGroup grp)
 		{
@@ -445,14 +497,34 @@ namespace TCX_Parser
 			if(_previous_file_path == ""){
 				_previous_file_path = Environment.SpecialFolder.Personal.ToString();
 			}
-			openFile.Filter = "FIT File (*.fit)|*.fit|Garmin Training Center Database Files (*.tcx)|*.tcx|GPX Files (*.gpx)|*.gpx";
+			openFile.Filter = "All Files (*.fit,*.tcx,*.gpx)|*.fit;*.tcx;*.gpx|FIT File (*.fit)|*.fit|Garmin Training Center Database Files (*.tcx)|*.tcx|GPX Files (*.gpx)|*.gpx";
 			openFile.Title = "Please select activity data file to view.";
 			openFile.InitialDirectory = _previous_file_path;
+			
+			lstTrackpoints.Items.Clear();
+			
 			if(openFile.ShowDialog() == DialogResult.OK)
 			{
-				_opened_file = openFile.FileName;
-				_threadProcessFile = new Thread(new ThreadStart(this.processSelectedFile));
-				_threadProcessFile.Start();
+				
+				// run a check against the database to determine if we've already opened this file
+				using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
+				{
+					conn.Open();
+					using(var command = new SQLiteCommand(conn)){
+						string sql = string.Format("select * from File where fileName = \"{0}\"", Path.GetFileName(openFile.FileName));
+						command.CommandText = sql;
+						SQLiteDataReader rdr = command.ExecuteReader();
+						if(rdr.HasRows){
+							MessageBox.Show("Error: this file has already been processed by this application.\r\n\r\nAdditional processing is not supported, please perform this manually on the provider websites", "Error: File Already Processed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+						else{
+							_opened_file = openFile.FileName;
+							_fileSummary = new FileSummary();
+							_threadProcessFile = new Thread(new ThreadStart(this.processSelectedFile));
+							_threadProcessFile.Start();			
+						}
+					}
+				}
 			}
 		}
 		
@@ -464,12 +536,17 @@ namespace TCX_Parser
 			SetMenuStatusThreadSafe(menubar, "Enabled", false);
 			
 			// add the file record to our File log in cycleuploader sqllite database
-			string sql = string.Format("insert into File(fileType, fileName, filePath, fileOpenDateTime) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\")",
+			string sql = string.Format("insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\",{6},{7})",
 			                           Path.GetExtension(filename).ToLower(),
 			                           Path.GetFileName(filename),
 			                           Path.GetDirectoryName(filename),
-			                           System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+			                           System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+			                           txtActivityName.Text, 
+			                           txtActivityNotes.Text, 
+			                           cbkIsCommute.Checked ? 1 :0,
+			                           cbkIsStationaryTrainer.Checked ? 1 : 0
 			                          );
+			
 			SQLiteCommand command = new SQLiteCommand(sql, _m_dbConnection);
 			command.ExecuteNonQuery();				                           
 			
@@ -478,6 +555,9 @@ namespace TCX_Parser
 			sql = @"select last_insert_rowid()";
 			command.CommandText = sql;
 			_dbFileId = Convert.ToInt32(command.ExecuteScalar());
+			_fileSummary.dbId = _dbFileId;
+			_fileSummary.fileName = Path.GetFileName(filename);
+			_fileSummary.filePath = Path.GetDirectoryName(filename);
 			
 			_previous_file_path = Path.GetDirectoryName(filename);
 			
@@ -517,31 +597,40 @@ namespace TCX_Parser
 			dbSaveSummary(_dbFileId);
 			
 			// refresh the FileHistory list
-			loadFileHistory();
+			if(!_bIsBatchProcessing){
+				loadFileHistory();
+			}
 			
 			SetMenuStatusThreadSafe(menubar, "Enabled", true);
+			
+			if(_bIsBatchProcessing){
+				_activityBatch.responseFileOpened();
+			}
 		}
 		
 		void dbSaveSummary(int fileId)
 		{
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("Archiving File information");
+			}
 			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
 			string sql = string.Format("insert into FileSummary(idFile, fsDuration, fsDistance, fsCalories, fsAvgHeart, fsAvgCadence, fsAvgSpeed, fsMovingTime, fsTotalAscent, fsTotalDescent, fsMaxHeartRate, fsMaxCadence, fsMaxSpeed) "+
 			                           "VALUES ("+
 			                           "  {0}, \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", \"{6}\", \"{7}\", \"{8}\", \"{9}\", \"{10}\", \"{11}\", \"{12}\" "+
 			                           ")",
-			                           fileId,
-			                           lblDuration.Text,
-			                           lblDistance.Text, 
-			                           lblCalories.Text,
-			                           lblAvgHeartRate.Text, 
-			                           lblCadence.Text,
-			                           lblAvgSpeed.Text,
-			                           lblMovingTime.Text,
-			                           lblTotalAscent.Text,
-			                           lblTotalDescent.Text,
-			                           lblMaxHeartRate.Text,
-			                           lblMaxCadence.Text,
-			                           lblMaxSpeed.Text
+			                           _fileSummary.dbId,
+			                           _fileSummary.durationSeconds, 
+			                           _fileSummary.distanceMiles,
+			                           _fileSummary.calories,
+			                           _fileSummary.avgHeartRate,
+			                           _fileSummary.avgCadence,
+			                           _fileSummary.avgSpeedMph,
+			                           _fileSummary.movingTimeSeconds,
+			                           _fileSummary.totalAscentFeet,
+			                           _fileSummary.totalDescentFeet,
+			                           _fileSummary.maxHeartRate,
+			                           _fileSummary.maxCadence,
+			                           _fileSummary.maxSpeedMph
 			                          );
 			command.CommandText = sql;
 			command.ExecuteNonQuery();
@@ -553,40 +642,53 @@ namespace TCX_Parser
 			SetStatusProgressThreadSafe(statusBar, "Maximum", lstTrackpoints.Items.Count-1);
 			SetStatusProgressThreadSafe(statusBar, "Value", 0);
 			SetStatusTextThreadSafe(statusBar, "Archiving file information ... ");
-			SQLiteCommand command = new SQLiteCommand("begin", _m_dbConnection);
-			command.ExecuteNonQuery();
-			for(int tp = 0; tp < lstTrackpoints.Items.Count; tp++){
-				string sql = string.Format("insert into FileTrackpoints (idFile, tpTime, tpDuration, tpAltitude, tpDistance, tpHeart, tpCadence, tpSpeed, tpLongitude, tpLatitude, tpTemperature, tpIsAutoPaused) " +
-				                           "values(" +
-				                           "	{0},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\""+
-				                           ")",
-				                           _dbFileId, 
-				                           GetListViewItemValue(lstTrackpoints,tp,0),
-				                           GetListViewItemValue(lstTrackpoints,tp,1),
-				                           GetListViewItemValue(lstTrackpoints,tp,2),
-				                           GetListViewItemValue(lstTrackpoints,tp,3),
-				                           GetListViewItemValue(lstTrackpoints,tp,4),
-				                           GetListViewItemValue(lstTrackpoints,tp,5),
-				                           GetListViewItemValue(lstTrackpoints,tp,6),
-				                           GetListViewItemValue(lstTrackpoints,tp,7),
-				                           GetListViewItemValue(lstTrackpoints,tp,8),
-				                           GetListViewItemValue(lstTrackpoints,tp,9),
-				                           GetListViewItemValue(lstTrackpoints,tp,10)
-				                          );
-				command.CommandText = sql;
-				command.ExecuteNonQuery();
-				SetStatusProgressThreadSafe(statusBar, "Value", tp);
-				SetStatusTextThreadSafe(statusBar, string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
-			}
-			command.CommandText = "end";
-			command.ExecuteNonQuery();
-			SetStatusProgressThreadSafe(statusBar, "Visible", 0);
-			SetStatusTextThreadSafe(statusBar, "Done.");
 			
+			using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
+			{
+				conn.Open();
+				using( var trans = conn.BeginTransaction())
+				{
+					using(var command = new SQLiteCommand(conn)){
+						
+						for(int tp = 0; tp < lstTrackpoints.Items.Count; tp++){
+							string sql = string.Format("insert into FileTrackpoints (idFile, tpTime, tpDuration, tpAltitude, tpDistance, tpHeart, tpCadence, tpSpeed, tpLongitude, tpLatitude, tpTemperature, tpIsAutoPaused) " +
+							                           "values(" +
+							                           "	{0},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\""+
+							                           ")",
+							                           _dbFileId, 
+							                           GetListViewItemValue(lstTrackpoints,tp,0),
+							                           GetListViewItemValue(lstTrackpoints,tp,1),
+							                           GetListViewItemValue(lstTrackpoints,tp,2),
+							                           GetListViewItemValue(lstTrackpoints,tp,3),
+							                           GetListViewItemValue(lstTrackpoints,tp,4),
+							                           GetListViewItemValue(lstTrackpoints,tp,5),
+							                           GetListViewItemValue(lstTrackpoints,tp,6),
+							                           GetListViewItemValue(lstTrackpoints,tp,7),
+							                           GetListViewItemValue(lstTrackpoints,tp,8),
+							                           GetListViewItemValue(lstTrackpoints,tp,9),
+							                           GetListViewItemValue(lstTrackpoints,tp,10)
+							                          );
+							command.CommandText = sql;
+							command.ExecuteNonQuery();
+							SetStatusProgressThreadSafe(statusBar, "Value", tp);
+							SetStatusTextThreadSafe(statusBar, string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
+							if(_bIsBatchProcessing){
+								_activityBatch.setUploadProgressStatus(string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
+							}
+						}
+					}
+					trans.Commit();
+				}
+				SetStatusProgressThreadSafe(statusBar, "Visible", 0);
+			}
+			SetStatusTextThreadSafe(statusBar, "");
 		}
 		
 		void processFile_FIT(string filename)
 		{
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("FIT: Opening Activity Fit File (" + filename + ")");
+			}
 			activity = new Activity();
 			clear_summary();
 			FileStream fitSource = new FileStream(filename, FileMode.Open);
@@ -618,6 +720,9 @@ namespace TCX_Parser
 				fitSourceDec.Read(fitSource);
 			}
 			fitSource.Close();	
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("FIT: Processing activity trackpoints");
+			}
 			Process_TrackPoints();
 			
 		}
@@ -627,12 +732,20 @@ namespace TCX_Parser
 			setUpdateRideMsg("strava","");
 			setUpdateRideId("strava","-");
 			setUpdateRideImg("ridewithgps",null);
-			setActiveTabPage("tabUploadStatus");
+			if(!_bIsBatchProcessing){
+				setActiveTabPage("tabUploadStatus");
+			}
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadStatus("strava","inprogress");
+			}
 			
 			StravaWebClient swc = new StravaWebClient();
 			AuthenticationService auth = new AuthenticationService(swc);
 
 			setUpdateRideMsg("strava", "Authenticating User Credentials");
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("Strava: Authenticating user credentials");
+			}
 			AuthenticationV2 authV2 = auth.LoginV2(_strava_username, _strava_password);
 			
 			NameValueCollection nameValuePairs = new NameValueCollection();
@@ -643,12 +756,18 @@ namespace TCX_Parser
 			nameValuePairs.Add(System.Web.HttpUtility.UrlEncode("activity_name"), System.Web.HttpUtility.UrlEncode(txtActivityName.Text));
 			
 			setUpdateRideMsg("strava", "Preparing Activity Information For Upload");
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("Strava: Preparing activity for upload");
+			}
 			
 			string tcx = TrackPointsToTcx();
 			
 			nameValuePairs.Add("data", tcx);
 			
 			setUpdateRideMsg("strava", "Uploading, waiting for a response");
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("Strava: Uploading activity, waiting for a response");
+			}
 			var request = WebRequest.Create("http://www.strava.com/api/v2/upload");
 			request.Method = "POST";
 			var boundary = "---------------------------" + System.DateTime.Now.Ticks.ToString("x", NumberFormatInfo.InvariantInfo);
@@ -691,19 +810,29 @@ namespace TCX_Parser
     			setUpdateRideId("strava", strava_id.ToString());
     			
     			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
-				string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadStrava = \"{0}\" where idFile = {1}", 
+				string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadStrava = \"{0}\", fileIsCommute = {4}, fileIsStationaryTrainer = {5} where idFile = {1}", 
 				                           string.Format("http://app.strava.com/activities/{0}",strava_id), 
 				                           _dbFileId,
 				                           txtActivityName.Text, 
-				                           txtActivityNotes.Text
+				                           txtActivityNotes.Text,
+				                           cbkIsCommute.Checked ? 1 : 0,
+				                           cbkIsStationaryTrainer.Checked ? 1 : 0
 				                          );
 				cmd.CommandText = sql;
 				cmd.ExecuteNonQuery();
     			setUpdateRideImg("strava",Image.FromFile("success-icon.png"));
+    			if(_bIsBatchProcessing){
+    				_activityBatch.setUploadStatus("strava","success", string.Format("http://app.strava.com/activities/{0}",strava_id));
+    				_activityBatch.setUploadProgressStatus("Strava: Uploaded Successfully. *note: if duplicate, it will be ignored automatically by Strava");
+    			}
     		}
     		catch(Exception ex){
     			setUpdateRideMsg("strava", "Error processing response. " + ex.ToString());
     			setUpdateRideImg("strava",Image.FromFile("failure-icon.png"));
+    			if(_bIsBatchProcessing){
+    				_activityBatch.setUploadStatus("strava","error", "Strava: Error processing response. \r\n" + ex.ToString());
+    				_activityBatch.setUploadProgressStatus("Strava: Error." + ex.Message);
+    			}
     		}
 		}
 		
@@ -741,7 +870,7 @@ namespace TCX_Parser
 				{
 					for (int j = 0; j < e.mesg.fields[i].GetNumValues(); j++)
 					{
-						//Debug.WriteLine(string.Format("\tField{0} Index{1} (\"{2}\" Field#{4}) Value: {3}", i, j, e.mesg.fields[i].GetName(), e.mesg.fields[i].GetValue(j), e.mesg.fields[i].Num));
+						Debug.WriteLine(string.Format("\tField{0} Index{1} (\"{2}\" Field#{4}) Value: {3}", i, j, e.mesg.fields[i].GetName(), e.mesg.fields[i].GetValue(j), e.mesg.fields[i].Num));
 						switch(e.mesg.fields[i].GetName()){
 							case "Timestamp":
 								epoch_seconds = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
@@ -783,7 +912,8 @@ namespace TCX_Parser
 				} 
 				//2147483647
 				// only add the point if it has coordinates.
-				if(lng != "" && lat != "" && lng != "0" && lat != "0" && lat != "2147483647" && lng != "2147483647"){
+				//if(lng != "" && lat != "" && lng != "0" && lat != "0" && lat != "2147483647" && lng != "2147483647"){
+				if(lng != "" && lat != "" && lat != "2147483647" && lng != "2147483647"){
 					string[] row = {
 						timestamp,
 						duration.ToString(),
@@ -803,13 +933,13 @@ namespace TCX_Parser
 					
 					// attempt to set the duration
 					if(lstTrackpoints.Items.Count > 1){
-						
 						System.DateTime cur = System.DateTime.ParseExact(GetListViewItemValue(lstTrackpoints, lstTrackpoints.Items.Count-1, 0),"yyyy-MM-ddTHH:mm:ssZ",System.Globalization.CultureInfo.InvariantCulture);
 						System.DateTime pre = System.DateTime.ParseExact(GetListViewItemValue(lstTrackpoints, lstTrackpoints.Items.Count-2, 0),"yyyy-MM-ddTHH:mm:ssZ",System.Globalization.CultureInfo.InvariantCulture);
-						
+					
 						TimeSpan ts = cur - pre;
-	
+
 						SetListViewItemValue(lstTrackpoints, lstTrackpoints.Items.Count-1, 1, (Convert.ToInt32(GetListViewItemValue(lstTrackpoints, lstTrackpoints.Items.Count-2, 1)) + ts.TotalSeconds).ToString());
+					
 					}
 					else{
 						SetListViewItemValue(lstTrackpoints, 0, 1, "0");
@@ -830,24 +960,29 @@ namespace TCX_Parser
 								SetControlPropertyThreadSafe(lblAvgSpeed, "Text", string.Format("{0:0.00} mph ( {1:0.00} km/h )",Convert.ToDouble(e.mesg.fields[i].GetValue(j)) * 2.23693629,Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.6));
 								avgSpeed = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
 								activity._avgSpeed = avgSpeed;
+								_fileSummary.avgSpeedMph = avgSpeed * 2.23693629;
 								break;
 							case "AvgCadence":
 								SetControlPropertyThreadSafe(lblCadence, "Text", string.Format("{0:0} rpm",Convert.ToDouble(e.mesg.fields[i].GetValue(j))));
 								avgCadence = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
 								activity._avgCadence = avgCadence;
+								_fileSummary.avgCadence = avgCadence;
 								break;
 							case "AvgHeartRate":
 								SetControlPropertyThreadSafe(lblAvgHeartRate, "Text", string.Format("{0:0} bpm",Convert.ToDouble(e.mesg.fields[i].GetValue(j))));
 								avgHeart = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
 								activity._avgHeartRate = avgHeart;
+								_fileSummary.avgHeartRate = avgHeart;
 								break;
 							case "TotalCalories":
 								SetControlPropertyThreadSafe(lblCalories, "Text", string.Format("{0:0}",Convert.ToDouble(e.mesg.fields[i].GetValue(j))));
 								activity._calories = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.calories = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
 								break;
 							case "TotalDistance":
 								SetControlPropertyThreadSafe(lblDistance, "Text", string.Format("{0:0.0}", (Convert.ToDouble(e.mesg.fields[i].GetValue(j))/1000)*0.621371192) + " miles");
 								activity._distance = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.distanceMiles = (Convert.ToDouble(e.mesg.fields[i].GetValue(j))/1000)*0.621371192;
 								break;
 							case "TotalElapsedTime":
 								TimeSpan tme = TimeSpan.FromSeconds(Convert.ToInt32(e.mesg.fields[i].GetValue(j)));
@@ -856,6 +991,7 @@ namespace TCX_Parser
 					    			tme.Minutes, 
 					    			tme.Seconds
 					    		));
+								_fileSummary.durationSeconds = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
 								break;
 							case "TotalTimerTime":
 								TimeSpan tmm = TimeSpan.FromSeconds(Convert.ToInt32(e.mesg.fields[i].GetValue(j)));
@@ -864,32 +1000,40 @@ namespace TCX_Parser
 					    			tmm.Minutes, 
 					    			tmm.Seconds
 					    		));
+								activity._duration = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
+								_fileSummary.movingTimeSeconds = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
 								break;
 							case "TotalAscent":
 								SetControlPropertyThreadSafe(lblTotalAscent, "Text", string.Format("{0:0.00} feet",Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.2808399));
 								activity._totalAscent = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.totalAscentFeet = (Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.2808399);
 								break;
 							case "TotalDescent":
 								SetControlPropertyThreadSafe(lblTotalDescent, "Text", string.Format("{0:0.00} feet",Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.2808399));
 								activity._totalDescent = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.totalDescentFeet = (Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.2808399);
 								break;
 							case "MaxSpeed":
 								SetControlPropertyThreadSafe(lblMaxSpeed, "Text", string.Format("{0:0.00} mph ( {1:0.00} km/h )",Convert.ToDouble(e.mesg.fields[i].GetValue(j)) * 2.23693629,Convert.ToDouble(e.mesg.fields[i].GetValue(j))*3.6));
 								activity._maxSpeed = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.maxSpeedMph = Convert.ToDouble(e.mesg.fields[i].GetValue(j)) * 2.23693629;
 								break;
 							case "MaxCadence":
 								SetControlPropertyThreadSafe(lblMaxCadence, "Text", string.Format("{0:0} rpm",Convert.ToDouble(e.mesg.fields[i].GetValue(j))));
 								activity._maxCadence = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.maxCadence = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
 								break;
 							case "MaxHeartRate":
 								SetControlPropertyThreadSafe(lblMaxHeartRate,"Text", string.Format("{0:0} bpm",Convert.ToDouble(e.mesg.fields[i].GetValue(j))));
 								activity._maxHeartRate = Convert.ToDouble(e.mesg.fields[i].GetValue(j));
+								_fileSummary.maxHeartRate = Convert.ToInt32(e.mesg.fields[i].GetValue(j));
 								break;
 							case "StartTime":
 								System.DateTime st = new System.DateTime(1989,12,31,0,0,0);
 								st = st.AddSeconds(Convert.ToDouble(e.mesg.fields[i].GetValue(j)));
 								SetControlPropertyThreadSafe(lblActivityDateTime, "Text", st.ToString("dd/MM/yyyy HH:mm:ss",System.Globalization.CultureInfo.InvariantCulture));
 								activity._startTime = st;
+								_fileSummary.startTime = st;
 								break;
 						}
 					}
@@ -941,6 +1085,9 @@ namespace TCX_Parser
 		
 		void processFile_GPX(string filename)
 		{
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("GPX: Opening Activity GPX File (" + filename + ")");
+			}
 			activity = new Activity();
 			clear_summary();
 			XmlNodeList nodeList;
@@ -1015,6 +1162,10 @@ namespace TCX_Parser
 			double gradient = 0;
 			double elev_prev = 0;
 			string time = "";
+			
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("GPX: Processing trackpoints");
+			}
 			
 			for(int t = 0; t < trackpoints.Count; t++){
 				// extract the longitude / latitude coords
@@ -1321,81 +1472,83 @@ namespace TCX_Parser
 			";
 			
 			// build the route html
-			string routeHTML = @"
-				<html>
-				  <head>
-				    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
-				    <meta charset=""utf-8"">
-				    <title>Cycle Route</title>
-				    <style>
-				      #map_canvas{
-				        width:100%;
-				        height:100%;
-				      }
-				    </style>
-				    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
-				    <script type=""text/javascript"" language=""javascript"">
-						var map;
-				      function initialize() {
-				        var myLatLng = " + js_centre + @"
-				        var mapOptions = {
-				          zoom: " + zoom + @",
-				          center: myLatLng,
-				          mapTypeId: google.maps.MapTypeId.TERRAIN
-				        };
+			if(!_bIsBatchProcessing){
+				string routeHTML = @"
+					<html>
+					  <head>
+					    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
+					    <meta charset=""utf-8"">
+					    <title>Cycle Route</title>
+					    <style>
+					      #map_canvas{
+					        width:100%;
+					        height:100%;
+					      }
+					    </style>
+					    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
+					    <script type=""text/javascript"" language=""javascript"">
+							var map;
+					      function initialize() {
+					        var myLatLng = " + js_centre + @"
+					        var mapOptions = {
+					          zoom: " + zoom + @",
+					          center: myLatLng,
+					          mapTypeId: google.maps.MapTypeId.TERRAIN
+					        };
+					
+					        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+					
+					        var cycleRouteCoords = [
+					          " + js_coords + @"
+					        ];
+					        var cycleRoute = new google.maps.Polyline({
+					          path: cycleRouteCoords,
+					          strokeColor: '#FF0000',
+					          strokeOpacity: 1.0,
+					          strokeWeight: 2
+					        });
+					
+					        cycleRoute.setMap(map);
+					        
+					        " + js_mile_markers + @"
+					        " + js_bounds + @"
+					      }
+					      
+					      window.onresize = pageresize;
+					      
+					      function pageresize()
+					      {
+					       google.maps.event.trigger(map, 'resize');
+					       map.panTo(" + js_centre + @");
+					       " + js_bounds + @"					       
+					      }
+					    </script>
+					  </head>
+					  <body onload=""initialize()"" >
+					    <div id=""map_canvas""></div>
+					  </body>
+					</html>				
+				";
 				
-				        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-				
-				        var cycleRouteCoords = [
-				          " + js_coords + @"
-				        ];
-				        var cycleRoute = new google.maps.Polyline({
-				          path: cycleRouteCoords,
-				          strokeColor: '#FF0000',
-				          strokeOpacity: 1.0,
-				          strokeWeight: 2
-				        });
-				
-				        cycleRoute.setMap(map);
-				        
-				        " + js_mile_markers + @"
-				        " + js_bounds + @"
-				      }
-				      
-				      window.onresize = pageresize;
-				      
-				      function pageresize()
-				      {
-				       google.maps.event.trigger(map, 'resize');
-				       map.panTo(" + js_centre + @");
-				       " + js_bounds + @"					       
-				      }
-				    </script>
-				  </head>
-				  <body onload=""initialize()"" >
-				    <div id=""map_canvas""></div>
-				  </body>
-				</html>				
-			";
-			
-			if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
-			{
-			   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+				if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
+				{
+				   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+				}
+				FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
+	            StreamWriter writer = new StreamWriter(fs);  
+	            writer.Write(routeHTML);  
+	            writer.Close();  
+	            
+	            
+	            // Build the [activity] object. Can't buld this as we go, as Mio (and possibly others) set the Time in the <extensions> tag
+	            // based on when the file was created rather than when the activity took place. So we need to build the activity here so we 
+	            // can get the correct information from the trackpoints and using [lstTrackpoints] makes this easier.
+	            activity._startTime = System.DateTime.Parse(lstTrackpoints.Items[0].SubItems[0].Text);
+	            			
+	            setTab(tabControlOverview, "tabMap");
+	            
+	            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
 			}
-			FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
-            StreamWriter writer = new StreamWriter(fs);  
-            writer.Write(routeHTML);  
-            writer.Close();  
-            
-            
-            // Build the [activity] object. Can't buld this as we go, as Mio (and possibly others) set the Time in the <extensions> tag
-            // based on when the file was created rather than when the activity took place. So we need to build the activity here so we 
-            // can get the correct information from the trackpoints and using [lstTrackpoints] makes this easier.
-            activity._startTime = System.DateTime.Parse(lstTrackpoints.Items[0].SubItems[0].Text);
-            			
-            setTab(tabControlOverview, "tabMap");
-            
-            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
             
             EnableMenuItem(menuUploadToRunKeeper, true);
             EnableMenuItem(menuUploadToStrava, true);
@@ -1403,14 +1556,13 @@ namespace TCX_Parser
             EnableMenuItem(menuUploadToRideWithGps, true);
 			
             ResizeListView(lstTrackpoints);
-            
-            
-            
-            
 		}
 	
 		void processFile_TCX(string filename)
 		{
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("TCX: Opening Activity TCX File (" + filename + ")");
+			}
 			activity = new Activity();
 			clear_summary();
 			int t;
@@ -1435,12 +1587,12 @@ namespace TCX_Parser
 			double avgHeart = 0;
 			double avgSpeed = 0;
 			double avgCadence = 0;
-			openFile.InitialDirectory = Path.GetDirectoryName(openFile.FileName);
+			openFile.InitialDirectory = Path.GetDirectoryName(filename);
 			// clear the currently loaded trackpoints
 			ClearListView(lstTrackpoints);
 			
 			XmlDocument doc = new XmlDocument();
-			doc.Load(openFile.FileName);
+			doc.Load(filename);
 			
 			PointPairList graphListAltitude = new PointPairList();
 			PointPairList graphListHeart = new PointPairList();
@@ -1457,6 +1609,9 @@ namespace TCX_Parser
 			
 			activity._duration = total_time_seconds;
 			activity._startTime = d2;
+			_fileSummary.durationSeconds = Convert.ToInt32(total_time_seconds);
+			_fileSummary.movingTimeSeconds = Convert.ToInt32(total_time_seconds); // Total Time = Moving Time for TCX (does from the Garmin anyway)
+			_fileSummary.startTime = d2;
 					
 			TimeSpan tDuration = TimeSpan.FromSeconds(Convert.ToDouble(nodeList[0].InnerText));
 			SetControlPropertyThreadSafe(lblDuration, "Text", string.Format("{0:D2} h {1:D2} m {2:D2} s", tDuration.Hours, tDuration.Minutes, tDuration.Seconds));
@@ -1469,10 +1624,12 @@ namespace TCX_Parser
 			miles =  Convert.ToDouble(nodeList[0].InnerText) * 0.000621371192;
 			kms = Convert.ToDouble(nodeList[0].InnerText)/1000;
 			SetControlPropertyThreadSafe(lblDistance, "Text", miles.ToString("0.00") + " miles ( " + kms.ToString("0.00") + " km )");
+			_fileSummary.distanceMiles = miles;
 			
 			nodeList = doc.GetElementsByTagName("Calories");
 			SetControlPropertyThreadSafe(lblCalories, "Text", nodeList[0].InnerText);
 			activity._calories = Convert.ToDouble(nodeList[0].InnerText);
+			_fileSummary.calories = Convert.ToInt32(activity._calories);
 			
 			
 			nodeList = doc.GetElementsByTagName("AverageHeartRateBpm");
@@ -1480,12 +1637,14 @@ namespace TCX_Parser
 				SetControlPropertyThreadSafe(lblAvgHeartRate, "Text", nodeList[0].InnerText);
 				avgHeart = Convert.ToDouble(nodeList[0].InnerText);
 				activity._avgHeartRate = avgHeart;	
+				_fileSummary.avgHeartRate = avgHeart;
 			}
 			
 			nodeList = doc.GetElementsByTagName("Cadence");
 			if(nodeList.Count > 0){
 				SetControlPropertyThreadSafe(lblCadence, "Text", nodeList[0].InnerText);
 				avgCadence = Convert.ToDouble(nodeList[0].InnerText);
+				_fileSummary.avgCadence = avgCadence;
 			}				
 			
 			double mph = miles / (tDuration.TotalSeconds / 3600);
@@ -1493,6 +1652,7 @@ namespace TCX_Parser
 			
 			SetControlPropertyThreadSafe(lblAvgSpeed, "Text", string.Format("{0:0.00} mph  ( {1:0.00} km/h )", mph, kph));
 			avgSpeed = mph;
+			_fileSummary.avgSpeedMph = avgSpeed;
 			
 			XmlNodeList trackpoints = doc.GetElementsByTagName("Trackpoint");
 			
@@ -1505,7 +1665,11 @@ namespace TCX_Parser
 			double start_lat = 0;
 			double start_lng = 0;	
 			double finish_lat = 0;
-			double finish_lng = 0;				
+			double finish_lng = 0;			
+
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("TCX: Processing Trackpoints");
+			}			
 			
 			for(t = 0; t < trackpoints.Count; t++){
 				distance = cadence = speed = heart = "";
@@ -1748,75 +1912,77 @@ namespace TCX_Parser
 			";
 			
 			// build the route html
-			string routeHTML = @"
-				<html>
-				  <head>
-				    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
-				    <meta charset=""utf-8"">
-				    <title>Cycle Route</title>
-				    <style>
-				      #map_canvas{
-				        width:100%;
-				        height:100%;
-				      }
-				    </style>
-				    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
-				    <script type=""text/javascript"" language=""javascript"">
-						var map;
-				      function initialize() {
-				        var myLatLng = " + js_centre + @"
-				        var mapOptions = {
-				          zoom: " + zoom + @",
-				          center: myLatLng,
-				          mapTypeId: google.maps.MapTypeId.TERRAIN
-				        };
+			if(!_bIsBatchProcessing){
+				string routeHTML = @"
+					<html>
+					  <head>
+					    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
+					    <meta charset=""utf-8"">
+					    <title>Cycle Route</title>
+					    <style>
+					      #map_canvas{
+					        width:100%;
+					        height:100%;
+					      }
+					    </style>
+					    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
+					    <script type=""text/javascript"" language=""javascript"">
+							var map;
+					      function initialize() {
+					        var myLatLng = " + js_centre + @"
+					        var mapOptions = {
+					          zoom: " + zoom + @",
+					          center: myLatLng,
+					          mapTypeId: google.maps.MapTypeId.TERRAIN
+					        };
+					
+					        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+					
+					        var cycleRouteCoords = [
+					          " + js_coords + @"
+					        ];
+					        var cycleRoute = new google.maps.Polyline({
+					          path: cycleRouteCoords,
+					          strokeColor: '#FF0000',
+					          strokeOpacity: 1.0,
+					          strokeWeight: 2
+					        });
+					
+					        cycleRoute.setMap(map);
+					        
+					        " + js_mile_markers + @"
+					        " + js_bounds + @"
+					      }
+					      
+					      window.onresize = pageresize;
+					      
+					      function pageresize()
+					      {
+					       google.maps.event.trigger(map, 'resize');
+					       map.panTo(" + js_centre + @");
+					       " + js_bounds + @"					       
+					      }
+					    </script>
+					  </head>
+					  <body onload=""initialize()"" >
+					    <div id=""map_canvas""></div>
+					  </body>
+					</html>				
+				";
 				
-				        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+				if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
+				{
+				   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+				}
+				FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
+	            StreamWriter writer = new StreamWriter(fs);  
+	            writer.Write(routeHTML);  
+	            writer.Close();  
 				
-				        var cycleRouteCoords = [
-				          " + js_coords + @"
-				        ];
-				        var cycleRoute = new google.maps.Polyline({
-				          path: cycleRouteCoords,
-				          strokeColor: '#FF0000',
-				          strokeOpacity: 1.0,
-				          strokeWeight: 2
-				        });
+	            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
 				
-				        cycleRoute.setMap(map);
-				        
-				        " + js_mile_markers + @"
-				        " + js_bounds + @"
-				      }
-				      
-				      window.onresize = pageresize;
-				      
-				      function pageresize()
-				      {
-				       google.maps.event.trigger(map, 'resize');
-				       map.panTo(" + js_centre + @");
-				       " + js_bounds + @"					       
-				      }
-				    </script>
-				  </head>
-				  <body onload=""initialize()"" >
-				    <div id=""map_canvas""></div>
-				  </body>
-				</html>				
-			";
-			
-			if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
-			{
-			   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+	            setTab(tabControlOverview, "tabMap");
 			}
-			FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
-            StreamWriter writer = new StreamWriter(fs);  
-            writer.Write(routeHTML);  
-            writer.Close();  
-			
-            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
-			
-            setTab(tabControlOverview, "tabMap");
             
             EnableMenuItem(menuUploadToRunKeeper, true);
             EnableMenuItem(menuUploadToStrava, true);
@@ -2023,9 +2189,9 @@ namespace TCX_Parser
 				LineObj speedAvg = new LineObj(
 				    Color.Magenta,
 				    zedSpeed.GraphPane.XAxis.Scale.Min,
-				    avgSpeed,
+				    avgSpeed * 2.23693629,
 				    zedSpeed.GraphPane.XAxis.Scale.Max,
-				    avgSpeed
+				    avgSpeed * 2.23693629
 				);
 				zedSpeed.GraphPane.GraphObjList.Add(speedAvg);
 			}
@@ -2047,75 +2213,80 @@ namespace TCX_Parser
 			";
 			
 			// build the route html
-			string routeHTML = @"
-				<html>
-				  <head>
-				    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
-				    <meta charset=""utf-8"">
-				    <title>Cycle Route</title>
-				    <style>
-				      #map_canvas{
-				        width:100%;
-				        height:100%;
-				      }
-				    </style>
-				    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
-				    <script type=""text/javascript"" language=""javascript"">
-						var map;
-				      function initialize() {
-				        var myLatLng = " + js_centre + @"
-				        var mapOptions = {
-				          zoom: " + zoom + @",
-				          center: myLatLng,
-				          mapTypeId: google.maps.MapTypeId.TERRAIN
-				        };
+			// only if we aren't batch processing - as this can cause locking issues with access
+			// to the route.html file
+			if(!_bIsBatchProcessing){
+				string routeHTML = @"
+					<html>
+					  <head>
+					    <meta name=""viewport"" content=""initial-scale=1.0, user-scalable=no"">
+					    <meta charset=""utf-8"">
+					    <title>Cycle Route</title>
+					    <style>
+					      #map_canvas{
+					        width:100%;
+					        height:100%;
+					      }
+					    </style>
+					    <script src=""https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false""></script>
+					    <script type=""text/javascript"" language=""javascript"">
+							var map;
+					      function initialize() {
+					        var myLatLng = " + js_centre + @"
+					        var mapOptions = {
+					          zoom: " + zoom + @",
+					          center: myLatLng,
+					          mapTypeId: google.maps.MapTypeId.TERRAIN
+					        };
+					
+					        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+					
+					        var cycleRouteCoords = [
+					          " + js_coords + @"
+					        ];
+					        var cycleRoute = new google.maps.Polyline({
+					          path: cycleRouteCoords,
+					          strokeColor: '#FF0000',
+					          strokeOpacity: 1.0,
+					          strokeWeight: 2
+					        });
+					
+					        cycleRoute.setMap(map);
+					        
+					        " + js_mile_markers + @"
+					        " + js_bounds + @"
+					      }
+					      
+					      window.onresize = pageresize;
+					      
+					      function pageresize()
+					      {
+					       google.maps.event.trigger(map, 'resize');
+					       map.panTo(" + js_centre + @");
+					       " + js_bounds + @"					       
+					      }
+					    </script>
+					  </head>
+					  <body onload=""initialize()"" >
+					    <div id=""map_canvas""></div>
+					  </body>
+					</html>				
+				";
 				
-				        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 				
-				        var cycleRouteCoords = [
-				          " + js_coords + @"
-				        ];
-				        var cycleRoute = new google.maps.Polyline({
-				          path: cycleRouteCoords,
-				          strokeColor: '#FF0000',
-				          strokeOpacity: 1.0,
-				          strokeWeight: 2
-				        });
+				if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
+				{
+				   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+				}
+				FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
+	            StreamWriter writer = new StreamWriter(fs);  
+	            writer.Write(routeHTML);  
+	            writer.Close();  
 				
-				        cycleRoute.setMap(map);
-				        
-				        " + js_mile_markers + @"
-				        " + js_bounds + @"
-				      }
-				      
-				      window.onresize = pageresize;
-				      
-				      function pageresize()
-				      {
-				       google.maps.event.trigger(map, 'resize');
-				       map.panTo(" + js_centre + @");
-				       " + js_bounds + @"					       
-				      }
-				    </script>
-				  </head>
-				  <body onload=""initialize()"" >
-				    <div id=""map_canvas""></div>
-				  </body>
-				</html>				
-			";
+	            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
 			
-			if(System.IO.File.Exists(Application.StartupPath + "\\route.html"))
-			{
-			   	System.IO.File.Delete(Application.StartupPath + "\\route.html");
+            	setTab(tabControlOverview, "tabMap");          
 			}
-			FileStream fs = System.IO.File.OpenWrite(Application.StartupPath + "\\route.html");
-            StreamWriter writer = new StreamWriter(fs);  
-            writer.Write(routeHTML);  
-            writer.Close();  
-			
-            NavigateWebControl(webBrowser1, Application.StartupPath + "\\route.html");
-			
-            setTab(tabControlOverview, "tabMap");          
             EnableMenuItem(menuUploadToRunKeeper, true);
             EnableMenuItem(menuUploadToGarminConnect, true);
             EnableMenuItem(menuUploadToStrava, true);
@@ -2141,29 +2312,47 @@ namespace TCX_Parser
 			setUpdateRideMsg("runkeeper","");
 			setUpdateRideId("runkeeper","-");
 			setUpdateRideImg("runkeeper",null);
-			setActiveTabPage("tabUploadStatus");
+			if(!_bIsBatchProcessing){
+				setActiveTabPage("tabUploadStatus");
+			}
 
 			EnableMenuItem(menuUploadToRunKeeper, false);
 			
 			try{
 				if(_rk_auth_token != ""){
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadStatus("runkeeper","inprogress");
+					}
+					
 					
 					setUpdateRideMsg("runkeeper", "Authenticating User Credentials");
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadProgressStatus("Runkeeper: Authenticating User Credentials");
+					}
 					AccessTokenManager tm = new AccessTokenManager(_client_id, _client_secret, _client_uri, _rk_auth_token);
 					//tm.InitAccessToken(rk_auth_code);
 					
 					//Retrieve URIs for HealthGraph endpoints.
 					setUpdateRideMsg("runkeeper", "Retrieving API Endpoints");
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadProgressStatus("Runkeeper: Retrieving API configuration information");
+					}
 					UsersEndpoint userRequest = new UsersEndpoint(tm);
 					UsersModel user = userRequest.GetUser();
 					
 					// Retrieve the user profile, so we know what the username is for building 
 					// the full activity link
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadProgressStatus("Runkeeper: Retrieving User Profile Details");
+					}
 					ProfileEndpoint userProfile = new ProfileEndpoint(tm, user);
 					ProfileModel profile = userProfile.GetProfile();
 					
 					// upload the activity to the Runkeeper website.
 					setUpdateRideMsg("runkeeper", "Uploading Activity Information");
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadProgressStatus("Runkeeper: Uploading Activity, Waiting for response");
+					}
 					FitnessActivitiesNewModel newActivity = new FitnessActivitiesNewModel();
 					newActivity.Type = "Cycling";
 					newActivity.Notes = txtActivityNotes.Text;
@@ -2203,13 +2392,19 @@ namespace TCX_Parser
 					setNewActivityLink("runkeeper", link, link);
 					setUpdateRideImg("runkeeper",Image.FromFile("success-icon.png"));
 					link = link.Replace("fitnessActivities/","activity/");
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadStatus("runkeeper","success", profile.Profile + link);
+						_activityBatch.setUploadProgressStatus("Runkeeper: Uploaded Successfully");
+					}
 					
 					SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
 					string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRunkeeper = \"{0}\" where idFile = {1}", 
 					                           profile.Profile + link , 
 					                           _dbFileId,
 					                           txtActivityName.Text, 
-					                           txtActivityNotes.Text
+					                           txtActivityNotes.Text,
+					                           cbkIsCommute.Checked ? 1 :0,
+					                           cbkIsStationaryTrainer.Checked ? 1 : 0
 					                          );
 					cmd.CommandText = sql;
 					cmd.ExecuteNonQuery();
@@ -2218,20 +2413,25 @@ namespace TCX_Parser
 				else{
 					setUpdateRideMsg("runkeeper","Runkeeper account hasn`t been linked to application yet. \r\nCannot upload at this time.");
 					setUpdateRideImg("runkeeper",Image.FromFile("failure-icon.png"));
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadStatus("runkeeper","not linked", "Runkeeper: account hasn`t been linked to application yet. \r\nCannot upload at this time.");
+					}
 				}
 			}
 			catch(Exception ex){
 				setUpdateRideMsg("runkeeper","Exception uploading activity. " + ex.ToString());
 				setUpdateRideImg("runkeeper",Image.FromFile("failure-icon.png"));
-				Debug.Write(ex.ToString());
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadStatus("runkeeper","exception", "Runkeeper: Exception uploading activity. " + ex.ToString());
+				}
 			}
-			
 			ResizeListView(lstTrackpoints);
 		}
 		
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
+			try{
 			// open a connection to the cycle uploader database
 			_m_dbConnection = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;");
 			_m_dbConnection.Open();
@@ -2239,6 +2439,10 @@ namespace TCX_Parser
 			statusBarVersion.Text = _versionStr + ", " + _versionDate;
 			_threadInit = new Thread(new ThreadStart(this.initialiseProviders));
 			_threadInit.Start();
+			}
+			catch(Exception ex){
+				MessageBox.Show(ex.ToString());
+			}
 		}
 		
 		void initialiseProviders()
@@ -2250,6 +2454,7 @@ namespace TCX_Parser
 			checkForGUID();
 			
 			loadProviderStates();
+			loadUserSettings();
 			
 			SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			SetStatusTextThreadSafe(statusBar, "Loading Endomondo Configuration...");
@@ -2303,31 +2508,50 @@ namespace TCX_Parser
 			// the same function to reload
 			ClearListView(lstFileHistory);
 			
-			string sql = "select idFile, fileActivityDateTime, case fileActivityName ISNULL when 1 then fileName else fileActivityName end as `fileActivityDescription`, fileOpenDateTime, case fileActivityNotes isnull when 1 then \"\" else fileActivityNotes end as `fileActivityNotes`, "+
-				"fileUploadRunKeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS "+
-				"from File order by fileActivityDateTime desc";
+			string sql = "select f.idFile, CASE fileActivityDateTime IS NULL when 1 then fileOpenDateTime else fileActivityDateTime end, case fileActivityName ISNULL when 1 then fileName else fileActivityName end as `fileActivityDescription`, fileOpenDateTime, case fileActivityNotes isnull when 1 then \"\" else fileActivityNotes end as `fileActivityNotes`, "+
+				"fileUploadRunKeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS, "+
+				"fs.fsDistance, fs.fsMovingTime, fs.fsAvgSpeed, f.fileIsCommute, f.fileIsStationaryTrainer "+
+				"from File f "+
+				"left join FileSummary fs on fs.idFile = f.idFile "+
+				"order by fileActivityDateTime desc";
 			
 			SQLiteCommand command = new SQLiteCommand(sql, _m_dbConnection);
 			SQLiteDataReader rdr = command.ExecuteReader();
 			if(rdr.HasRows){
+				lstFileHistory.SuspendLayout();
 				while(rdr.Read()){
+					TimeSpan tsDuration = TimeSpan.FromSeconds(0);
+					if(!rdr.IsDBNull(10)){ 
+						tsDuration = TimeSpan.FromSeconds(Convert.ToInt32(rdr.GetString(10)));
+					}
+
 					string[] row = {
 						rdr.GetInt32(0).ToString(),
 						rdr.GetString(1),
 						rdr.GetString(2),
 						rdr.GetString(3),
-						rdr.GetString(4),
-						rdr.IsDBNull(5) ? "" : rdr.GetString(5), // runkeeper
-						rdr.IsDBNull(6) ? "" : rdr.GetString(6), // strava
-						rdr.IsDBNull(7) ? "" : rdr.GetString(7), // garmin
-						rdr.IsDBNull(8) ? "" : rdr.GetString(8)  // ride with gps
-							
+						string.Format("{0:0.00} miles", rdr.IsDBNull(9) ? 0 : Convert.ToDouble(rdr.GetString(9))),  // distance
+						string.Format("{0:D2} h {1:D2} m {2:D2} s", tsDuration.Hours, tsDuration.Minutes, tsDuration.Seconds),
+						string.Format("{0:0.00} mph",rdr.IsDBNull(11) ? 0 : Convert.ToDouble(rdr.GetString(11))), // avg speed
+						rdr.GetInt32(12) == 1 ? "Y" : "", // activity is commute
+						rdr.GetInt32(13) == 1 ? "Y" : "", // activity is stationary trainer
+						rdr.GetString(4) // notes
 					};
 					AddListViewItem(lstFileHistory,new ListViewItem(row));
 					GroupFileHistoryItem(lstFileHistory.Items.Count-1);
 				}
-				lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+				lstFileHistory.ResumeLayout();
 				
+				// loop through the groups and append the activity count to the headers
+				for(int g = 0; g < lstFileHistory.Groups.Count; g++){
+					string h = GetListViewGroupHeader(lstFileHistory, g);
+					h+= " (" + lstFileHistory.Groups[g].Items.Count.ToString() + ")";
+					SetListViewGroupHeader(lstFileHistory, g, h);
+					//lstFileHistory.Groups[g].Header = lstFileHistory.Groups[g].Header + " (" + lstFileHistory.Groups[g].Items.Count.ToString() + ")";
+				}
+				
+				lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+				ResizeListView(lstFileHistory);
 			}
 			
 		}
@@ -2341,6 +2565,15 @@ namespace TCX_Parser
 				//SetControlPropertyThreadSafe(cbkProviderEndomondo, "Checked", Convert.ToBoolean((string)key.GetValue("checkEndomondo")));
 				SetControlPropertyThreadSafe(cbkProviderGarmin, "Checked", Convert.ToBoolean((string)key.GetValue("checkGarmin")));
 				SetControlPropertyThreadSafe(cbkProviderRideWithGps, "Checked", Convert.ToBoolean((string)key.GetValue("checkRideWithGps")));
+			}
+		}
+		
+		void loadUserSettings()
+		{
+			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
+			if(key != null){
+				_autopause = key.GetValue("autopause") == null ? 0 : (int)key.GetValue("autopause");
+				SetControlPropertyThreadSafe(txtAutoPauseThreshold, "Text", _autopause.ToString());
 			}
 		}
 		
@@ -2403,7 +2636,9 @@ namespace TCX_Parser
 					}
 				}
 			}
-			catch{}
+			catch(Exception ex){
+				MessageBox.Show("GarminConnect: Login Exception.\r\n" + ex.Message);
+			}
 		}
 		
 		void checkForRideWithGpsDetails()
@@ -2573,14 +2808,14 @@ namespace TCX_Parser
 				"</Lap>"+
 				"<Creator xsi:type=\"Device_t\">"+
 				"<Name>CycleUploader TCX Generator</Name>"+
-        		"<UnitId>3839235642</UnitId>"+
-        		"<ProductID>1036</ProductID>"+
-        		"<Version>"+
-				"<VersionMajor>2</VersionMajor>"+
-				"<VersionMinor>80</VersionMinor>"+
-				"<BuildMajor>0</BuildMajor>"+
-				"<BuildMinor>0</BuildMinor>"+
-				"</Version>"+
+        		//"<UnitId>3839235642</UnitId>"+
+        		//"<ProductID>1036</ProductID>"+
+        		//"<Version>"+
+				//"<VersionMajor>2</VersionMajor>"+
+				//"<VersionMinor>80</VersionMinor>"+
+				//"<BuildMajor>0</BuildMajor>"+
+				//"<BuildMinor>0</BuildMinor>"+
+				//"</Version>"+
 				"</Creator>"+
 				"</Activity></Activities>";
 				
@@ -2598,16 +2833,20 @@ namespace TCX_Parser
 				}
 				
 				// Add <TrackPoint> for current list item if we're not paused
-				if(GetListViewItemValue(lstTrackpoints,t,10) == "" && GetListViewItemValue(lstTrackpoints,t,8) != "0" && GetListViewItemValue(lstTrackpoints,t,7) != "0"){
+				//if(GetListViewItemValue(lstTrackpoints,t,10) == "" && GetListViewItemValue(lstTrackpoints,t,8) != "0" && GetListViewItemValue(lstTrackpoints,t,7) != "0"){
+				if(GetListViewItemValue(lstTrackpoints,t,10) == ""){
 					// Add standard stuff to the trackpoint tag
 					bool bIncludeHeartStream = true;
 					bool bIncludeCadenceStream = true;
 					
 					string trkpt = ""+
 						"<Trackpoint>"+
-						"<Time>" + GetListViewItemValue(lstTrackpoints,t,0) + "</Time>"+
-						"<Position><LatitudeDegrees>" + GetListViewItemValue(lstTrackpoints,t,8) + "</LatitudeDegrees><LongitudeDegrees>" + GetListViewItemValue(lstTrackpoints,t,7) + "</LongitudeDegrees></Position>"+
-						"<AltitudeMeters>" + (Convert.ToDouble(GetListViewItemValue(lstTrackpoints,t,2))/3.2808399).ToString() + "</AltitudeMeters>"+
+						"<Time>" + GetListViewItemValue(lstTrackpoints,t,0) + "</Time>";
+					// only add the position if the GPS coordinates are available
+					if(GetListViewItemValue(lstTrackpoints,t,8) != "0" && GetListViewItemValue(lstTrackpoints,t,7) != "0"){
+						trkpt += "<Position><LatitudeDegrees>" + GetListViewItemValue(lstTrackpoints,t,8) + "</LatitudeDegrees><LongitudeDegrees>" + GetListViewItemValue(lstTrackpoints,t,7) + "</LongitudeDegrees></Position>";
+					}
+					trkpt += "<AltitudeMeters>" + (Convert.ToDouble(GetListViewItemValue(lstTrackpoints,t,2))/3.2808399).ToString() + "</AltitudeMeters>"+
 						"<DistanceMeters>" + GetListViewItemValue(lstTrackpoints,t,3) + "</DistanceMeters>";
 					if(bIncludeHeartStream){
 						trkpt += "<HeartRateBpm xsi:type=\"HeartRateInBeatsPerMinute_t\"><Value>" + GetListViewItemValue(lstTrackpoints,t,4) + "</Value></HeartRateBpm>";
@@ -2650,20 +2889,40 @@ namespace TCX_Parser
 			setUpdateRideMsg("garmin","");
 			setUpdateRideId("garmin","-");
 			setUpdateRideImg("garmin",null);
-			setActiveTabPage("tabUploadStatus");
+			if(!_bIsBatchProcessing){
+				setActiveTabPage("tabUploadStatus");
+			}
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadStatus("garmin","inprogress");
+			}
 			setUpdateRideMsg("garmin","Authenticating User");
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadProgressStatus("Garmin: Authenticating User");
+			}
 			if(!_gc.Login(_gc_user, _gc_password)){
 				setUpdateRideMsg("garmin","Login Failed");
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadStatus("garmin","login failed");
+					_activityBatch.setUploadProgressStatus("Garmin: Login Failed");
+				}
 			}
 			else{
 				setUpdateRideMsg("garmin","Preparing Activity For Upload");
-				_gc.UploadFile(_activity_file_name, txtActivityName.Text, _m_dbConnection, _dbFileId, txtActivityName.Text, txtActivityNotes.Text);
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadProgressStatus("Garmin: Preparing Activity for Upload");
+				}
+				_gc.UploadFile(_activity_file_name, txtActivityName.Text, _m_dbConnection, _dbFileId, txtActivityName.Text, txtActivityNotes.Text, _activityBatch);
 			}
 		}
 		
 		void setActiveTabPage(string tabpage)
 		{
 			setTab(tabControlOverview, tabpage);
+		}
+		
+		void setFileHistoryActiveTabPage(string tabpage)
+		{
+			setTab(tabControlHistory, tabpage);
 		}
 		
 		void MenuConnectToRideWithGpsClick(object sender, EventArgs e)
@@ -2701,18 +2960,32 @@ namespace TCX_Parser
 			setUpdateRideMsg("ridewithgps","");
 			setUpdateRideId("ridewithgps","-");
 			setUpdateRideImg("ridewithgps", null);
-			setActiveTabPage("tabUploadStatus");
+			if(!_bIsBatchProcessing){
+				setActiveTabPage("tabUploadStatus");
+			}
+			if(_bIsBatchProcessing){
+				_activityBatch.setUploadStatus("rwgps","inprogress");
+			}
 			// if not logged in, attempt to login now.
 			if(!_rwgps.isLoggedIn()){
 				setUpdateRideMsg("ridewithgps","Authenticating User");
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadProgressStatus("RideWithGps: Authenticating User");
+				}
 				if(!_rwgps.login(_ridewithgps_email, _ridewithgps_password)){
 					setUpdateRideMsg("ridewithgps", "Login Failed");
+					if(_bIsBatchProcessing){
+						_activityBatch.setUploadStatus("rwgps","login failed");
+						_activityBatch.setUploadProgressStatus("RideWithGps: Login Failed");
+					}
 				}
 			}
 			
 			if(_rwgps.isLoggedIn()){
 				setUpdateRideMsg("ridewithgps","Preparing Activity For Upload");
-				//string tcx = "";
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadProgressStatus("RideWithGps: Preparing activity for upload");
+				}
 				
 				StringBuilder jsonData = new StringBuilder();
 				
@@ -2727,7 +3000,11 @@ namespace TCX_Parser
 				int pt = 0;
 				for(int t = 0; t < lstTrackpoints.Items.Count; t++){
 					
-					if(GetListViewItemValue(lstTrackpoints, t, 8) != "0" && GetListViewItemValue(lstTrackpoints, t, 7) != ""){
+					// do one action if we're a stationary trainer workout, which don't have lat/lng coordinates so 
+					// we need to include any with a "0" value for these
+					// if it's a normal workout, we want to strip those out so we don't end up jumping into the middle
+					// of the atlantic ;-) lol
+					if(cbkIsStationaryTrainer.Checked){
 						if(pt > 0){
 							jsonData.Append(",");
 						}
@@ -2743,6 +3020,24 @@ namespace TCX_Parser
 						jsonData.Append(json_point.Replace(@"""", @"\"""));
 						pt++;
 					}
+					else{
+						if(GetListViewItemValue(lstTrackpoints, t, 8) != "0" && GetListViewItemValue(lstTrackpoints, t, 7) != "0"){
+							if(pt > 0){
+								jsonData.Append(",");
+							}
+							string json_point = string.Format(@"{{""x"": {0}, ""y"": {1}, ""t"": {2}, ""e"": {3}, ""p"": {4}, ""c"": {5}, ""h"": {6}}}",
+							                                  GetListViewItemValue(lstTrackpoints, t, 7),
+							                                  GetListViewItemValue(lstTrackpoints, t, 8),
+							                                  GeoMath.DateTimeToUnixTimestamp(System.DateTime.Parse(GetListViewItemValue(lstTrackpoints,t,0),  null, DateTimeStyles.RoundtripKind)),
+							                                  Convert.ToDouble(GetListViewItemValue(lstTrackpoints,t,2))/3.2808399, // Altitude, converted from FT to METRES
+							                                  0,
+							                                  GetListViewItemValue(lstTrackpoints,t,5),
+							                                  GetListViewItemValue(lstTrackpoints,t,4)
+							                                  );
+							jsonData.Append(json_point.Replace(@"""", @"\"""));
+							pt++;
+						}
+					}
 				}
 				
 				string jsonFooter = @"]""}";
@@ -2750,7 +3045,13 @@ namespace TCX_Parser
 				jsonData.Append(jsonFooter);
 				
 				setUpdateRideMsg("ridewithgps","Uploading, waiting for response");
-				_rwgps.upload_activity_json(ref jsonData, _m_dbConnection, _dbFileId, txtActivityName.Text, txtActivityNotes.Text);
+				
+				if(_bIsBatchProcessing){
+					_activityBatch.setUploadProgressStatus("RideWithGps: Uploading activity, waiting for response");
+				}
+				
+				Debug.WriteLine(jsonData);
+				_rwgps.upload_activity_json(ref jsonData, _m_dbConnection, _dbFileId, txtActivityName.Text, txtActivityNotes.Text, _activityBatch);
 				
 			}
 		}
@@ -2787,7 +3088,9 @@ namespace TCX_Parser
 			setUpdateRideId("ridewithgps","-");
 			setUpdateRideImg("ridewithgps",null);
 			//
-			setTab(tabControlOverview, "tabUploadStatus");
+			if(!_bIsBatchProcessing){
+				setTab(tabControlOverview, "tabUploadStatus");
+			}
 			
 			if(cbkProviderRunkeeper.Checked){
 				uploadRideToRunKeeper();
@@ -2815,7 +3118,6 @@ namespace TCX_Parser
 			}
 			
 			loadFileHistory();
-			
 			SetControlPropertyThreadSafe(btnUploadAllProviders, "Enabled", true);
 		}
 			
@@ -2874,35 +3176,46 @@ namespace TCX_Parser
 		
 		void MainFormFormClosing(object sender, FormClosingEventArgs e)
 		{
-			RegistryKey key;
-			// try and save the provider enabled settings to the registry so they are preserved
-			// on next run of the application
-			try{
-				key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-				if(key == null){
-					Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
+			// cancel closing of the application if a file is being processed 
+			// as we need that to complete for the database to be in a consistent state
+			// i.e. all track points archived etc.
+			if(_threadProcessFile != null && _threadProcessFile.IsAlive){
+				MessageBox.Show("Close is disabled as a file is currently being processed.");
+				e.Cancel = true;
+			}
+			else{
+			
+				RegistryKey key;
+				// try and save the provider enabled settings to the registry so they are preserved
+				// on next run of the application
+				try{
+					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
+					if(key == null){
+						Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
+						key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
+					}
+					
+					key.SetValue("checkRunkeeper",this.cbkProviderRunkeeper.Checked);
+					key.SetValue("checkStrava", this.cbkProviderStrava.Checked);
+					//key.SetValue("checkEndomondo", this.cbkProviderEndomondo.Checked);
+					key.SetValue("checkGarmin", this.cbkProviderGarmin.Checked);
+					key.SetValue("checkRideWithGps", this.cbkProviderRideWithGps.Checked);
+					
+				}
+				catch(Exception ex){
+					MessageBox.Show(ex.ToString());
 				}
 				
-				key.SetValue("checkRunkeeper",this.cbkProviderRunkeeper.Checked);
-				key.SetValue("checkStrava", this.cbkProviderStrava.Checked);
-				//key.SetValue("checkEndomondo", this.cbkProviderEndomondo.Checked);
-				key.SetValue("checkGarmin", this.cbkProviderGarmin.Checked);
-				key.SetValue("checkRideWithGps", this.cbkProviderRideWithGps.Checked);
-				
-			}
-			catch(Exception ex){
-				MessageBox.Show(ex.ToString());
-			}
-			
-			// check to see if the init thread is active, if it is abort it gracefully (ish)
-			try{
-				if(_threadInit.IsAlive){
-					_threadInit.Abort();
+				// check to see if the init thread is active, if it is abort it gracefully (ish)
+				try{
+					if(_threadInit.IsAlive){
+						_threadInit.Abort();
+					}
+				}
+				catch(Exception ex){
+					MessageBox.Show(ex.ToString());
 				}
 			}
-			catch{}
-			
 		}
 		
 		void MenuAboutClick(object sender, EventArgs e)
@@ -2935,7 +3248,8 @@ namespace TCX_Parser
 			
 			// load the file summary
 			sql = string.Format("select fs.*, case f.fileActivityName ISNULL when 1 then f.fileName else f.fileActivityName end as `fileName`, f.fileActivityNotes, "+
-			                    " fileUploadRunkeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS "+
+			                    " fileUploadRunkeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS, "+
+			                    " fileIsCommute, fileIsStationaryTrainer, fileIsIncludedInStats "+
 			                    "from File f "+
 			                    "left join FileSummary fs on f.idFile = fs.idFile where f.idFile = {0}", 
 			                    fileId
@@ -2944,19 +3258,23 @@ namespace TCX_Parser
 			rdrSummary = command.ExecuteReader();
 			if(rdrSummary.HasRows){
 				rdrSummary.Read();
+				
+				TimeSpan tsDuration = TimeSpan.FromSeconds(rdrSummary.IsDBNull(1) ? 0 : Convert.ToInt32(rdrSummary.GetString(1)));
+				TimeSpan tsMoving = TimeSpan.FromSeconds(rdrSummary.IsDBNull(7) ? 0 : Convert.ToInt32(rdrSummary.GetString(7)));
+			
 				lblHistoryName.Text = rdrSummary.GetString(13);
-				lblHistoryDuration.Text = rdrSummary.IsDBNull(1) ? "-" : rdrSummary.GetString(1);
-				lblHistoryDistance.Text = rdrSummary.IsDBNull(2) ? "-" : rdrSummary.GetString(2);
+				lblHistoryDuration.Text = string.Format("{0:D2} h {1:D2} m {2:D2} s", tsDuration.Hours, tsDuration.Minutes, tsDuration.Seconds);
+				lblHistoryDistance.Text = rdrSummary.IsDBNull(2) ? "-" : string.Format("{0:0.00} miles", Convert.ToDouble(rdrSummary.GetString(2)));
 				lblHistoryCalories.Text = rdrSummary.IsDBNull(3) ? "-" : rdrSummary.GetString(3);
 				lblHistoryAvgHeartRate.Text = rdrSummary.IsDBNull(4) ? "-" : rdrSummary.GetString(4);
 				lblHistoryAvgCadence.Text = rdrSummary.IsDBNull(5) ? "-" : rdrSummary.GetString(5);
-				lblHistoryAvgSpeed.Text = rdrSummary.IsDBNull(6) ? "-" : rdrSummary.GetString(6);
-				lblHistoryMovingTime.Text = rdrSummary.IsDBNull(7) ? "-" : rdrSummary.GetString(7);
-				lblHistoryTotalAscent.Text = rdrSummary.IsDBNull(8) ? "-" : rdrSummary.GetString(8);
-				lblHistoryTotalDescent.Text = rdrSummary.IsDBNull(9) ? "-" : rdrSummary.GetString(9);
+				lblHistoryAvgSpeed.Text = rdrSummary.IsDBNull(6) ? "-" : string.Format("{0:0.00} mph", Convert.ToDouble(rdrSummary.GetString(6)));
+				lblHistoryMovingTime.Text = string.Format("{0:D2} h {1:D2} m {2:D2} s", tsMoving.Hours, tsMoving.Minutes, tsMoving.Seconds);
+				lblHistoryTotalAscent.Text = rdrSummary.IsDBNull(8) ? "-" : string.Format("{0:0.00} ft",Convert.ToDouble(rdrSummary.GetString(8)));
+				lblHistoryTotalDescent.Text = rdrSummary.IsDBNull(9) ? "-" : string.Format("{0:0.00} ft",Convert.ToDouble(rdrSummary.GetString(9)));
 				lblHistoryMaxHeartRate.Text = rdrSummary.IsDBNull(10) ? "-" : rdrSummary.GetString(10);
 				lblHistoryMaxCadence.Text = rdrSummary.IsDBNull(11) ? "-" : rdrSummary.GetString(11);
-				lblHistoryMaxSpeed.Text = rdrSummary.IsDBNull(12) ? "-" : rdrSummary.GetString(12);
+				lblHistoryMaxSpeed.Text = rdrSummary.IsDBNull(12) ? "-" : string.Format("{0:0.00} mph",Convert.ToDouble(rdrSummary.GetString(12)));
 				txtHistoryNotes.Text = rdrSummary.IsDBNull(14) ? "" : rdrSummary.GetString(14);
 				
 				if(rdrSummary.IsDBNull(15)){
@@ -2966,9 +3284,10 @@ namespace TCX_Parser
 				}else{
 					cbkHistoryUploadRunkeeper.Checked = true;
 					pnlHistoryUploadRunkeeper.Enabled = true;
-					pnlHistoryUploadRunkeeper.BackColor = Color.AliceBlue;
+					pnlHistoryUploadRunkeeper.BackColor = Color.PaleGreen;
 					linkHistoryUploadRunkeeper.Links.Clear();
 					linkHistoryUploadRunkeeper.Links.Add(0,0,rdrSummary.GetString(15));
+					linkHistoryUploadRunkeeper.Enabled = true;
 				}
 				//
 				if(rdrSummary.IsDBNull(16)){
@@ -2978,9 +3297,10 @@ namespace TCX_Parser
 				}else{
 					cbkHistoryUploadStrava.Checked = true;
 					pnlHistoryUploadStrava.Enabled = true;				
-					pnlHistoryUploadStrava.BackColor = Color.AliceBlue;					
+					pnlHistoryUploadStrava.BackColor = Color.PaleGreen;					
 					linkHistoryUploadStrava.Links.Clear();
 					linkHistoryUploadStrava.Links.Add(0,0,rdrSummary.GetString(16));
+					linkHistoryUploadStrava.Enabled = true;
 				}
 				// 
 				if(rdrSummary.IsDBNull(17)){
@@ -2990,9 +3310,10 @@ namespace TCX_Parser
 				}else{
 					cbkHistoryUploadGarmin.Checked = true;
 					pnlHistoryUploadGarmin.Enabled = true;
-					pnlHistoryUploadGarmin.BackColor = Color.AliceBlue;
+					pnlHistoryUploadGarmin.BackColor = Color.PaleGreen;
 					linkHistoryUploadGarmin.Links.Clear();
 					linkHistoryUploadGarmin.Links.Add(0,0,rdrSummary.GetString(17));
+					linkHistoryUploadGarmin.Enabled = true;
 				}
 				// 
 				if(rdrSummary.IsDBNull(18)){
@@ -3002,10 +3323,37 @@ namespace TCX_Parser
 				}else{
 					cbkHistoryUploadRideWithGPS.Checked = true;
 					pnlHistoryUploadRideWithGPS.Enabled = true;
-					pnlHistoryUploadRideWithGPS.BackColor = Color.AliceBlue;
+					pnlHistoryUploadRideWithGPS.BackColor = Color.PaleGreen;
 					linkHistoryUploadRideWithGPS.Links.Clear();
 					linkHistoryUploadRideWithGPS.Links.Add(0,0,rdrSummary.GetString(18));
+					linkHistoryUploadRideWithGPS.Enabled = true;
 				}
+				
+				// display the activity "is commute" flag
+				if(rdrSummary.IsDBNull(19)){
+					cbkSummaryIsCommute.Checked = false;
+				}
+				else{
+					cbkSummaryIsCommute.Checked = (rdrSummary.GetInt32(19) == 1 ? true : false);
+				}
+				
+				// display the activity "is stationary trainer" flag
+				if(rdrSummary.IsDBNull(20)){
+					cbkSummaryIsStationaryTrainer.Checked = false;
+				}
+				else{
+					cbkSummaryIsStationaryTrainer.Checked = (rdrSummary.GetInt32(20) == 1 ? true : false);
+				}
+				
+				// display the activity "is included in stats" flag
+				if(rdrSummary.IsDBNull(21)){
+					cbkSummaryIncludeInStats.Checked = false;
+				}
+				else{
+					cbkSummaryIncludeInStats.Checked = (rdrSummary.GetInt32(21) == 1 ? true : false);
+				}
+				
+				
 			}
 			else{
 				lblHistoryName.Text = "<Summary Not Found>";
@@ -3137,7 +3485,7 @@ namespace TCX_Parser
 					distance = (rdr.GetDouble(4)/1000) * 0.621371192; // convert metres to miles
 					double duration = rdr.GetDouble(2);
 					double altitude = rdr.GetDouble(3);
-					double speed = rdr.GetDouble(7);
+					double speed = rdr.GetDouble(7) * 2.23693629; // metres per second to mph
 					double cadence = rdr.GetDouble(6);
 					double heart = rdr.GetDouble(5);
 					
@@ -3283,7 +3631,9 @@ namespace TCX_Parser
 		            writer.Dispose();
 		            fs.Dispose();
 		            webBrowserHistoryMap.Navigate(Application.StartupPath + "\\history_route.html");
-		            setTab(tabControlHistory, "tabHistorySummary");
+		            if(!_bIsBatchProcessing){
+		            	setTab(tabControlHistory, "tabHistorySummary");
+		            }
 				}
 				catch(Exception ex){
 					MessageBox.Show("Map Update Failed. Try re-selecting the activity." + ex.Message ,"Error loading map", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
@@ -3349,15 +3699,22 @@ namespace TCX_Parser
 		{
 			if(e.Button == MouseButtons.Right)
 			{
-				ActivityName actName = new ActivityName(lstFileHistory.SelectedItems[0].SubItems[2].Text, lstFileHistory.SelectedItems[0].SubItems[4].Text);
+				ActivityName actName = new ActivityName(
+					lstFileHistory.SelectedItems[0].SubItems[2].Text,			// activity name
+					lstFileHistory.SelectedItems[0].SubItems[9].Text,			// activity notes
+					lstFileHistory.SelectedItems[0].SubItems[7].Text == "Y",	// activity is commute
+					lstFileHistory.SelectedItems[0].SubItems[8].Text == "Y"		// activity is stationary trainer
+				);
 				// if OK, set the activity name in the database
 				if(actName.ShowDialog() == DialogResult.OK){
 					// get the id of the file selected
 					int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
-					string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\" where idFile = {1}",
+					string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\", fileIsCommute = {3}, fileIsStationaryTrainer = {4} where idFile = {1}",
 					                           actName._activityName,
 					                           fileId,
-					                           actName._activityNotes
+					                           actName._activityNotes,
+					                           actName._activityIsCommute ? 1 : 0,
+					                           actName._activityIsStationaryTrainer ? 1 : 0
 					                          );
 					SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
 					command.CommandText = sql;
@@ -3394,7 +3751,7 @@ namespace TCX_Parser
 		void LinkHistoryUploadClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			try{
-			Process.Start(e.Link.LinkData.ToString());
+				Process.Start(e.Link.LinkData.ToString());
 			}
 			catch(Exception ex){
 				MessageBox.Show("There was a problem opening the link for the selected activity.\r\n" + e.Link.LinkData.ToString());
@@ -3437,16 +3794,184 @@ namespace TCX_Parser
 		        AddListViewGroup(lstFileHistory, group);
 		        SetListViewGroup(lstFileHistory, idx, group);
 		        if(group.Items.Count == 1){
-	            	lstFileHistory.SetGroupFooter(group, "1 Activity");
+	            	lstFileHistory.SetGroupFooter(group, "1 Activityf");
 	            }else{
 	            	lstFileHistory.SetGroupFooter(group, group.Items.Count + " Activities");
 	            }
 		    }
 		}
 		
-		void Button1Click(object sender, EventArgs e)
+		
+		void TabControlHistorySelected(object sender, TabControlEventArgs e)
 		{
-			lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+			// load / refresh the monthly stats
+			if(e.TabPage == tabPageMonthlyStats){
+				lstMonthlyStats.Items.Clear();
+				SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+				string sql = "select strftime(\"%Y-%m\",f.fileActivityDateTime) as `ym`, "+
+					"sum(fs.fsDistance) as `totalDistance`, "+
+					"sum(fs.fsMovingTime) as `totalDurationMoving`, "+
+					"count(f.idFile), "+
+					"sum(fs.fsTotalAscent), "+
+					"max(case fs.fsMaxSpeed = 255 when 1 then 0 else fs.fsMaxSpeed end), "+
+					"max(case fs.fsMaxHeartRate = 255 when 1 then 0 else fs.fsMaxHeartRate end), "+
+					"max(case fs.fsMaxCadence = 255 when 1 then 0 else fs.fsMaxCadence end), "+
+					"max(cast(fs.fsTotalAscent as double)), "+
+					"sum(case fs.fsAvgCadence = 255 when 1 then 0 else fs.fsAvgCadence end * fs.fsMovingTime) / sum(case fs.fsAvgCadence = 255 when 1 then 0 else fs.fsMovingTime end), "+
+					"sum(case fs.fsAvgHeart = 255 when 1 then 0 else fs.fsAvgHeart end * fs.fsMovingTime) / sum(case fs.fsAvgHeart = 255 when 1 then 0 else fs.fsMovingTime end) "+
+					"from File f "+
+					"join FileSummary fs on fs.idFile = f.idFile "+
+					"where f.fileIsIncludedInStats = 1 "+
+					"group by ym "+
+					"order by ym asc ";
+				command.CommandText = sql;
+				SQLiteDataReader rdr = command.ExecuteReader();
+				if(rdr.HasRows){
+					while(rdr.Read()){
+						TimeSpan tsMoving = TimeSpan.FromSeconds(rdr.GetInt32(2));
+						string[] row = {
+							rdr.GetString(0),
+							rdr.GetInt32(3).ToString(),
+							string.Format("{0:0.00} miles", rdr.GetDouble(1)),
+							string.Format("{0:D2} h {1:D2} m {2:D2} s", Convert.ToInt32(Math.Floor(tsMoving.TotalHours)), tsMoving.Minutes, tsMoving.Seconds),
+							string.Format("{0:0.00} mph", (rdr.GetDouble(1) / Convert.ToDouble(rdr.GetInt32(2)))*3600),
+							string.Format("{0:0} rpm", rdr.GetInt32(9)),
+							string.Format("{0:0} bpm", rdr.GetInt32(10)),
+							string.Format("{0:0.00} ft", rdr.GetDouble(4)),
+							string.Format("{0:0.00} mph", Convert.ToDouble(rdr.GetString(5))),
+							string.Format("{0:0} bpm", Convert.ToInt32(rdr.GetString(6))),
+							string.Format("{0:0} rpm", Convert.ToInt32(rdr.GetString(7))),
+							string.Format("{0:0.00} ft", rdr.GetDouble(8))
+						};
+						lstMonthlyStats.Items.Add(new ListViewItem(row));
+					}
+					ResizeListView(lstMonthlyStats);
+				}
+			}
+			else if(e.TabPage == tabPageRecords){
+				tabShowRecords();
+			}
+		}
+		
+		void tabShowRecords()
+		{
+			string sql = @"
+				select * from (
+					select
+					    ""MAX_AVG_SPEED"" as `recordType`, date(f.fileActivityDateTime) as `recordDate`,
+					    case IFNULL(f.fileActivityName,"""") == """" when 1 then fileName else fileActivityName end as `recordActivityName`,
+					    fs.fsDistance as `recordDistance`, fs.fsDuration as `recordDuration`, cast(fs.fsAvgSpeed as double) as `recordValue`
+					from File f
+					join FileSummary fs on fs.idFile = f.idFile
+					order by cast(fs.fsAvgSpeed as double) desc limit 1
+				) as max_speed
+				UNION ALL 
+				select * from (
+					select  
+					    ""MAX_ASCENT"" as `recordType`, date(f.fileActivityDateTime) as `recordDate`,
+					    case IFNULL(f.fileActivityName,"""") == """" when 1 then fileName else fileActivityName end as `recordActivityName`,
+					    fs.fsDistance as `recordDistance`, fs.fsDuration as `recordDuration`, cast(fs.fsTotalAscent as double) as `recordValue`
+					from File f
+					join FileSummary fs on fs.idFile = f.idFile
+					order by cast(fs.fsTotalAscent as double) desc limit 1
+				) as max_ascent
+				UNION ALL 
+				select * from (
+					select  
+					    ""MAX_DISTANCE"" as `recordType`, date(f.fileActivityDateTime) as `recordDate`,
+					    case IFNULL(f.fileActivityName,"""") == """" when 1 then fileName else fileActivityName end as `recordActivityName`,
+					    fs.fsDistance as `recordDistance`, fs.fsDuration as `recordDuration`, cast(fs.fsDistance as double) as `recordValue`
+					from File f
+					join FileSummary fs on fs.idFile = f.idFile
+					order by cast(fs.fsDistance as double) desc limit 1
+				) as max_distance				
+			";
+			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+			command.CommandText = sql;
+			SQLiteDataReader rdr = command.ExecuteReader();
+			if(rdr.HasRows){
+				while(rdr.Read()){
+					switch((string)rdr.GetValue(0)){
+						case "MAX_AVG_SPEED":
+							recAverageSpeed.Text = string.Format("{0:0.00} mph, achieved on {1} [ {2} ]",
+							                                     (double)rdr.GetValue(5),
+							                                     rdr.GetString(1),
+							                                     rdr.GetString(2)
+							                                    );
+							break;
+						case "MAX_ASCENT":
+							recMostClimbing.Text = string.Format("{0:0.00} ft, achieved on {1} [ {2} ]", 
+							                                     (double)rdr.GetValue(5),
+							                                     rdr.GetString(1),
+							                                     rdr.GetString(2)
+							                                    );
+							break;
+						case "MAX_DISTANCE":
+							recLongestRide.Text = string.Format("{0:0.00} miles, achieved on {1} [ {2} ]", 
+							                                    (double)rdr.GetValue(5),
+							                                    rdr.GetString(1),
+							                                    rdr.GetString(2)
+							                                   );
+							break;
+					}
+				}
+			}
+			
+			
+		}
+		
+		void MenuOpenBatchClick(object sender, EventArgs e)
+		{
+			_activityBatch = new Batch(_previous_file_path, this);
+			_activityBatch.ShowDialog();
+		}
+		
+		// called from batch process
+		public void openSelectedFile(int batchItemRowIdx, string filename, string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer)
+		{
+			_opened_file = filename;
+			SetControlPropertyThreadSafe(txtActivityName, "Text", activityName);
+			SetControlPropertyThreadSafe(txtActivityNotes, "Text", activityNotes);
+			SetControlPropertyThreadSafe(cbkIsCommute, "Checked", isCommute);
+			SetControlPropertyThreadSafe(cbkIsStationaryTrainer ,"Checked", isStationaryTrainer);
+			_activityBatchRowIdx = batchItemRowIdx;
+			_bIsBatchProcessing = true;
+			_fileSummary = new FileSummary();
+			_threadProcessFile = new Thread(new ThreadStart(this.processSelectedFile));
+			_threadProcessFile.Start();
+		}
+		
+		public void processOpenedFile()
+		{
+			if(_bIsBatchProcessing){
+				setActiveTabPage("tabFileHistory");
+				setFileHistoryActiveTabPage("tabFiles");
+			}
+			uploadToAllProviders();
+			if(_bIsBatchProcessing){
+				_activityBatch.responseFileProcessed();
+			}
+		}
+		public void setEndOfBatch()
+		{
+			_bIsBatchProcessing = false;
+		}
+		
+		void MenuToolsOptionsClick(object sender, EventArgs e)
+		{
+			ToolsOptions usersettings = new ToolsOptions(_autopause);
+			
+			// show the user settings and apply and changes if the user has selected anything different
+			if(usersettings.ShowDialog() == DialogResult.OK)
+			{
+				_autopause = usersettings._autopause;
+				SetControlPropertyThreadSafe(txtAutoPauseThreshold, "Text", _autopause.ToString());
+				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
+				if(key != null){
+					key.SetValue("autopause",_autopause);
+					
+				}
+			}
 		}
 	}
 }

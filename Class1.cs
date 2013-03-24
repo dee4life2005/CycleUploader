@@ -10,7 +10,7 @@
 using System;
 using System.Diagnostics;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 public class GeoMath
 {

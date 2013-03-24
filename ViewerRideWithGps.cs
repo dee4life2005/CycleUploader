@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Reflection;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of ViewerRideWithGps.

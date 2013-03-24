@@ -9,7 +9,7 @@
 using System;
 using System.IO;
 
-namespace TCX_Parser
+namespace CycleUploader
 {
 	/// <summary>
 	/// Description of UploadFile.

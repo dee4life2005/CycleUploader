@@ -14,7 +14,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile />
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <ApplicationIcon>bin\Debug\cycle.ico</ApplicationIcon>
+    <ApplicationIcon>imgs\cycle.ico</ApplicationIcon>
     <NoWin32Manifest>False</NoWin32Manifest>
     <SignAssembly>False</SignAssembly>
     <DelaySign>False</DelaySign>
@@ -133,6 +133,10 @@
       <DependentUpon>ActivityName.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Batch.cs" />
+    <Compile Include="Batch.Designer.cs">
+      <DependentUpon>Batch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="EndomondoAPI.cs" />
     <Compile Include="EndomondoConnect.cs" />
@@ -168,6 +172,10 @@
     <Compile Include="StravaConnect.Designer.cs">
       <DependentUpon>StravaConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolsOptions.cs" />
+    <Compile Include="ToolsOptions.Designer.cs">
+      <DependentUpon>ToolsOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="UploadFile.cs" />
     <Compile Include="ViewerEndomondo.cs" />
     <Compile Include="ViewerEndomondo.Designer.cs">
@@ -201,6 +209,9 @@
     <EmbeddedResource Include="ActivityName.resx">
       <DependentUpon>ActivityName.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Batch.resx">
+      <DependentUpon>Batch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EndomondoConnect.resx">
       <DependentUpon>EndomondoConnect.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StravaConnect.resx">
       <DependentUpon>StravaConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsOptions.resx">
+      <DependentUpon>ToolsOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewerEndomondo.resx">
       <DependentUpon>ViewerEndomondo.cs</DependentUpon>
