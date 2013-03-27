@@ -112,26 +112,31 @@ namespace CycleUploader
 			this.colIsStationaryTrainer = new System.Windows.Forms.ColumnHeader();
 			this.colNotes = new System.Windows.Forms.ColumnHeader();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
-			this.cbkSummaryIncludeInStats = new System.Windows.Forms.CheckBox();
-			this.cbkSummaryIsStationaryTrainer = new System.Windows.Forms.CheckBox();
-			this.cbkSummaryIsCommute = new System.Windows.Forms.CheckBox();
-			this.label25 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.lstMileSplits = new System.Windows.Forms.ListView();
+			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.pnlHistoryUploadRideWithGPS = new System.Windows.Forms.Panel();
 			this.linkHistoryUploadRideWithGPS = new System.Windows.Forms.LinkLabel();
 			this.cbkHistoryUploadRideWithGPS = new System.Windows.Forms.CheckBox();
 			this.pictureBox13 = new System.Windows.Forms.PictureBox();
-			this.pnlHistoryUploadRunkeeper = new System.Windows.Forms.Panel();
-			this.linkHistoryUploadRunkeeper = new System.Windows.Forms.LinkLabel();
-			this.cbkHistoryUploadRunkeeper = new System.Windows.Forms.CheckBox();
-			this.pictureBox12 = new System.Windows.Forms.PictureBox();
-			this.pnlHistoryUploadStrava = new System.Windows.Forms.Panel();
-			this.linkHistoryUploadStrava = new System.Windows.Forms.LinkLabel();
-			this.cbkHistoryUploadStrava = new System.Windows.Forms.CheckBox();
-			this.pictureBox11 = new System.Windows.Forms.PictureBox();
 			this.pnlHistoryUploadGarmin = new System.Windows.Forms.Panel();
 			this.linkHistoryUploadGarmin = new System.Windows.Forms.LinkLabel();
 			this.cbkHistoryUploadGarmin = new System.Windows.Forms.CheckBox();
 			this.pictureBox10 = new System.Windows.Forms.PictureBox();
+			this.pnlHistoryUploadStrava = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadStrava = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadStrava = new System.Windows.Forms.CheckBox();
+			this.pictureBox11 = new System.Windows.Forms.PictureBox();
+			this.pnlHistoryUploadRunkeeper = new System.Windows.Forms.Panel();
+			this.linkHistoryUploadRunkeeper = new System.Windows.Forms.LinkLabel();
+			this.cbkHistoryUploadRunkeeper = new System.Windows.Forms.CheckBox();
+			this.pictureBox12 = new System.Windows.Forms.PictureBox();
+			this.cbkSummaryIncludeInStats = new System.Windows.Forms.CheckBox();
+			this.cbkSummaryIsStationaryTrainer = new System.Windows.Forms.CheckBox();
+			this.cbkSummaryIsCommute = new System.Windows.Forms.CheckBox();
 			this.txtHistoryNotes = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.lblHistoryMaxSpeed = new System.Windows.Forms.Label();
@@ -169,23 +174,11 @@ namespace CycleUploader
 			this.tabPage10 = new System.Windows.Forms.TabPage();
 			this.zedHistoryCadence = new ZedGraph.ZedGraphControl();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
-			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
-			this.tabPageMonthlyStats = new System.Windows.Forms.TabPage();
-			this.lstMonthlyStats = new System.Windows.Forms.ListView();
+			this.lstHeartRateZones = new System.Windows.Forms.ListView();
+			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader23 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader30 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader31 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader24 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader25 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader26 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader27 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader28 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader29 = new System.Windows.Forms.ColumnHeader();
-			this.tabPageRecords = new System.Windows.Forms.TabPage();
+			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
 			this.tabMap = new System.Windows.Forms.TabPage();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -246,6 +239,9 @@ namespace CycleUploader
 			this.menuConnectToRideWithGps = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuViewAccountRideWithGps = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuUploadToRideWithGps = new System.Windows.Forms.ToolStripMenuItem();
+			this.analysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuAnalysisMonthlyStats = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuAnalysisRecords = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -268,12 +264,6 @@ namespace CycleUploader
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.label27 = new System.Windows.Forms.Label();
-			this.label14 = new System.Windows.Forms.Label();
-			this.label28 = new System.Windows.Forms.Label();
-			this.recMostClimbing = new System.Windows.Forms.Label();
-			this.recAverageSpeed = new System.Windows.Forms.Label();
-			this.recLongestRide = new System.Windows.Forms.Label();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -282,21 +272,21 @@ namespace CycleUploader
 			this.tabControlHistory.SuspendLayout();
 			this.tabFiles.SuspendLayout();
 			this.tabHistorySummary.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.pnlHistoryUploadRideWithGPS.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-			this.pnlHistoryUploadRunkeeper.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-			this.pnlHistoryUploadStrava.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
 			this.pnlHistoryUploadGarmin.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+			this.pnlHistoryUploadStrava.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+			this.pnlHistoryUploadRunkeeper.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
 			this.tabHistoryMap.SuspendLayout();
 			this.tabPage8.SuspendLayout();
 			this.tabPage9.SuspendLayout();
 			this.tabPage10.SuspendLayout();
 			this.tabPage11.SuspendLayout();
-			this.tabPageMonthlyStats.SuspendLayout();
-			this.tabPageRecords.SuspendLayout();
 			this.tabMap.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage4.SuspendLayout();
@@ -986,14 +976,11 @@ namespace CycleUploader
 			this.tabControlHistory.Controls.Add(this.tabPage9);
 			this.tabControlHistory.Controls.Add(this.tabPage10);
 			this.tabControlHistory.Controls.Add(this.tabPage11);
-			this.tabControlHistory.Controls.Add(this.tabPageMonthlyStats);
-			this.tabControlHistory.Controls.Add(this.tabPageRecords);
 			this.tabControlHistory.Location = new System.Drawing.Point(6, 27);
 			this.tabControlHistory.Name = "tabControlHistory";
 			this.tabControlHistory.SelectedIndex = 0;
 			this.tabControlHistory.Size = new System.Drawing.Size(1004, 356);
 			this.tabControlHistory.TabIndex = 1;
-			this.tabControlHistory.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControlHistorySelected);
 			// 
 			// tabFiles
 			// 
@@ -1084,14 +1071,11 @@ namespace CycleUploader
 			// 
 			// tabHistorySummary
 			// 
+			this.tabHistorySummary.Controls.Add(this.groupBox1);
+			this.tabHistorySummary.Controls.Add(this.groupBox4);
 			this.tabHistorySummary.Controls.Add(this.cbkSummaryIncludeInStats);
 			this.tabHistorySummary.Controls.Add(this.cbkSummaryIsStationaryTrainer);
 			this.tabHistorySummary.Controls.Add(this.cbkSummaryIsCommute);
-			this.tabHistorySummary.Controls.Add(this.label25);
-			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadRideWithGPS);
-			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadRunkeeper);
-			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadStrava);
-			this.tabHistorySummary.Controls.Add(this.pnlHistoryUploadGarmin);
 			this.tabHistorySummary.Controls.Add(this.txtHistoryNotes);
 			this.tabHistorySummary.Controls.Add(this.label6);
 			this.tabHistorySummary.Controls.Add(this.lblHistoryMaxSpeed);
@@ -1127,51 +1111,59 @@ namespace CycleUploader
 			this.tabHistorySummary.Text = "Summary";
 			this.tabHistorySummary.UseVisualStyleBackColor = true;
 			// 
-			// cbkSummaryIncludeInStats
+			// groupBox1
 			// 
-			this.cbkSummaryIncludeInStats.Enabled = false;
-			this.cbkSummaryIncludeInStats.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIncludeInStats.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIncludeInStats.Location = new System.Drawing.Point(471, 97);
-			this.cbkSummaryIncludeInStats.Name = "cbkSummaryIncludeInStats";
-			this.cbkSummaryIncludeInStats.Size = new System.Drawing.Size(129, 24);
-			this.cbkSummaryIncludeInStats.TabIndex = 67;
-			this.cbkSummaryIncludeInStats.Text = "Included in Statistics";
-			this.cbkSummaryIncludeInStats.UseVisualStyleBackColor = true;
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
+			this.groupBox1.Controls.Add(this.lstMileSplits);
+			this.groupBox1.Location = new System.Drawing.Point(685, 154);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(305, 166);
+			this.groupBox1.TabIndex = 69;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Mile Splits";
 			// 
-			// cbkSummaryIsStationaryTrainer
+			// lstMileSplits
 			// 
-			this.cbkSummaryIsStationaryTrainer.Enabled = false;
-			this.cbkSummaryIsStationaryTrainer.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIsStationaryTrainer.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIsStationaryTrainer.Location = new System.Drawing.Point(471, 74);
-			this.cbkSummaryIsStationaryTrainer.Name = "cbkSummaryIsStationaryTrainer";
-			this.cbkSummaryIsStationaryTrainer.Size = new System.Drawing.Size(104, 24);
-			this.cbkSummaryIsStationaryTrainer.TabIndex = 66;
-			this.cbkSummaryIsStationaryTrainer.Text = "Stationary Trainer";
-			this.cbkSummaryIsStationaryTrainer.UseVisualStyleBackColor = true;
+			this.lstMileSplits.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.lstMileSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+									this.columnHeader11,
+									this.columnHeader12,
+									this.columnHeader13});
+			this.lstMileSplits.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lstMileSplits.Location = new System.Drawing.Point(3, 18);
+			this.lstMileSplits.Name = "lstMileSplits";
+			this.lstMileSplits.Size = new System.Drawing.Size(299, 145);
+			this.lstMileSplits.TabIndex = 0;
+			this.lstMileSplits.UseCompatibleStateImageBehavior = false;
+			this.lstMileSplits.View = System.Windows.Forms.View.Details;
 			// 
-			// cbkSummaryIsCommute
+			// columnHeader11
 			// 
-			this.cbkSummaryIsCommute.Enabled = false;
-			this.cbkSummaryIsCommute.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIsCommute.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIsCommute.Location = new System.Drawing.Point(471, 51);
-			this.cbkSummaryIsCommute.Name = "cbkSummaryIsCommute";
-			this.cbkSummaryIsCommute.Size = new System.Drawing.Size(104, 24);
-			this.cbkSummaryIsCommute.TabIndex = 65;
-			this.cbkSummaryIsCommute.Text = "Commute";
-			this.cbkSummaryIsCommute.UseVisualStyleBackColor = true;
+			this.columnHeader11.Text = "Mile No.";
+			this.columnHeader11.Width = 99;
 			// 
-			// label25
+			// columnHeader12
 			// 
-			this.label25.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label25.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label25.Location = new System.Drawing.Point(642, 61);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(89, 14);
-			this.label25.TabIndex = 64;
-			this.label25.Text = "Uploads";
+			this.columnHeader12.Text = "Speed";
+			this.columnHeader12.Width = 113;
+			// 
+			// columnHeader13
+			// 
+			this.columnHeader13.Text = "Pace";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.pnlHistoryUploadRideWithGPS);
+			this.groupBox4.Controls.Add(this.pnlHistoryUploadGarmin);
+			this.groupBox4.Controls.Add(this.pnlHistoryUploadStrava);
+			this.groupBox4.Controls.Add(this.pnlHistoryUploadRunkeeper);
+			this.groupBox4.Location = new System.Drawing.Point(508, 49);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(482, 99);
+			this.groupBox4.TabIndex = 68;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Upload Status";
 			// 
 			// pnlHistoryUploadRideWithGPS
 			// 
@@ -1181,7 +1173,7 @@ namespace CycleUploader
 			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.cbkHistoryUploadRideWithGPS);
 			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.pictureBox13);
 			this.pnlHistoryUploadRideWithGPS.Enabled = false;
-			this.pnlHistoryUploadRideWithGPS.Location = new System.Drawing.Point(642, 263);
+			this.pnlHistoryUploadRideWithGPS.Location = new System.Drawing.Point(329, 21);
 			this.pnlHistoryUploadRideWithGPS.Name = "pnlHistoryUploadRideWithGPS";
 			this.pnlHistoryUploadRideWithGPS.Padding = new System.Windows.Forms.Padding(1);
 			this.pnlHistoryUploadRideWithGPS.Size = new System.Drawing.Size(143, 60);
@@ -1222,54 +1214,54 @@ namespace CycleUploader
 			this.pictureBox13.TabIndex = 58;
 			this.pictureBox13.TabStop = false;
 			// 
-			// pnlHistoryUploadRunkeeper
+			// pnlHistoryUploadGarmin
 			// 
-			this.pnlHistoryUploadRunkeeper.BackColor = System.Drawing.Color.Gainsboro;
-			this.pnlHistoryUploadRunkeeper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pnlHistoryUploadRunkeeper.Controls.Add(this.linkHistoryUploadRunkeeper);
-			this.pnlHistoryUploadRunkeeper.Controls.Add(this.cbkHistoryUploadRunkeeper);
-			this.pnlHistoryUploadRunkeeper.Controls.Add(this.pictureBox12);
-			this.pnlHistoryUploadRunkeeper.Enabled = false;
-			this.pnlHistoryUploadRunkeeper.Location = new System.Drawing.Point(642, 80);
-			this.pnlHistoryUploadRunkeeper.Name = "pnlHistoryUploadRunkeeper";
-			this.pnlHistoryUploadRunkeeper.Padding = new System.Windows.Forms.Padding(1);
-			this.pnlHistoryUploadRunkeeper.Size = new System.Drawing.Size(143, 60);
-			this.pnlHistoryUploadRunkeeper.TabIndex = 62;
+			this.pnlHistoryUploadGarmin.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadGarmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadGarmin.Controls.Add(this.linkHistoryUploadGarmin);
+			this.pnlHistoryUploadGarmin.Controls.Add(this.cbkHistoryUploadGarmin);
+			this.pnlHistoryUploadGarmin.Controls.Add(this.pictureBox10);
+			this.pnlHistoryUploadGarmin.Enabled = false;
+			this.pnlHistoryUploadGarmin.Location = new System.Drawing.Point(223, 21);
+			this.pnlHistoryUploadGarmin.Name = "pnlHistoryUploadGarmin";
+			this.pnlHistoryUploadGarmin.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadGarmin.Size = new System.Drawing.Size(105, 60);
+			this.pnlHistoryUploadGarmin.TabIndex = 60;
 			// 
-			// linkHistoryUploadRunkeeper
+			// linkHistoryUploadGarmin
 			// 
-			this.linkHistoryUploadRunkeeper.Enabled = false;
-			this.linkHistoryUploadRunkeeper.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.linkHistoryUploadRunkeeper.ForeColor = System.Drawing.Color.DodgerBlue;
-			this.linkHistoryUploadRunkeeper.LinkColor = System.Drawing.Color.DodgerBlue;
-			this.linkHistoryUploadRunkeeper.Location = new System.Drawing.Point(24, 36);
-			this.linkHistoryUploadRunkeeper.Name = "linkHistoryUploadRunkeeper";
-			this.linkHistoryUploadRunkeeper.Size = new System.Drawing.Size(100, 23);
-			this.linkHistoryUploadRunkeeper.TabIndex = 60;
-			this.linkHistoryUploadRunkeeper.TabStop = true;
-			this.linkHistoryUploadRunkeeper.Text = "Click to View";
-			this.linkHistoryUploadRunkeeper.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			this.linkHistoryUploadGarmin.Enabled = false;
+			this.linkHistoryUploadGarmin.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadGarmin.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadGarmin.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadGarmin.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadGarmin.Name = "linkHistoryUploadGarmin";
+			this.linkHistoryUploadGarmin.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadGarmin.TabIndex = 61;
+			this.linkHistoryUploadGarmin.TabStop = true;
+			this.linkHistoryUploadGarmin.Text = "Click to View";
+			this.linkHistoryUploadGarmin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
 			// 
-			// cbkHistoryUploadRunkeeper
+			// cbkHistoryUploadGarmin
 			// 
-			this.cbkHistoryUploadRunkeeper.AutoSize = true;
-			this.cbkHistoryUploadRunkeeper.Enabled = false;
-			this.cbkHistoryUploadRunkeeper.Location = new System.Drawing.Point(4, 3);
-			this.cbkHistoryUploadRunkeeper.Name = "cbkHistoryUploadRunkeeper";
-			this.cbkHistoryUploadRunkeeper.Size = new System.Drawing.Size(15, 14);
-			this.cbkHistoryUploadRunkeeper.TabIndex = 59;
-			this.cbkHistoryUploadRunkeeper.UseVisualStyleBackColor = true;
+			this.cbkHistoryUploadGarmin.AutoSize = true;
+			this.cbkHistoryUploadGarmin.Enabled = false;
+			this.cbkHistoryUploadGarmin.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadGarmin.Name = "cbkHistoryUploadGarmin";
+			this.cbkHistoryUploadGarmin.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadGarmin.TabIndex = 59;
+			this.cbkHistoryUploadGarmin.UseVisualStyleBackColor = true;
 			// 
-			// pictureBox12
+			// pictureBox10
 			// 
-			this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
-			this.pictureBox12.Location = new System.Drawing.Point(24, 3);
-			this.pictureBox12.Margin = new System.Windows.Forms.Padding(5);
-			this.pictureBox12.Name = "pictureBox12";
-			this.pictureBox12.Size = new System.Drawing.Size(32, 32);
-			this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-			this.pictureBox12.TabIndex = 58;
-			this.pictureBox12.TabStop = false;
+			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+			this.pictureBox10.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox10.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox10.Name = "pictureBox10";
+			this.pictureBox10.Size = new System.Drawing.Size(32, 32);
+			this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox10.TabIndex = 58;
+			this.pictureBox10.TabStop = false;
 			// 
 			// pnlHistoryUploadStrava
 			// 
@@ -1279,10 +1271,10 @@ namespace CycleUploader
 			this.pnlHistoryUploadStrava.Controls.Add(this.cbkHistoryUploadStrava);
 			this.pnlHistoryUploadStrava.Controls.Add(this.pictureBox11);
 			this.pnlHistoryUploadStrava.Enabled = false;
-			this.pnlHistoryUploadStrava.Location = new System.Drawing.Point(642, 141);
+			this.pnlHistoryUploadStrava.Location = new System.Drawing.Point(117, 21);
 			this.pnlHistoryUploadStrava.Name = "pnlHistoryUploadStrava";
 			this.pnlHistoryUploadStrava.Padding = new System.Windows.Forms.Padding(1);
-			this.pnlHistoryUploadStrava.Size = new System.Drawing.Size(143, 60);
+			this.pnlHistoryUploadStrava.Size = new System.Drawing.Size(105, 60);
 			this.pnlHistoryUploadStrava.TabIndex = 61;
 			// 
 			// linkHistoryUploadStrava
@@ -1320,54 +1312,90 @@ namespace CycleUploader
 			this.pictureBox11.TabIndex = 58;
 			this.pictureBox11.TabStop = false;
 			// 
-			// pnlHistoryUploadGarmin
+			// pnlHistoryUploadRunkeeper
 			// 
-			this.pnlHistoryUploadGarmin.BackColor = System.Drawing.Color.Gainsboro;
-			this.pnlHistoryUploadGarmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pnlHistoryUploadGarmin.Controls.Add(this.linkHistoryUploadGarmin);
-			this.pnlHistoryUploadGarmin.Controls.Add(this.cbkHistoryUploadGarmin);
-			this.pnlHistoryUploadGarmin.Controls.Add(this.pictureBox10);
-			this.pnlHistoryUploadGarmin.Enabled = false;
-			this.pnlHistoryUploadGarmin.Location = new System.Drawing.Point(642, 202);
-			this.pnlHistoryUploadGarmin.Name = "pnlHistoryUploadGarmin";
-			this.pnlHistoryUploadGarmin.Padding = new System.Windows.Forms.Padding(1);
-			this.pnlHistoryUploadGarmin.Size = new System.Drawing.Size(143, 60);
-			this.pnlHistoryUploadGarmin.TabIndex = 60;
+			this.pnlHistoryUploadRunkeeper.BackColor = System.Drawing.Color.Gainsboro;
+			this.pnlHistoryUploadRunkeeper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.linkHistoryUploadRunkeeper);
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.cbkHistoryUploadRunkeeper);
+			this.pnlHistoryUploadRunkeeper.Controls.Add(this.pictureBox12);
+			this.pnlHistoryUploadRunkeeper.Enabled = false;
+			this.pnlHistoryUploadRunkeeper.Location = new System.Drawing.Point(11, 21);
+			this.pnlHistoryUploadRunkeeper.Name = "pnlHistoryUploadRunkeeper";
+			this.pnlHistoryUploadRunkeeper.Padding = new System.Windows.Forms.Padding(1);
+			this.pnlHistoryUploadRunkeeper.Size = new System.Drawing.Size(105, 60);
+			this.pnlHistoryUploadRunkeeper.TabIndex = 62;
 			// 
-			// linkHistoryUploadGarmin
+			// linkHistoryUploadRunkeeper
 			// 
-			this.linkHistoryUploadGarmin.Enabled = false;
-			this.linkHistoryUploadGarmin.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.linkHistoryUploadGarmin.ForeColor = System.Drawing.Color.DodgerBlue;
-			this.linkHistoryUploadGarmin.LinkColor = System.Drawing.Color.DodgerBlue;
-			this.linkHistoryUploadGarmin.Location = new System.Drawing.Point(24, 36);
-			this.linkHistoryUploadGarmin.Name = "linkHistoryUploadGarmin";
-			this.linkHistoryUploadGarmin.Size = new System.Drawing.Size(100, 23);
-			this.linkHistoryUploadGarmin.TabIndex = 61;
-			this.linkHistoryUploadGarmin.TabStop = true;
-			this.linkHistoryUploadGarmin.Text = "Click to View";
-			this.linkHistoryUploadGarmin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
+			this.linkHistoryUploadRunkeeper.Enabled = false;
+			this.linkHistoryUploadRunkeeper.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.linkHistoryUploadRunkeeper.ForeColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRunkeeper.LinkColor = System.Drawing.Color.DodgerBlue;
+			this.linkHistoryUploadRunkeeper.Location = new System.Drawing.Point(24, 36);
+			this.linkHistoryUploadRunkeeper.Name = "linkHistoryUploadRunkeeper";
+			this.linkHistoryUploadRunkeeper.Size = new System.Drawing.Size(100, 23);
+			this.linkHistoryUploadRunkeeper.TabIndex = 60;
+			this.linkHistoryUploadRunkeeper.TabStop = true;
+			this.linkHistoryUploadRunkeeper.Text = "Click to View";
+			this.linkHistoryUploadRunkeeper.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHistoryUploadClicked);
 			// 
-			// cbkHistoryUploadGarmin
+			// cbkHistoryUploadRunkeeper
 			// 
-			this.cbkHistoryUploadGarmin.AutoSize = true;
-			this.cbkHistoryUploadGarmin.Enabled = false;
-			this.cbkHistoryUploadGarmin.Location = new System.Drawing.Point(4, 3);
-			this.cbkHistoryUploadGarmin.Name = "cbkHistoryUploadGarmin";
-			this.cbkHistoryUploadGarmin.Size = new System.Drawing.Size(15, 14);
-			this.cbkHistoryUploadGarmin.TabIndex = 59;
-			this.cbkHistoryUploadGarmin.UseVisualStyleBackColor = true;
+			this.cbkHistoryUploadRunkeeper.AutoSize = true;
+			this.cbkHistoryUploadRunkeeper.Enabled = false;
+			this.cbkHistoryUploadRunkeeper.Location = new System.Drawing.Point(4, 3);
+			this.cbkHistoryUploadRunkeeper.Name = "cbkHistoryUploadRunkeeper";
+			this.cbkHistoryUploadRunkeeper.Size = new System.Drawing.Size(15, 14);
+			this.cbkHistoryUploadRunkeeper.TabIndex = 59;
+			this.cbkHistoryUploadRunkeeper.UseVisualStyleBackColor = true;
 			// 
-			// pictureBox10
+			// pictureBox12
 			// 
-			this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-			this.pictureBox10.Location = new System.Drawing.Point(24, 3);
-			this.pictureBox10.Margin = new System.Windows.Forms.Padding(5);
-			this.pictureBox10.Name = "pictureBox10";
-			this.pictureBox10.Size = new System.Drawing.Size(32, 32);
-			this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-			this.pictureBox10.TabIndex = 58;
-			this.pictureBox10.TabStop = false;
+			this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+			this.pictureBox12.Location = new System.Drawing.Point(24, 3);
+			this.pictureBox12.Margin = new System.Windows.Forms.Padding(5);
+			this.pictureBox12.Name = "pictureBox12";
+			this.pictureBox12.Size = new System.Drawing.Size(32, 32);
+			this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox12.TabIndex = 58;
+			this.pictureBox12.TabStop = false;
+			// 
+			// cbkSummaryIncludeInStats
+			// 
+			this.cbkSummaryIncludeInStats.Enabled = false;
+			this.cbkSummaryIncludeInStats.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkSummaryIncludeInStats.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIncludeInStats.Location = new System.Drawing.Point(508, 238);
+			this.cbkSummaryIncludeInStats.Name = "cbkSummaryIncludeInStats";
+			this.cbkSummaryIncludeInStats.Size = new System.Drawing.Size(129, 24);
+			this.cbkSummaryIncludeInStats.TabIndex = 67;
+			this.cbkSummaryIncludeInStats.Text = "Included in Statistics";
+			this.cbkSummaryIncludeInStats.UseVisualStyleBackColor = true;
+			// 
+			// cbkSummaryIsStationaryTrainer
+			// 
+			this.cbkSummaryIsStationaryTrainer.Enabled = false;
+			this.cbkSummaryIsStationaryTrainer.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkSummaryIsStationaryTrainer.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIsStationaryTrainer.Location = new System.Drawing.Point(508, 215);
+			this.cbkSummaryIsStationaryTrainer.Name = "cbkSummaryIsStationaryTrainer";
+			this.cbkSummaryIsStationaryTrainer.Size = new System.Drawing.Size(104, 24);
+			this.cbkSummaryIsStationaryTrainer.TabIndex = 66;
+			this.cbkSummaryIsStationaryTrainer.Text = "Stationary Trainer";
+			this.cbkSummaryIsStationaryTrainer.UseVisualStyleBackColor = true;
+			// 
+			// cbkSummaryIsCommute
+			// 
+			this.cbkSummaryIsCommute.Enabled = false;
+			this.cbkSummaryIsCommute.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkSummaryIsCommute.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIsCommute.Location = new System.Drawing.Point(508, 192);
+			this.cbkSummaryIsCommute.Name = "cbkSummaryIsCommute";
+			this.cbkSummaryIsCommute.Size = new System.Drawing.Size(104, 24);
+			this.cbkSummaryIsCommute.TabIndex = 65;
+			this.cbkSummaryIsCommute.Text = "Commute";
+			this.cbkSummaryIsCommute.UseVisualStyleBackColor = true;
 			// 
 			// txtHistoryNotes
 			// 
@@ -1767,6 +1795,7 @@ namespace CycleUploader
 			// 
 			// tabPage11
 			// 
+			this.tabPage11.Controls.Add(this.lstHeartRateZones);
 			this.tabPage11.Controls.Add(this.zedHistoryHeart);
 			this.tabPage11.Location = new System.Drawing.Point(4, 22);
 			this.tabPage11.Name = "tabPage11";
@@ -1776,9 +1805,40 @@ namespace CycleUploader
 			this.tabPage11.Text = "Heart Rate";
 			this.tabPage11.UseVisualStyleBackColor = true;
 			// 
+			// lstHeartRateZones
+			// 
+			this.lstHeartRateZones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lstHeartRateZones.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+									this.columnHeader14,
+									this.columnHeader15,
+									this.columnHeader16});
+			this.lstHeartRateZones.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstHeartRateZones.Location = new System.Drawing.Point(781, 3);
+			this.lstHeartRateZones.Name = "lstHeartRateZones";
+			this.lstHeartRateZones.Size = new System.Drawing.Size(209, 162);
+			this.lstHeartRateZones.TabIndex = 2;
+			this.lstHeartRateZones.UseCompatibleStateImageBehavior = false;
+			this.lstHeartRateZones.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader14
+			// 
+			this.columnHeader14.Text = "Zone";
+			// 
+			// columnHeader15
+			// 
+			this.columnHeader15.Text = "Duration";
+			this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// columnHeader16
+			// 
+			this.columnHeader16.Text = "%";
+			this.columnHeader16.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// zedHistoryHeart
 			// 
-			this.zedHistoryHeart.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.zedHistoryHeart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
 			this.zedHistoryHeart.IsAntiAlias = true;
 			this.zedHistoryHeart.IsShowPointValues = true;
 			this.zedHistoryHeart.Location = new System.Drawing.Point(3, 3);
@@ -1790,133 +1850,8 @@ namespace CycleUploader
 			this.zedHistoryHeart.ScrollMinX = 0D;
 			this.zedHistoryHeart.ScrollMinY = 0D;
 			this.zedHistoryHeart.ScrollMinY2 = 0D;
-			this.zedHistoryHeart.Size = new System.Drawing.Size(990, 324);
+			this.zedHistoryHeart.Size = new System.Drawing.Size(772, 324);
 			this.zedHistoryHeart.TabIndex = 1;
-			// 
-			// tabPageMonthlyStats
-			// 
-			this.tabPageMonthlyStats.Controls.Add(this.lstMonthlyStats);
-			this.tabPageMonthlyStats.Location = new System.Drawing.Point(4, 22);
-			this.tabPageMonthlyStats.Name = "tabPageMonthlyStats";
-			this.tabPageMonthlyStats.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageMonthlyStats.Size = new System.Drawing.Size(996, 330);
-			this.tabPageMonthlyStats.TabIndex = 7;
-			this.tabPageMonthlyStats.Text = "Monthly Stats";
-			this.tabPageMonthlyStats.UseVisualStyleBackColor = true;
-			// 
-			// lstMonthlyStats
-			// 
-			this.lstMonthlyStats.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.columnHeader15,
-									this.columnHeader23,
-									this.columnHeader16,
-									this.columnHeader17,
-									this.columnHeader18,
-									this.columnHeader30,
-									this.columnHeader31,
-									this.columnHeader24,
-									this.columnHeader25,
-									this.columnHeader26,
-									this.columnHeader27,
-									this.columnHeader28,
-									this.columnHeader29});
-			this.lstMonthlyStats.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lstMonthlyStats.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lstMonthlyStats.GridLines = true;
-			this.lstMonthlyStats.Location = new System.Drawing.Point(3, 3);
-			this.lstMonthlyStats.Name = "lstMonthlyStats";
-			this.lstMonthlyStats.Size = new System.Drawing.Size(990, 324);
-			this.lstMonthlyStats.TabIndex = 0;
-			this.lstMonthlyStats.UseCompatibleStateImageBehavior = false;
-			this.lstMonthlyStats.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeader15
-			// 
-			this.columnHeader15.Text = "Month";
-			this.columnHeader15.Width = 73;
-			// 
-			// columnHeader23
-			// 
-			this.columnHeader23.Text = "Count";
-			this.columnHeader23.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// columnHeader16
-			// 
-			this.columnHeader16.Text = "Total Distance";
-			this.columnHeader16.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader16.Width = 92;
-			// 
-			// columnHeader17
-			// 
-			this.columnHeader17.Text = "Total Moving";
-			this.columnHeader17.Width = 102;
-			// 
-			// columnHeader18
-			// 
-			this.columnHeader18.Text = "Avg. Speed";
-			this.columnHeader18.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader18.Width = 75;
-			// 
-			// columnHeader30
-			// 
-			this.columnHeader30.Text = "Avg. Cadence";
-			this.columnHeader30.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader30.Width = 74;
-			// 
-			// columnHeader31
-			// 
-			this.columnHeader31.Text = "Avg. Heart";
-			this.columnHeader31.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader31.Width = 68;
-			// 
-			// columnHeader24
-			// 
-			this.columnHeader24.Text = "Total Ascent";
-			this.columnHeader24.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader24.Width = 73;
-			// 
-			// columnHeader25
-			// 
-			this.columnHeader25.Text = "Max Speed";
-			this.columnHeader25.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// columnHeader26
-			// 
-			this.columnHeader26.Text = "Max Heart";
-			this.columnHeader26.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// columnHeader27
-			// 
-			this.columnHeader27.Text = "Max Cadence";
-			this.columnHeader27.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader27.Width = 68;
-			// 
-			// columnHeader28
-			// 
-			this.columnHeader28.Text = "Max Ascent";
-			this.columnHeader28.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader28.Width = 67;
-			// 
-			// columnHeader29
-			// 
-			this.columnHeader29.Text = "";
-			this.columnHeader29.Width = 5;
-			// 
-			// tabPageRecords
-			// 
-			this.tabPageRecords.Controls.Add(this.recMostClimbing);
-			this.tabPageRecords.Controls.Add(this.recAverageSpeed);
-			this.tabPageRecords.Controls.Add(this.recLongestRide);
-			this.tabPageRecords.Controls.Add(this.label28);
-			this.tabPageRecords.Controls.Add(this.label14);
-			this.tabPageRecords.Controls.Add(this.label27);
-			this.tabPageRecords.Location = new System.Drawing.Point(4, 22);
-			this.tabPageRecords.Name = "tabPageRecords";
-			this.tabPageRecords.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageRecords.Size = new System.Drawing.Size(996, 330);
-			this.tabPageRecords.TabIndex = 8;
-			this.tabPageRecords.Text = "Records";
-			this.tabPageRecords.UseVisualStyleBackColor = true;
 			// 
 			// tabMap
 			// 
@@ -2102,7 +2037,7 @@ namespace CycleUploader
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(145, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
@@ -2169,7 +2104,7 @@ namespace CycleUploader
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
@@ -2236,7 +2171,7 @@ namespace CycleUploader
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
@@ -2303,7 +2238,7 @@ namespace CycleUploader
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
@@ -2340,6 +2275,7 @@ namespace CycleUploader
 									this.menuProviderEndomondo,
 									this.menuProviderGarmin,
 									this.menuProviderRideWithGps,
+									this.analysisToolStripMenuItem,
 									this.toolsToolStripMenuItem,
 									this.aboutToolStripMenuItem});
 			this.menubar.Location = new System.Drawing.Point(0, 0);
@@ -2565,6 +2501,30 @@ namespace CycleUploader
 			this.menuUploadToRideWithGps.Text = "Upload Ride...";
 			this.menuUploadToRideWithGps.Click += new System.EventHandler(this.MenuUploadToRideWithGpsClick);
 			// 
+			// analysisToolStripMenuItem
+			// 
+			this.analysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.menuAnalysisMonthlyStats,
+									this.menuAnalysisRecords});
+			this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
+			this.analysisToolStripMenuItem.Size = new System.Drawing.Size(62, 36);
+			this.analysisToolStripMenuItem.Text = "Analysis";
+			// 
+			// menuAnalysisMonthlyStats
+			// 
+			this.menuAnalysisMonthlyStats.Name = "menuAnalysisMonthlyStats";
+			this.menuAnalysisMonthlyStats.Size = new System.Drawing.Size(156, 22);
+			this.menuAnalysisMonthlyStats.Text = "Monthly Stats...";
+			this.menuAnalysisMonthlyStats.Click += new System.EventHandler(this.MenuAnalysisMonthlyStatsClick);
+			// 
+			// menuAnalysisRecords
+			// 
+			this.menuAnalysisRecords.Image = ((System.Drawing.Image)(resources.GetObject("menuAnalysisRecords.Image")));
+			this.menuAnalysisRecords.Name = "menuAnalysisRecords";
+			this.menuAnalysisRecords.Size = new System.Drawing.Size(156, 22);
+			this.menuAnalysisRecords.Text = "Records...";
+			this.menuAnalysisRecords.Click += new System.EventHandler(this.MenuAnalysisRecordsClick);
+			// 
 			// toolsToolStripMenuItem
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2641,7 +2601,7 @@ namespace CycleUploader
 			this.grpProviders.ForeColor = System.Drawing.Color.RoyalBlue;
 			this.grpProviders.Location = new System.Drawing.Point(810, 51);
 			this.grpProviders.Name = "grpProviders";
-			this.grpProviders.Size = new System.Drawing.Size(219, 194);
+			this.grpProviders.Size = new System.Drawing.Size(219, 205);
 			this.grpProviders.TabIndex = 28;
 			this.grpProviders.TabStop = false;
 			this.grpProviders.Text = "Available Providers";
@@ -2663,7 +2623,7 @@ namespace CycleUploader
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 16);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(213, 175);
+			this.panel1.Size = new System.Drawing.Size(213, 186);
 			this.panel1.TabIndex = 0;
 			// 
 			// label19
@@ -2791,63 +2751,6 @@ namespace CycleUploader
 			this.imageList1.Images.SetKeyName(7, "failure-icon.png");
 			this.imageList1.Images.SetKeyName(8, "success-icon.png");
 			// 
-			// label27
-			// 
-			this.label27.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label27.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label27.Location = new System.Drawing.Point(22, 30);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(126, 23);
-			this.label27.TabIndex = 32;
-			this.label27.Text = "Longest Ride";
-			// 
-			// label14
-			// 
-			this.label14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label14.Location = new System.Drawing.Point(22, 64);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(126, 23);
-			this.label14.TabIndex = 33;
-			this.label14.Text = "Fastest Avg. Speed";
-			// 
-			// label28
-			// 
-			this.label28.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label28.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label28.Location = new System.Drawing.Point(22, 98);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(162, 23);
-			this.label28.TabIndex = 34;
-			this.label28.Text = "Most Climbing";
-			// 
-			// recMostClimbing
-			// 
-			this.recMostClimbing.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.recMostClimbing.ForeColor = System.Drawing.Color.DimGray;
-			this.recMostClimbing.Location = new System.Drawing.Point(172, 98);
-			this.recMostClimbing.Name = "recMostClimbing";
-			this.recMostClimbing.Size = new System.Drawing.Size(613, 23);
-			this.recMostClimbing.TabIndex = 38;
-			// 
-			// recAverageSpeed
-			// 
-			this.recAverageSpeed.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.recAverageSpeed.ForeColor = System.Drawing.Color.DimGray;
-			this.recAverageSpeed.Location = new System.Drawing.Point(172, 64);
-			this.recAverageSpeed.Name = "recAverageSpeed";
-			this.recAverageSpeed.Size = new System.Drawing.Size(613, 23);
-			this.recAverageSpeed.TabIndex = 37;
-			// 
-			// recLongestRide
-			// 
-			this.recLongestRide.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.recLongestRide.ForeColor = System.Drawing.Color.DimGray;
-			this.recLongestRide.Location = new System.Drawing.Point(172, 30);
-			this.recLongestRide.Name = "recLongestRide";
-			this.recLongestRide.Size = new System.Drawing.Size(613, 23);
-			this.recLongestRide.TabIndex = 36;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2876,26 +2779,26 @@ namespace CycleUploader
 			this.tabFiles.ResumeLayout(false);
 			this.tabHistorySummary.ResumeLayout(false);
 			this.tabHistorySummary.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox4.ResumeLayout(false);
 			this.pnlHistoryUploadRideWithGPS.ResumeLayout(false);
 			this.pnlHistoryUploadRideWithGPS.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-			this.pnlHistoryUploadRunkeeper.ResumeLayout(false);
-			this.pnlHistoryUploadRunkeeper.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-			this.pnlHistoryUploadStrava.ResumeLayout(false);
-			this.pnlHistoryUploadStrava.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
 			this.pnlHistoryUploadGarmin.ResumeLayout(false);
 			this.pnlHistoryUploadGarmin.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+			this.pnlHistoryUploadStrava.ResumeLayout(false);
+			this.pnlHistoryUploadStrava.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+			this.pnlHistoryUploadRunkeeper.ResumeLayout(false);
+			this.pnlHistoryUploadRunkeeper.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
 			this.tabHistoryMap.ResumeLayout(false);
 			this.tabHistoryMap.PerformLayout();
 			this.tabPage8.ResumeLayout(false);
 			this.tabPage9.ResumeLayout(false);
 			this.tabPage10.ResumeLayout(false);
 			this.tabPage11.ResumeLayout(false);
-			this.tabPageMonthlyStats.ResumeLayout(false);
-			this.tabPageRecords.ResumeLayout(false);
 			this.tabMap.ResumeLayout(false);
 			this.tabMap.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
@@ -2938,13 +2841,19 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
-		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.Label label28;
-		private System.Windows.Forms.Label recLongestRide;
-		private System.Windows.Forms.Label recAverageSpeed;
-		private System.Windows.Forms.Label recMostClimbing;
-		private System.Windows.Forms.TabPage tabPageRecords;
+		private System.Windows.Forms.ColumnHeader columnHeader16;
+		private System.Windows.Forms.ColumnHeader columnHeader15;
+		private System.Windows.Forms.ColumnHeader columnHeader14;
+		private System.Windows.Forms.ListView lstHeartRateZones;
+		private System.Windows.Forms.ColumnHeader columnHeader13;
+		private System.Windows.Forms.ColumnHeader columnHeader12;
+		private System.Windows.Forms.ColumnHeader columnHeader11;
+		private System.Windows.Forms.ListView lstMileSplits;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.ToolStripMenuItem menuAnalysisRecords;
+		private System.Windows.Forms.ToolStripMenuItem menuAnalysisMonthlyStats;
+		private System.Windows.Forms.ToolStripMenuItem analysisToolStripMenuItem;
+		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.ToolStripMenuItem menuToolsOptions;
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 		private System.Windows.Forms.CheckBox cbkSummaryIsCommute;
@@ -2956,21 +2865,6 @@ namespace CycleUploader
 		private System.Windows.Forms.ColumnHeader colIsCommute;
 		private System.Windows.Forms.ToolStripMenuItem menuOpenBatch;
 		private System.Windows.Forms.ImageList imageList1;
-		private System.Windows.Forms.ColumnHeader columnHeader31;
-		private System.Windows.Forms.ColumnHeader columnHeader30;
-		private System.Windows.Forms.ColumnHeader columnHeader29;
-		private System.Windows.Forms.ColumnHeader columnHeader28;
-		private System.Windows.Forms.ColumnHeader columnHeader27;
-		private System.Windows.Forms.ColumnHeader columnHeader26;
-		private System.Windows.Forms.ColumnHeader columnHeader25;
-		private System.Windows.Forms.ColumnHeader columnHeader24;
-		private System.Windows.Forms.ColumnHeader columnHeader23;
-		private System.Windows.Forms.ColumnHeader columnHeader18;
-		private System.Windows.Forms.ColumnHeader columnHeader17;
-		private System.Windows.Forms.ColumnHeader columnHeader16;
-		private System.Windows.Forms.ColumnHeader columnHeader15;
-		private System.Windows.Forms.ListView lstMonthlyStats;
-		private System.Windows.Forms.TabPage tabPageMonthlyStats;
 		private System.Windows.Forms.ColumnHeader colAvgSpeed;
 		private System.Windows.Forms.ColumnHeader colDuration;
 		private System.Windows.Forms.ColumnHeader colDistance;
@@ -2981,7 +2875,6 @@ namespace CycleUploader
 		private System.Windows.Forms.Panel panel5;
 		private System.Windows.Forms.Label label26;
 		private System.Windows.Forms.Panel pnlNoFile;
-		private System.Windows.Forms.Label label25;
 		private System.Windows.Forms.LinkLabel linkHistoryUploadGarmin;
 		private System.Windows.Forms.PictureBox pictureBox11;
 		private System.Windows.Forms.CheckBox cbkHistoryUploadStrava;

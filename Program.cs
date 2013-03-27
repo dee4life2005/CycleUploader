@@ -17,9 +17,10 @@ namespace CycleUploader
 	/// </summary>
 	internal sealed class Program
 	{
-		private static string versionStr = "1.0.12.0";
-		private static string versionDate = "24/03/2013";
+		private static string versionStr = "1.0.17.0";
+		private static string versionDate = "26/03/2013";
 		private static string versionAuthor = "Steven Saunders";
+		private static long db_version = 2;
 		
 		public static MainForm mf = null;
 		/// <summary>
@@ -30,7 +31,7 @@ namespace CycleUploader
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			mf = new MainForm(versionStr, versionDate, versionAuthor);
+			mf = new MainForm(versionStr, versionDate, versionAuthor, db_version);
 			Application.Run(mf);
 		}
 		

@@ -140,7 +140,7 @@ namespace CycleUploader
 								"", // strava status
 								"", // garmin status
 								"", // rwgps status
-								fdBatch.FileNames[f],  // file patch column
+								fdBatch.FileNames[f],  // file path column
 								"",
 								""
 							};
@@ -252,16 +252,16 @@ namespace CycleUploader
 		{
 			switch(provider){
 				case "runkeeper":
-					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,4,status, value);
-					break;
-				case "strava":
-					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,5,status, value);
-					break;
-				case "garmin":
 					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,6,status, value);
 					break;
-				case "rwgps":
+				case "strava":
 					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,7,status, value);
+					break;
+				case "garmin":
+					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,8,status, value);
+					break;
+				case "rwgps":
+					SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,9,status, value);
 					break;
 			}
 			SetControlPropertyThreadSafe(prgStatus, "Text", status);

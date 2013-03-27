@@ -138,10 +138,6 @@
       <DependentUpon>Batch.cs</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="DatabaseSchemaUpdate.cs" />
-    <Compile Include="DatabaseSchemaUpdate.Designer.cs">
-      <DependentUpon>DatabaseSchemaUpdate.cs</DependentUpon>
-    </Compile>
     <Compile Include="EndomondoAPI.cs" />
     <Compile Include="EndomondoConnect.cs" />
     <Compile Include="EndomondoConnect.Designer.cs">
@@ -176,19 +172,7 @@
     <Compile Include="StravaConnect.Designer.cs">
       <DependentUpon>StravaConnect.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolsOptions.cs" />
-    <Compile Include="ToolsOptions.Designer.cs">
-      <DependentUpon>ToolsOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="UploadFile.cs" />
-    <Compile Include="UserMonthlyStats.cs" />
-    <Compile Include="UserMonthlyStats.Designer.cs">
-      <DependentUpon>UserMonthlyStats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserRecords.cs" />
-    <Compile Include="UserRecords.Designer.cs">
-      <DependentUpon>UserRecords.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewerEndomondo.cs" />
     <Compile Include="ViewerEndomondo.Designer.cs">
       <DependentUpon>ViewerEndomondo.cs</DependentUpon>
@@ -224,9 +208,6 @@
     <EmbeddedResource Include="Batch.resx">
       <DependentUpon>Batch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DatabaseSchemaUpdate.resx">
-      <DependentUpon>DatabaseSchemaUpdate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EndomondoConnect.resx">
       <DependentUpon>EndomondoConnect.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,15 +228,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StravaConnect.resx">
       <DependentUpon>StravaConnect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ToolsOptions.resx">
-      <DependentUpon>ToolsOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserMonthlyStats.resx">
-      <DependentUpon>UserMonthlyStats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserRecords.resx">
-      <DependentUpon>UserRecords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewerEndomondo.resx">
       <DependentUpon>ViewerEndomondo.cs</DependentUpon>
