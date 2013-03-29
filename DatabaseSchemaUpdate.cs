@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Reflection;
+using System.Threading;
 
 namespace CycleUploader
 {
@@ -51,9 +52,13 @@ namespace CycleUploader
 		
 		void DatabaseSchemaUpdateShown(object sender, EventArgs e)
 		{
+			Thread th = new Thread(new ThreadStart(upgradeSchema));
+			th.Start();
+		}
+		
+		void upgradeSchema()
+		{
 			try{
-			
-				this.Show();
 				SetControlPropertyThreadSafe(lblMigrationNote, "Text", string.Format("Upgrading database from v{0} to v{1}", _db_version_from, _db_version_to));
 				SetControlPropertyThreadSafe(prgStatus, "Maximum", (int)(_db_version_to-_db_version_from));
 				SetControlPropertyThreadSafe(prgStatus, "Value", 0);
@@ -335,6 +340,7 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
 						goto case 1; // now upgrade to the next version ... etc.
+						Thread.Sleep(500);						
 					case 1:
 						// drop the monthlystats view, as we need to make a change to it
 						sql = @"DROP VIEW ""main"".""view_user_monthlystats""";
@@ -386,10 +392,35 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
+						Thread.Sleep(500);						
 						goto case 2;
 					case 2: 
-						// do nothing as current versio, proceed to next version
-						goto default;
+						sql = @"DROP VIEW ""main"".""view_file_summary""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"CREATE  VIEW ""main"".""view_file_summary"" AS  
+							select  fs.*,
+							        case f.fileActivityName ISNULL when 1 then f.fileName else f.fileActivityName end as `fileName`, f.fileActivityNotes,
+							        fileUploadRunkeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS, 
+							        fileIsCommute, fileIsStationaryTrainer, fileIsIncludedInStats, f.fileActivityDateTime
+							from File f 
+							left join FileSummary fs on f.idFile = fs.idFile
+						";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						_db_version_from+=1;
+						Thread.Sleep(500);						
+						goto case 3;
+					case 3:
+						// add compound index on file and timestamp
+						sql= @"CREATE  INDEX ""main"".""trackpoints_idx_filetime"" ON ""FileTrackpoints"" (""idFile"" ASC, ""tpTime"" ASC)";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						_db_version_from+=1;
+						Thread.Sleep(500);
+						goto case 4;
+					case 4:
+						// do nothing, current version
 					default:
 						// issue command to set the db version in the database
 						cmd.CommandText = string.Format("PRAGMA user_version = {0}", _db_version_to);
@@ -402,9 +433,6 @@ namespace CycleUploader
 			catch(Exception ex){
 				MessageBox.Show("Database Upgrade: Exception\r\n" + ex.Message);
 				this.DialogResult = DialogResult.Abort;
-			}
-			finally{
-				this.Close();
 			}
 		}
 	}

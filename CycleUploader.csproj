@@ -147,6 +147,10 @@
     <Compile Include="EndomondoConnect.Designer.cs">
       <DependentUpon>EndomondoConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileSummary.cs" />
+    <Compile Include="FileSummary.Designer.cs">
+      <DependentUpon>FileSummary.cs</DependentUpon>
+    </Compile>
     <Compile Include="FullscreenChart.cs" />
     <Compile Include="FullscreenChart.Designer.cs">
       <DependentUpon>FullscreenChart.cs</DependentUpon>
@@ -229,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EndomondoConnect.resx">
       <DependentUpon>EndomondoConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileSummary.resx">
+      <DependentUpon>FileSummary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FullscreenChart.resx">
       <DependentUpon>FullscreenChart.cs</DependentUpon>
