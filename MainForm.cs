@@ -104,7 +104,7 @@ namespace CycleUploader
 		
 		// indicates whether it's a batch being processed, as we will perform some callbacks to 
 		// the batch processing form to indicate status
-		private bool _bIsBatchProcessing = false; 
+		public bool _bIsBatchProcessing = false; 
 		
 		private Batch _activityBatch;
 		private int _activityBatchRowIdx; // idx of the row being processed in the _activityBatch form
@@ -376,6 +376,13 @@ namespace CycleUploader
 				ctrl.Invoke(new SetListViewGroupDelegate(SetListViewGroup), new object[] { ctrl, idx, grp});
 			}
 			else{
+				
+				if(grp.Header.IndexOf("(") > 0){
+					grp.Header = grp.Header.Substring(0,grp.Header.IndexOf("(")) + "(" + (grp.Items.Count+1).ToString() + ")";
+				}
+				else{
+					grp.Header += " (" + (grp.Items.Count+1).ToString() + ")";
+				}
 				ctrl.Items[idx].Group = grp;
 			}
 		}
@@ -389,7 +396,7 @@ namespace CycleUploader
 				ctrl.Groups[gidx].Header = header;
 			}
 		}
-		
+				
 		private delegate string GetListViewGroupHeaderDelegate(ListView ctrl, int gidx);
 		private static string GetListViewGroupHeader(ListView ctrl, int gidx)
 		{
@@ -2175,22 +2182,25 @@ namespace CycleUploader
 				finish_lng = lng = Convert.ToDouble(GetListViewItemValue(lstTrackpoints, t, 7));
 				
 				
-				// update the max / min longitude / latitude
-				if(lat_min == -1){ lat_min = lat;}
-				if(lat_max == -1){ lat_max = lat;}
-				if(lng_min == -1){ lng_min = lng;}
-				if(lng_max == -1){ lng_max = lng;}
+				if(lat != 0 || lng != 0){
+					// update the max / min longitude / latitude
+					if(lat_min == -1){ lat_min = lat;}
+					if(lat_max == -1){ lat_max = lat;}
+					if(lng_min == -1){ lng_min = lng;}
+					if(lng_max == -1){ lng_max = lng;}
+					
+					if(lat < lat_min){ lat_min = lat;}
+					if(lat > lat_max){ lat_max = lat;}
+					if(lng < lng_min){ lng_min = lng;}
+					if(lng > lng_max){ lng_max = lng;}
+					
+					// add GoogleMap polyline point.
 				
-				if(lat < lat_min){ lat_min = lat;}
-				if(lat > lat_max){ lat_max = lat;}
-				if(lng < lng_min){ lng_min = lng;}
-				if(lng > lng_max){ lng_max = lng;}
-				
-				// add GoogleMap polyline point.
-				if(t > 0){
-					js_coords += ",";
+					if(t > 0){
+						js_coords += ",";
+					}
+					js_coords += "\r\nnew google.maps.LatLng(" + lat + "," + lng + ")";
 				}
-				js_coords += "\r\nnew google.maps.LatLng(" + lat + "," + lng + ")";
 				
 				// Check the distance reaching next mile threshold
 				// in which case add a google maps mile marker
@@ -2586,7 +2596,9 @@ namespace CycleUploader
 			SetStatusProgressThreadSafe(statusBar, "Value" ,++step);
 			SetStatusTextThreadSafe(statusBar, "Loading File History Information...");
 			SetStatusProgressThreadSafe(statusBar, "Visible", 0);
-			loadFileHistory();
+			if(!_bIsBatchProcessing){
+				loadFileHistory();
+			}
 			SetStatusTextThreadSafe(statusBar, "Done.");
 			
 			// enable various panels on the form
@@ -2603,15 +2615,29 @@ namespace CycleUploader
 		
 		void loadFileHistory()
 		{
+			string sql = "";
+			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
 			// clear the current file history information, do this so we can use
 			// the same function to reload
 			ClearListView(lstFileHistory);
-			string sql = @"select * from view_filehistory";
+			List<ListViewItem> lstItems = new List<ListViewItem>();
+			List<ListViewGroup> lstGroups = new List<ListViewGroup>();
 			
-			SQLiteCommand command = new SQLiteCommand(sql, _m_dbConnection);
+			sql = @"select distinct strftime(""%Y-%m"",fileActivityName) as `grp_label` from view_filehistory order by grp_label desc";
+			
+			command.CommandText = sql;
+			SQLiteDataReader rdr_grp = command.ExecuteReader();
+			while(rdr_grp.HasRows && rdr_grp.Read()){
+				lstGroups.Add(new ListViewGroup(System.DateTime.Parse((string)rdr_grp["grp_label"]).ToString("yyyy MMMM")));
+			}
+			rdr_grp.Close();
+			rdr_grp.Dispose();
+			
+			sql = @"select * from view_filehistory order by fileActivityName desc";
+			
+			command.CommandText = sql;
 			SQLiteDataReader rdr = command.ExecuteReader();
 			if(rdr.HasRows){
-				lstFileHistory.SuspendLayout();
 				while(rdr.Read()){
 					TimeSpan tsDuration = TimeSpan.FromSeconds(0);
 					if(!rdr.IsDBNull(rdr.GetOrdinal("fsMovingTime"))){
@@ -2630,20 +2656,40 @@ namespace CycleUploader
 						Convert.ToInt32(rdr["fileIsStationaryTrainer"]) == 1 ? "Y" : "", // activity is stationary trainer
 						(string)rdr["fileActivityNotes"] // notes
 					};
-					AddListViewItem(lstFileHistory,new ListViewItem(row));
-					GroupFileHistoryItem(lstFileHistory.Items.Count-1);
+					ListViewItem lvi = new ListViewItem(row);
+					
+					// loop through the groups add apply grouping to item
+					foreach(ListViewGroup lvg in lstGroups)
+					{
+						if(System.DateTime.Parse((string)rdr["fileActivityName"]).ToString("yyyy MMMM") == lvg.Header){
+							lvi.Group = lvg;
+						}
+					}
+					
+					// add item to list
+					lstItems.Add(lvi);
 				}
-				lstFileHistory.ResumeLayout();
 				
-				// loop through the groups and append the activity count to the headers
-				for(int g = 0; g < lstFileHistory.Groups.Count; g++){
-					string h = GetListViewGroupHeader(lstFileHistory, g);
-					h+= " (" + lstFileHistory.Groups[g].Items.Count.ToString() + ")";
-					SetListViewGroupHeader(lstFileHistory, g, h);
+				// adjust the groups to reflect the number of items they contain.
+				foreach(ListViewGroup lvg in lstGroups)
+				{
+					lvg.Header = lvg.Header + " (" + lvg.Items.Count.ToString() + ")";
 				}
 				
+				// add the groups to the list view
+				foreach(ListViewGroup lvg in lstGroups){
+					AddListViewGroup(lstFileHistory, lvg);
+				}
+				//lstFileHistory.SetGroupState(ListViewGroupState.Collapsed | ListViewGroupState.Collapsible);
 				lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+
+				// add the items to the list view
+				foreach(ListViewItem lvi in lstItems){
+					AddListViewItem(lstFileHistory,lvi);
+				}
+				
 				ResizeListView(lstFileHistory);
+				
 			}
 			
 		}
@@ -3209,7 +3255,9 @@ namespace CycleUploader
 				setUpdateRideMsg("ridewithgps","Skipped, provider not active");
 			}
 			
-			loadFileHistory();
+			if(!_bIsBatchProcessing){
+				loadFileHistory();
+			}
 			SetControlPropertyThreadSafe(btnUploadAllProviders, "Enabled", true);
 		}
 			
@@ -3371,6 +3419,7 @@ namespace CycleUploader
 					loadFileHistory();
 					lstFileHistory.Items[index].Selected = true;
 					lstFileHistory.Select();
+					lstFileHistory.EnsureVisible(index);
 					lstFileHistory.HideSelection = false;
 					
 				}
@@ -3415,18 +3464,11 @@ namespace CycleUploader
 		    foreach (ListViewGroup group in lstFileHistory.Groups)
 		    {
 		        // Compare group's header to selected subitem's text
-		        if (group.Header == System.DateTime.Parse(GetListViewItemValue(lstFileHistory,idx,1)).ToString("yyyy MMMM")) //  item.SubItems["Month/Year"])
+		        if (group.Header.Contains(System.DateTime.Parse(GetListViewItemValue(lstFileHistory,idx,1)).ToString("yyyy MMMM")))
 		        {
 		            // Add item to the group.
 		            // Alternative is: group.Items.Add(item);
-		            //lstFileHistory.Items[idx].Group = group;
 		            SetListViewGroup(lstFileHistory, idx, group);
-		            
-		            if(group.Items.Count == 1){
-		            	lstFileHistory.SetGroupFooter(group, "1 Activity");
-		            }else{
-		            	lstFileHistory.SetGroupFooter(group, group.Items.Count + " Activities");
-		            }
 		            group_exists = true;
 		            break;
 		        }
@@ -3441,17 +3483,18 @@ namespace CycleUploader
 		        
 		        AddListViewGroup(lstFileHistory, group);
 		        SetListViewGroup(lstFileHistory, idx, group);
-		        if(group.Items.Count == 1){
-	            	lstFileHistory.SetGroupFooter(group, "1 Activity");
-	            }else{
-	            	lstFileHistory.SetGroupFooter(group, group.Items.Count + " Activities");
-	            }
 		    }
 		}
-				
+		
 		void MenuOpenBatchClick(object sender, EventArgs e)
 		{
-			_activityBatch = new Batch(_previous_file_path, this);
+			_activityBatch = new Batch(_previous_file_path, 
+			                           this,
+			                           cbkProviderRunkeeper.Checked,
+			                           cbkProviderStrava.Checked,
+			                           cbkProviderGarmin.Checked,
+			                           cbkProviderRideWithGps.Checked
+			                          );
 			_activityBatch.ShowDialog();
 		}
 		
@@ -3484,6 +3527,7 @@ namespace CycleUploader
 		public void setEndOfBatch()
 		{
 			_bIsBatchProcessing = false;
+			loadFileHistory();
 		}
 		
 		void MenuToolsOptionsClick(object sender, EventArgs e)
@@ -3512,6 +3556,30 @@ namespace CycleUploader
 		{
 			UserMonthlyStats monthlystats = new UserMonthlyStats(_m_dbConnection);
 			monthlystats.ShowDialog();
+		}
+		
+		public void SetProviderState(string name, bool checked_state)
+		{
+			switch(name){
+				case "Runkeeper":
+					cbkProviderRunkeeper.Checked = checked_state;
+					break;
+				case "Strava":
+					cbkProviderStrava.Checked = checked_state;
+					break;
+				case "Garmin":
+					cbkProviderGarmin.Checked = checked_state;
+					break;
+				case "RWGPS":
+					cbkProviderRideWithGps.Checked = checked_state;
+					break;
+			}
+		}
+		
+		void MenuAnalysisChartsClick(object sender, EventArgs e)
+		{
+			UserCharts uc = new UserCharts(_m_dbConnection);
+			uc.ShowDialog();
 		}
 	}
 }

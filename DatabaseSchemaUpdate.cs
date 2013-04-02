@@ -339,6 +339,7 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						goto case 1; // now upgrade to the next version ... etc.
 						Thread.Sleep(500);						
 					case 1:
@@ -392,6 +393,7 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);						
 						goto case 2;
 					case 2: 
@@ -409,6 +411,7 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);						
 						goto case 3;
 					case 3:
@@ -417,9 +420,43 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);
 						goto case 4;
 					case 4:
+						sql = @"DROP VIEW ""main"".""view_user_monthlystats""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// recreate the monthly stats view, with the correct adjustment for 0 cadence / heart rate averages when working out 
+						// the monthly average figure ... this takes in to account any ride where cadence / heart rate information isn't available
+						// i.e. it excludes them
+						sql = @"						
+							CREATE  VIEW ""main"".""view_user_monthlystats"" AS
+							select  strftime(""%Y-%m"",f.fileActivityDateTime) as `ym`,
+							        SUM(fs.fsDistance) as `totalDistance`, 
+							        SUM(fs.fsMovingTime) as `totalDurationMoving`,
+							        COUNT(f.idFile)  as `fileCount`,
+							        SUM(ifnull(fs.fsTotalAscent,0)) as `totalAscent`,
+							        MAX(case fs.fsMaxSpeed = 255 when 1 then 0 else fs.fsMaxSpeed end) as `maxSpeed`,
+							        MAX(case fs.fsMaxHeartRate = 255 when 1 then 0 else fs.fsMaxHeartRate end) as `maxHeartRate`,
+							        MAX(case fs.fsMaxCadence = 255 when 1 then 0 else fs.fsMaxCadence end) as `maxCadence`,
+							        MAX(CAST(fs.fsTotalAscent as double)) as `maxAscent`,
+							        ifnull(SUM(case fs.fsAvgC
+adence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsAvgCadence end * fs.fsMovingTime) / SUM(case fs.fsAvgCadence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsMovingTime end),0) as `avgCadence`,
+							        ifnull(SUM(case fs.fsAvgHeart = 255 or fs.fsAvgHeart = 0 when 1 then 0 else fs.fsAvgHeart end * fs.fsMovingTime) / SUM(case fs.fsAvgHeart = 255 or fs.fsAvgHeart = 0 when 1 then 0 else fs.fsMovingTime end),0) as `avgHeart`
+							from File f
+							join FileSummary fs on fs.idFile = f.idFile
+							where f.fileIsIncludedInStats = 1
+							group by ym
+							order by ym asc					
+						";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						_db_version_from+=1;
+						//SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						Thread.Sleep(500);
+						goto case 5;
+					case 5:
 						// do nothing, current version
 					default:
 						// issue command to set the db version in the database

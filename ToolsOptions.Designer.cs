@@ -63,6 +63,7 @@ namespace CycleUploader
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.settingAutoPause)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numZ5high)).BeginInit();
@@ -76,6 +77,7 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.numZ2low)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ1low)).BeginInit();
 			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnCancel
@@ -122,6 +124,7 @@ namespace CycleUploader
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.pictureBox1);
 			this.groupBox1.Controls.Add(this.label11);
 			this.groupBox1.Controls.Add(this.label10);
 			this.groupBox1.Controls.Add(this.label9);
@@ -148,7 +151,7 @@ namespace CycleUploader
 			this.groupBox1.Size = new System.Drawing.Size(323, 157);
 			this.groupBox1.TabIndex = 11;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Heart Rate Zones";
+			this.groupBox1.Text = "      Heart Rate Zones";
 			// 
 			// label11
 			// 
@@ -376,6 +379,16 @@ namespace CycleUploader
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "General";
 			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.Location = new System.Drawing.Point(6, 0);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.pictureBox1.TabIndex = 13;
+			this.pictureBox1.TabStop = false;
+			// 
 			// ToolsOptions
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,6 +408,7 @@ namespace CycleUploader
 			this.Load += new System.EventHandler(this.ToolsOptionsLoad);
 			((System.ComponentModel.ISupportInitialize)(this.settingAutoPause)).EndInit();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numZ5high)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ4high)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ3high)).EndInit();
@@ -406,8 +420,10 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.numZ2low)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ1low)).EndInit();
 			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;

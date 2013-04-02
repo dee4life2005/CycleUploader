@@ -610,8 +610,8 @@ namespace CycleUploader
 			try{
 				sql = string.Format(@"select  f.fileActivityDateTime,
 					        f.fileActivityName,
-					        hr.idZone,
-					        hr.zoneLabel,
+					        hr.idZone,			
+							ifnull(hr.zoneLabel, ""no data"") as zoneLabel,
 					        SUM(hduration.duration) as `duration_seconds`,
 					        (SUM(hduration.duration) / CAST(fs.fsDuration as double)) * 100 as `pct_total`
 					from (

@@ -185,6 +185,10 @@
       <DependentUpon>ToolsOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="UploadFile.cs" />
+    <Compile Include="UserCharts.cs" />
+    <Compile Include="UserCharts.Designer.cs">
+      <DependentUpon>UserCharts.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserMonthlyStats.cs" />
     <Compile Include="UserMonthlyStats.Designer.cs">
       <DependentUpon>UserMonthlyStats.cs</DependentUpon>
@@ -257,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsOptions.resx">
       <DependentUpon>ToolsOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserCharts.resx">
+      <DependentUpon>UserCharts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserMonthlyStats.resx">
       <DependentUpon>UserMonthlyStats.cs</DependentUpon>

@@ -43,7 +43,7 @@ namespace CycleUploader
 			this.tabControlHistory = new System.Windows.Forms.TabControl();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.lstMileSplits = new ListViewNF.ListViewNF(); //System.Windows.Forms.ListView();
+			this.lstMileSplits = new ListViewNF.ListViewNF();
 			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
@@ -903,12 +903,12 @@ namespace CycleUploader
 			this.lblHistoryName.BackColor = System.Drawing.Color.Gainsboro;
 			this.lblHistoryName.Dock = System.Windows.Forms.DockStyle.Top;
 			this.lblHistoryName.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryName.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblHistoryName.ForeColor = System.Drawing.Color.DimGray;
 			this.lblHistoryName.Location = new System.Drawing.Point(0, 0);
 			this.lblHistoryName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
 			this.lblHistoryName.Name = "lblHistoryName";
 			this.lblHistoryName.Padding = new System.Windows.Forms.Padding(5);
-			this.lblHistoryName.Size = new System.Drawing.Size(1022, 30);
+			this.lblHistoryName.Size = new System.Drawing.Size(1022, 35);
 			this.lblHistoryName.TabIndex = 0;
 			// 
 			// lblHistoryDate
@@ -916,13 +916,14 @@ namespace CycleUploader
 			this.lblHistoryDate.BackColor = System.Drawing.Color.Gainsboro;
 			this.lblHistoryDate.Dock = System.Windows.Forms.DockStyle.Top;
 			this.lblHistoryDate.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryDate.ForeColor = System.Drawing.Color.SteelBlue;
-			this.lblHistoryDate.Location = new System.Drawing.Point(0, 30);
+			this.lblHistoryDate.ForeColor = System.Drawing.Color.DimGray;
+			this.lblHistoryDate.Location = new System.Drawing.Point(0, 35);
 			this.lblHistoryDate.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
 			this.lblHistoryDate.Name = "lblHistoryDate";
 			this.lblHistoryDate.Padding = new System.Windows.Forms.Padding(5);
-			this.lblHistoryDate.Size = new System.Drawing.Size(1022, 37);
+			this.lblHistoryDate.Size = new System.Drawing.Size(1022, 22);
 			this.lblHistoryDate.TabIndex = 1;
+			this.lblHistoryDate.Text = " ";
 			// 
 			// FileSummary
 			// 
@@ -1028,7 +1029,7 @@ namespace CycleUploader
 		private System.Windows.Forms.ColumnHeader columnHeader13;
 		private System.Windows.Forms.ColumnHeader columnHeader12;
 		private System.Windows.Forms.ColumnHeader columnHeader11;
-		private System.Windows.Forms.ListView lstMileSplits;
+		private ListViewNF.ListViewNF lstMileSplits;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TabPage tabHistorySummary;
 		private System.Windows.Forms.TabControl tabControlHistory;

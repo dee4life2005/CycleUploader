@@ -194,6 +194,7 @@ namespace CycleUploader
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.menuAnalysisCharts = new System.Windows.Forms.ToolStripMenuItem();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -1603,7 +1604,8 @@ namespace CycleUploader
 			// 
 			this.analysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.menuAnalysisMonthlyStats,
-									this.menuAnalysisRecords});
+									this.menuAnalysisRecords,
+									this.menuAnalysisCharts});
 			this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
 			this.analysisToolStripMenuItem.Size = new System.Drawing.Size(62, 36);
 			this.analysisToolStripMenuItem.Text = "Analysis";
@@ -1635,7 +1637,7 @@ namespace CycleUploader
 			// 
 			this.menuToolsOptions.Image = ((System.Drawing.Image)(resources.GetObject("menuToolsOptions.Image")));
 			this.menuToolsOptions.Name = "menuToolsOptions";
-			this.menuToolsOptions.Size = new System.Drawing.Size(125, 22);
+			this.menuToolsOptions.Size = new System.Drawing.Size(152, 22);
 			this.menuToolsOptions.Text = "Options...";
 			this.menuToolsOptions.Click += new System.EventHandler(this.MenuToolsOptionsClick);
 			// 
@@ -1849,6 +1851,14 @@ namespace CycleUploader
 			this.imageList1.Images.SetKeyName(7, "failure-icon.png");
 			this.imageList1.Images.SetKeyName(8, "success-icon.png");
 			// 
+			// menuAnalysisCharts
+			// 
+			this.menuAnalysisCharts.Image = ((System.Drawing.Image)(resources.GetObject("menuAnalysisCharts.Image")));
+			this.menuAnalysisCharts.Name = "menuAnalysisCharts";
+			this.menuAnalysisCharts.Size = new System.Drawing.Size(156, 22);
+			this.menuAnalysisCharts.Text = "Charts...";
+			this.menuAnalysisCharts.Click += new System.EventHandler(this.MenuAnalysisChartsClick);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1915,6 +1925,7 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem menuAnalysisCharts;
 		private System.Windows.Forms.ToolStripMenuItem menuAnalysisRecords;
 		private System.Windows.Forms.ToolStripMenuItem menuAnalysisMonthlyStats;
 		private System.Windows.Forms.ToolStripMenuItem analysisToolStripMenuItem;
