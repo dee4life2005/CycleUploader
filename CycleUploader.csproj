@@ -138,6 +138,15 @@
       <DependentUpon>Batch.cs</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="CourseCreate.cs" />
+    <Compile Include="CourseCreate.Designer.cs">
+      <DependentUpon>CourseCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Courses.cs" />
+    <Compile Include="Courses.Designer.cs">
+      <DependentUpon>Courses.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseSchemaUpdate.cs" />
     <Compile Include="DatabaseSchemaUpdate.Designer.cs">
       <DependentUpon>DatabaseSchemaUpdate.cs</DependentUpon>
@@ -164,6 +173,10 @@
       <DependentUpon>GarminConnect.cs</DependentUpon>
     </Compile>
     <Compile Include="GarminConnectAPI.cs" />
+    <Compile Include="LineSeparator.cs" />
+    <Compile Include="LineSeparator.Designer.cs">
+      <DependentUpon>LineSeparator.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
@@ -232,6 +245,12 @@
     <EmbeddedResource Include="Batch.resx">
       <DependentUpon>Batch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CourseCreate.resx">
+      <DependentUpon>CourseCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Courses.resx">
+      <DependentUpon>Courses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DatabaseSchemaUpdate.resx">
       <DependentUpon>DatabaseSchemaUpdate.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GarminConnect.resx">
       <DependentUpon>GarminConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LineSeparator.resx">
+      <DependentUpon>LineSeparator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -160,6 +160,8 @@ namespace CycleUploader
 			// load the file summary
 			sql = string.Format("select * from view_file_summary where idFile = {0}", _file);
 			
+			double total_ride_duration = 0;
+			
 			command.CommandText = sql;
 			rdrSummary = command.ExecuteReader();
 			if(rdrSummary.HasRows){
@@ -172,15 +174,15 @@ namespace CycleUploader
 				SetControlPropertyThreadSafe(lblHistoryDate, "Text", ((DateTime)rdrSummary["fileActivityDateTime"]).ToString("dd MMMM yyyy HH:mm"));
 				SetControlPropertyThreadSafe(lblHistoryDuration, "Text", string.Format("{0:D2} h {1:D2} m {2:D2} s", tsDuration.Hours, tsDuration.Minutes, tsDuration.Seconds));
 				SetControlPropertyThreadSafe(lblHistoryDistance, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsDistance")) ? "-" : string.Format("{0:0.00} miles", Convert.ToDouble(rdrSummary["fsDistance"])));
-				SetControlPropertyThreadSafe(lblHistoryCalories, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsCalories")) ? "-" : (string)rdrSummary["fsCalories"]);
-				SetControlPropertyThreadSafe(lblHistoryAvgHeartRate, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsAvgHeart")) ? "-" : (string)rdrSummary["fsAvgHeart"]);
-				SetControlPropertyThreadSafe(lblHistoryAvgCadence, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsAvgCadence")) ? "-" : (string)rdrSummary["fsAvgCadence"]);
+				SetControlPropertyThreadSafe(lblHistoryCalories, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsCalories")) ? "-" : Convert.ToInt32(rdrSummary["fsCalories"]).ToString());
+				SetControlPropertyThreadSafe(lblHistoryAvgHeartRate, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsAvgHeart")) ? "-" : Convert.ToInt32(rdrSummary["fsAvgHeart"]).ToString());
+				SetControlPropertyThreadSafe(lblHistoryAvgCadence, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsAvgCadence")) ? "-" : Convert.ToInt32(rdrSummary["fsAvgCadence"]).ToString());
 				SetControlPropertyThreadSafe(lblHistoryAvgSpeed, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsAvgSpeed")) ? "-" : string.Format("{0:0.00} mph", Convert.ToDouble(rdrSummary["fsAvgSpeed"])));
 				SetControlPropertyThreadSafe(lblHistoryMovingTime, "Text", string.Format("{0:D2} h {1:D2} m {2:D2} s", tsMoving.Hours, tsMoving.Minutes, tsMoving.Seconds));
 				SetControlPropertyThreadSafe(lblHistoryTotalAscent, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsTotalAscent")) ? "-" : string.Format("{0:0.00} ft",Convert.ToDouble(rdrSummary["fsTotalAscent"])));
 				SetControlPropertyThreadSafe(lblHistoryTotalDescent, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsTotalDescent")) ? "-" : string.Format("{0:0.00} ft",Convert.ToDouble(rdrSummary["fsTotalDescent"])));
-				SetControlPropertyThreadSafe(lblHistoryMaxHeartRate, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMaxHeartRate")) ? "-" : (string)rdrSummary["fsMaxHeartRate"]);
-				SetControlPropertyThreadSafe(lblHistoryMaxCadence, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMaxCadence")) ? "-" : (string)rdrSummary["fsMaxCadence"]);
+				SetControlPropertyThreadSafe(lblHistoryMaxHeartRate, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMaxHeartRate")) ? "-" : Convert.ToDouble(rdrSummary["fsMaxHeartRate"]).ToString());
+				SetControlPropertyThreadSafe(lblHistoryMaxCadence, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMaxCadence")) ? "-" : Convert.ToDouble(rdrSummary["fsMaxCadence"]).ToString());
 				SetControlPropertyThreadSafe(lblHistoryMaxSpeed, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMaxSpeed")) ? "-" : string.Format("{0:0.00} mph",Convert.ToDouble(rdrSummary["fsMaxSpeed"])));
 				SetControlPropertyThreadSafe(txtHistoryNotes, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileActivityNotes")) ? "" : (string)rdrSummary["fileActivityNotes"]);
 
@@ -192,9 +194,6 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadRunkeeper, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRunkeeper, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRunkeeper, "BackColor", Color.PaleGreen);
-					//linkHistoryUploadRunkeeper.Links.Clear();
-					//linkHistoryUploadRunkeeper.Links.Add(0,0,(string)rdrSummary["fileUploadRunkeeper"]);
-					//inkHistoryUploadRunkeeper.Enabled = true;
 				}
 				//
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadStrava"))){
@@ -205,9 +204,6 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadStrava, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadStrava, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadStrava, "BackColor", Color.PaleGreen);
-					//linkHistoryUploadStrava.Links.Clear();
-					//linkHistoryUploadStrava.Links.Add(0,0,(string)rdrSummary["fileUploadStrava"]);
-					//linkHistoryUploadStrava.Enabled = true;
 				}
 				// 
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadGarmin"))){
@@ -218,9 +214,6 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadGarmin, "Checked",true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadGarmin, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadGarmin, "BackColor", Color.PaleGreen);
-					//linkHistoryUploadGarmin.Links.Clear();
-					//linkHistoryUploadGarmin.Links.Add(0,0,(string)rdrSummary["fileUploadGarmin"]);
-					//linkHistoryUploadGarmin.Enabled = true;
 				}
 				// 
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadRWGPS"))){
@@ -231,9 +224,6 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadRideWithGPS, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRideWithGPS, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRideWithGPS, "BackColor", Color.PaleGreen);
-					//linkHistoryUploadRideWithGPS.Links.Clear();
-					//linkHistoryUploadRideWithGPS.Links.Add(0,0,(string)rdrSummary["fileUploadRWGPS"]);
-					//linkHistoryUploadRideWithGPS.Enabled = true;
 				}
 				
 				// display the activity "is commute" flag
@@ -260,39 +250,7 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkSummaryIncludeInStats, "Checked", (Convert.ToInt32(rdrSummary["fileIsIncludedInStats"]) == 1 ? true : false));
 				}
 			}
-			/*else{
-				lblHistoryName.Text = "<Summary Not Found>";
-				lblHistoryDuration.Text = "-";
-				lblHistoryDistance.Text = "-";
-				lblHistoryCalories.Text = "-";
-				lblHistoryAvgHeartRate.Text = "-";
-				lblHistoryAvgCadence.Text = "-";
-				lblHistoryAvgSpeed.Text = "-";
-				lblHistoryMovingTime.Text = "-";
-				lblHistoryTotalAscent.Text = "-";
-				lblHistoryTotalDescent.Text = "-";
-				lblHistoryMaxHeartRate.Text = "-";
-				lblHistoryMaxCadence.Text = "-";
-				lblHistoryMaxSpeed.Text = "-";
-				txtHistoryNotes.Text = "-";
-				
-				cbkHistoryUploadRunkeeper.Checked = false;
-				pnlHistoryUploadRunkeeper.Enabled = false;
-				pnlHistoryUploadRunkeeper.BackColor = Color.Gainsboro;
-				//
-				cbkHistoryUploadStrava.Checked = false;
-				pnlHistoryUploadStrava.Enabled = false;
-				pnlHistoryUploadStrava.BackColor = Color.Gainsboro;
-				// 
-				cbkHistoryUploadGarmin.Checked = false;
-				pnlHistoryUploadGarmin.Enabled = false;
-				pnlHistoryUploadGarmin.BackColor = Color.Gainsboro;
-				// 
-				cbkHistoryUploadRideWithGPS.Checked = false;
-				pnlHistoryUploadRideWithGPS.Enabled= false;
-				pnlHistoryUploadRideWithGPS.BackColor = Color.Gainsboro;
-			}
-			*/
+			
 			rdrSummary.Close();
 			rdrSummary.Dispose();
 			
@@ -382,6 +340,7 @@ namespace CycleUploader
 				PointPairList graphListHeart = new PointPairList();
 				
 				double distance = 0;
+				double p_duration = 0;
 				while(rdr.Read()){
 					rowCount++;
 					
@@ -406,10 +365,16 @@ namespace CycleUploader
 						graphListSpeed.Add(distance, speed, tag + "Speed = " + speed.ToString("0.00") + " mph");
 						graphListCadence.Add(distance, cadence, tag + "Cadence = " + cadence.ToString("0") + " rpm");
 						graphListHeart.Add(distance, heart, tag + "Heart-Rate = " + heart.ToString("0") + " bpm");
+						if(rowCount > 1){
+							total_ride_duration += (duration - p_duration);
+						}
 					}
 					
 					lat = Convert.ToDouble(rdr["tpLatitude"]);
 					lng = Convert.ToDouble(rdr["tpLongitude"]);
+					
+					
+					p_duration = duration;
 					
 					// increment the running totals
 					runningDuration = duration;
@@ -458,7 +423,7 @@ namespace CycleUploader
 						if(rowCount > 1){
 							js_coords += ",";
 						}
-						js_coords += "\r\nnew google.maps.LatLng(" + (string)rdr["tpLatitude"] + "," + (string)rdr["tpLongitude"] + ")";
+						js_coords += "\r\nnew google.maps.LatLng(" + Convert.ToDouble(rdr["tpLatitude"]).ToString() + "," + Convert.ToDouble(rdr["tpLongitude"]).ToString() + ")";
 					}
 					
 					
@@ -544,9 +509,6 @@ namespace CycleUploader
 		            writer.Dispose();
 		            fs.Dispose();
 		            webBrowserHistoryMap.Navigate(Application.StartupPath + "\\history_route.html");
-		            //if(!_bIsBatchProcessing){
-		            //	setTab(tabControlHistory, "tabHistorySummary");
-		            //}
 				}
 				catch(Exception ex){
 					MessageBox.Show("Map Update Failed. Try re-selecting the activity." + ex.Message ,"Error loading map", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
@@ -613,7 +575,8 @@ namespace CycleUploader
 					        hr.idZone,			
 							ifnull(hr.zoneLabel, ""no data"") as zoneLabel,
 					        SUM(hduration.duration) as `duration_seconds`,
-					        (SUM(hduration.duration) / CAST(fs.fsDuration as double)) * 100 as `pct_total`
+					        (SUM(hduration.duration) / CAST(fs.fsDuration as double)) * 100 as `pct_total`,
+					        cast(fs.fsDuration as double) as fsDuration
 					from (
 					/*select 1 as idFile, 100 as tpHeart, 1 as duration*/
 					  select ft.idFile, ft.tpHeart, IFNULL(MIN(ft2.tpDuration),0) - ft.tpDuration as duration
@@ -633,7 +596,6 @@ namespace CycleUploader
 				SQLiteCommand cmd = new SQLiteCommand(_db);
 				cmd.CommandText = sql;
 				cmd.CommandTimeout = 10;
-				//cmd.ExecuteNonQuery();
 				SQLiteDataReader hr_rdr = cmd.ExecuteReader();
 				ClearListView(lstHeartRateZones);
 				if(hr_rdr.HasRows){

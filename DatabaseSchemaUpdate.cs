@@ -424,7 +424,7 @@ namespace CycleUploader
 						Thread.Sleep(500);
 						goto case 4;
 					case 4:
-						sql = @"DROP VIEW ""main"".""view_user_monthlystats""";
+						sql = @"DROP VIEW if exists ""main"".""view_user_monthlystats""";
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						// recreate the monthly stats view, with the correct adjustment for 0 cadence / heart rate averages when working out 
@@ -441,8 +441,7 @@ namespace CycleUploader
 							        MAX(case fs.fsMaxHeartRate = 255 when 1 then 0 else fs.fsMaxHeartRate end) as `maxHeartRate`,
 							        MAX(case fs.fsMaxCadence = 255 when 1 then 0 else fs.fsMaxCadence end) as `maxCadence`,
 							        MAX(CAST(fs.fsTotalAscent as double)) as `maxAscent`,
-							        ifnull(SUM(case fs.fsAvgC
-adence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsAvgCadence end * fs.fsMovingTime) / SUM(case fs.fsAvgCadence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsMovingTime end),0) as `avgCadence`,
+							        ifnull(SUM(case fs.fsAvgCadence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsAvgCadence end * fs.fsMovingTime) / SUM(case fs.fsAvgCadence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsMovingTime end),0) as `avgCadence`,
 							        ifnull(SUM(case fs.fsAvgHeart = 255 or fs.fsAvgHeart = 0 when 1 then 0 else fs.fsAvgHeart end * fs.fsMovingTime) / SUM(case fs.fsAvgHeart = 255 or fs.fsAvgHeart = 0 when 1 then 0 else fs.fsMovingTime end),0) as `avgHeart`
 							from File f
 							join FileSummary fs on fs.idFile = f.idFile
@@ -453,10 +452,122 @@ adence = 255 or fs.fsAvgCadence = 0 when 1 then 0 else fs.fsAvgCadence end * fs.
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
-						//SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);
 						goto case 5;
 					case 5:
+						sql = @"CREATE TABLE ""ApplicationSettings"" (""SettingName"" VARCHAR NOT NULL  UNIQUE , ""SettingValue"" VARCHAR NOT NULL  DEFAULT """")";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// adjust the FileSummary table schema to use non-varchar data types 
+						// which should result in smaller database size
+						sql = @"CREATE TABLE ""FileSummaryTEMP"" (""idFile"" INTEGER,""fsDuration"" INTEGER,""fsDistance"" FLOAT,""fsCalories"" INTEGER,""fsAvgHeart"" INTEGER,""fsAvgCadence"" INTEGER,""fsAvgSpeed"" FLOAT,""fsMovingTime"" INTEGER,""fsTotalAscent"" FLOAT,""fsTotalDescent"" FLOAT,""fsMaxHeartRate"" INTEGER,""fsMaxCadence"" INTEGER,""fsMaxSpeed"" FLOAT, ""fsAvgPower"" FLOAT, ""fsMaxPower"" FLOAT)";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"INSERT INTO ""FileSummaryTEMP"" SELECT * from FileSummary";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"DROP TABLE ""FileSummary""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"ALTER TABLE ""FileSummaryTEMP"" RENAME TO ""FileSummary""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// adjust the FileTrackpoints table scheme to use non-varchar data types
+						// which should result in smaller database size
+						sql = @"CREATE TABLE ""FileTrackpointsTEMP"" (""idFile"" INTEGER,""tpTime"" VARCHAR,""tpDuration"" INTEGER,""tpAltitude"" FLOAT,""tpDistance"" FLOAT,""tpHeart"" INTEGER,""tpCadence"" INTEGER,""tpSpeed"" FLOAT,""tpLongitude"" FLOAT,""tpLatitude"" FLOAT,""tpTemperature"" INTEGER,""tpIsAutoPaused"" VARCHAR, ""tpPower"" FLOAT NOT NULL  DEFAULT 0)";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"INSERT INTO FileTrackpointsTEMP SELECT * from FileTrackpoints";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"DROP TABLE ""FileTrackpoints""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"ALTER TABLE ""FileTrackpointsTEMP"" RENAME TO ""FileTrackpoints""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// need to recreate the FileTrackpoints file/time index
+						sql= @"CREATE  INDEX ""main"".""trackpoints_idx_filetime"" ON ""FileTrackpoints"" (""idFile"" ASC, ""tpTime"" ASC)";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// need to recreate the FileSummary file index
+						sql = @"CREATE INDEX ""filesummary_idx_idFile"" ON ""FileSummary"" (""idFile"" ASC)";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						
+						_db_version_from+=1;
+						//SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						Thread.Sleep(500);
+						goto case 6;
+					case 6:
+						// add the course table
+						sql = @"CREATE TABLE ""Course"" (""courseId"" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , ""courseName"" VARCHAR NOT NULL  UNIQUE )";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// add the course route table
+						sql = @"CREATE TABLE ""CourseRoute"" (""courseId"" INTEGER NOT NULL , ""lat"" DOUBLE NOT NULL , ""lng"" DOUBLE NOT NULL , ""idx"" INTEGER NOT NULL )";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// add the course id to the "File" table
+						sql = @"ALTER TABLE ""main"".""File"" ADD COLUMN ""idCourse"" INTEGER";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						// alter the file_summary view to include course id
+						sql = @"DROP VIEW IF EXISTS ""main"".""view_filehistory""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"CREATE  VIEW ""main"".""view_filehistory"" AS    
+							select  f.idFile, 
+							        CASE fileActivityDateTime IS NULL when 1 then fileOpenDateTime else fileActivityDateTime end as `fileActivityName`, 
+							        case fileActivityName ISNULL when 1 then fileName else fileActivityName end as `fileActivityDescription`, 
+							        fileOpenDateTime, 
+							        case fileActivityNotes ISNULL when 1 then """" else fileActivityNotes end as `fileActivityNotes`, 
+							        fileUploadRunKeeper, fileUploadStrava, fileUploadGarmin, fileUploadRWGPS, 
+							        fs.fsDistance, fs.fsMovingTime, fs.fsAvgSpeed, f.fileIsCommute, f.fileIsStationaryTrainer,
+							        f.idCourse,
+							        c.courseName
+							from File f 
+							left join FileSummary fs on fs.idFile = f.idFile 
+							left join Course c on c.courseId = f.idCourse
+							order by fileActivityDateTime desc
+						";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						_db_version_from+=1;
+						//SetControlPropertyThreadSafe(prgStatus,"Value",_db_version_from);
+						Thread.Sleep(500);
+						goto case 7;
+					case 7:
+						// create view to retrieve the course summary information for Course Listing
+						sql = @"
+							CREATE  VIEW  IF NOT EXISTS ""main"".""view_course_list"" AS 
+							select
+							  c.courseId,
+							  c.courseName,
+							  COUNT(f.idFile) as `courseActivityCount`,
+							  MIN(f.fileActivityDateTime) as `courseRiddenFirst`,
+							  MAX(f.fileActivityDateTime) as `courseRiddenLatest`,
+							  MIN(fs.fsDuration) as `durationLow`,
+							  MAX(fs.fsDuration) as `durationHigh`,
+							  AVG(fs.fsDuration) as `durationLTA`,
+							  MIN(fs.fsAvgSpeed) as `avgspeedLow`,
+							  MAX(fs.fsAvgSpeed) as `avgspeedHight`,
+							  AVG(fs.fsAvgSpeed) as `avgspeedLTA`,
+							  SUM(fs.fsDistance) as `cumulativeDistance`,
+							  SUM(fs.fsDuration) as `cumulativeDuration` 
+							from
+							  Course c 
+							  left join File f 
+							    on f.idCourse = c.courseId 
+							  left join FileSummary fs 
+							    on fs.idFile = f.idFile 
+							group by c.courseId 						
+						";
+						_db_version_from += 1;
+						Thread.Sleep(500);
+						goto case 8;
+					case 8:
 						// do nothing, current version
 					default:
 						// issue command to set the db version in the database

@@ -42,6 +42,7 @@ namespace CycleUploader
 			this.label1 = new System.Windows.Forms.Label();
 			this.settingAutoPause = new System.Windows.Forms.NumericUpDown();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
@@ -63,9 +64,12 @@ namespace CycleUploader
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.lineSeparator4 = new CycleUploader.LineSeparator();
+			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.settingAutoPause)).BeginInit();
 			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ5high)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ4high)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ3high)).BeginInit();
@@ -77,14 +81,14 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.numZ2low)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ1low)).BeginInit();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Location = new System.Drawing.Point(12, 238);
+			this.btnCancel.Location = new System.Drawing.Point(12, 8);
 			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.Size = new System.Drawing.Size(75, 34);
 			this.btnCancel.TabIndex = 7;
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
@@ -92,9 +96,9 @@ namespace CycleUploader
 			// 
 			// btnApply
 			// 
-			this.btnApply.Location = new System.Drawing.Point(258, 238);
+			this.btnApply.Location = new System.Drawing.Point(260, 8);
 			this.btnApply.Name = "btnApply";
-			this.btnApply.Size = new System.Drawing.Size(75, 23);
+			this.btnApply.Size = new System.Drawing.Size(75, 34);
 			this.btnApply.TabIndex = 6;
 			this.btnApply.Text = "Apply...";
 			this.btnApply.UseVisualStyleBackColor = true;
@@ -102,7 +106,7 @@ namespace CycleUploader
 			// 
 			// label1
 			// 
-			this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(22, 21);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(179, 18);
@@ -111,7 +115,7 @@ namespace CycleUploader
 			// 
 			// settingAutoPause
 			// 
-			this.settingAutoPause.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.settingAutoPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.settingAutoPause.Location = new System.Drawing.Point(246, 19);
 			this.settingAutoPause.Maximum = new decimal(new int[] {
 									10,
@@ -119,7 +123,7 @@ namespace CycleUploader
 									0,
 									0});
 			this.settingAutoPause.Name = "settingAutoPause";
-			this.settingAutoPause.Size = new System.Drawing.Size(41, 22);
+			this.settingAutoPause.Size = new System.Drawing.Size(41, 20);
 			this.settingAutoPause.TabIndex = 10;
 			// 
 			// groupBox1
@@ -145,239 +149,13 @@ namespace CycleUploader
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(12, 75);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(323, 157);
 			this.groupBox1.TabIndex = 11;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "      Heart Rate Zones";
-			// 
-			// label11
-			// 
-			this.label11.Location = new System.Drawing.Point(221, 121);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(19, 23);
-			this.label11.TabIndex = 26;
-			this.label11.Text = "-";
-			// 
-			// label10
-			// 
-			this.label10.Location = new System.Drawing.Point(221, 98);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(19, 23);
-			this.label10.TabIndex = 25;
-			this.label10.Text = "-";
-			// 
-			// label9
-			// 
-			this.label9.Location = new System.Drawing.Point(221, 75);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(19, 23);
-			this.label9.TabIndex = 24;
-			this.label9.Text = "-";
-			// 
-			// label8
-			// 
-			this.label8.Location = new System.Drawing.Point(221, 52);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(19, 23);
-			this.label8.TabIndex = 23;
-			this.label8.Text = "-";
-			// 
-			// label7
-			// 
-			this.label7.Location = new System.Drawing.Point(221, 29);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(19, 23);
-			this.label7.TabIndex = 22;
-			this.label7.Text = "-";
-			// 
-			// numZ5high
-			// 
-			this.numZ5high.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ5high.Location = new System.Drawing.Point(246, 119);
-			this.numZ5high.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ5high.Name = "numZ5high";
-			this.numZ5high.Size = new System.Drawing.Size(41, 22);
-			this.numZ5high.TabIndex = 21;
-			// 
-			// numZ4high
-			// 
-			this.numZ4high.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ4high.Location = new System.Drawing.Point(246, 96);
-			this.numZ4high.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ4high.Name = "numZ4high";
-			this.numZ4high.Size = new System.Drawing.Size(41, 22);
-			this.numZ4high.TabIndex = 20;
-			// 
-			// numZ3high
-			// 
-			this.numZ3high.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ3high.Location = new System.Drawing.Point(246, 73);
-			this.numZ3high.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ3high.Name = "numZ3high";
-			this.numZ3high.Size = new System.Drawing.Size(41, 22);
-			this.numZ3high.TabIndex = 19;
-			// 
-			// numZ2high
-			// 
-			this.numZ2high.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ2high.Location = new System.Drawing.Point(246, 50);
-			this.numZ2high.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ2high.Name = "numZ2high";
-			this.numZ2high.Size = new System.Drawing.Size(41, 22);
-			this.numZ2high.TabIndex = 18;
-			// 
-			// numZ1high
-			// 
-			this.numZ1high.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ1high.Location = new System.Drawing.Point(246, 27);
-			this.numZ1high.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ1high.Name = "numZ1high";
-			this.numZ1high.Size = new System.Drawing.Size(41, 22);
-			this.numZ1high.TabIndex = 17;
-			// 
-			// numZ5low
-			// 
-			this.numZ5low.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ5low.Location = new System.Drawing.Point(169, 119);
-			this.numZ5low.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ5low.Name = "numZ5low";
-			this.numZ5low.Size = new System.Drawing.Size(41, 22);
-			this.numZ5low.TabIndex = 16;
-			// 
-			// numZ4low
-			// 
-			this.numZ4low.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ4low.Location = new System.Drawing.Point(169, 96);
-			this.numZ4low.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ4low.Name = "numZ4low";
-			this.numZ4low.Size = new System.Drawing.Size(41, 22);
-			this.numZ4low.TabIndex = 15;
-			// 
-			// numZ3low
-			// 
-			this.numZ3low.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ3low.Location = new System.Drawing.Point(169, 73);
-			this.numZ3low.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ3low.Name = "numZ3low";
-			this.numZ3low.Size = new System.Drawing.Size(41, 22);
-			this.numZ3low.TabIndex = 14;
-			// 
-			// numZ2low
-			// 
-			this.numZ2low.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ2low.Location = new System.Drawing.Point(169, 50);
-			this.numZ2low.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ2low.Name = "numZ2low";
-			this.numZ2low.Size = new System.Drawing.Size(41, 22);
-			this.numZ2low.TabIndex = 13;
-			// 
-			// numZ1low
-			// 
-			this.numZ1low.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numZ1low.Location = new System.Drawing.Point(169, 27);
-			this.numZ1low.Maximum = new decimal(new int[] {
-									255,
-									0,
-									0,
-									0});
-			this.numZ1low.Name = "numZ1low";
-			this.numZ1low.Size = new System.Drawing.Size(41, 22);
-			this.numZ1low.TabIndex = 12;
-			// 
-			// label6
-			// 
-			this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(22, 121);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(130, 23);
-			this.label6.TabIndex = 4;
-			this.label6.Text = "Zone 5 - Anaerobic";
-			// 
-			// label5
-			// 
-			this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(22, 98);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(130, 23);
-			this.label5.TabIndex = 3;
-			this.label5.Text = "Zone 4 - Threshold";
-			// 
-			// label4
-			// 
-			this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(22, 75);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(130, 23);
-			this.label4.TabIndex = 2;
-			this.label4.Text = "Zone 3 - Tempo";
-			// 
-			// label3
-			// 
-			this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(22, 52);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(130, 23);
-			this.label3.TabIndex = 1;
-			this.label3.Text = "Zone 2 - Moderate";
-			// 
-			// label2
-			// 
-			this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(22, 29);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(130, 23);
-			this.label2.TabIndex = 0;
-			this.label2.Text = "Zone 1 - Endurance";
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.label1);
-			this.groupBox2.Controls.Add(this.settingAutoPause);
-			this.groupBox2.Location = new System.Drawing.Point(12, 12);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(321, 52);
-			this.groupBox2.TabIndex = 12;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "General";
 			// 
 			// pictureBox1
 			// 
@@ -389,15 +167,282 @@ namespace CycleUploader
 			this.pictureBox1.TabIndex = 13;
 			this.pictureBox1.TabStop = false;
 			// 
+			// label11
+			// 
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Location = new System.Drawing.Point(221, 121);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(19, 23);
+			this.label11.TabIndex = 26;
+			this.label11.Text = "-";
+			// 
+			// label10
+			// 
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(221, 98);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(19, 23);
+			this.label10.TabIndex = 25;
+			this.label10.Text = "-";
+			// 
+			// label9
+			// 
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Location = new System.Drawing.Point(221, 75);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(19, 23);
+			this.label9.TabIndex = 24;
+			this.label9.Text = "-";
+			// 
+			// label8
+			// 
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.Location = new System.Drawing.Point(221, 52);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(19, 23);
+			this.label8.TabIndex = 23;
+			this.label8.Text = "-";
+			// 
+			// label7
+			// 
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(221, 29);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(19, 23);
+			this.label7.TabIndex = 22;
+			this.label7.Text = "-";
+			// 
+			// numZ5high
+			// 
+			this.numZ5high.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ5high.Location = new System.Drawing.Point(246, 119);
+			this.numZ5high.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ5high.Name = "numZ5high";
+			this.numZ5high.Size = new System.Drawing.Size(41, 20);
+			this.numZ5high.TabIndex = 21;
+			// 
+			// numZ4high
+			// 
+			this.numZ4high.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ4high.Location = new System.Drawing.Point(246, 96);
+			this.numZ4high.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ4high.Name = "numZ4high";
+			this.numZ4high.Size = new System.Drawing.Size(41, 20);
+			this.numZ4high.TabIndex = 20;
+			// 
+			// numZ3high
+			// 
+			this.numZ3high.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ3high.Location = new System.Drawing.Point(246, 73);
+			this.numZ3high.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ3high.Name = "numZ3high";
+			this.numZ3high.Size = new System.Drawing.Size(41, 20);
+			this.numZ3high.TabIndex = 19;
+			// 
+			// numZ2high
+			// 
+			this.numZ2high.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ2high.Location = new System.Drawing.Point(246, 50);
+			this.numZ2high.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ2high.Name = "numZ2high";
+			this.numZ2high.Size = new System.Drawing.Size(41, 20);
+			this.numZ2high.TabIndex = 18;
+			// 
+			// numZ1high
+			// 
+			this.numZ1high.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ1high.Location = new System.Drawing.Point(246, 27);
+			this.numZ1high.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ1high.Name = "numZ1high";
+			this.numZ1high.Size = new System.Drawing.Size(41, 20);
+			this.numZ1high.TabIndex = 17;
+			// 
+			// numZ5low
+			// 
+			this.numZ5low.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ5low.Location = new System.Drawing.Point(169, 119);
+			this.numZ5low.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ5low.Name = "numZ5low";
+			this.numZ5low.Size = new System.Drawing.Size(41, 20);
+			this.numZ5low.TabIndex = 16;
+			// 
+			// numZ4low
+			// 
+			this.numZ4low.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ4low.Location = new System.Drawing.Point(169, 96);
+			this.numZ4low.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ4low.Name = "numZ4low";
+			this.numZ4low.Size = new System.Drawing.Size(41, 20);
+			this.numZ4low.TabIndex = 15;
+			// 
+			// numZ3low
+			// 
+			this.numZ3low.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ3low.Location = new System.Drawing.Point(169, 73);
+			this.numZ3low.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ3low.Name = "numZ3low";
+			this.numZ3low.Size = new System.Drawing.Size(41, 20);
+			this.numZ3low.TabIndex = 14;
+			// 
+			// numZ2low
+			// 
+			this.numZ2low.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ2low.Location = new System.Drawing.Point(169, 50);
+			this.numZ2low.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ2low.Name = "numZ2low";
+			this.numZ2low.Size = new System.Drawing.Size(41, 20);
+			this.numZ2low.TabIndex = 13;
+			// 
+			// numZ1low
+			// 
+			this.numZ1low.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numZ1low.Location = new System.Drawing.Point(169, 27);
+			this.numZ1low.Maximum = new decimal(new int[] {
+									255,
+									0,
+									0,
+									0});
+			this.numZ1low.Name = "numZ1low";
+			this.numZ1low.Size = new System.Drawing.Size(41, 20);
+			this.numZ1low.TabIndex = 12;
+			// 
+			// label6
+			// 
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.Color.Brown;
+			this.label6.Location = new System.Drawing.Point(22, 121);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(130, 23);
+			this.label6.TabIndex = 4;
+			this.label6.Text = "Zone 5 - Anaerobic";
+			// 
+			// label5
+			// 
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.ForeColor = System.Drawing.Color.Red;
+			this.label5.Location = new System.Drawing.Point(22, 98);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(130, 23);
+			this.label5.TabIndex = 3;
+			this.label5.Text = "Zone 4 - Threshold";
+			// 
+			// label4
+			// 
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(22, 75);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(130, 23);
+			this.label4.TabIndex = 2;
+			this.label4.Text = "Zone 3 - Tempo";
+			// 
+			// label3
+			// 
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(22, 52);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(130, 23);
+			this.label3.TabIndex = 1;
+			this.label3.Text = "Zone 2 - Moderate";
+			// 
+			// label2
+			// 
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(22, 29);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(130, 23);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "Zone 1 - Endurance";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.label1);
+			this.groupBox2.Controls.Add(this.settingAutoPause);
+			this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox2.Location = new System.Drawing.Point(12, 12);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(321, 52);
+			this.groupBox2.TabIndex = 12;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "General";
+			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+			this.panel1.Controls.Add(this.lineSeparator4);
+			this.panel1.Controls.Add(this.btnMapFullscreen);
+			this.panel1.Controls.Add(this.btnApply);
+			this.panel1.Controls.Add(this.btnCancel);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 238);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(347, 45);
+			this.panel1.TabIndex = 17;
+			// 
+			// lineSeparator4
+			// 
+			this.lineSeparator4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator4.Location = new System.Drawing.Point(0, 0);
+			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator4.Name = "lineSeparator4";
+			this.lineSeparator4.Size = new System.Drawing.Size(347, 2);
+			this.lineSeparator4.TabIndex = 17;
+			// 
+			// btnMapFullscreen
+			// 
+			this.btnMapFullscreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnMapFullscreen.Image = ((System.Drawing.Image)(resources.GetObject("btnMapFullscreen.Image")));
+			this.btnMapFullscreen.Location = new System.Drawing.Point(726, 10);
+			this.btnMapFullscreen.Name = "btnMapFullscreen";
+			this.btnMapFullscreen.Size = new System.Drawing.Size(61, 32);
+			this.btnMapFullscreen.TabIndex = 7;
+			this.btnMapFullscreen.UseVisualStyleBackColor = true;
+			// 
 			// ToolsOptions
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(347, 273);
+			this.ClientSize = new System.Drawing.Size(347, 283);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.btnCancel);
-			this.Controls.Add(this.btnApply);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -409,6 +454,7 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.settingAutoPause)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ5high)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ4high)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ3high)).EndInit();
@@ -420,9 +466,12 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.numZ2low)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numZ1low)).EndInit();
 			this.groupBox2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button btnMapFullscreen;
+		private CycleUploader.LineSeparator lineSeparator4;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label3;

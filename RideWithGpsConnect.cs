@@ -52,14 +52,6 @@ namespace CycleUploader
 			_password = txtPassword.Text;
 						
 			if(rwgps.login(txtUsername.Text, txtPassword.Text)){
-				// try to open registry key for application
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-				if(key == null){
-					Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-				}
-				key.SetValue("ridewithgps_email", _email);
-				key.SetValue("ridewithgps_password", _password);
 				this.DialogResult = DialogResult.OK;
 				this.Close();
 			}

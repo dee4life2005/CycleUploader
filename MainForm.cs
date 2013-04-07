@@ -110,7 +110,7 @@ namespace CycleUploader
 		private int _activityBatchRowIdx; // idx of the row being processed in the _activityBatch form
 		
 		// SQLite Database Connection
-		private SQLiteConnection _m_dbConnection = null;
+		public SQLiteConnection _m_dbConnection = null;
 		// SQLite last `file` record id - audits history of files opened
 		// All trackpoints are saved against each file record. This allows us to easily reload the data from our archive without the need 
 		// to have access to the original file (TODO: Check data usage for this feature).
@@ -253,6 +253,17 @@ namespace CycleUploader
 			}
 			else{
 				((ListView)ctrl).Items[itemIdx].SubItems[subItemIdx].Text = value;
+			}
+		}
+		
+		private delegate void SetListViewColumnWidthDelegate(Control ctrl, int colIdx, int width);
+		private static void SetListViewColumnWidth(Control ctrl, int colIdx, int width)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new SetListViewColumnWidthDelegate(SetListViewColumnWidth), new object[] {ctrl, colIdx, width});
+			}
+			else{
+				((ListView)ctrl).Columns[colIdx].Width = width;
 			}
 		}
 		
@@ -2545,6 +2556,18 @@ namespace CycleUploader
 				}
 			}
 			
+			// the user settings were stored in the registry prior to version6 of the database schema
+			// so issue a one-time alert about having to re-connect to chosen providers before uploading of rides.
+			if( result < 6){
+				string settings_migration_alert = loadDbSetting("settings_migration_alert","");
+				if(settings_migration_alert == ""){
+					if(MessageBox.Show("This version of the application requires that you reconnect to your chosen providers before attempting to upload any more rides, or errors may occur.\r\n\r\nThis message will not show again.","Reconnect with providers...",MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK){
+						saveDbSetting("settings_migration_alert","ok");
+					}
+				}
+			}
+						
+			
 			statusBarVersion.Text = _versionStr + ", " + _versionDate;
 			_threadInit = new Thread(new ThreadStart(this.initialiseProviders));
 			_threadInit.Start();
@@ -2567,7 +2590,7 @@ namespace CycleUploader
 			
 			SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			SetStatusTextThreadSafe(statusBar, "Loading Endomondo Configuration...");
-			//checkForEndomondoDetails();
+			checkForEndomondoDetails();
 			
 			SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			SetStatusTextThreadSafe(statusBar, "Loading Runkeeper Configuration...");
@@ -2613,7 +2636,7 @@ namespace CycleUploader
 			
 		}
 		
-		void loadFileHistory()
+		public void loadFileHistory()
 		{
 			string sql = "";
 			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
@@ -2654,10 +2677,12 @@ namespace CycleUploader
 						string.Format("{0:0.00} mph",rdr.IsDBNull(rdr.GetOrdinal("fsAvgSpeed")) ? 0 : Convert.ToDouble(rdr["fsAvgSpeed"])), // avg speed
 						Convert.ToInt32(rdr["fileIsCommute"]) == 1 ? "Y" : "", // activity is commute
 						Convert.ToInt32(rdr["fileIsStationaryTrainer"]) == 1 ? "Y" : "", // activity is stationary trainer
+						rdr.IsDBNull(rdr.GetOrdinal("idCourse")) ? "0" : Convert.ToInt32(rdr["idCourse"]).ToString(),
+						rdr.IsDBNull(rdr.GetOrdinal("courseName")) ? "" : (string)rdr["courseName"],
 						(string)rdr["fileActivityNotes"] // notes
 					};
 					ListViewItem lvi = new ListViewItem(row);
-					
+					lvi.UseItemStyleForSubItems = false;
 					// loop through the groups add apply grouping to item
 					foreach(ListViewGroup lvg in lstGroups)
 					{
@@ -2689,88 +2714,98 @@ namespace CycleUploader
 				}
 				
 				ResizeListView(lstFileHistory);
+				SetListViewColumnWidth(lstFileHistory,9,0);
 				
 			}
 			
 		}
 		
-		void loadProviderStates()
+		string loadDbSetting(string settingName, string defaultValue)
 		{
-			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-			if(key != null){
-				SetControlPropertyThreadSafe(cbkProviderRunkeeper, "Checked", Convert.ToBoolean((string)key.GetValue("checkRunkeeper")));
-				SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean((string)key.GetValue("checkStrava")));
-				//SetControlPropertyThreadSafe(cbkProviderEndomondo, "Checked", Convert.ToBoolean((string)key.GetValue("checkEndomondo")));
-				SetControlPropertyThreadSafe(cbkProviderGarmin, "Checked", Convert.ToBoolean((string)key.GetValue("checkGarmin")));
-				SetControlPropertyThreadSafe(cbkProviderRideWithGps, "Checked", Convert.ToBoolean((string)key.GetValue("checkRideWithGps")));
+			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+			string sql = string.Format(@"select SettingValue from ApplicationSettings where SettingName = '{0}'",
+			                       settingName
+			                      );
+			cmd.CommandText = sql;
+			SQLiteDataReader rdr = cmd.ExecuteReader();
+			if(rdr.HasRows){
+				rdr.Read();
+				return (string)rdr["SettingValue"];
+			}
+			else{
+				rdr.Close();
+				rdr.Dispose();
+				cmd.CommandText = string.Format(@"insert into ApplicationSettings (SettingName, SettingValue) VALUES ('{0}','{1}')",
+				                                settingName,
+				                                defaultValue
+				                               );
+				cmd.ExecuteNonQuery();
+				return defaultValue;
 			}
 		}
 		
+		void saveDbSetting(string settingName, string settingValue)
+		{
+			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+			string sql = string.Format(@"REPLACE INTO ApplicationSettings (SettingName, SettingValue) VALUES ('{0}', '{1}')",
+			                           settingName,
+			                           settingValue
+			                          );
+			cmd.CommandText = sql;
+			cmd.ExecuteNonQuery();
+		}
+		
+		void loadProviderStates()
+		{
+			string rk = loadDbSetting("checkRunkeeper","False");
+			SetControlPropertyThreadSafe(cbkProviderRunkeeper, "Checked", Convert.ToBoolean(loadDbSetting("checkRunkeeper","False")));
+			SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean(loadDbSetting("checkStrava","False")));
+			SetControlPropertyThreadSafe(cbkProviderEndomondo, "Checked", Convert.ToBoolean(loadDbSetting("checkEndomondo","False")));
+			SetControlPropertyThreadSafe(cbkProviderGarmin, "Checked", Convert.ToBoolean(loadDbSetting("checkGarmin","False")));
+			SetControlPropertyThreadSafe(cbkProviderRideWithGps, "Checked", Convert.ToBoolean(loadDbSetting("checkRideWithGps","False")));
+		}
+		
+		
+		
 		void loadUserSettings()
 		{
-			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-			if(key != null){
-				_autopause = key.GetValue("autopause") == null ? 0 : (int)key.GetValue("autopause");
-				SetControlPropertyThreadSafe(txtAutoPauseThreshold, "Text", _autopause.ToString());
-			}
+			_autopause = Convert.ToInt32(loadDbSetting("autopause","0"));
+			SetControlPropertyThreadSafe(txtAutoPauseThreshold, "Text", _autopause.ToString());
 		}
 		
 		void checkForGUID()
 		{
-			_GUID = Guid.NewGuid().ToString();
+			_GUID = loadDbSetting("GUID","");
 			
-			try{
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-				if(key != null){
-					if((string)key.GetValue("GUID") == null){
-						key.SetValue("GUID",_GUID);
-					}
-				}
-				else{
-					Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-					key.SetValue("GUID",_GUID);
-				}
-			}
-			catch(Exception ex){
-				MessageBox.Show(ex.ToString());
+			if(_GUID == ""){
+				_GUID = Guid.NewGuid().ToString();
+				saveDbSetting("GUID",_GUID);
 			}
 		}
 		
 		void checkForEndomondoDetails()
 		{
-			/*
- 			try{
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
-				if(key != null){
-					_endomondo_authToken = (string)key.GetValue("endomondo_authToken");
-					_endomondo_displayName = (string)key.GetValue("endomondo_displayName");
-					_endomondo_userId = (string)key.GetValue("endomondo_userId");
-					_endomondo_secureToken = (string)key.GetValue("endomondo_secureToken");
-					
-					if(_endomondo_authToken != null){
-						EnableMenuItem(menuConnectToEndomondo, false);
-						EnableMenuItem(menuViewAccountEndomondo, true);
-					}
-				}
+			_endomondo_authToken = loadDbSetting("endomondo_authToken","");
+			_endomondo_displayName = loadDbSetting("endomondo_displayName","");
+			_endomondo_userId = loadDbSetting("endomondo_userId","");
+			_endomondo_secureToken = loadDbSetting("endomondo_secureToken","");
+			
+			if(_endomondo_authToken != ""){
+				EnableMenuItem(menuConnectToEndomondo, false);
+				EnableMenuItem(menuViewAccountEndomondo, true);
 			}
-			catch{}
-			*/
 		}
 		
 		void checkForGarminConnectDetails()
 		{
 			try{
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
-				if(key != null){
-					_gc_user = (string)key.GetValue("gc_user");
-					_gc_password = (string)key.GetValue("gc_password");
-					if(_gc_user != null && _gc_password != null){
-						if((new GarminConnectAPI()).Login(_gc_user, _gc_password)){
-							// enable the view account button
-							EnableMenuItem(menuConnectToGarmin, false);
-							EnableMenuItem(menuViewAccountGarmin, true);
-						}
+				_gc_user = loadDbSetting("gc_user","");
+				_gc_password = loadDbSetting("gc_password","");
+				if(_gc_user != "" && _gc_password != "" ){
+					if((new GarminConnectAPI()).Login(_gc_user, _gc_password)){
+						// enable the view account button
+						EnableMenuItem(menuConnectToGarmin, false);
+						EnableMenuItem(menuViewAccountGarmin, true);
 					}
 				}
 			}
@@ -2781,23 +2816,22 @@ namespace CycleUploader
 		
 		void checkForRideWithGpsDetails()
 		{
+			_ridewithgps_email = loadDbSetting("ridewithgps_email","");
+			_ridewithgps_password = loadDbSetting("ridewithgps_password","");
+			
+			                                   
 			try{
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
-				if(key != null){
-					_ridewithgps_email = (string)key.GetValue("ridewithgps_email");
-					_ridewithgps_password = (string)key.GetValue("ridewithgps_password");
-					if(_ridewithgps_email != null && _ridewithgps_password != null){
-						_rwgps = new RideWithGpsAPI();
-						if(_rwgps.login(_ridewithgps_email, _ridewithgps_password)){
-							EnableMenuItem(menuConnectToRideWithGps, false);
-							EnableMenuItem(menuViewAccountRideWithGps, true);
-							_ridewithgps_token = _rwgps.getAuthToken();
-						}
+				if(_ridewithgps_email != "" && _ridewithgps_password != ""){
+					_rwgps = new RideWithGpsAPI();
+					if(_rwgps.login(_ridewithgps_email, _ridewithgps_password)){
+						EnableMenuItem(menuConnectToRideWithGps, false);
+						EnableMenuItem(menuViewAccountRideWithGps, true);
+						_ridewithgps_token = _rwgps.getAuthToken();
 					}
-					else{
-						EnableMenuItem(menuConnectToRideWithGps, true);
-						EnableMenuItem(menuViewAccountRideWithGps, false);
-					}
+				}
+				else{
+					EnableMenuItem(menuConnectToRideWithGps, true);
+					EnableMenuItem(menuViewAccountRideWithGps, false);
 				}
 			}
 			catch{}
@@ -2805,40 +2839,41 @@ namespace CycleUploader
 		
 		void checkForStravaConnectToken()
 		{
-			try{
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
-				if(key != null){
-					_strava_token = (string)key.GetValue("strava_token");
-					_strava_name = (string)key.GetValue("strava_name");
-					_strava_user_id = (int)key.GetValue("strava_user_id");
-					_strava_username = (string)key.GetValue("strava_username");
-					_strava_password = (string)key.GetValue("strava_password");
-					if(_strava_token != null){
-						// enable the view account button
-						EnableMenuItem(menuConnectToStrava, false);
-						EnableMenuItem(menuViewAccountStrava, true);
-					}
-				}
+			
+			_strava_token = loadDbSetting("strava_token","");
+			_strava_name = loadDbSetting("strava_name","");
+			_strava_user_id = Convert.ToInt32(loadDbSetting("strava_user_id","0"));
+			_strava_username = loadDbSetting("strava_username","");
+			_strava_password = loadDbSetting("strava_password","");
+			
+			if(_strava_token != ""){
+				// enable the view account button
+				EnableMenuItem(menuConnectToStrava, false);
+				EnableMenuItem(menuViewAccountStrava, true);
 			}
-			catch{}
+			
+//			try{
+//				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
+//				if(key != null){
+//					_strava_token = (string)key.GetValue("strava_token");
+//					_strava_name = (string)key.GetValue("strava_name");
+//					_strava_user_id = (int)key.GetValue("strava_user_id");
+//					_strava_username = (string)key.GetValue("strava_username");
+//					_strava_password = (string)key.GetValue("strava_password");
+//					if(_strava_token != null){
+//						// enable the view account button
+//						EnableMenuItem(menuConnectToStrava, false);
+//						EnableMenuItem(menuViewAccountStrava, true);
+//					}
+//				}
+//			}
+//			catch{}
 		}
 		
 		void checkForRunkeeperConnectToken()
 		{
-			// try to open registry key for application
-			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);
-			if(key == null){
-				// first run, attempt to set the feature-browser_emulation
-				
-				// create the CycleUploader application key
-				
-				Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-				key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);
-			}
-			_rk_auth_token = (string)key.GetValue("rk_auth_token");
-			if(_rk_auth_token == null){
-				_rk_auth_token = "";
-			}
+			_rk_auth_token = loadDbSetting("rk_auth_token","");
+
 			if(_rk_auth_token == ""){
 				EnableMenuItem(menuConnectToRunkeeper, true);
 				EnableMenuItem(menuViewAccountRunKeeper, false);
@@ -2851,13 +2886,14 @@ namespace CycleUploader
 		
 		void saveRunkeeperToken(string token)
 		{
+			saveDbSetting("rk_auth_token",token);
 			// try to open registry key for application
-			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-			if(key == null){
-				Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-				key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-			}
-			key.SetValue("rk_auth_token",token);
+//			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
+//			if(key == null){
+//				Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
+//				key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
+//			}
+//			key.SetValue("rk_auth_token",token);
 		}
 		
 		void menuViewAccountRunKeeperClick(object sender, EventArgs e)
@@ -2885,6 +2921,11 @@ namespace CycleUploader
 				_strava_username = sc._email;
 				_strava_password = sc._password;
 				_strava_user_id = sc._user_id;
+				saveDbSetting("strava_token", _strava_token);
+				saveDbSetting("strava_name", _strava_name);
+				saveDbSetting("strava_username", _strava_username);
+				saveDbSetting("strava_password", _strava_password);
+				saveDbSetting("strava_user_id", _strava_user_id.ToString());
 			}
 		}
 		
@@ -2897,12 +2938,14 @@ namespace CycleUploader
 				EnableMenuItem(menuUploadToGarminConnect, true);
 				_gc_user = gc._gc_user;
 				_gc_password = gc._gc_password;
+				saveDbSetting("gc_user", _gc_user);
+				saveDbSetting("gc_password", _gc_password);
 			}
 		}
 		
 		void menuViewAccountGarminClick(object sender, EventArgs e)
 		{
-			ViewerGarmin vg = new ViewerGarmin();
+			ViewerGarmin vg = new ViewerGarmin(_gc_user, _gc_password);
 			vg.ShowDialog();
 		}
 		
@@ -3077,6 +3120,8 @@ namespace CycleUploader
 				_ridewithgps_token = _rwgps.getAuthToken();
 				_ridewithgps_email = rwg._email;
 				_ridewithgps_password = rwg._password;
+				saveDbSetting("ridewithgps_email", _ridewithgps_email);
+				saveDbSetting("ridewithgps_password", _ridewithgps_password);
 			}
 		}
 		
@@ -3269,7 +3314,7 @@ namespace CycleUploader
 		
 		void MenuConnectToEndomondoClick(object sender, EventArgs e)
 		{
-			/*
+			
  			EndomondoConnect endo = new EndomondoConnect(_GUID);
 			if(endo.ShowDialog() == DialogResult.OK){
 				menuConnectToEndomondo.Enabled = false;
@@ -3279,13 +3324,13 @@ namespace CycleUploader
 				_endomondo_displayName = endo.endo._displayName;
 				_endomondo_userId = endo.endo._userId;
 			}
-			*/
+			
 		}
 		
 		void MenuViewAccountEndomondoClick(object sender, EventArgs e)
 		{
-			//ViewerEndomondo endo = new ViewerEndomondo(_endomondo_authToken, _endomondo_secureToken, _endomondo_displayName, _endomondo_userId);
-			//endo.ShowDialog();			
+			ViewerEndomondo endo = new ViewerEndomondo(_endomondo_authToken, _endomondo_secureToken, _endomondo_displayName, _endomondo_userId);
+			endo.ShowDialog();			
 		}
 		
 		
@@ -3301,7 +3346,7 @@ namespace CycleUploader
 		
 		void CbkProviderEndomondoCheckedChanged(object sender, EventArgs e)
 		{
-			//menuProviderEndomondo.Enabled = ((CheckBox)sender).Checked;
+			menuProviderEndomondo.Enabled = ((CheckBox)sender).Checked;
 		}
 		
 		void CbkProviderGarminCheckedChanged(object sender, EventArgs e)
@@ -3324,22 +3369,13 @@ namespace CycleUploader
 				e.Cancel = true;
 			}
 			else{
-			
-				RegistryKey key;
 				// try and save the provider enabled settings to the registry so they are preserved
 				// on next run of the application
 				try{
-					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-					if(key == null){
-						Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-						key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-					}
-					
-					key.SetValue("checkRunkeeper",this.cbkProviderRunkeeper.Checked);
-					key.SetValue("checkStrava", this.cbkProviderStrava.Checked);
-					//key.SetValue("checkEndomondo", this.cbkProviderEndomondo.Checked);
-					key.SetValue("checkGarmin", this.cbkProviderGarmin.Checked);
-					key.SetValue("checkRideWithGps", this.cbkProviderRideWithGps.Checked);
+					saveDbSetting("checkRunkeeper", cbkProviderRunkeeper.Checked.ToString());
+					saveDbSetting("checkStrava", cbkProviderStrava.Checked.ToString());
+					saveDbSetting("checkGarmin", cbkProviderGarmin.Checked.ToString());
+					saveDbSetting("checkRideWithGps", cbkProviderRideWithGps.Checked.ToString());
 					
 				}
 				catch(Exception ex){
@@ -3390,42 +3426,7 @@ namespace CycleUploader
 			FullscreenMap map = new FullscreenMap(Application.StartupPath + "\\history_route.html");
 			map.ShowDialog();
 		}
-			
-		void LstFileHistoryMouseClick(object sender, MouseEventArgs e)
-		{
-			if(e.Button == MouseButtons.Right)
-			{
-				ActivityName actName = new ActivityName(
-					lstFileHistory.SelectedItems[0].SubItems[2].Text,			// activity name
-					lstFileHistory.SelectedItems[0].SubItems[9].Text,			// activity notes
-					lstFileHistory.SelectedItems[0].SubItems[7].Text == "Y",	// activity is commute
-					lstFileHistory.SelectedItems[0].SubItems[8].Text == "Y"		// activity is stationary trainer
-				);
-				// if OK, set the activity name in the database
-				if(actName.ShowDialog() == DialogResult.OK){
-					// get the id of the file selected
-					int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
-					string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\", fileIsCommute = {3}, fileIsStationaryTrainer = {4} where idFile = {1}",
-					                           actName._activityName,
-					                           fileId,
-					                           actName._activityNotes,
-					                           actName._activityIsCommute ? 1 : 0,
-					                           actName._activityIsStationaryTrainer ? 1 : 0
-					                          );
-					SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
-					command.CommandText = sql;
-					int index = lstFileHistory.SelectedItems[0].Index;
-					command.ExecuteNonQuery();
-					loadFileHistory();
-					lstFileHistory.Items[index].Selected = true;
-					lstFileHistory.Select();
-					lstFileHistory.EnsureVisible(index);
-					lstFileHistory.HideSelection = false;
-					
-				}
-			}
-		}
-		
+				
 		
 		void ExitToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -3499,7 +3500,7 @@ namespace CycleUploader
 		}
 		
 		// called from batch process
-		public void openSelectedFile(int batchItemRowIdx, string filename, string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer)
+		public void openSelectedFile(int batchItemRowIdx, string filename, string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, int courseId = 0)
 		{
 			_opened_file = filename;
 			SetControlPropertyThreadSafe(txtActivityName, "Text", activityName);
@@ -3539,10 +3540,7 @@ namespace CycleUploader
 			{
 				_autopause = usersettings._autopause;
 				SetControlPropertyThreadSafe(txtAutoPauseThreshold, "Text", _autopause.ToString());
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);	
-				if(key != null){
-					key.SetValue("autopause",_autopause);
-				}
+				saveDbSetting("autopause",_autopause.ToString());
 			}
 		}
 		
@@ -3580,6 +3578,120 @@ namespace CycleUploader
 		{
 			UserCharts uc = new UserCharts(_m_dbConnection);
 			uc.ShowDialog();
+		}
+		
+		
+		
+		//
+		//
+		//
+		//
+		//
+		// NEW 
+		//
+		//
+		
+		void MenuFileHistoryEditActivityClick(object sender, EventArgs e)
+		{
+			if(lstFileHistory.SelectedItems.Count > 0){
+				ActivityName actName = new ActivityName(
+					lstFileHistory.SelectedItems[0].SubItems[2].Text,			// activity name
+					lstFileHistory.SelectedItems[0].SubItems[11].Text,			// activity notes
+					lstFileHistory.SelectedItems[0].SubItems[7].Text == "Y",	// activity is commute
+					lstFileHistory.SelectedItems[0].SubItems[8].Text == "Y",	// activity is stationary trainer
+					_m_dbConnection,
+					true,
+					lstFileHistory.SelectedItems[0].SubItems[9].Text == "" ? 0 : Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[9].Text) // activity course
+				);
+				// if OK, set the activity name in the database
+				if(actName.ShowDialog() == DialogResult.OK){
+					// get the id of the file selected
+					int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
+					string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\", fileIsCommute = {3}, fileIsStationaryTrainer = {4}, fileIsIncludedInStats = {5}, idCourse = {6} where idFile = {1}",
+					                           actName._activityName,
+					                           fileId,
+					                           actName._activityNotes,
+					                           actName._activityIsCommute ? 1 : 0,
+					                           actName._activityIsStationaryTrainer ? 1 : 0,
+					                           actName._activityIsIncludedInStatistics ? 1 : 0,
+					                           actName.courseId
+					                          );
+					SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+					command.CommandText = sql;
+					int index = lstFileHistory.SelectedItems[0].Index;
+					command.ExecuteNonQuery();
+					//loadFileHistory();
+					lstFileHistory.Items[index].SubItems[2].Text = actName._activityName;
+					lstFileHistory.Items[index].SubItems[9].Text = actName._activityNotes;
+					lstFileHistory.Items[index].SubItems[7].Text = actName._activityIsCommute ? "Y" : "";
+					lstFileHistory.Items[index].SubItems[8].Text = actName._activityIsStationaryTrainer ? "Y" : "";				
+					lstFileHistory.Items[index].SubItems[9].Text = actName.courseId.ToString();
+					lstFileHistory.Items[index].SubItems[10].Text = actName.courseName;
+					ResizeListView(lstFileHistory);
+					SetListViewColumnWidth(lstFileHistory,9,0);
+				}
+			}
+			else{
+				MessageBox.Show("No Activity Selected");
+			}
+		}
+		
+		void MenuFileHistoryDeleteActivityClick(object sender, EventArgs e)
+		{
+			if(lstFileHistory.SelectedItems.Count > 0){
+				string activityName = lstFileHistory.SelectedItems[0].SubItems[2].Text;
+				string activityDate = System.DateTime.Parse(lstFileHistory.SelectedItems[0].SubItems[1].Text).ToString("dd MMMM yyyy 'at' HH:mm");
+				int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
+				
+				if(MessageBox.Show("Are you sure you want to delete activity `"+activityName+"` ridden on "+activityDate+" ?", "Confirm Deletion of Activity...",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
+					SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+					string sql = string.Format(@"delete from FileTrackpoints where idFile = {0}", fileId);
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery();
+					sql = string.Format(@"delete from FileSummary where idFile = {0}", fileId);
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery();
+					sql = string.Format(@"delete from File where idFile = {0}", fileId);
+					cmd.CommandText = sql;
+					cmd.ExecuteNonQuery();
+					lstFileHistory.Items.Remove(lstFileHistory.SelectedItems[0]);
+				}
+			}
+			else{
+				MessageBox.Show("No Activity Selected");
+			}
+		}
+		
+		void MenuFileHistoryCreateCourseClick(object sender, EventArgs e)
+		{
+			if(lstFileHistory.SelectedItems.Count > 0){
+				CourseCreate cc = new CourseCreate(
+					Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text),
+					lstFileHistory.SelectedItems[0].SubItems[2].Text,
+					lstFileHistory.SelectedItems[0].SubItems[1].Text,
+					lstFileHistory.SelectedItems[0].SubItems[4].Text,
+					_m_dbConnection
+				);
+				if(cc.ShowDialog() == DialogResult.OK){
+					// apply the course id and name to the FileHistory list to save us having to reload it
+					SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+					cmd.CommandText = string.Format("update File set idCourse = {0} where idFile = {1}", cc._courseId, Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text));
+					cmd.ExecuteNonQuery();
+					lstFileHistory.SelectedItems[0].SubItems[9].Text = cc._courseId.ToString();
+					lstFileHistory.SelectedItems[0].SubItems[10].Text = cc._courseName;
+					ResizeListView(lstFileHistory);
+					lstFileHistory.Columns[9].Width = 0;
+				}
+			}
+			else{
+				MessageBox.Show("No Activity Selected");
+			}
+		}
+		
+		void MenuCoursesCourseListClick(object sender, EventArgs e)
+		{
+			Courses c = new Courses(_m_dbConnection, this);
+			c.ShowDialog();
 		}
 	}
 }

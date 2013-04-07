@@ -1,37 +1,33 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: steve
- * Date: 18/03/2013
- * Time: 22:41
+ * User: stevens
+ * Date: 04/04/2013
+ * Time: 11:30
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data.SQLite;
 using System.Threading;
+using System.Data.SQLite;
 using System.IO;
 
 namespace CycleUploader
 {
-	
 	/// <summary>
-	/// Description of ActivityName.
+	/// Description of CourseCreate.
 	/// </summary>
-	public partial class ActivityName : Form
+	public partial class CourseCreate : Form
 	{
-		public string _activityName;
-		public string _activityNotes;
-		public bool _activityIsCommute;
-		public bool _activityIsStationaryTrainer;
-		public bool _activityIsIncludedInStatistics;
+		private int _fileId;
+		private Thread _thLoadMap;
 		private SQLiteConnection _db;
-		private Thread _loadMap;
-		public int courseId = 0;
-		public string courseName = "";
 		
-		public ActivityName(string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, SQLiteConnection db, bool allowSelectMap = false, int idCourse = 0, bool isIncludedInStats = true)
+		public int _courseId = 0;
+		public string _courseName = "";
+		
+		public CourseCreate(int fileid, string activityName, string activityDate, string distance, SQLiteConnection db)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -41,37 +37,18 @@ namespace CycleUploader
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-			_activityName = activityName;
-			_activityNotes = activityNotes;
-			_activityIsCommute = isCommute;
-			_activityIsStationaryTrainer = isStationaryTrainer;
-			_activityIsIncludedInStatistics = isIncludedInStats;
-			
-			txtActivityName.Text = activityName;
-			txtActivityNotes.Text = activityNotes;
-			cbkIsCommute.Checked = isCommute;
-			cbkIsStationaryTrainer.Checked = isStationaryTrainer;
-			cbkIsIncludedInStatistics.Checked = isIncludedInStats;
-			
+			_fileId = fileid;
 			_db = db;
-			// resize the form if course selection is allowed
-			if(allowSelectMap){
-				this.Width = 775;
-				this.Height = 374;
-			}
-			else{
-				this.Width = 459;
-				this.Height = 323;
-			}
-			courseId = idCourse;
+			tActivityName.Text = activityName;
+			tActivityDate.Text = System.DateTime.Parse(activityDate).ToString("dd MMMM yyyy 'at' HH:mm");
+			tActivityDistance.Text = distance;
 		}
 		
 		void BtnCancelClick(object sender, EventArgs e)
 		{
 			try{
-				map.Stop();
-				if(_loadMap != null && _loadMap.IsAlive){
-					_loadMap.Abort();
+				if(_thLoadMap != null && _thLoadMap.IsAlive){
+					_thLoadMap.Abort();
 				}
 			}catch{}
 			this.DialogResult = DialogResult.Cancel;
@@ -79,82 +56,44 @@ namespace CycleUploader
 		
 		void BtnApplyClick(object sender, EventArgs e)
 		{
-			_activityName = txtActivityName.Text;
-			_activityNotes = txtActivityNotes.Text;
-			_activityIsCommute = cbkIsCommute.Checked;
-			_activityIsStationaryTrainer = cbkIsStationaryTrainer.Checked;
-			_activityIsIncludedInStatistics = cbkIsIncludedInStatistics.Checked;
-			if(lstCourse.SelectedIndex != -1){
-				courseId = ((ComboboxItem)lstCourse.SelectedItem).Value;
-				courseName = ((ComboboxItem)lstCourse.SelectedItem).Text;
-			}
-			else{
-				courseId = 0;
-				courseName = "";
-			}
-			try{
-				map.Stop();
-				if(_loadMap != null && _loadMap.IsAlive){
-					_loadMap.Abort();
-				}
-			}catch{}
-			this.DialogResult = DialogResult.OK;	
-		}
-		
-		void TxtActivityNameKeyDown(object sender, KeyEventArgs e)
-		{
-			if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return){
-				BtnApplyClick(sender, e);
-			}
-		}
-		
-		void ActivityNameLoad(object sender, EventArgs e)
-		{
-			this.ActiveControl = txtActivityName;
-			
-			// load the available courses
+			int courseId = 0;
 			SQLiteCommand cmd = new SQLiteCommand(_db);
-			string sql = @"select courseId, courseName from Course order by courseName asc";
+			// insert the course
+			string sql = @"insert into Course(courseName) VALUES (""{0}"")";
+			sql = string.Format(sql, tCourseName.Text);
 			cmd.CommandText = sql;
-			SQLiteDataReader rdr = cmd.ExecuteReader();
-			if(rdr.HasRows){
-				try{
-				while(rdr.Read()){
-					lstCourse.Items.Add(new ComboboxItem(
-							Convert.ToInt32(rdr["courseId"]),
-							(string)rdr["courseName"])
-						);
-						if(Convert.ToInt32(rdr["courseId"]) == courseId){
-							lstCourse.SelectedIndex = lstCourse.Items.Count-1;
-						}
-				}
-				}catch(Exception ex){
-					MessageBox.Show(ex.ToString());
-				}
-				
-			}
+			cmd.ExecuteNonQuery();
+			cmd.CommandText = "SELECT last_insert_rowid()";
+			courseId = Convert.ToInt32(cmd.ExecuteScalar());
+			
+			// insert the route trackpoints
+			sql = @"
+				insert into CourseRoute(courseId, idx, lat, lng)
+				select {0}, rowid, tpLatitude, tpLongitude
+				from FileTrackpoints
+				where idFile = {1}
+				order by rowid asc
+			";
+			sql = string.Format(sql, courseId, _fileId);
+			cmd.CommandText = sql;
+			cmd.ExecuteNonQuery();
+			
+			_courseId = courseId;
+			_courseName = tCourseName.Text;
+			this.DialogResult = DialogResult.OK;
 		}
 		
-		void LstCourseSelectedIndexChanged(object sender, EventArgs e)
+		void CourseCreateLoad(object sender, EventArgs e)
 		{
-			try{
-				if(_loadMap != null && _loadMap.IsAlive){
-					map.Stop();
-					_loadMap.Abort();
-				}
-			}catch{}
-			
-			courseId = ((ComboboxItem)lstCourse.SelectedItem).Value;
-			courseName = ((ComboboxItem)lstCourse.SelectedItem).Text;
-			_loadMap = new Thread(new ThreadStart(loadCourseMap));
-			_loadMap.Start();
+			_thLoadMap = new Thread(new ThreadStart(loadCourseMap));
+			_thLoadMap.Start();
 		}
 		
 		void loadCourseMap()
 		{
 			SQLiteCommand cmd = new SQLiteCommand(_db);
-			string sql = @"select lat as tpLatitude, lng as tpLongitude from CourseRoute where courseId = {0} and ifnull(lat,0) != 0 and ifnull(lng,0) != 0 order by idx asc";
-			sql = string.Format(sql,courseId);
+			string sql = @"select * from FileTrackpoints where idFile = {0} and ifnull(tpLongitude,0) != 0 and ifnull(tpLatitude,0) != 0 order by tpTime asc";
+			sql = string.Format(sql,_fileId);
 			cmd.CommandText = sql;
 			SQLiteDataReader rdr = cmd.ExecuteReader();
 			

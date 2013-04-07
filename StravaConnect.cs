@@ -53,18 +53,6 @@ namespace CycleUploader
 				AuthenticationV2 authV2 = auth.LoginV2(_email,_password);
 				if(authV2.Token != "")
 				{
-					// try to open registry key for application
-					RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-					if(key == null){
-						Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-						key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-					}
-					key.SetValue("strava_token",authV2.Token);
-					key.SetValue("strava_user_id", authV2.Athlete.Id);
-					key.SetValue("strava_name", authV2.Athlete.Name);
-					key.SetValue("strava_username", _email);
-					key.SetValue("strava_password",_password);
-					
 					_token = authV2.Token;
 					_name = authV2.Athlete.Name;					
 					_user_id = authV2.Athlete.Id;

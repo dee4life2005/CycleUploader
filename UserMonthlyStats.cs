@@ -48,7 +48,7 @@ namespace CycleUploader
 		{
 			lstMonthlyStats.Items.Clear();
 			SQLiteCommand command = new SQLiteCommand(_db);
-			string sql = @"select * from view_user_monthlystats";
+			string sql = @"select * from view_user_monthlystats order by ym desc";
 			
 			try{
 				command.CommandText = sql;

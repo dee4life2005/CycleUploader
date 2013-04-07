@@ -144,7 +144,7 @@ namespace CycleUploader
 			httpWebRequest.ContentType = "application/x-www-form-urlencoded";
 			httpWebRequest.ContentLength = (long)bytes.Length;
 			httpWebRequest.CookieContainer = this.GetCookieContainer();
-			httpWebRequest.Timeout = 5000;
+			httpWebRequest.Timeout = 10000;
 			System.IO.Stream requestStream = httpWebRequest.GetRequestStream();
 			requestStream.Write(bytes, 0, bytes.Length);
 			requestStream.Close();

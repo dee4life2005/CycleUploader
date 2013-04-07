@@ -358,7 +358,6 @@ namespace CycleUploader
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Garmin Connect Profile";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ViewerGarminFormClosing);
-			this.Load += new System.EventHandler(this.ViewerGarminLoad);
 			this.Shown += new System.EventHandler(this.ViewerGarminShown);
 			this.pnlActivities.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

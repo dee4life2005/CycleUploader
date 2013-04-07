@@ -174,7 +174,7 @@ namespace CycleUploader
 				lstBatchFiles.Columns[9].Width=32;
 				lstBatchFiles.Columns[10].Width=32;
 				lstBatchFiles.Columns[11].Width=0; // hide the full file path column
-				lstBatchFiles.Columns[12].Width=0; // hide the "already processed" column
+				lstBatchFiles.Columns[12].Width = 0; // hide the "already processed" column
 				lstBatchFiles.ResumeLayout();
 				if(lstBatchFiles.Items.Count == 0){
 					MessageBox.Show("There are no unprocessed files available for processing", "No Files For Processing",MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -194,7 +194,9 @@ namespace CycleUploader
 					lstBatchFiles.SelectedItems[0].SubItems[3].Text, // activity name
 					lstBatchFiles.SelectedItems[0].SubItems[4].Text, // activity notes
 					lstBatchFiles.SelectedItems[0].SubItems[5].Text == "Y" ? true : false, // activity is commute
-					lstBatchFiles.SelectedItems[0].SubItems[6].Text == "Y" ? true : false  // activity is stationary trainer (turbo)
+					lstBatchFiles.SelectedItems[0].SubItems[6].Text == "Y" ? true : false, // activity is stationary trainer (turbo)
+					_mainFrm._m_dbConnection,
+					false
 				);
 				// if OK, set the activity name in the database
 				if(actName.ShowDialog() == DialogResult.OK){
@@ -249,7 +251,7 @@ namespace CycleUploader
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[3].Text,		// activity name
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[4].Text,		// activity notes
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[5].Text == "Y" ? true : false, // activity is commute
-					lstBatchFiles.Items[_batchCurrentIdx].SubItems[6].Text == "Y" ? true : false  // activity is stationary trainer
+					lstBatchFiles.Items[_batchCurrentIdx].SubItems[6].Text == "Y" ? true : false // activity is stationary trainer
 				);
 			}
 		}

@@ -27,7 +27,7 @@ namespace CycleUploader
 		private GarminConnectAPI _gc;
 		private Thread threadLoading;
 		
-		public ViewerGarmin()
+		public ViewerGarmin(string user, string pass)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -37,6 +37,8 @@ namespace CycleUploader
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			_gc_user = user;
+			_gc_password = pass;
 		}
 		
 		private delegate void SetStatusTextThreadSafeDelegate(ToolStrip control,string text );
@@ -103,14 +105,6 @@ namespace CycleUploader
 			else{
 				((ListView)ctrl).AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 			}
-		}
-		
-		void ViewerGarminLoad(object sender, EventArgs e)
-		{
-			// try to open registry key for application
-			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-			_gc_user = (string)key.GetValue("gc_user");
-			_gc_password= (string)key.GetValue("gc_password");
 		}
 		
 		public void initialisePbLoadingStatus(string label, int value, int max)

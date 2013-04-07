@@ -65,7 +65,10 @@ namespace CycleUploader
 			this.cbkProviderStrava = new System.Windows.Forms.CheckBox();
 			this.cbkProviderRunkeeper = new System.Windows.Forms.CheckBox();
 			this.pnlProviders = new System.Windows.Forms.Panel();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.lineSeparator4 = new CycleUploader.LineSeparator();
 			this.pnlProviders.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lstBatchFiles
@@ -97,7 +100,7 @@ namespace CycleUploader
 			this.lstBatchFiles.Name = "lstBatchFiles";
 			this.lstBatchFiles.ShowGroups = false;
 			this.lstBatchFiles.ShowItemToolTips = true;
-			this.lstBatchFiles.Size = new System.Drawing.Size(864, 228);
+			this.lstBatchFiles.Size = new System.Drawing.Size(864, 243);
 			this.lstBatchFiles.SmallImageList = this.imageList1;
 			this.lstBatchFiles.TabIndex = 0;
 			this.lstBatchFiles.UseCompatibleStateImageBehavior = false;
@@ -197,10 +200,10 @@ namespace CycleUploader
 			this.btnUploadRides.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnUploadRides.Image = ((System.Drawing.Image)(resources.GetObject("btnUploadRides.Image")));
 			this.btnUploadRides.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnUploadRides.Location = new System.Drawing.Point(753, 302);
+			this.btnUploadRides.Location = new System.Drawing.Point(753, 8);
 			this.btnUploadRides.Name = "btnUploadRides";
 			this.btnUploadRides.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-			this.btnUploadRides.Size = new System.Drawing.Size(123, 88);
+			this.btnUploadRides.Size = new System.Drawing.Size(123, 33);
 			this.btnUploadRides.TabIndex = 2;
 			this.btnUploadRides.Text = "Upload Rides ...";
 			this.btnUploadRides.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -219,7 +222,7 @@ namespace CycleUploader
 			// 
 			this.prgProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.prgProgress.Location = new System.Drawing.Point(12, 277);
+			this.prgProgress.Location = new System.Drawing.Point(12, 292);
 			this.prgProgress.Name = "prgProgress";
 			this.prgProgress.Size = new System.Drawing.Size(864, 19);
 			this.prgProgress.TabIndex = 3;
@@ -229,19 +232,19 @@ namespace CycleUploader
 			this.prgStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.prgStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.prgStatus.Location = new System.Drawing.Point(12, 302);
+			this.prgStatus.Location = new System.Drawing.Point(12, 317);
 			this.prgStatus.Multiline = true;
 			this.prgStatus.Name = "prgStatus";
 			this.prgStatus.ReadOnly = true;
 			this.prgStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.prgStatus.Size = new System.Drawing.Size(410, 90);
+			this.prgStatus.Size = new System.Drawing.Size(437, 90);
 			this.prgStatus.TabIndex = 4;
 			// 
 			// cbkProviderRideWithGps
 			// 
 			this.cbkProviderRideWithGps.AutoSize = true;
 			this.cbkProviderRideWithGps.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderRideWithGps.Image")));
-			this.cbkProviderRideWithGps.Location = new System.Drawing.Point(40, 46);
+			this.cbkProviderRideWithGps.Location = new System.Drawing.Point(243, 3);
 			this.cbkProviderRideWithGps.Name = "cbkProviderRideWithGps";
 			this.cbkProviderRideWithGps.Padding = new System.Windows.Forms.Padding(5);
 			this.cbkProviderRideWithGps.Size = new System.Drawing.Size(178, 42);
@@ -255,7 +258,7 @@ namespace CycleUploader
 			// 
 			this.cbkProviderGarmin.AutoSize = true;
 			this.cbkProviderGarmin.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderGarmin.Image")));
-			this.cbkProviderGarmin.Location = new System.Drawing.Point(176, 4);
+			this.cbkProviderGarmin.Location = new System.Drawing.Point(166, 3);
 			this.cbkProviderGarmin.Name = "cbkProviderGarmin";
 			this.cbkProviderGarmin.Padding = new System.Windows.Forms.Padding(5);
 			this.cbkProviderGarmin.Size = new System.Drawing.Size(71, 42);
@@ -269,7 +272,7 @@ namespace CycleUploader
 			// 
 			this.cbkProviderStrava.AutoSize = true;
 			this.cbkProviderStrava.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderStrava.Image")));
-			this.cbkProviderStrava.Location = new System.Drawing.Point(109, 4);
+			this.cbkProviderStrava.Location = new System.Drawing.Point(89, 3);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
 			this.cbkProviderStrava.Padding = new System.Windows.Forms.Padding(5);
 			this.cbkProviderStrava.Size = new System.Drawing.Size(71, 42);
@@ -283,7 +286,7 @@ namespace CycleUploader
 			// 
 			this.cbkProviderRunkeeper.AutoSize = true;
 			this.cbkProviderRunkeeper.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderRunkeeper.Image")));
-			this.cbkProviderRunkeeper.Location = new System.Drawing.Point(40, 4);
+			this.cbkProviderRunkeeper.Location = new System.Drawing.Point(12, 3);
 			this.cbkProviderRunkeeper.Name = "cbkProviderRunkeeper";
 			this.cbkProviderRunkeeper.Padding = new System.Windows.Forms.Padding(5);
 			this.cbkProviderRunkeeper.Size = new System.Drawing.Size(71, 42);
@@ -301,21 +304,43 @@ namespace CycleUploader
 			this.pnlProviders.Controls.Add(this.cbkProviderRideWithGps);
 			this.pnlProviders.Controls.Add(this.cbkProviderStrava);
 			this.pnlProviders.Controls.Add(this.cbkProviderGarmin);
-			this.pnlProviders.Location = new System.Drawing.Point(452, 302);
+			this.pnlProviders.Location = new System.Drawing.Point(452, 317);
 			this.pnlProviders.Margin = new System.Windows.Forms.Padding(0);
 			this.pnlProviders.Name = "pnlProviders";
-			this.pnlProviders.Size = new System.Drawing.Size(281, 90);
+			this.pnlProviders.Size = new System.Drawing.Size(424, 90);
 			this.pnlProviders.TabIndex = 5;
+			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+			this.panel1.Controls.Add(this.lineSeparator4);
+			this.panel1.Controls.Add(this.btnUploadRides);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 410);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(888, 45);
+			this.panel1.TabIndex = 17;
+			// 
+			// lineSeparator4
+			// 
+			this.lineSeparator4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator4.Location = new System.Drawing.Point(0, 0);
+			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator4.Name = "lineSeparator4";
+			this.lineSeparator4.Size = new System.Drawing.Size(888, 2);
+			this.lineSeparator4.TabIndex = 17;
 			// 
 			// Batch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(888, 398);
+			this.ClientSize = new System.Drawing.Size(888, 455);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.pnlProviders);
 			this.Controls.Add(this.prgStatus);
 			this.Controls.Add(this.prgProgress);
-			this.Controls.Add(this.btnUploadRides);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.lstBatchFiles);
 			this.DoubleBuffered = true;
@@ -328,9 +353,12 @@ namespace CycleUploader
 			this.Shown += new System.EventHandler(this.BatchShown);
 			this.pnlProviders.ResumeLayout(false);
 			this.pnlProviders.PerformLayout();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private CycleUploader.LineSeparator lineSeparator4;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader colProcess;
 		private System.Windows.Forms.Panel pnlProviders;
 		private System.Windows.Forms.CheckBox cbkProviderRunkeeper;

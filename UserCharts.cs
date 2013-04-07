@@ -55,6 +55,7 @@ namespace CycleUploader
 		void loadWeeklyChart(string type)
 		{
 			Debug.WriteLine("loadWeeklyChart("+type+")");
+			/*
 			string sql = @"
 				select 
 					strftime(""%Y%W"", f.fileActivityDateTime) as `yw`,
@@ -70,6 +71,23 @@ namespace CycleUploader
 				where f.fileActivityDateTime between ""{0}"" and ""{1}""
 				group by yw
 			";
+			*/
+			// tweaked code to get iso year / week no. based on first 4 day week of year being week 1
+			string sql = @"
+				select 
+					strftime('%Y',date(f.fileActivityDateTime, '-3 days', 'weekday 4')) as iso_year,
+					(strftime('%j', date(f.fileActivityDateTime, '-3 days', 'weekday 4')) - 1) / 7 + 1 as iso_week,			
+					count(f.idFile) as `NoActivities`,
+					cast(sum(fs.fsDuration) as double)/3600 as `TotalDurationHours`,
+					sum(fs.fsDistance) as `TotalDistanceMiles`,
+					sum(fs.fsCalories) as `TotalCalories`,
+					sum(ifnull(fs.fsTotalAscent,0)) as `TotalAscent`
+				from File f
+				join FileSummary fs on fs.idFile = f.idFile
+				where date(f.fileActivityDateTime) between ""{0}"" and ""{1}""
+				group by iso_year, iso_week			
+			";
+			Debug.WriteLine(sql);
 			sql = string.Format(sql, 
 			                    dpFrom.Value.ToString("yyyy-MM-dd"),
 			                    dpTo.Value.ToString("yyyy-MM-dd")
@@ -84,8 +102,8 @@ namespace CycleUploader
 			PointPairList p = new PointPairList();
 			while(rdr.Read()){
 				DateTime dt = FirstDateOfWeek(
-					Convert.ToInt32(rdr["year"]),
-					Convert.ToInt32(rdr["weekno"])+1,
+					Convert.ToInt32(rdr["iso_year"]),
+					Convert.ToInt32(rdr["iso_week"])-1,
 					CalendarWeekRule.FirstFourDayWeek
 				);
 				switch(type){
@@ -183,7 +201,7 @@ namespace CycleUploader
 					sum(ifnull(fs.fsTotalAscent,0)) as `TotalAscent`
 				from File f
 				join FileSummary fs on fs.idFile = f.idFile
-				where f.fileActivityDateTime between ""{0}"" and ""{1}""
+				where date(f.fileActivityDateTime) between ""{0}"" and ""{1}""
 				group by ym
 			";
 			sql = string.Format(sql, 
@@ -326,7 +344,7 @@ namespace CycleUploader
 		
 		static DateTime FirstDateOfWeek(int year, int weekNum, CalendarWeekRule rule)
 		{
-		    Debug.Assert(weekNum >= 1);
+		    //Debug.Assert(weekNum >= 1);
 		
 		    DateTime jan1 = new DateTime(year, 1, 1);
 		

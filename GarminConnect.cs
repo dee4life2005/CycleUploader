@@ -51,15 +51,9 @@ namespace CycleUploader
 		void BtnSaveLoginDetailsClick(object sender, EventArgs e)
 		{
 			GarminConnectAPI gc = new GarminConnectAPI();
-			if(gc.Login(txtUserName.Text, txtPassword.Text)){
-				// try to open registry key for application
-				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-				if(key == null){
-					Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-					key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-				}
-				key.SetValue("gc_user",txtUserName.Text);
-				key.SetValue("gc_password",txtPassword.Text);
+			if(gc.Login(txtUsername.Text, txtPassword.Text)){
+				_gc_user = txtUsername.Text;
+				_gc_password = txtPassword.Text;
 				this.DialogResult = DialogResult.OK;
 				this.Close();
 			}

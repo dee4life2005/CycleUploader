@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ClassDiagram Zoom="1" MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="CycleUploader.MainForm" Collapsed="False">
+    <Position X="0.5" Y="0.5" Width="3.144337" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.StravaConnect" Collapsed="False">
+    <Position X="0.5" Y="71.4" Width="2.077047" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.GarminConnect" Collapsed="False">
+    <Position X="0.5" Y="75.4" Width="2.166315" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ViewerGarmin" Collapsed="False">
+    <Position X="0.5" Y="78.8" Width="2.926398" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.Program" Collapsed="False">
+    <Position X="0.5" Y="93.9" Width="1.555622" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.FullscreenMap" Collapsed="False">
+    <Position X="0.5" Y="96.2" Width="2.06695" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.About" Collapsed="False">
+    <Position X="0.5" Y="98.7" Width="2.071999" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsConnect" Collapsed="False">
+    <Position X="0.5" Y="102.7" Width="2.759606" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.DatabaseSchemaUpdate" Collapsed="False">
+    <Position X="0.5" Y="106.5" Width="3.110016" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.Activity" Collapsed="False">
+    <Position X="0.5" Y="111.4" Width="2.053468" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.Trackpoint" Collapsed="False">
+    <Position X="0.5" Y="115.8" Width="1.637477" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ActivityName" Collapsed="False">
+    <Position X="0.5" Y="118.6" Width="2.229372" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.endomondoActivityItems" Collapsed="False">
+    <Position X="0.5" Y="123.2" Width="1.82068" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.endomondoActivity" Collapsed="False">
+    <Position X="0.5" Y="124.5" Width="1.963127" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.EndomondoAPI" Collapsed="False">
+    <Position X="0.5" Y="128.2" Width="2.165456" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.EndomondoConnect" Collapsed="False">
+    <Position X="0.5" Y="130.5" Width="2.644128" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.Batch" Collapsed="False">
+    <Position X="0.5" Y="134.2" Width="2.926398" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.FileSummary" Collapsed="False">
+    <Position X="0.5" Y="147.9" Width="2.926398" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.GeoMath" Collapsed="False">
+    <Position X="0.5" Y="172.1" Width="2.501149" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.FullscreenChart" Collapsed="False">
+    <Position X="0.5" Y="175.7" Width="2.180172" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ToolsOptions" Collapsed="False">
+    <Position X="0.5" Y="178.1" Width="2.323849" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminImportResult" Collapsed="False">
+    <Position X="0.5" Y="184.9" Width="3.025959" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminImportResultMsg" Collapsed="False">
+    <Position X="0.5" Y="186.3" Width="1.786842" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminImportResultRecord" Collapsed="False">
+    <Position X="0.5" Y="187.8" Width="2.361393" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminImportResultDetailed" Collapsed="False">
+    <Position X="0.5" Y="189.5" Width="2.525158" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminMetricsResult" Collapsed="False">
+    <Position X="0.5" Y="191.8" Width="1.883312" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.garminMetric" Collapsed="False">
+    <Position X="0.5" Y="193.1" Width="1.778146" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.GarminActivityListItem" Collapsed="False">
+    <Position X="0.5" Y="195.3" Width="1.714709" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.GarminConnectAPI" Collapsed="False">
+    <Position X="0.5" Y="199" Width="2.862946" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.UploadFile" Collapsed="False">
+    <Position X="0.5" Y="203.8" Width="1.665407" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="False" />
+      <Compartment Name="Methods" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.UserMonthlyStats" Collapsed="False">
+    <Position X="0.5" Y="206.1" Width="2.367731" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.UserCharts" Collapsed="False">
+    <Position X="0.5" Y="212.2" Width="2.386369" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.UserRecords" Collapsed="False">
+    <Position X="0.5" Y="217.9" Width="2.336525" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ViewerRideWithGps" Collapsed="False">
+    <Position X="0.5" Y="226.4" Width="2.928278" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RunkeeperConnect" Collapsed="False">
+    <Position X="0.5" Y="253.7" Width="2.530583" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ViewerStrava" Collapsed="False">
+    <Position X="0.5" Y="256.8" Width="2.204235" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ViewerRunKeeper" Collapsed="False">
+    <Position X="0.5" Y="262.3" Width="2.936872" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.ViewerEndomondo" Collapsed="False">
+    <Position X="0.5" Y="293.1" Width="2.926398" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+      <Compartment Name="Nested Types" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsActivityListItem" Collapsed="False">
+    <Position X="0.5" Y="305" Width="2.022365" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsProfile" Collapsed="False">
+    <Position X="0.5" Y="307.7" Width="1.871818" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsActivitySummary" Collapsed="False">
+    <Position X="0.5" Y="310.3" Width="2.474508" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsMileSplit" Collapsed="False">
+    <Position X="0.5" Y="313.2" Width="1.680226" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+  <Class Name="CycleUploader.RideWithGpsAPI" Collapsed="False">
+    <Position X="0.5" Y="314.8" Width="3.131339" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="False" />
+      <Compartment Name="Fields" Collapsed="False" />
+    </Compartments>
+  </Class>
+</ClassDiagram>
