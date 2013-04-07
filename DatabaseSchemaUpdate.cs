@@ -28,10 +28,14 @@ namespace CycleUploader
 		public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
 		{
 			if (control.InvokeRequired){
-		  		control.Invoke(new SetControlPropertyThreadSafeDelegate(SetControlPropertyThreadSafe), new object[] { control, propertyName, propertyValue });
+				try{
+					control.Invoke(new SetControlPropertyThreadSafeDelegate(SetControlPropertyThreadSafe), new object[] { control, propertyName, propertyValue });
+				}catch{}
 		  	}
 			else{
-				control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+				try{
+					control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+				}catch{}
 			}
 		}
 		
@@ -340,8 +344,8 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						Thread.Sleep(500);
 						goto case 1; // now upgrade to the next version ... etc.
-						Thread.Sleep(500);						
 					case 1:
 						// drop the monthlystats view, as we need to make a change to it
 						sql = @"DROP VIEW ""main"".""view_user_monthlystats""";
@@ -497,7 +501,7 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						
 						_db_version_from+=1;
-						//SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);
 						goto case 6;
 					case 6:
@@ -535,7 +539,7 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
-						//SetControlPropertyThreadSafe(prgStatus,"Value",_db_version_from);
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);
 						goto case 7;
 					case 7:
@@ -564,7 +568,10 @@ namespace CycleUploader
 							    on fs.idFile = f.idFile 
 							group by c.courseId 						
 						";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
 						Thread.Sleep(500);
 						goto case 8;
 					case 8:
