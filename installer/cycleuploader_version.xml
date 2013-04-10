@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
 <version>1.0.25.3</version>
-<url>http://10.254.249.55/apps</url>
-<installer>http://10.254.249.55/apps/TeamCardFulfilmentBillingSetup.exe</installer>
-<filename>TeamCardFulfilmentBillingSetup.exe</filename>
-<date>17/12/2012</date>
+<url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
+<installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/cycleuploader_version.xml</installer>
+<filename>CycleUploaderSetup.exe</filename>
+<date>10/04/2013</date>
 <changes>
-• Bug fix in `Reprint Card` for membership schemes
+• Includes Courses
+• Ability to delete ride from ride history
+• Changes to database schema to reduce footprint
 </changes>
 </appinfo> 
