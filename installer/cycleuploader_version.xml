@@ -10,5 +10,6 @@
 • Ability to delete ride from ride history
 • Changes to database schema to reduce footprint
 • Support for web auto-updating
+• Test of version update feature
 </changes>
 </appinfo> 
