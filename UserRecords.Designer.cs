@@ -62,6 +62,7 @@ namespace CycleUploader
 			this.recCommuteFastestSpeed = new System.Windows.Forms.Label();
 			this.label43 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.lineSeparator1 = new CycleUploader.LineSeparator();
 			this.label54 = new System.Windows.Forms.Label();
 			this.recTotalDuration = new System.Windows.Forms.Label();
 			this.label50 = new System.Windows.Forms.Label();
@@ -77,9 +78,13 @@ namespace CycleUploader
 			this.recAverageSpeed = new System.Windows.Forms.Label();
 			this.label28 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnOk = new System.Windows.Forms.Button();
+			this.lineSeparator4 = new CycleUploader.LineSeparator();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox3
@@ -344,6 +349,7 @@ namespace CycleUploader
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.lineSeparator1);
 			this.groupBox1.Controls.Add(this.label54);
 			this.groupBox1.Controls.Add(this.recTotalDuration);
 			this.groupBox1.Controls.Add(this.label50);
@@ -364,6 +370,16 @@ namespace CycleUploader
 			this.groupBox1.TabIndex = 44;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Overall Records";
+			this.groupBox1.Enter += new System.EventHandler(this.GroupBox1Enter);
+			// 
+			// lineSeparator1
+			// 
+			this.lineSeparator1.Location = new System.Drawing.Point(6, 110);
+			this.lineSeparator1.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator1.Name = "lineSeparator1";
+			this.lineSeparator1.Size = new System.Drawing.Size(476, 2);
+			this.lineSeparator1.TabIndex = 47;
 			// 
 			// label54
 			// 
@@ -514,11 +530,44 @@ namespace CycleUploader
 			this.label1.TabIndex = 47;
 			this.label1.Text = "User Records";
 			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+			this.panel1.Controls.Add(this.btnOk);
+			this.panel1.Controls.Add(this.lineSeparator4);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 363);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(1007, 45);
+			this.panel1.TabIndex = 48;
+			// 
+			// btnOk
+			// 
+			this.btnOk.Location = new System.Drawing.Point(923, 8);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(75, 32);
+			this.btnOk.TabIndex = 23;
+			this.btnOk.Text = "Close";
+			this.btnOk.UseVisualStyleBackColor = true;
+			this.btnOk.Click += new System.EventHandler(this.BtnOkClick);
+			// 
+			// lineSeparator4
+			// 
+			this.lineSeparator4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator4.Location = new System.Drawing.Point(0, 0);
+			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator4.Name = "lineSeparator4";
+			this.lineSeparator4.Size = new System.Drawing.Size(1007, 2);
+			this.lineSeparator4.TabIndex = 17;
+			// 
 			// UserRecords
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1006, 364);
+			this.ClientSize = new System.Drawing.Size(1007, 408);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
@@ -535,8 +584,13 @@ namespace CycleUploader
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private CycleUploader.LineSeparator lineSeparator1;
+		private System.Windows.Forms.Button btnOk;
+		private CycleUploader.LineSeparator lineSeparator4;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.Label recAverageSpeed;

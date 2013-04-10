@@ -166,5 +166,15 @@ namespace CycleUploader
 		{
 			initialiseRecords();
 		}
+		
+		void BtnOkClick(object sender, EventArgs e)
+		{
+			this.DialogResult = DialogResult.OK;
+		}
+		
+		void GroupBox1Enter(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

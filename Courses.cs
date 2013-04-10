@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections;
+using System.Text.RegularExpressions; 
 
 namespace CycleUploader
 {
@@ -22,6 +24,7 @@ namespace CycleUploader
 	{
 		private SQLiteConnection _db;
 		private MainForm _mainfrm;
+		private ListViewColumnSorter lvwColumnSorter;
 		
 		public Courses(SQLiteConnection db, MainForm mainfrm)
 		{
@@ -47,6 +50,8 @@ namespace CycleUploader
 					lstCourses.Items.Add(new ComboboxItem(Convert.ToInt32(rdr["courseId"]), (string)rdr["courseName"]));
 				}
 			}
+			lvwColumnSorter = new ListViewColumnSorter();
+			lstCourseActivities.ListViewItemSorter = lvwColumnSorter;
 		}
 		
 		void BtnMapFullscreenClick(object sender, EventArgs e)
@@ -274,18 +279,18 @@ namespace CycleUploader
 				List<ListViewItem> lvi = new List<ListViewItem>();
 				while(rdr.Read())
 				{
-					TimeSpan ts = TimeSpan.FromSeconds(Convert.ToInt32(rdr["fsDuration"]));
+					TimeSpan ts = TimeSpan.FromSeconds(Convert.ToInt32(rdr["fsMovingTime"]));
 					string[] row = {
 						Convert.ToInt32(rdr["idFile"]).ToString(),
-						((System.DateTime)rdr["fileActivityDateTime"]).ToString("dd/MM/yyyy HH:mm"),
+						((System.DateTime)rdr["fileActivityDateTime"]).ToString("yyyy-MM-dd HH:mm"),
 						(string)rdr["fileName"],
-						string.Format("{0:0.00} miles", rdr["fsDistance"]),
+						string.Format("{0:0.00}", rdr["fsDistance"]),
 						string.Format("{0:D2} h {1:D2} m {2:D2} s", 
 						              Convert.ToInt32(Math.Floor(ts.TotalHours)), 
 						              ts.Minutes, 
 						              ts.Seconds
 						             ),
-						string.Format("{0:0.00} mph", rdr["fsAvgSpeed"]),
+						string.Format("{0:0.00}", rdr["fsAvgSpeed"]),
 						Convert.ToInt32(rdr["fileIsCommute"]) == 1 ? "Y" : "",
 						Convert.ToInt32(rdr["fileIsStationaryTrainer"]) == 1 ? "Y" : "",
 						(string)rdr["fileActivityNotes"]						
@@ -352,6 +357,37 @@ namespace CycleUploader
 				);
 				summary.ShowDialog();
 			}
+		}
+		
+		void LstCourseActivitiesColumnClick(object sender, ColumnClickEventArgs e)
+		{
+			ListView myListView = (ListView)sender;
+
+			// Determine if clicked column is already the column that is being sorted.
+			if ( e.Column == lvwColumnSorter.SortColumn )
+			{
+				// Reverse the current sort direction for this column.
+				if (lvwColumnSorter.Order == SortOrder.Ascending){
+					lvwColumnSorter.Order = SortOrder.Descending;
+				}
+				else{
+					lvwColumnSorter.Order = SortOrder.Ascending;
+				}
+			}
+			else{
+				// Set the column number that is to be sorted; default to ascending.
+				lvwColumnSorter.SortColumn = e.Column;
+				lvwColumnSorter.Order = SortOrder.Ascending;
+			}
+			
+			// Perform the sort with these new sort options.
+			myListView.Sort();
+			myListView.SetSortIcon(lvwColumnSorter.SortColumn, lvwColumnSorter.Order);
+		}
+		
+		void CoursesLoad(object sender, EventArgs e)
+		{
+			
 		}
 	}
 }

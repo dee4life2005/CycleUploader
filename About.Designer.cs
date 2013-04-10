@@ -37,66 +37,66 @@ namespace CycleUploader
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-			System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode(".FIT");
-			System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode(".TCX");
-			System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode(".GPX");
-			System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
-									treeNode33,
-									treeNode34,
-									treeNode35});
-			System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("RunKeeper");
-			System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Strava");
-			System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("GarminConnect");
-			System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("RideWithGPS");
-			System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
-									treeNode37,
-									treeNode38,
-									treeNode39,
-									treeNode40});
-			System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Garmin Edge 500", new System.Windows.Forms.TreeNode[] {
-									treeNode36,
-									treeNode41});
-			System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode(".GPX");
-			System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
-									treeNode43});
-			System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("RunKeeper");
-			System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Strava");
-			System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("RideWithGPS");
-			System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
-									treeNode45,
-									treeNode46,
-									treeNode47});
-			System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Mio Cyclo 100", new System.Windows.Forms.TreeNode[] {
-									treeNode44,
-									treeNode48});
-			System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode(".TCX");
-			System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
-									treeNode50});
-			System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("RunKeeper");
-			System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("Strava");
-			System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("GarminConnect");
-			System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("RideWithGPS");
-			System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
-									treeNode52,
-									treeNode53,
-									treeNode54,
-									treeNode55});
-			System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("Bryton", new System.Windows.Forms.TreeNode[] {
-									treeNode51,
-									treeNode56});
-			System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode(".TCX");
-			System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
-									treeNode58});
-			System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("RunKeeper");
-			System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("Strava");
-			System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("GarminConnect");
-			System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
-									treeNode60,
-									treeNode61,
-									treeNode62});
-			System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("TrainerRoad", new System.Windows.Forms.TreeNode[] {
-									treeNode59,
-									treeNode63});
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode(".FIT");
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode(".TCX");
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode(".GPX");
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode1,
+									treeNode2,
+									treeNode3});
+			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("GarminConnect");
+			System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("RideWithGPS");
+			System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode5,
+									treeNode6,
+									treeNode7,
+									treeNode8});
+			System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Garmin Edge 500", new System.Windows.Forms.TreeNode[] {
+									treeNode4,
+									treeNode9});
+			System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode(".GPX");
+			System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode11});
+			System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("RideWithGPS");
+			System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode13,
+									treeNode14,
+									treeNode15});
+			System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Mio Cyclo 100", new System.Windows.Forms.TreeNode[] {
+									treeNode12,
+									treeNode16});
+			System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode(".TCX");
+			System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode18});
+			System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("GarminConnect");
+			System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("RideWithGPS");
+			System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode20,
+									treeNode21,
+									treeNode22,
+									treeNode23});
+			System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Bryton", new System.Windows.Forms.TreeNode[] {
+									treeNode19,
+									treeNode24});
+			System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode(".TCX");
+			System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("File Support", new System.Windows.Forms.TreeNode[] {
+									treeNode26});
+			System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("RunKeeper");
+			System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Strava");
+			System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("GarminConnect");
+			System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Provider Support", new System.Windows.Forms.TreeNode[] {
+									treeNode28,
+									treeNode29,
+									treeNode30});
+			System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("TrainerRoad", new System.Windows.Forms.TreeNode[] {
+									treeNode27,
+									treeNode31});
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -146,7 +146,7 @@ namespace CycleUploader
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 32);
 			this.btnClose.TabIndex = 3;
-			this.btnClose.Text = "OK";
+			this.btnClose.Text = "Close";
 			this.btnClose.UseVisualStyleBackColor = true;
 			this.btnClose.Click += new System.EventHandler(this.BtnCloseClick);
 			// 
@@ -170,75 +170,75 @@ namespace CycleUploader
 			this.tvSupportedDevices.Location = new System.Drawing.Point(3, 3);
 			this.tvSupportedDevices.Margin = new System.Windows.Forms.Padding(10);
 			this.tvSupportedDevices.Name = "tvSupportedDevices";
-			treeNode33.Name = "Node4";
-			treeNode33.Text = ".FIT";
-			treeNode34.Name = "Node5";
-			treeNode34.Text = ".TCX";
-			treeNode35.Name = "Node6";
-			treeNode35.Text = ".GPX";
-			treeNode36.Name = "Node3";
-			treeNode36.Text = "File Support";
-			treeNode37.Name = "Node8";
-			treeNode37.Text = "RunKeeper";
-			treeNode38.Name = "Node9";
-			treeNode38.Text = "Strava";
-			treeNode39.Name = "Node10";
-			treeNode39.Text = "GarminConnect";
-			treeNode40.Name = "Node11";
-			treeNode40.Text = "RideWithGPS";
-			treeNode41.Name = "Node7";
-			treeNode41.Text = "Provider Support";
-			treeNode42.Name = "nodeGarmin500";
-			treeNode42.Text = "Garmin Edge 500";
-			treeNode43.Name = "Node15";
-			treeNode43.Text = ".GPX";
-			treeNode44.Name = "Node13";
-			treeNode44.Text = "File Support";
-			treeNode45.Name = "Node16";
-			treeNode45.Text = "RunKeeper";
-			treeNode46.Name = "Node17";
-			treeNode46.Text = "Strava";
-			treeNode47.Name = "Node18";
-			treeNode47.Text = "RideWithGPS";
-			treeNode48.Name = "Node14";
-			treeNode48.Text = "Provider Support";
-			treeNode49.Name = "nodeMioCyclo100";
-			treeNode49.Text = "Mio Cyclo 100";
-			treeNode50.Name = "Node7";
-			treeNode50.Text = ".TCX";
-			treeNode51.Name = "Node1";
-			treeNode51.Text = "File Support";
-			treeNode52.Name = "Node3";
-			treeNode52.Text = "RunKeeper";
-			treeNode53.Name = "Node4";
-			treeNode53.Text = "Strava";
-			treeNode54.Name = "Node5";
-			treeNode54.Text = "GarminConnect";
-			treeNode55.Name = "Node6";
-			treeNode55.Text = "RideWithGPS";
-			treeNode56.Name = "Node2";
-			treeNode56.Text = "Provider Support";
-			treeNode57.Name = "nodeBryton";
-			treeNode57.Text = "Bryton";
-			treeNode58.Name = "Node3";
-			treeNode58.Text = ".TCX";
-			treeNode59.Name = "Node1";
-			treeNode59.Text = "File Support";
-			treeNode60.Name = "Node4";
-			treeNode60.Text = "RunKeeper";
-			treeNode61.Name = "Node5";
-			treeNode61.Text = "Strava";
-			treeNode62.Name = "Node6";
-			treeNode62.Text = "GarminConnect";
-			treeNode63.Name = "Node2";
-			treeNode63.Text = "Provider Support";
-			treeNode64.Name = "Node0";
-			treeNode64.Text = "TrainerRoad";
+			treeNode1.Name = "Node4";
+			treeNode1.Text = ".FIT";
+			treeNode2.Name = "Node5";
+			treeNode2.Text = ".TCX";
+			treeNode3.Name = "Node6";
+			treeNode3.Text = ".GPX";
+			treeNode4.Name = "Node3";
+			treeNode4.Text = "File Support";
+			treeNode5.Name = "Node8";
+			treeNode5.Text = "RunKeeper";
+			treeNode6.Name = "Node9";
+			treeNode6.Text = "Strava";
+			treeNode7.Name = "Node10";
+			treeNode7.Text = "GarminConnect";
+			treeNode8.Name = "Node11";
+			treeNode8.Text = "RideWithGPS";
+			treeNode9.Name = "Node7";
+			treeNode9.Text = "Provider Support";
+			treeNode10.Name = "nodeGarmin500";
+			treeNode10.Text = "Garmin Edge 500";
+			treeNode11.Name = "Node15";
+			treeNode11.Text = ".GPX";
+			treeNode12.Name = "Node13";
+			treeNode12.Text = "File Support";
+			treeNode13.Name = "Node16";
+			treeNode13.Text = "RunKeeper";
+			treeNode14.Name = "Node17";
+			treeNode14.Text = "Strava";
+			treeNode15.Name = "Node18";
+			treeNode15.Text = "RideWithGPS";
+			treeNode16.Name = "Node14";
+			treeNode16.Text = "Provider Support";
+			treeNode17.Name = "nodeMioCyclo100";
+			treeNode17.Text = "Mio Cyclo 100";
+			treeNode18.Name = "Node7";
+			treeNode18.Text = ".TCX";
+			treeNode19.Name = "Node1";
+			treeNode19.Text = "File Support";
+			treeNode20.Name = "Node3";
+			treeNode20.Text = "RunKeeper";
+			treeNode21.Name = "Node4";
+			treeNode21.Text = "Strava";
+			treeNode22.Name = "Node5";
+			treeNode22.Text = "GarminConnect";
+			treeNode23.Name = "Node6";
+			treeNode23.Text = "RideWithGPS";
+			treeNode24.Name = "Node2";
+			treeNode24.Text = "Provider Support";
+			treeNode25.Name = "nodeBryton";
+			treeNode25.Text = "Bryton";
+			treeNode26.Name = "Node3";
+			treeNode26.Text = ".TCX";
+			treeNode27.Name = "Node1";
+			treeNode27.Text = "File Support";
+			treeNode28.Name = "Node4";
+			treeNode28.Text = "RunKeeper";
+			treeNode29.Name = "Node5";
+			treeNode29.Text = "Strava";
+			treeNode30.Name = "Node6";
+			treeNode30.Text = "GarminConnect";
+			treeNode31.Name = "Node2";
+			treeNode31.Text = "Provider Support";
+			treeNode32.Name = "Node0";
+			treeNode32.Text = "TrainerRoad";
 			this.tvSupportedDevices.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-									treeNode42,
-									treeNode49,
-									treeNode57,
-									treeNode64});
+									treeNode10,
+									treeNode17,
+									treeNode25,
+									treeNode32});
 			this.tvSupportedDevices.Size = new System.Drawing.Size(419, 153);
 			this.tvSupportedDevices.TabIndex = 5;
 			// 

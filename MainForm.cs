@@ -53,6 +53,9 @@ namespace CycleUploader
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		private readonly CheckForUpdate checkForUpdate = null;
+		private bool bIsAutomaticUpdate = false;
+		private DownloadedVersionInfo downloadedVersionInfo;
 		private long _db_version;
 		double avgHeart;
 		double avgCadence;
@@ -515,7 +518,27 @@ namespace CycleUploader
 			
 			_rwgps = new RideWithGpsAPI();
 			_gc = new GarminConnectAPI();
+			
+			this.checkForUpdate = new CheckForUpdate(this);
 		}
+		
+		protected override void WndProc(ref Message m) {
+	        if(m.Msg == NativeMethods.WM_SHOWME) {
+	            ShowMe();
+	        }
+	        base.WndProc(ref m);
+	    }
+	    private void ShowMe() {
+	        if(WindowState == FormWindowState.Minimized) {
+	            WindowState = FormWindowState.Normal;
+	        }
+	        // get our current "TopMost" value (ours will always be false though)
+	        bool top = TopMost;
+	        // make our form jump to the top of everything
+	        TopMost = true;
+	        // set it back to whatever it was
+	        TopMost = top;
+	    }
 		
 		void BtnOpenFileClick(object sender, EventArgs e)
 		{
@@ -2575,7 +2598,97 @@ namespace CycleUploader
 			catch(Exception ex){
 				MessageBox.Show(ex.ToString());
 			}
+			this.bIsAutomaticUpdate = true;
+			this.checkForUpdate.OnCheckForUpdate();
 		}
+		
+		// this method is called when the checkForUpdate finishes checking
+        // for the new version. If this method returns true, our checkForUpdate
+        // object will download the installer
+        public bool OnCheckForUpdateFinished(DownloadedVersionInfo versionInfo)
+        {
+            if ((versionInfo.error) || (versionInfo.installerUrl.Length == 0) || (versionInfo.latestVersion == null))
+            {
+                MessageBox.Show(this, "Error while looking for the newest version", "Check for updates", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            this.downloadedVersionInfo = versionInfo;
+            // compare the current version with the downloaded version number
+            Version curVer = new Version(_versionStr);
+            
+            if (curVer.CompareTo(versionInfo.latestVersion) >= 0)
+            {
+            	
+                // no new version
+                if(!bIsAutomaticUpdate){
+               	 MessageBox.Show(this, "No new version detected", "Check for updates", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                return false;
+            }
+
+            // new version found, ask the user if he wants to download the installer
+            if(!bIsAutomaticUpdate){
+            	UpdateNotification un = new UpdateNotification("download", curVer.ToString(), versionInfo.latestVersion.ToString(),versionInfo.changes);
+            	return (un.ShowDialog() == DialogResult.Yes);
+            }
+            else{
+            	// return Yes for automatic updates
+            	return true;
+            }
+        }
+
+        // called after the checkForUpdate object downloaded the installer
+        public void OnDownloadInstallerinished(DownloadInstallerInfo info)
+        {
+            if (info.error)
+            {
+                MessageBox.Show(this, "Error while downloading the installer", "Check for updates", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // ask the user if he want to start the installer
+            string msg = "";
+            DialogResult result;
+            
+            if(this.bIsAutomaticUpdate){
+            	Version curVer = new Version(_versionStr);
+            	UpdateNotification un = new UpdateNotification("install", curVer.ToString(), this.downloadedVersionInfo.latestVersion.ToString(),this.downloadedVersionInfo.changes);
+            	result = un.ShowDialog();
+            }
+            else{
+            	msg = "Do you want to install the newest version ?";
+            	result = MessageBox.Show(this, msg, "Check for updates", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            
+            
+            if (result != DialogResult.Yes)
+            {
+                // it not - remove the downloaded file
+                try
+                {
+                    System.IO.File.Delete(info.path);
+                }
+                catch { }
+                return;
+            }
+            else{
+	            // run the installer and exit the app
+	            try
+	            {
+	                Process.Start(info.path);
+	                this.Close();
+	            }
+	            catch (Exception)
+	            {
+	                MessageBox.Show(this, "Error while running the installer.", "Check for updates", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	                try
+	                {
+	                    System.IO.File.Delete(info.path);
+	                }
+	                catch { }
+	            }
+	            return;
+            }
+        }
 		
 		void initialiseProviders()
 		{
@@ -3392,6 +3505,8 @@ namespace CycleUploader
 					MessageBox.Show(ex.ToString());
 				}
 			}
+			
+			this.checkForUpdate.StopThread();
 		}
 		
 		void MenuAboutClick(object sender, EventArgs e)
@@ -3692,6 +3807,12 @@ namespace CycleUploader
 		{
 			Courses c = new Courses(_m_dbConnection, this);
 			c.ShowDialog();
+		}
+		
+		void MenuHelpCheckForUpdatesClick(object sender, EventArgs e)
+		{
+			this.bIsAutomaticUpdate = false;
+			this.checkForUpdate.OnCheckForUpdate();
 		}
 	}
 }

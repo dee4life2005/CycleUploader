@@ -52,6 +52,10 @@ namespace CycleUploader
 			this.columnHeader27 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader28 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader29 = new System.Windows.Forms.ColumnHeader();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnOk = new System.Windows.Forms.Button();
+			this.lineSeparator4 = new CycleUploader.LineSeparator();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -86,10 +90,11 @@ namespace CycleUploader
 			this.lstMonthlyStats.GridLines = true;
 			this.lstMonthlyStats.Location = new System.Drawing.Point(12, 35);
 			this.lstMonthlyStats.Name = "lstMonthlyStats";
-			this.lstMonthlyStats.Size = new System.Drawing.Size(897, 223);
+			this.lstMonthlyStats.Size = new System.Drawing.Size(897, 317);
 			this.lstMonthlyStats.TabIndex = 49;
 			this.lstMonthlyStats.UseCompatibleStateImageBehavior = false;
 			this.lstMonthlyStats.View = System.Windows.Forms.View.Details;
+			this.lstMonthlyStats.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.LstMonthlyStatsColumnClick);
 			// 
 			// columnHeader15
 			// 
@@ -103,9 +108,9 @@ namespace CycleUploader
 			// 
 			// columnHeader16
 			// 
-			this.columnHeader16.Text = "Total Distance";
+			this.columnHeader16.Text = "Total Distance (miles)";
 			this.columnHeader16.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader16.Width = 92;
+			this.columnHeader16.Width = 100;
 			// 
 			// columnHeader17
 			// 
@@ -114,9 +119,9 @@ namespace CycleUploader
 			// 
 			// columnHeader18
 			// 
-			this.columnHeader18.Text = "Avg. Speed";
+			this.columnHeader18.Text = "Avg. Speed (mph)";
 			this.columnHeader18.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader18.Width = 75;
+			this.columnHeader18.Width = 100;
 			// 
 			// columnHeader30
 			// 
@@ -126,24 +131,25 @@ namespace CycleUploader
 			// 
 			// columnHeader31
 			// 
-			this.columnHeader31.Text = "Avg. Heart";
+			this.columnHeader31.Text = "Avg. HeartRate";
 			this.columnHeader31.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader31.Width = 68;
+			this.columnHeader31.Width = 75;
 			// 
 			// columnHeader24
 			// 
-			this.columnHeader24.Text = "Total Ascent";
+			this.columnHeader24.Text = "Total Ascent (ft)";
 			this.columnHeader24.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.columnHeader24.Width = 73;
+			this.columnHeader24.Width = 85;
 			// 
 			// columnHeader25
 			// 
-			this.columnHeader25.Text = "Max Speed";
+			this.columnHeader25.Text = "Max Speed (mph)";
 			this.columnHeader25.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.columnHeader25.Width = 85;
 			// 
 			// columnHeader26
 			// 
-			this.columnHeader26.Text = "Max Heart";
+			this.columnHeader26.Text = "Max HeartRate";
 			this.columnHeader26.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// columnHeader27
@@ -154,7 +160,7 @@ namespace CycleUploader
 			// 
 			// columnHeader28
 			// 
-			this.columnHeader28.Text = "Max Ascent";
+			this.columnHeader28.Text = "Max Ascent (ft)";
 			this.columnHeader28.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.columnHeader28.Width = 67;
 			// 
@@ -163,21 +169,59 @@ namespace CycleUploader
 			this.columnHeader29.Text = "";
 			this.columnHeader29.Width = 5;
 			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+			this.panel1.Controls.Add(this.btnOk);
+			this.panel1.Controls.Add(this.lineSeparator4);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 358);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(921, 45);
+			this.panel1.TabIndex = 50;
+			// 
+			// btnOk
+			// 
+			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnOk.Location = new System.Drawing.Point(834, 8);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(75, 32);
+			this.btnOk.TabIndex = 24;
+			this.btnOk.Text = "Close";
+			this.btnOk.UseVisualStyleBackColor = true;
+			this.btnOk.Click += new System.EventHandler(this.BtnOkClick);
+			// 
+			// lineSeparator4
+			// 
+			this.lineSeparator4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator4.Location = new System.Drawing.Point(0, 0);
+			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator4.Name = "lineSeparator4";
+			this.lineSeparator4.Size = new System.Drawing.Size(921, 2);
+			this.lineSeparator4.TabIndex = 17;
+			// 
 			// UserMonthlyStats
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(921, 271);
+			this.ClientSize = new System.Drawing.Size(921, 403);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.lstMonthlyStats);
 			this.Controls.Add(this.label1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(937, 309);
+			this.MinimumSize = new System.Drawing.Size(937, 441);
 			this.Name = "UserMonthlyStats";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "User Monthly Statistics";
 			this.Load += new System.EventHandler(this.UserMonthlyStatsLoad);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button btnOk;
+		private CycleUploader.LineSeparator lineSeparator4;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader columnHeader29;
 		private System.Windows.Forms.ColumnHeader columnHeader28;
 		private System.Windows.Forms.ColumnHeader columnHeader27;

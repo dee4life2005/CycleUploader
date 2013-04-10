@@ -204,6 +204,7 @@ namespace CycleUploader
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.menuHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -1492,7 +1493,7 @@ namespace CycleUploader
 			// menuCoursesCourseList
 			// 
 			this.menuCoursesCourseList.Name = "menuCoursesCourseList";
-			this.menuCoursesCourseList.Size = new System.Drawing.Size(152, 22);
+			this.menuCoursesCourseList.Size = new System.Drawing.Size(141, 22);
 			this.menuCoursesCourseList.Text = "Course List...";
 			this.menuCoursesCourseList.Click += new System.EventHandler(this.MenuCoursesCourseListClick);
 			// 
@@ -1541,7 +1542,7 @@ namespace CycleUploader
 			// 
 			this.menuToolsOptions.Image = ((System.Drawing.Image)(resources.GetObject("menuToolsOptions.Image")));
 			this.menuToolsOptions.Name = "menuToolsOptions";
-			this.menuToolsOptions.Size = new System.Drawing.Size(152, 22);
+			this.menuToolsOptions.Size = new System.Drawing.Size(125, 22);
 			this.menuToolsOptions.Text = "Options...";
 			this.menuToolsOptions.Click += new System.EventHandler(this.MenuToolsOptionsClick);
 			// 
@@ -1732,6 +1733,7 @@ namespace CycleUploader
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.menuHelpCheckForUpdates,
 									this.menuAbout});
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 36);
@@ -1741,7 +1743,7 @@ namespace CycleUploader
 			// 
 			this.menuAbout.Image = ((System.Drawing.Image)(resources.GetObject("menuAbout.Image")));
 			this.menuAbout.Name = "menuAbout";
-			this.menuAbout.Size = new System.Drawing.Size(107, 22);
+			this.menuAbout.Size = new System.Drawing.Size(175, 22);
 			this.menuAbout.Text = "About";
 			this.menuAbout.Click += new System.EventHandler(this.MenuAboutClick);
 			// 
@@ -1938,6 +1940,13 @@ namespace CycleUploader
 			this.imageList1.Images.SetKeyName(7, "failure-icon.png");
 			this.imageList1.Images.SetKeyName(8, "success-icon.png");
 			// 
+			// menuHelpCheckForUpdates
+			// 
+			this.menuHelpCheckForUpdates.Name = "menuHelpCheckForUpdates";
+			this.menuHelpCheckForUpdates.Size = new System.Drawing.Size(175, 22);
+			this.menuHelpCheckForUpdates.Text = "Check for Update...";
+			this.menuHelpCheckForUpdates.Click += new System.EventHandler(this.MenuHelpCheckForUpdatesClick);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2005,6 +2014,7 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem menuHelpCheckForUpdates;
 		private System.Windows.Forms.ToolStripMenuItem menuCoursesCourseList;
 		private System.Windows.Forms.ToolStripMenuItem coursesToolStripMenuItem;
 		private System.Windows.Forms.ColumnHeader colCourseId;

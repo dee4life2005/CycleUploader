@@ -52,9 +52,13 @@ namespace CycleUploader
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnOk = new System.Windows.Forms.Button();
+			this.lineSeparator4 = new CycleUploader.LineSeparator();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// zedGraph
@@ -62,10 +66,11 @@ namespace CycleUploader
 			this.zedGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
+			this.zedGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.zedGraph.IsAntiAlias = true;
 			this.zedGraph.IsShowPointValues = true;
 			this.zedGraph.IsSynchronizeXAxes = true;
-			this.zedGraph.Location = new System.Drawing.Point(12, 111);
+			this.zedGraph.Location = new System.Drawing.Point(11, 101);
 			this.zedGraph.Name = "zedGraph";
 			this.zedGraph.ScrollGrace = 0D;
 			this.zedGraph.ScrollMaxX = 0D;
@@ -74,7 +79,7 @@ namespace CycleUploader
 			this.zedGraph.ScrollMinX = 0D;
 			this.zedGraph.ScrollMinY = 0D;
 			this.zedGraph.ScrollMinY2 = 0D;
-			this.zedGraph.Size = new System.Drawing.Size(883, 383);
+			this.zedGraph.Size = new System.Drawing.Size(883, 354);
 			this.zedGraph.TabIndex = 1;
 			// 
 			// radioButton3
@@ -219,11 +224,44 @@ namespace CycleUploader
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Period";
 			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+			this.panel1.Controls.Add(this.btnOk);
+			this.panel1.Controls.Add(this.lineSeparator4);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 461);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(907, 45);
+			this.panel1.TabIndex = 49;
+			// 
+			// btnOk
+			// 
+			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnOk.Location = new System.Drawing.Point(819, 8);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(75, 32);
+			this.btnOk.TabIndex = 23;
+			this.btnOk.Text = "Close";
+			this.btnOk.UseVisualStyleBackColor = true;
+			// 
+			// lineSeparator4
+			// 
+			this.lineSeparator4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator4.Location = new System.Drawing.Point(0, 0);
+			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator4.Name = "lineSeparator4";
+			this.lineSeparator4.Size = new System.Drawing.Size(907, 2);
+			this.lineSeparator4.TabIndex = 17;
+			// 
 			// UserCharts
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(907, 506);
+			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -237,8 +275,12 @@ namespace CycleUploader
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private CycleUploader.LineSeparator lineSeparator4;
+		private System.Windows.Forms.Button btnOk;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox1;

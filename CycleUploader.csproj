@@ -137,6 +137,7 @@
     <Compile Include="Batch.Designer.cs">
       <DependentUpon>Batch.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckForUpdate.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ComboBoxItem.cs" />
     <Compile Include="CourseCreate.cs" />
@@ -177,12 +178,14 @@
     <Compile Include="LineSeparator.Designer.cs">
       <DependentUpon>LineSeparator.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="MainForm.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RideWithGpsAPI.cs" />
     <Compile Include="RideWithGpsConnect.cs" />
@@ -196,6 +199,10 @@
     <Compile Include="ToolsOptions.cs" />
     <Compile Include="ToolsOptions.Designer.cs">
       <DependentUpon>ToolsOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateNotification.cs" />
+    <Compile Include="UpdateNotification.Designer.cs">
+      <DependentUpon>UpdateNotification.cs</DependentUpon>
     </Compile>
     <Compile Include="UploadFile.cs" />
     <Compile Include="UserCharts.cs" />
@@ -283,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsOptions.resx">
       <DependentUpon>ToolsOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateNotification.resx">
+      <DependentUpon>UpdateNotification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserCharts.resx">
       <DependentUpon>UserCharts.cs</DependentUpon>

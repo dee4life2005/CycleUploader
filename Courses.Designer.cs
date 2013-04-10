@@ -57,6 +57,7 @@ namespace CycleUploader
 			this.tCourseName = new System.Windows.Forms.Label();
 			this.lineSeparator4 = new CycleUploader.LineSeparator();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.label1 = new System.Windows.Forms.Label();
 			this.btnDeleteCourse = new System.Windows.Forms.Button();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -71,7 +72,6 @@ namespace CycleUploader
 			this.colIsCommute = new System.Windows.Forms.ColumnHeader();
 			this.colIsStationaryTrainer = new System.Windows.Forms.ColumnHeader();
 			this.colNotes = new System.Windows.Forms.ColumnHeader();
-			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -282,6 +282,17 @@ namespace CycleUploader
 			this.panel1.Size = new System.Drawing.Size(903, 45);
 			this.panel1.TabIndex = 16;
 			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.Color.DimGray;
+			this.label1.Location = new System.Drawing.Point(356, 20);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(190, 13);
+			this.label1.TabIndex = 22;
+			this.label1.Text = "Double-Click Ride to View Ride Details";
+			// 
 			// btnDeleteCourse
 			// 
 			this.btnDeleteCourse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -340,6 +351,7 @@ namespace CycleUploader
 			this.lstCourseActivities.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lstCourseActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lstCourseActivities.FullRowSelect = true;
+			this.lstCourseActivities.GridLines = true;
 			this.lstCourseActivities.HideSelection = false;
 			this.lstCourseActivities.Location = new System.Drawing.Point(3, 16);
 			this.lstCourseActivities.MultiSelect = false;
@@ -348,6 +360,7 @@ namespace CycleUploader
 			this.lstCourseActivities.TabIndex = 1;
 			this.lstCourseActivities.UseCompatibleStateImageBehavior = false;
 			this.lstCourseActivities.View = System.Windows.Forms.View.Details;
+			this.lstCourseActivities.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.LstCourseActivitiesColumnClick);
 			this.lstCourseActivities.DoubleClick += new System.EventHandler(this.LstCourseActivitiesDoubleClick);
 			// 
 			// colFileId
@@ -367,7 +380,7 @@ namespace CycleUploader
 			// 
 			// colDistance
 			// 
-			this.colDistance.Text = "Distance";
+			this.colDistance.Text = "Distance (miles)";
 			this.colDistance.Width = 120;
 			// 
 			// colDuration
@@ -377,7 +390,7 @@ namespace CycleUploader
 			// 
 			// colAvgSpeed
 			// 
-			this.colAvgSpeed.Text = "Avg. Speed";
+			this.colAvgSpeed.Text = "Avg. Speed (mph)";
 			this.colAvgSpeed.Width = 120;
 			// 
 			// colIsCommute
@@ -395,17 +408,6 @@ namespace CycleUploader
 			this.colNotes.Text = "Notes";
 			this.colNotes.Width = 500;
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.DimGray;
-			this.label1.Location = new System.Drawing.Point(356, 20);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(190, 13);
-			this.label1.TabIndex = 22;
-			this.label1.Text = "Double-Click Ride to View Ride Details";
-			// 
 			// Courses
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,6 +424,7 @@ namespace CycleUploader
 			this.Name = "Courses";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Courses";
+			this.Load += new System.EventHandler(this.CoursesLoad);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);

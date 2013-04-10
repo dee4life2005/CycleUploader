@@ -344,7 +344,6 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 1; // now upgrade to the next version ... etc.
 					case 1:
 						// drop the monthlystats view, as we need to make a change to it
@@ -397,8 +396,7 @@ namespace CycleUploader
 						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
-						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);						
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);					
 						goto case 2;
 					case 2: 
 						sql = @"DROP VIEW ""main"".""view_file_summary""";
@@ -416,7 +414,7 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);						
+				
 						goto case 3;
 					case 3:
 						// add compound index on file and timestamp
@@ -425,7 +423,6 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 4;
 					case 4:
 						sql = @"DROP VIEW if exists ""main"".""view_user_monthlystats""";
@@ -457,7 +454,6 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 5;
 					case 5:
 						sql = @"CREATE TABLE ""ApplicationSettings"" (""SettingName"" VARCHAR NOT NULL  UNIQUE , ""SettingValue"" VARCHAR NOT NULL  DEFAULT """")";
@@ -502,7 +498,6 @@ namespace CycleUploader
 						
 						_db_version_from+=1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 6;
 					case 6:
 						// add the course table
@@ -540,7 +535,6 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from+=1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 7;
 					case 7:
 						// create view to retrieve the course summary information for Course Listing
@@ -572,9 +566,39 @@ namespace CycleUploader
 						cmd.ExecuteNonQuery();
 						_db_version_from += 1;
 						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
-						Thread.Sleep(500);
 						goto case 8;
 					case 8:
+						sql = @"DROP VIEW IF EXISTS ""main"".""view_course_list""";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = @"CREATE  VIEW ""main"".""view_course_list"" AS select 
+							  c.courseId,
+							  c.courseName,
+							  COUNT(f.idFile) as `courseActivityCount`,
+							  MIN(f.fileActivityDateTime) as `courseRiddenFirst`,
+							  MAX(f.fileActivityDateTime) as `courseRiddenLatest`,
+							  MIN(fs.fsMovingTime) as `durationLow`,
+							  MAX(fs.fsMovingTime) as `durationHigh`,
+							  AVG(fs.fsMovingTime) as `durationLTA`,
+							  MIN(fs.fsAvgSpeed) as `avgspeedLow`,
+							  MAX(fs.fsAvgSpeed) as `avgspeedHight`,
+							  AVG(fs.fsAvgSpeed) as `avgspeedLTA`,
+							  SUM(fs.fsDistance) as `cumulativeDistance`,
+							  SUM(fs.fsDuration) as `cumulativeDuration` 
+							from
+							  Course c 
+							  left join File f 
+							    on f.idCourse = c.courseId 
+							  left join FileSummary fs 
+							    on fs.idFile = f.idFile 
+							group by c.courseId						
+						";
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						_db_version_from += 1;
+						SetControlPropertyThreadSafe(prgStatus, "Value", _db_version_from);
+						goto case 9;
+					case 9:
 						// do nothing, current version
 					default:
 						// issue command to set the db version in the database
