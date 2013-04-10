@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<appinfo>
+<version>1.0.25.3</version>
+<url>http://10.254.249.55/apps</url>
+<installer>http://10.254.249.55/apps/TeamCardFulfilmentBillingSetup.exe</installer>
+<filename>TeamCardFulfilmentBillingSetup.exe</filename>
+<date>17/12/2012</date>
+<changes>
+• Bug fix in `Reprint Card` for membership schemes
+</changes>
+</appinfo> 
