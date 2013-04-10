@@ -2,7 +2,7 @@
 <appinfo>
 <version>1.0.25.4</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
-<installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/cycleuploader_version.xml</installer>
+<installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
 <date>10/04/2013</date>
 <changes>
