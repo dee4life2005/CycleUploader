@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.25.3</version>
+<version>1.0.25.4</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/cycleuploader_version.xml</installer>
 <filename>CycleUploaderSetup.exe</filename>
@@ -9,5 +9,6 @@
 • Includes Courses
 • Ability to delete ride from ride history
 • Changes to database schema to reduce footprint
+• Support for web auto-updating
 </changes>
 </appinfo> 
