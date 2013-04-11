@@ -139,37 +139,39 @@ namespace CycleUploader
 					}
 				}
 			}
-			// run a check against the database to determine if we've already opened this file
-			using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
-			{
-				conn.Open();
-				for(int f =0; f < _unprocessedFiles.Count; f++){
-					SQLiteCommand command = new SQLiteCommand(conn);
-					string sql = string.Format("select * from File where fileName = \"{0}\"", Path.GetFileName(_unprocessedFiles[f]));
-					command.CommandText = sql;
-					SQLiteDataReader rdr = command.ExecuteReader();
-					if(rdr.HasRows){
-						MessageBox.Show("Error: File `" + Path.GetFileName(_unprocessedFiles[f]) + "` has already been processed by this application and will be excluded from your processing batch.\r\n\r\nAdditional processing is not supported, please perform this manually on the provider websites", "Error: File Already Processed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else{
-						string[] row = {
-							"",
-							Path.GetFileName(_unprocessedFiles[f]),
-							File.GetCreationTime(_unprocessedFiles[f]).ToString("dd/MM/yyyy HH:mm"),
-							"", // act name
-							"", // act notes
-							"", // act is commute
-							"", // act is stationary trainer
-							"", // runkeeper status
-							"", // strava status
-							"", // garmin status
-							"", // rwgps status
-							_unprocessedFiles[f],  // file path column
-							"",
-							""
-						};
-						lstBatchFiles.Items.Add(new ListViewItem(row));
-						lstBatchFiles.Items[lstBatchFiles.Items.Count-1].UseItemStyleForSubItems = false;
+			if(_unprocessedFiles != null && _unprocessedFiles.Count > 0){
+				// run a check against the database to determine if we've already opened this file
+				using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
+				{
+					conn.Open();
+					for(int f =0; f < _unprocessedFiles.Count; f++){
+						SQLiteCommand command = new SQLiteCommand(conn);
+						string sql = string.Format("select * from File where fileName = \"{0}\"", Path.GetFileName(_unprocessedFiles[f]));
+						command.CommandText = sql;
+						SQLiteDataReader rdr = command.ExecuteReader();
+						if(rdr.HasRows){
+							MessageBox.Show("Error: File `" + Path.GetFileName(_unprocessedFiles[f]) + "` has already been processed by this application and will be excluded from your processing batch.\r\n\r\nAdditional processing is not supported, please perform this manually on the provider websites", "Error: File Already Processed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+						else{
+							string[] row = {
+								"",
+								Path.GetFileName(_unprocessedFiles[f]),
+								File.GetCreationTime(_unprocessedFiles[f]).ToString("dd/MM/yyyy HH:mm"),
+								"", // act name
+								"", // act notes
+								"", // act is commute
+								"", // act is stationary trainer
+								"", // runkeeper status
+								"", // strava status
+								"", // garmin status
+								"", // rwgps status
+								_unprocessedFiles[f],  // file path column
+								"",
+								""
+							};
+							lstBatchFiles.Items.Add(new ListViewItem(row));
+							lstBatchFiles.Items[lstBatchFiles.Items.Count-1].UseItemStyleForSubItems = false;
+						}
 					}
 				}
 			}

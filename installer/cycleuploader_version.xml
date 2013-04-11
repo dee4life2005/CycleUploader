@@ -13,5 +13,6 @@
 • Includes Garmin Device Viewer
 • Includes detection of Garmin Device being plugged in, and scans activities for any un-processed and provides option to batch process them.
 • Bug fix in Garmin Device Viewer
+• Bug Fix in Batch File Processor
 </changes>
 </appinfo> 

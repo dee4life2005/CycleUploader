@@ -115,7 +115,7 @@ namespace CycleUploader
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.tNoDevice.Location = new System.Drawing.Point(18, 25);
 			this.tNoDevice.Name = "tNoDevice";
-			this.tNoDevice.Size = new System.Drawing.Size(840, 441);
+			this.tNoDevice.Size = new System.Drawing.Size(907, 441);
 			this.tNoDevice.TabIndex = 1;
 			this.tNoDevice.Text = "[ No device Detected ]\r\n\r\nNote: If you have just plugged in the device it may tak" +
 			"e a minute or two for it to be detected by Windows";
@@ -129,7 +129,7 @@ namespace CycleUploader
 			this.lineSeparator2.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator2.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator2.Name = "lineSeparator2";
-			this.lineSeparator2.Size = new System.Drawing.Size(873, 2);
+			this.lineSeparator2.Size = new System.Drawing.Size(940, 2);
 			this.lineSeparator2.TabIndex = 11;
 			// 
 			// panel1
@@ -139,13 +139,13 @@ namespace CycleUploader
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel1.Location = new System.Drawing.Point(0, 481);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(873, 45);
+			this.panel1.Size = new System.Drawing.Size(940, 45);
 			this.panel1.TabIndex = 10;
 			// 
 			// btnClose
 			// 
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnClose.Location = new System.Drawing.Point(786, 10);
+			this.btnClose.Location = new System.Drawing.Point(853, 10);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 32);
 			this.btnClose.TabIndex = 3;
@@ -208,7 +208,7 @@ namespace CycleUploader
 			this.groupBox1.Controls.Add(this.groupBox2);
 			this.groupBox1.Location = new System.Drawing.Point(12, 9);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(852, 460);
+			this.groupBox1.Size = new System.Drawing.Size(919, 460);
 			this.groupBox1.TabIndex = 12;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Device Information";
@@ -222,7 +222,7 @@ namespace CycleUploader
 			this.groupBox5.Controls.Add(this.pnlLoadingActivities);
 			this.groupBox5.Location = new System.Drawing.Point(15, 203);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(827, 251);
+			this.groupBox5.Size = new System.Drawing.Size(894, 251);
 			this.groupBox5.TabIndex = 8;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Activities Stored On Device";
@@ -253,7 +253,7 @@ namespace CycleUploader
 			this.lstDeviceActivities.Location = new System.Drawing.Point(3, 16);
 			this.lstDeviceActivities.MultiSelect = false;
 			this.lstDeviceActivities.Name = "lstDeviceActivities";
-			this.lstDeviceActivities.Size = new System.Drawing.Size(821, 232);
+			this.lstDeviceActivities.Size = new System.Drawing.Size(888, 232);
 			this.lstDeviceActivities.TabIndex = 1;
 			this.lstDeviceActivities.UseCompatibleStateImageBehavior = false;
 			this.lstDeviceActivities.View = System.Windows.Forms.View.Details;
@@ -342,7 +342,7 @@ namespace CycleUploader
 			this.pnlLoadingActivities.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlLoadingActivities.Location = new System.Drawing.Point(3, 16);
 			this.pnlLoadingActivities.Name = "pnlLoadingActivities";
-			this.pnlLoadingActivities.Size = new System.Drawing.Size(821, 232);
+			this.pnlLoadingActivities.Size = new System.Drawing.Size(888, 232);
 			this.pnlLoadingActivities.TabIndex = 2;
 			// 
 			// label2
@@ -360,7 +360,7 @@ namespace CycleUploader
 			this.prgReadingActivities.Location = new System.Drawing.Point(12, 60);
 			this.prgReadingActivities.Maximum = 0;
 			this.prgReadingActivities.Name = "prgReadingActivities";
-			this.prgReadingActivities.Size = new System.Drawing.Size(794, 23);
+			this.prgReadingActivities.Size = new System.Drawing.Size(861, 23);
 			this.prgReadingActivities.Step = 1;
 			this.prgReadingActivities.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.prgReadingActivities.TabIndex = 4;
@@ -619,13 +619,13 @@ namespace CycleUploader
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(873, 526);
+			this.ClientSize = new System.Drawing.Size(940, 526);
 			this.Controls.Add(this.lineSeparator2);
 			this.Controls.Add(this.panel1);
-			this.Controls.Add(this.tNoDevice);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.tNoDevice);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(889, 564);
+			this.MinimumSize = new System.Drawing.Size(956, 564);
 			this.Name = "GarminSettings";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Garmin Device Information";
