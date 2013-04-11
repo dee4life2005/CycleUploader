@@ -35,6 +35,7 @@ using System.Diagnostics;
 using HealthGraphNet;
 using HealthGraphNet.Models;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
 using Stravan;
 using Stravan.Json;
 using System.Net;
@@ -53,6 +54,11 @@ namespace CycleUploader
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		const int WM_DEVICECHANGE = 0x0219; //see msdn site
+	    const int DBT_DEVICEARRIVAL = 0x8000;
+	    const int DBT_DEVICEREMOVALCOMPLETE = 0x8004;
+	    const int DBT_DEVTYPVOLUME = 0x00000002;
+	    
 		private readonly CheckForUpdate checkForUpdate = null;
 		private bool bIsAutomaticUpdate = false;
 		private DownloadedVersionInfo downloadedVersionInfo;
@@ -526,8 +532,76 @@ namespace CycleUploader
 	        if(m.Msg == NativeMethods.WM_SHOWME) {
 	            ShowMe();
 	        }
+			if (m.Msg == WM_DEVICECHANGE)
+	        {
+	            DEV_BROADCAST_VOLUME vol = (DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_VOLUME));
+	            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
+	            {
+	            	if(checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\")){
+	            		showGarminSettings();
+	            	}
+	            }
+	            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
+	            {
+	            	//showGarminDeviceRemoved();
+	            }
+	        }
 	        base.WndProc(ref m);
 	    }
+		
+		[StructLayout(LayoutKind.Sequential)] //Same layout in mem
+	    public struct DEV_BROADCAST_VOLUME
+	    {
+	        public int dbcv_size;
+	        public int dbcv_devicetype;
+	        public int dbcv_reserved;
+	        public int dbcv_unitmask;
+	    }
+	
+	    private static char DriveMaskToLetter(int mask)
+	    {
+	        char letter;
+	        string drives = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //1 = A, 2 = B, 3 = C
+	        int cnt = 0;
+	        int pom = mask / 2;
+	        while (pom != 0)    // while there is any bit set in the mask shift it right        
+	        {        
+	            pom = pom / 2;
+	            cnt++;
+	        }
+	        if (cnt < drives.Length)
+	            letter = drives[cnt];
+	        else
+	            letter = '?';
+	        return letter;
+	    }
+	    
+	    bool checkForGarminDevice(string driveRoot)
+		{
+			if(System.IO.File.Exists(driveRoot + "Garmin\\Device.fit")){
+	    		return true;
+	    	}
+	    	else{
+				return false;
+	    	}	
+		}
+	    
+	    void searchRemovableDevicesForGarmin()
+		{
+			DriveInfo[] ListDrives = DriveInfo.GetDrives();
+
+			foreach (DriveInfo Drive in ListDrives)
+			{
+			    if (Drive.DriveType == DriveType.Removable)
+			    {
+			    	if(checkForGarminDevice(Drive.RootDirectory.ToString())){
+			    		showGarminSettings();
+			    		return;
+			    	}
+			    }    
+			}
+		}
+		
 	    private void ShowMe() {
 	        if(WindowState == FormWindowState.Minimized) {
 	            WindowState = FormWindowState.Normal;
@@ -1111,7 +1185,7 @@ namespace CycleUploader
 		
 		void OnUserProfileMesg(object sender, MesgEventArgs e)
 		{
-			//Debug.WriteLine(string.Format("UserProfileHandler: Received {1} Mesg, it has global ID#{0}", e.mesg.Num, e.mesg.Name));
+			
 			UserProfileMesg myUserProfile = (UserProfileMesg)e.mesg;
 			try
 			{
@@ -2746,6 +2820,7 @@ namespace CycleUploader
 			
 			setTab(tabControlOverview, "tabFileHistory");
 			
+			this.Invoke(new MethodInvoker(searchRemovableDevicesForGarmin));
 			
 		}
 		
@@ -2923,7 +2998,10 @@ namespace CycleUploader
 				}
 			}
 			catch(Exception ex){
-				MessageBox.Show("GarminConnect: Login Exception.\r\n" + ex.Message);
+				this.Invoke((MethodInvoker) delegate {
+					MessageBox.Show("GarminConnect: Login Exception.\r\n" + ex.Message);                              	
+				            });
+				
 			}
 		}
 		
@@ -3609,7 +3687,8 @@ namespace CycleUploader
 			                           cbkProviderRunkeeper.Checked,
 			                           cbkProviderStrava.Checked,
 			                           cbkProviderGarmin.Checked,
-			                           cbkProviderRideWithGps.Checked
+			                           cbkProviderRideWithGps.Checked,
+			                           new List<string>()
 			                          );
 			_activityBatch.ShowDialog();
 		}
@@ -3813,6 +3892,29 @@ namespace CycleUploader
 		{
 			this.bIsAutomaticUpdate = false;
 			this.checkForUpdate.OnCheckForUpdate();
+		}
+		
+		void MenuToolsGarminSettingsViewerClick(object sender, EventArgs e)
+		{
+			showGarminSettings();
+		}
+		
+		void showGarminSettings()
+		{
+			GarminSettings gs = new GarminSettings(_m_dbConnection);
+			// show dialog and check if the result is YES, as this indicates that the user selected
+			// to batch process the unprocessed files on the device
+			if(gs.ShowDialog(this) == DialogResult.Yes){
+				_activityBatch = new Batch(_previous_file_path, 
+			                           this,
+			                           cbkProviderRunkeeper.Checked,
+			                           cbkProviderStrava.Checked,
+			                           cbkProviderGarmin.Checked,
+			                           cbkProviderRideWithGps.Checked,
+			                           gs.unprocessedFiles
+			                          );
+				_activityBatch.ShowDialog();
+			}
 		}
 	}
 }

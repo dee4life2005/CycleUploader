@@ -13,6 +13,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using System.Data.SQLite;
+using System.Collections.Generic;
 
 namespace CycleUploader
 {
@@ -26,7 +27,8 @@ namespace CycleUploader
 		private bool _bIsProcessingBatch;
 		private int _batchCurrentIdx; // index of item currently being processed
 		private bool _bIsProcessingComplete;
-		
+		private List<string> _unprocessedFiles;
+		private bool _skipFileOpen = false;
 		
 		private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
 		public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
@@ -93,7 +95,7 @@ namespace CycleUploader
 		}
 		
 		
-		public Batch(string path, MainForm mainFrm, bool bRunkeeper, bool bStrava, bool bGarmin, bool bRWGPS)
+		public Batch(string path, MainForm mainFrm, bool bRunkeeper, bool bStrava, bool bGarmin, bool bRWGPS, List<string> files)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -111,77 +113,82 @@ namespace CycleUploader
 			cbkProviderStrava.Checked = bStrava;
 			cbkProviderGarmin.Checked = bGarmin;
 			cbkProviderRideWithGps.Checked = bRWGPS;
+			if(files.Count > 0){
+				_skipFileOpen = true;
+				_unprocessedFiles = files;
+			}
 		}
 		
 		void BatchShown(object sender, EventArgs e)
 		{
 			
-			if(_previous_file_path == ""){
-				_previous_file_path = Environment.SpecialFolder.Personal.ToString();
-			}
-			
-			fdBatch.Filter = "All Files (*.fit,*.tcx,*.gpx)|*.fit;*.tcx;*.gpx|FIT File (*.fit)|*.fit|Garmin Training Center Database Files (*.tcx)|*.tcx|GPX Files (*.gpx)|*.gpx";
-			fdBatch.Title = "Please select activities for upload.";
-			fdBatch.InitialDirectory = _previous_file_path;
-			fdBatch.Multiselect = true;
-			if(fdBatch.ShowDialog() == DialogResult.OK)
-			{
+			if(!_skipFileOpen){
+				if(_previous_file_path == ""){
+					_previous_file_path = Environment.SpecialFolder.Personal.ToString();
+				}
 				
-				// run a check against the database to determine if we've already opened this file
-				using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
+				fdBatch.Filter = "All Files (*.fit,*.tcx,*.gpx)|*.fit;*.tcx;*.gpx|FIT File (*.fit)|*.fit|Garmin Training Center Database Files (*.tcx)|*.tcx|GPX Files (*.gpx)|*.gpx";
+				fdBatch.Title = "Please select activities for upload.";
+				fdBatch.InitialDirectory = _previous_file_path;
+				fdBatch.Multiselect = true;
+				if(fdBatch.ShowDialog() == DialogResult.OK)
 				{
-					conn.Open();
-					
-					for(int f =0; f < fdBatch.FileNames.Length; f++){
-						SQLiteCommand command = new SQLiteCommand(conn);
-						string sql = string.Format("select * from File where fileName = \"{0}\"", Path.GetFileName(fdBatch.FileNames[f]));
-						command.CommandText = sql;
-						SQLiteDataReader rdr = command.ExecuteReader();
-						if(rdr.HasRows){
-							MessageBox.Show("Error: File `" + Path.GetFileName(fdBatch.FileNames[f]) + "` has already been processed by this application and will be excluded from your processing batch.\r\n\r\nAdditional processing is not supported, please perform this manually on the provider websites", "Error: File Already Processed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-						else{
-							string[] row = {
-								"",
-								Path.GetFileName(fdBatch.FileNames[f]),
-								File.GetCreationTime(fdBatch.FileNames[f]).ToString("dd/MM/yyyy HH:mm"),
-								"", // act name
-								"", // act notes
-								"", // act is commute
-								"", // act is stationary trainer
-								"", // runkeeper status
-								"", // strava status
-								"", // garmin status
-								"", // rwgps status
-								fdBatch.FileNames[f],  // file path column
-								"",
-								""
-							};
-							lstBatchFiles.Items.Add(new ListViewItem(row));
-							lstBatchFiles.Items[lstBatchFiles.Items.Count-1].UseItemStyleForSubItems = false;
-						}
+					_unprocessedFiles = new List<string>();
+					for(int f = 0; f < fdBatch.FileNames.Length; f++){
+						_unprocessedFiles.Add(fdBatch.FileNames[f]);
 					}
 				}
-				lstBatchFiles.SuspendLayout();
-				ResizeListView(lstBatchFiles);
-				lstBatchFiles.Columns[0].Width=30;
-				lstBatchFiles.Columns[0].TextAlign = HorizontalAlignment.Left;
-				
-				lstBatchFiles.Columns[4].Width=50;
-				
-				lstBatchFiles.Columns[7].Width=32;
-				lstBatchFiles.Columns[8].Width=32;
-				lstBatchFiles.Columns[9].Width=32;
-				lstBatchFiles.Columns[10].Width=32;
-				lstBatchFiles.Columns[11].Width=0; // hide the full file path column
-				lstBatchFiles.Columns[12].Width = 0; // hide the "already processed" column
-				lstBatchFiles.ResumeLayout();
-				if(lstBatchFiles.Items.Count == 0){
-					MessageBox.Show("There are no unprocessed files available for processing", "No Files For Processing",MessageBoxButtons.OK, MessageBoxIcon.Information);
-					btnUploadRides.Enabled = false;
+			}
+			// run a check against the database to determine if we've already opened this file
+			using(var conn = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;"))
+			{
+				conn.Open();
+				for(int f =0; f < _unprocessedFiles.Count; f++){
+					SQLiteCommand command = new SQLiteCommand(conn);
+					string sql = string.Format("select * from File where fileName = \"{0}\"", Path.GetFileName(_unprocessedFiles[f]));
+					command.CommandText = sql;
+					SQLiteDataReader rdr = command.ExecuteReader();
+					if(rdr.HasRows){
+						MessageBox.Show("Error: File `" + Path.GetFileName(_unprocessedFiles[f]) + "` has already been processed by this application and will be excluded from your processing batch.\r\n\r\nAdditional processing is not supported, please perform this manually on the provider websites", "Error: File Already Processed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else{
+						string[] row = {
+							"",
+							Path.GetFileName(_unprocessedFiles[f]),
+							File.GetCreationTime(_unprocessedFiles[f]).ToString("dd/MM/yyyy HH:mm"),
+							"", // act name
+							"", // act notes
+							"", // act is commute
+							"", // act is stationary trainer
+							"", // runkeeper status
+							"", // strava status
+							"", // garmin status
+							"", // rwgps status
+							_unprocessedFiles[f],  // file path column
+							"",
+							""
+						};
+						lstBatchFiles.Items.Add(new ListViewItem(row));
+						lstBatchFiles.Items[lstBatchFiles.Items.Count-1].UseItemStyleForSubItems = false;
+					}
 				}
 			}
-			else{
+			lstBatchFiles.SuspendLayout();
+			ResizeListView(lstBatchFiles);
+			lstBatchFiles.Columns[0].Width=30;
+			lstBatchFiles.Columns[0].TextAlign = HorizontalAlignment.Left;
+			
+			lstBatchFiles.Columns[4].Width=50;
+			
+			lstBatchFiles.Columns[7].Width=32;
+			lstBatchFiles.Columns[8].Width=32;
+			lstBatchFiles.Columns[9].Width=32;
+			lstBatchFiles.Columns[10].Width=32;
+			lstBatchFiles.Columns[11].Width=0; // hide the full file path column
+			lstBatchFiles.Columns[12].Width = 0; // hide the "already processed" column
+			lstBatchFiles.ResumeLayout();
+			if(lstBatchFiles.Items.Count == 0){
+				MessageBox.Show("There are no unprocessed files available for processing", "No Files For Processing",MessageBoxButtons.OK, MessageBoxIcon.Information);
 				btnUploadRides.Enabled = false;
 			}
 		}

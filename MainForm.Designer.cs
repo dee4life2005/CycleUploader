@@ -185,6 +185,7 @@ namespace CycleUploader
 			this.menuViewAccountRideWithGps = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuUploadToRideWithGps = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusBar = new System.Windows.Forms.StatusStrip();
 			this.statusBarProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -204,7 +205,7 @@ namespace CycleUploader
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.menuHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuToolsGarminSettingsViewer = new System.Windows.Forms.ToolStripMenuItem();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -1533,7 +1534,8 @@ namespace CycleUploader
 			// toolsToolStripMenuItem
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.menuToolsOptions});
+									this.menuToolsOptions,
+									this.menuToolsGarminSettingsViewer});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 36);
 			this.toolsToolStripMenuItem.Text = "Tools";
@@ -1542,7 +1544,7 @@ namespace CycleUploader
 			// 
 			this.menuToolsOptions.Image = ((System.Drawing.Image)(resources.GetObject("menuToolsOptions.Image")));
 			this.menuToolsOptions.Name = "menuToolsOptions";
-			this.menuToolsOptions.Size = new System.Drawing.Size(125, 22);
+			this.menuToolsOptions.Size = new System.Drawing.Size(205, 22);
 			this.menuToolsOptions.Text = "Options...";
 			this.menuToolsOptions.Click += new System.EventHandler(this.MenuToolsOptionsClick);
 			// 
@@ -1738,6 +1740,13 @@ namespace CycleUploader
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 36);
 			this.aboutToolStripMenuItem.Text = "Help";
+			// 
+			// menuHelpCheckForUpdates
+			// 
+			this.menuHelpCheckForUpdates.Name = "menuHelpCheckForUpdates";
+			this.menuHelpCheckForUpdates.Size = new System.Drawing.Size(175, 22);
+			this.menuHelpCheckForUpdates.Text = "Check for Update...";
+			this.menuHelpCheckForUpdates.Click += new System.EventHandler(this.MenuHelpCheckForUpdatesClick);
 			// 
 			// menuAbout
 			// 
@@ -1940,12 +1949,12 @@ namespace CycleUploader
 			this.imageList1.Images.SetKeyName(7, "failure-icon.png");
 			this.imageList1.Images.SetKeyName(8, "success-icon.png");
 			// 
-			// menuHelpCheckForUpdates
+			// menuToolsGarminSettingsViewer
 			// 
-			this.menuHelpCheckForUpdates.Name = "menuHelpCheckForUpdates";
-			this.menuHelpCheckForUpdates.Size = new System.Drawing.Size(175, 22);
-			this.menuHelpCheckForUpdates.Text = "Check for Update...";
-			this.menuHelpCheckForUpdates.Click += new System.EventHandler(this.MenuHelpCheckForUpdatesClick);
+			this.menuToolsGarminSettingsViewer.Name = "menuToolsGarminSettingsViewer";
+			this.menuToolsGarminSettingsViewer.Size = new System.Drawing.Size(205, 22);
+			this.menuToolsGarminSettingsViewer.Text = "Garmin Settings Viewer...";
+			this.menuToolsGarminSettingsViewer.Click += new System.EventHandler(this.MenuToolsGarminSettingsViewerClick);
 			// 
 			// MainForm
 			// 
@@ -2014,6 +2023,7 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem menuToolsGarminSettingsViewer;
 		private System.Windows.Forms.ToolStripMenuItem menuHelpCheckForUpdates;
 		private System.Windows.Forms.ToolStripMenuItem menuCoursesCourseList;
 		private System.Windows.Forms.ToolStripMenuItem coursesToolStripMenuItem;

@@ -107,6 +107,7 @@
     <Reference Include="System.Json">
       <HintPath>dll\System.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
@@ -174,6 +175,10 @@
       <DependentUpon>GarminConnect.cs</DependentUpon>
     </Compile>
     <Compile Include="GarminConnectAPI.cs" />
+    <Compile Include="GarminSettings.cs" />
+    <Compile Include="GarminSettings.Designer.cs">
+      <DependentUpon>GarminSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="LineSeparator.cs" />
     <Compile Include="LineSeparator.Designer.cs">
       <DependentUpon>LineSeparator.cs</DependentUpon>
@@ -276,6 +281,9 @@
     <EmbeddedResource Include="GarminConnect.resx">
       <DependentUpon>GarminConnect.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GarminSettings.resx">
+      <DependentUpon>GarminSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LineSeparator.resx">
       <DependentUpon>LineSeparator.cs</DependentUpon>
     </EmbeddedResource>
@@ -327,8 +335,5 @@
     <None Include="cycleuploader.sqlite">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TCX Parser.cd" />
   </ItemGroup>
 </Project>

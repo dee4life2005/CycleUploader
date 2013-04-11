@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.25.5</version>
+<version>1.0.26.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>10/04/2013</date>
+<date>11/04/2013</date>
 <changes>
 • Includes Courses
 • Ability to delete ride from ride history
 • Changes to database schema to reduce footprint
 • Support for web auto-updating
-• Test of version update feature
+• Includes Garmin Device Viewer
+• Includes detection of Garmin Device being plugged in, and scans activities for any un-processed and provides option to batch process them.
 </changes>
 </appinfo> 

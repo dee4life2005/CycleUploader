@@ -190,12 +190,8 @@ namespace CycleUploader
 			return null;
 		}
 		
-		
-		
-		
 		public void UploadFile(string file, string activity_name, SQLiteConnection dbConnection, int fileId, string activityName, string activityNotes, Batch activityBatch)
 		{
-			
 			int wId = 0;
 			string url = "http://connect.garmin.com/proxy/upload-service-1.1/json/upload/";
 			string file_content_type = "application/octet-stream";
