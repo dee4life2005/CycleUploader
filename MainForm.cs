@@ -63,6 +63,7 @@ namespace CycleUploader
 		private bool bIsAutomaticUpdate = false;
 		private DownloadedVersionInfo downloadedVersionInfo;
 		private long _db_version;
+		private GarminSettings _gs;
 		double avgHeart;
 		double avgCadence;
 		double avgSpeed;
@@ -538,7 +539,9 @@ namespace CycleUploader
 	            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
 	            {
 	            	if(checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\")){
-	            		showGarminSettings();
+	            		if(_gs == null || (_gs != null && !_gs.Visible)){
+	            			showGarminSettings();
+	            		}
 	            	}
 	            }
 	            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
@@ -595,7 +598,9 @@ namespace CycleUploader
 			    if (Drive.DriveType == DriveType.Removable)
 			    {
 			    	if(checkForGarminDevice(Drive.RootDirectory.ToString())){
-			    		showGarminSettings();
+			    		if(_gs == null || (_gs != null && !_gs.Visible)){
+			    			showGarminSettings();
+			    		}
 			    		return;
 			    	}
 			    }    
@@ -2666,14 +2671,17 @@ namespace CycleUploader
 						
 			
 			statusBarVersion.Text = _versionStr + ", " + _versionDate;
+			
+			this.bIsAutomaticUpdate = true;
+			this.checkForUpdate.OnCheckForUpdate();
+			
 			_threadInit = new Thread(new ThreadStart(this.initialiseProviders));
 			_threadInit.Start();
 			}
 			catch(Exception ex){
 				MessageBox.Show(ex.ToString());
 			}
-			this.bIsAutomaticUpdate = true;
-			this.checkForUpdate.OnCheckForUpdate();
+			
 		}
 		
 		// this method is called when the checkForUpdate finishes checking
@@ -2767,6 +2775,7 @@ namespace CycleUploader
 		void initialiseProviders()
 		{
 			int step =0; 
+			try{
 			SetStatusProgressThreadSafe(statusBar, "Value",step);
 			SetStatusProgressThreadSafe(statusBar, "Maximum", 8);
 			SetStatusTextThreadSafe(statusBar, "Initialising...");
@@ -2821,6 +2830,15 @@ namespace CycleUploader
 			setTab(tabControlOverview, "tabFileHistory");
 			
 			this.Invoke(new MethodInvoker(searchRemovableDevicesForGarmin));
+			}
+			catch(Exception ex){
+				
+				this.Invoke((MethodInvoker) delegate{ 
+				            	_threadInit.Abort();
+				            	
+				            	MessageBox.Show(ex.ToString()); 
+				            });
+			}
 			
 		}
 		
@@ -3901,20 +3919,21 @@ namespace CycleUploader
 		
 		void showGarminSettings()
 		{
-			GarminSettings gs = new GarminSettings(_m_dbConnection);
+			_gs = new GarminSettings(_m_dbConnection);
 			// show dialog and check if the result is YES, as this indicates that the user selected
 			// to batch process the unprocessed files on the device
-			if(gs.ShowDialog(this) == DialogResult.Yes){
+			if(_gs.ShowDialog(this) == DialogResult.Yes){
 				_activityBatch = new Batch(_previous_file_path, 
 			                           this,
 			                           cbkProviderRunkeeper.Checked,
 			                           cbkProviderStrava.Checked,
 			                           cbkProviderGarmin.Checked,
 			                           cbkProviderRideWithGps.Checked,
-			                           gs.unprocessedFiles
+			                           _gs.unprocessedFiles
 			                          );
 				_activityBatch.ShowDialog();
 			}
+			_gs.Visible = false;
 		}
 	}
 }

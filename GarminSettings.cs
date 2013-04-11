@@ -38,7 +38,7 @@ namespace CycleUploader
 	    private int unprocessedCount = 0;
 	    
 	    public List<string> unprocessedFiles;
-	    
+	   	    
 		public GarminSettings(SQLiteConnection db)
 		{
 			//
@@ -314,6 +314,7 @@ namespace CycleUploader
 		bool checkForGarminDevice(string driveRoot)
 		{
 			if(System.IO.File.Exists(driveRoot + "Garmin\\Device.fit")){
+				Debug.WriteLine("checkForGarminDevice()");
 	    		loadGarminDeviceSettings(driveRoot);
 	    		return true;
 	    	}

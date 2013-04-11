@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.26.0</version>
+<version>1.0.26.1</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
@@ -12,5 +12,6 @@
 • Support for web auto-updating
 • Includes Garmin Device Viewer
 • Includes detection of Garmin Device being plugged in, and scans activities for any un-processed and provides option to batch process them.
+• Bug fix in Garmin Device Viewer
 </changes>
 </appinfo> 
