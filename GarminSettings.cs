@@ -349,7 +349,7 @@ namespace CycleUploader
 			mesgBroadcaster.UserProfileMesgEvent += new MesgEventHandler( OnUserProfileMesg);
 			mesgBroadcaster.BikeProfileMesgEvent += new MesgEventHandler( OnBikeProfileMesg);
 			mesgBroadcaster.FileCreatorMesgEvent += new MesgEventHandler( OnFileCreatorMesg);
-			
+		
 			bool status = fitSourceDec.IsFIT(fitSource);
 			status &= fitSourceDec.CheckIntegrity(fitSource);
 			if(status == true){
@@ -364,6 +364,7 @@ namespace CycleUploader
 			// determine if there are any activities on the device
 			
 			string[] files = Directory.GetFiles(driveRoot + "Garmin\\Activities\\", "*.fit");
+			Array.Sort(files,StringComparer.InvariantCulture);
 			if(files.Length > 0){
 				tNumActivities.Text = files.Length.ToString();
 				if(th_loadingActivities != null && th_loadingActivities.IsAlive){

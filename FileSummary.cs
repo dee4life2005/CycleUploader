@@ -14,6 +14,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Threading;
 using System.Reflection;
+using Dynastream.Fit;
 
 namespace CycleUploader
 {
@@ -171,7 +172,7 @@ namespace CycleUploader
 				TimeSpan tsMoving = TimeSpan.FromSeconds(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsMovingTime")) ? 0 : Convert.ToInt32(rdrSummary["fsMovingTime"]));
 			
 				SetControlPropertyThreadSafe(lblHistoryName, "Text", (string)rdrSummary["fileName"]);
-				SetControlPropertyThreadSafe(lblHistoryDate, "Text", ((DateTime)rdrSummary["fileActivityDateTime"]).ToString("dd MMMM yyyy HH:mm"));
+				SetControlPropertyThreadSafe(lblHistoryDate, "Text", ((System.DateTime)rdrSummary["fileActivityDateTime"]).ToString("dd MMMM yyyy HH:mm"));
 				SetControlPropertyThreadSafe(lblHistoryDuration, "Text", string.Format("{0:D2} h {1:D2} m {2:D2} s", tsDuration.Hours, tsDuration.Minutes, tsDuration.Seconds));
 				SetControlPropertyThreadSafe(lblHistoryDistance, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsDistance")) ? "-" : string.Format("{0:0.00} miles", Convert.ToDouble(rdrSummary["fsDistance"])));
 				SetControlPropertyThreadSafe(lblHistoryCalories, "Text", rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fsCalories")) ? "-" : Convert.ToInt32(rdrSummary["fsCalories"]).ToString());
@@ -623,5 +624,66 @@ namespace CycleUploader
 			_loading.Start();
 		}
 		
+		
+		void BtnSaveFitClick(object sender, EventArgs e)
+		{
+			if(saveFileDlg.ShowDialog() == DialogResult.OK){
+				
+				
+				FileIdMesg fileIdMesg = new FileIdMesg();
+				fileIdMesg.SetManufacturer(Manufacturer.Dynastream);
+				fileIdMesg.SetProduct(1000);
+				fileIdMesg.SetSerialNumber(12345);
+				
+				FileStream fitDest = new FileStream(saveFileDlg.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+				
+				// create file encode object
+				Encode encode = new Encode();
+				// write out header
+				encode.Open(fitDest);
+				// encode each message, a definition message is automatically generated and output if necessary
+				encode.Write(fileIdMesg);
+				
+				// TODO: write FIT File Summary Information here, suspect that's why GarminConnect
+				// is rejecting it because the summary data isn't there.
+				
+				// load and process the archived trackpoints for file
+				SQLiteCommand cmd = new SQLiteCommand(_db);
+				string sql = string.Format("select * from FileTrackpoints where idFile = {0}", 
+			                           _file
+			                          );
+				cmd.CommandText = sql;
+				SQLiteDataReader rdr = cmd.ExecuteReader();
+				if(rdr.HasRows){
+					while(rdr.Read()){
+						// TODO: need to handle `0` lng/lat coordinates so that we're not mapped
+						// as being in the middle of the atlantic ! :-)
+						RecordMesg rec = new RecordMesg();
+						Dynastream.Fit.DateTime dt = new Dynastream.Fit.DateTime(System.DateTime.Parse((string)rdr["tpTime"]));
+						rec.SetTimestamp(dt);
+						rec.SetDistance((float)Convert.ToDouble(rdr["tpDistance"]));
+						rec.SetHeartRate(Convert.ToByte(Convert.ToInt32(rdr["tpHeart"])));
+						rec.SetCadence(Convert.ToByte(Convert.ToInt32(rdr["tpCadence"])));
+						rec.SetTemperature(Convert.ToSByte(Convert.ToInt32(rdr["tpTemperature"])));
+						rec.SetAltitude((float)(Convert.ToDouble(rdr["tpAltitude"]) / 3.2808399)); // converted back to metres from ft in db
+						rec.SetPositionLong((int)GeoMath.degrees_to_semicircle(Convert.ToDouble(rdr["tpLongitude"])));
+						rec.SetPositionLat((int)GeoMath.degrees_to_semicircle(Convert.ToDouble(rdr["tpLatitude"])));
+						rec.SetSpeed((float)Convert.ToDouble(rdr["tpSpeed"]));
+						encode.Write(rec);
+					}
+				}
+				
+				encode.Close();
+				fitDest.Close();
+				
+				MessageBox.Show("File Saved Successfully");
+				
+				System.Diagnostics.Process.Start(saveFileDlg.FileName);
+				
+			}
+			else{
+				
+			}
+		}
 	}
 }

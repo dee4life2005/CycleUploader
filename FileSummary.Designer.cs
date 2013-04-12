@@ -109,6 +109,10 @@ namespace CycleUploader
 			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
 			this.lblHistoryName = new System.Windows.Forms.Label();
 			this.lblHistoryDate = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btnSaveFit = new System.Windows.Forms.Button();
+			this.btnSaveTcx = new System.Windows.Forms.Button();
+			this.saveFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.tabControlHistory.SuspendLayout();
 			this.tabHistorySummary.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -126,6 +130,7 @@ namespace CycleUploader
 			this.tabPage9.SuspendLayout();
 			this.tabPage10.SuspendLayout();
 			this.tabPage11.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControlHistory
@@ -147,6 +152,7 @@ namespace CycleUploader
 			// 
 			// tabHistorySummary
 			// 
+			this.tabHistorySummary.Controls.Add(this.groupBox2);
 			this.tabHistorySummary.Controls.Add(this.groupBox1);
 			this.tabHistorySummary.Controls.Add(this.groupBox4);
 			this.tabHistorySummary.Controls.Add(this.cbkSummaryIncludeInStats);
@@ -437,7 +443,7 @@ namespace CycleUploader
 			this.cbkSummaryIncludeInStats.Enabled = false;
 			this.cbkSummaryIncludeInStats.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbkSummaryIncludeInStats.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIncludeInStats.Location = new System.Drawing.Point(535, 199);
+			this.cbkSummaryIncludeInStats.Location = new System.Drawing.Point(535, 170);
 			this.cbkSummaryIncludeInStats.Name = "cbkSummaryIncludeInStats";
 			this.cbkSummaryIncludeInStats.Size = new System.Drawing.Size(129, 24);
 			this.cbkSummaryIncludeInStats.TabIndex = 67;
@@ -449,7 +455,7 @@ namespace CycleUploader
 			this.cbkSummaryIsStationaryTrainer.Enabled = false;
 			this.cbkSummaryIsStationaryTrainer.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbkSummaryIsStationaryTrainer.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIsStationaryTrainer.Location = new System.Drawing.Point(535, 176);
+			this.cbkSummaryIsStationaryTrainer.Location = new System.Drawing.Point(535, 147);
 			this.cbkSummaryIsStationaryTrainer.Name = "cbkSummaryIsStationaryTrainer";
 			this.cbkSummaryIsStationaryTrainer.Size = new System.Drawing.Size(104, 24);
 			this.cbkSummaryIsStationaryTrainer.TabIndex = 66;
@@ -461,7 +467,7 @@ namespace CycleUploader
 			this.cbkSummaryIsCommute.Enabled = false;
 			this.cbkSummaryIsCommute.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbkSummaryIsCommute.ForeColor = System.Drawing.Color.SteelBlue;
-			this.cbkSummaryIsCommute.Location = new System.Drawing.Point(535, 153);
+			this.cbkSummaryIsCommute.Location = new System.Drawing.Point(535, 124);
 			this.cbkSummaryIsCommute.Name = "cbkSummaryIsCommute";
 			this.cbkSummaryIsCommute.Size = new System.Drawing.Size(104, 24);
 			this.cbkSummaryIsCommute.TabIndex = 65;
@@ -925,6 +931,36 @@ namespace CycleUploader
 			this.lblHistoryDate.TabIndex = 1;
 			this.lblHistoryDate.Text = " ";
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.btnSaveTcx);
+			this.groupBox2.Controls.Add(this.btnSaveFit);
+			this.groupBox2.Location = new System.Drawing.Point(524, 220);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(146, 57);
+			this.groupBox2.TabIndex = 70;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Downloads";
+			// 
+			// btnSaveFit
+			// 
+			this.btnSaveFit.Location = new System.Drawing.Point(6, 28);
+			this.btnSaveFit.Name = "btnSaveFit";
+			this.btnSaveFit.Size = new System.Drawing.Size(62, 23);
+			this.btnSaveFit.TabIndex = 0;
+			this.btnSaveFit.Text = ".FIT";
+			this.btnSaveFit.UseVisualStyleBackColor = true;
+			this.btnSaveFit.Click += new System.EventHandler(this.BtnSaveFitClick);
+			// 
+			// btnSaveTcx
+			// 
+			this.btnSaveTcx.Location = new System.Drawing.Point(78, 28);
+			this.btnSaveTcx.Name = "btnSaveTcx";
+			this.btnSaveTcx.Size = new System.Drawing.Size(62, 23);
+			this.btnSaveTcx.TabIndex = 1;
+			this.btnSaveTcx.Text = ".TCX";
+			this.btnSaveTcx.UseVisualStyleBackColor = true;
+			// 
 			// FileSummary
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -963,8 +999,13 @@ namespace CycleUploader
 			this.tabPage9.ResumeLayout(false);
 			this.tabPage10.ResumeLayout(false);
 			this.tabPage11.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.SaveFileDialog saveFileDlg;
+		private System.Windows.Forms.Button btnSaveFit;
+		private System.Windows.Forms.Button btnSaveTcx;
+		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label lblHistoryDate;
 		private ZedGraph.ZedGraphControl zedHistoryHeart;
 		private System.Windows.Forms.ColumnHeader columnHeader16;
