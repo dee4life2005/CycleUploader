@@ -55,20 +55,21 @@ namespace CycleUploader
 		
 		protected override void WndProc(ref Message m)
 	    {
-	
-	        if (m.Msg == WM_DEVICECHANGE)
-	        {
-	            DEV_BROADCAST_VOLUME vol = (DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_VOLUME));
-	            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
-	            {
-	                checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\");
-	            }
-	            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
-	            {
-	            	showGarminDeviceRemoved();
-	            }
-	        }
-	        base.WndProc(ref m);
+			try{
+		        if (m.Msg == WM_DEVICECHANGE)
+		        {
+		            DEV_BROADCAST_VOLUME vol = (DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_VOLUME));
+		            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
+		            {
+		                checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\");
+		            }
+		            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
+		            {
+		            	showGarminDeviceRemoved();
+		            }
+		        }
+		        base.WndProc(ref m);
+			}catch{}
 	    }
 	
 	    [StructLayout(LayoutKind.Sequential)] //Same layout in mem
@@ -146,7 +147,7 @@ namespace CycleUploader
 		         	}
 		         	else{
 		         		unprocessedCount++;
-		         		unprocessedFiles.Add(curDeviceFile);
+		         		//unprocessedFiles.Add(curDeviceFile);
 		         		SetControlPropertyThreadSafe(tNumToBeProcessed, "Text", string.Format("There are {0} activities that are not yet processed / uploaded",unprocessedCount));
 		         	}
 	         	}
@@ -177,9 +178,18 @@ namespace CycleUploader
 	         		string.Format("{0:0.00} mph", mySession.GetMaxSpeed()* 2.23693629),
 	         		string.Format("{0:0} bpm", mySession.GetMaxHeartRate()),
 	         		string.Format("{0:0} rpm", mySession.GetMaxCadence()),
+	         		curDeviceFile,
 	         		""
 	         	};
-	         	AddListViewItem(lstDeviceActivities, new ListViewItem(row));
+	         	ListViewItem r = new ListViewItem(row);
+	         	if(r.SubItems[1].Text == "Y"){
+	         		r.Checked = false;
+	         		r.ForeColor = SystemColors.GrayText;
+	         	}
+	         	else{
+	         		r.Checked = true;
+	         	}
+	         	AddListViewItem(lstDeviceActivities, r);
 	         }
 	         catch{}
 		}
@@ -389,6 +399,17 @@ namespace CycleUploader
 			}
 		}
 		
+		private delegate void SetListViewItemValueDelegate(Control ctrl, int itemIdx, int subItemIdx, string value);			
+		private static void SetListViewItemValue(Control ctrl, int itemIdx, int subItemIdx, string value)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new SetListViewItemValueDelegate(SetListViewItemValue), new object[] {ctrl, itemIdx, subItemIdx, value});
+			}
+			else{
+				((ListView)ctrl).Items[itemIdx].SubItems[subItemIdx].Text = value;
+			}
+		}
+		
 		private delegate void SetListViewColumnWidthDelegate(Control ctrl, int colIdx, int width);
 		private static void SetListViewColumnWidth(Control ctrl, int colIdx, int width)
 		{
@@ -467,6 +488,8 @@ namespace CycleUploader
 						MessageBox.Show("fit file integrity failed, attempting to read anyway");
 						fitFileDec.Read(fitFile);
 					}
+					
+					//lstDeviceActivities.Items[lstDeviceActivities.Items.Count-1].SubItems[14].Text = files[f];
 					fitFile.Close();
 					SetControlPropertyThreadSafe(prgReadingActivities, "Value", f+1);
 				}
@@ -478,7 +501,7 @@ namespace CycleUploader
 				}
 			}
 			ResizeListView(lstDeviceActivities);
-			SetListViewColumnWidth(lstDeviceActivities,0,0);
+			//SetListViewColumnWidth(lstDeviceActivities,0,0);
 			if(lstDeviceActivities.InvokeRequired){
 				lstDeviceActivities.Invoke(new MethodInvoker(lstDeviceActivities.BringToFront));
 			}
@@ -510,8 +533,30 @@ namespace CycleUploader
 		
 		void BtnProcessNowClick(object sender, EventArgs e)
 		{
+			
+			for(int r = 0; r < lstDeviceActivities.Items.Count; r++){
+				if(lstDeviceActivities.Items[r].Checked){
+					unprocessedFiles.Add(lstDeviceActivities.Items[r].SubItems[14].Text);
+				}
+			}
+			if(unprocessedFiles.Count == 0){
+				MessageBox.Show("No un-processed activities have been selected for processing.\r\nClosing this window.","No Activities Selected For Processing",MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 			// send YES to indicate we want to process the unprocessed files
 			this.DialogResult = DialogResult.Yes;
 		}
+		
+		void LstDeviceActivitiesItemCheck(object sender, ItemCheckEventArgs e)
+		{
+			if(lstDeviceActivities.Items[e.Index].SubItems[1].Text == "Y"){
+				e.NewValue = CheckState.Unchecked;
+			}
+			/*else{
+				e.
+				e.NewValue = !e.CurrentValue;
+			}*/
+		}
+		
+		
 	}
 }

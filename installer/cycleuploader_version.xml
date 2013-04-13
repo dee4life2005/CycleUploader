@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.26.2</version>
+<version>1.0.26.4</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>11/04/2013</date>
+<date>14/04/2013</date>
 <changes>
 • Includes Courses
 • Ability to delete ride from ride history
@@ -14,5 +14,6 @@
 • Includes detection of Garmin Device being plugged in, and scans activities for any un-processed and provides option to batch process them.
 • Bug fix in Garmin Device Viewer
 • Bug Fix in Batch File Processor
+• Added support for selecting which un-processed files in GarminViewer are to be processed as batch.
 </changes>
 </appinfo> 

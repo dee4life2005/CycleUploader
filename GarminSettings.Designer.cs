@@ -96,6 +96,7 @@ namespace CycleUploader
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.deviceImageList = new System.Windows.Forms.ImageList(this.components);
+			this.colFilePath = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.pnlRequiresProcessing.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbRequiresProcessingIcon)).BeginInit();
@@ -161,19 +162,19 @@ namespace CycleUploader
 			this.pnlRequiresProcessing.Controls.Add(this.btnProcessNow);
 			this.pnlRequiresProcessing.Controls.Add(this.tNumToBeProcessed);
 			this.pnlRequiresProcessing.Controls.Add(this.pbRequiresProcessingIcon);
-			this.pnlRequiresProcessing.Location = new System.Drawing.Point(15, 110);
+			this.pnlRequiresProcessing.Location = new System.Drawing.Point(15, 102);
 			this.pnlRequiresProcessing.Name = "pnlRequiresProcessing";
-			this.pnlRequiresProcessing.Size = new System.Drawing.Size(278, 51);
+			this.pnlRequiresProcessing.Size = new System.Drawing.Size(278, 70);
 			this.pnlRequiresProcessing.TabIndex = 9;
 			this.pnlRequiresProcessing.Visible = false;
 			// 
 			// btnProcessNow
 			// 
-			this.btnProcessNow.Location = new System.Drawing.Point(175, 22);
+			this.btnProcessNow.Location = new System.Drawing.Point(151, 38);
 			this.btnProcessNow.Name = "btnProcessNow";
-			this.btnProcessNow.Size = new System.Drawing.Size(99, 23);
+			this.btnProcessNow.Size = new System.Drawing.Size(124, 29);
 			this.btnProcessNow.TabIndex = 2;
-			this.btnProcessNow.Text = "Process Now...";
+			this.btnProcessNow.Text = "Process Selected...";
 			this.btnProcessNow.UseVisualStyleBackColor = true;
 			this.btnProcessNow.Click += new System.EventHandler(this.BtnProcessNowClick);
 			// 
@@ -182,7 +183,7 @@ namespace CycleUploader
 			this.tNumToBeProcessed.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.tNumToBeProcessed.Location = new System.Drawing.Point(34, 4);
 			this.tNumToBeProcessed.Name = "tNumToBeProcessed";
-			this.tNumToBeProcessed.Size = new System.Drawing.Size(199, 44);
+			this.tNumToBeProcessed.Size = new System.Drawing.Size(225, 34);
 			this.tNumToBeProcessed.TabIndex = 1;
 			this.tNumToBeProcessed.Text = "There are 0 activities that are not yet processed / uploaded";
 			// 
@@ -229,6 +230,7 @@ namespace CycleUploader
 			// 
 			// lstDeviceActivities
 			// 
+			this.lstDeviceActivities.CheckBoxes = true;
 			this.lstDeviceActivities.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 									this.columnHeader1,
 									this.colAlreadyProcessed,
@@ -244,6 +246,7 @@ namespace CycleUploader
 									this.colMaxSpeed,
 									this.colMaxHeart,
 									this.colMaxCadence,
+									this.colFilePath,
 									this.colDummy});
 			this.lstDeviceActivities.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lstDeviceActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -257,6 +260,7 @@ namespace CycleUploader
 			this.lstDeviceActivities.TabIndex = 1;
 			this.lstDeviceActivities.UseCompatibleStateImageBehavior = false;
 			this.lstDeviceActivities.View = System.Windows.Forms.View.Details;
+			this.lstDeviceActivities.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.LstDeviceActivitiesItemCheck);
 			// 
 			// columnHeader1
 			// 
@@ -376,9 +380,9 @@ namespace CycleUploader
 			this.groupBox4.Controls.Add(this.tSerialNumber);
 			this.groupBox4.Controls.Add(this.tSoftwareVersion);
 			this.groupBox4.Controls.Add(this.label3);
-			this.groupBox4.Location = new System.Drawing.Point(15, 30);
+			this.groupBox4.Location = new System.Drawing.Point(15, 19);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(299, 167);
+			this.groupBox4.Size = new System.Drawing.Size(299, 178);
 			this.groupBox4.TabIndex = 7;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Device";
@@ -395,9 +399,9 @@ namespace CycleUploader
 			// 
 			// tNumActivities
 			// 
-			this.tNumActivities.Location = new System.Drawing.Point(118, 94);
+			this.tNumActivities.Location = new System.Drawing.Point(118, 80);
 			this.tNumActivities.Name = "tNumActivities";
-			this.tNumActivities.Size = new System.Drawing.Size(156, 15);
+			this.tNumActivities.Size = new System.Drawing.Size(89, 15);
 			this.tNumActivities.TabIndex = 6;
 			this.tNumActivities.Text = "< calculating >";
 			// 
@@ -406,12 +410,13 @@ namespace CycleUploader
 			this.tDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tDevice.Location = new System.Drawing.Point(15, 21);
 			this.tDevice.Name = "tDevice";
-			this.tDevice.Size = new System.Drawing.Size(233, 28);
+			this.tDevice.Size = new System.Drawing.Size(233, 19);
 			this.tDevice.TabIndex = 0;
+			this.tDevice.Text = "Garmin 500";
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(15, 48);
+			this.label1.Location = new System.Drawing.Point(15, 44);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(62, 15);
 			this.label1.TabIndex = 1;
@@ -419,7 +424,7 @@ namespace CycleUploader
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(15, 94);
+			this.label11.Location = new System.Drawing.Point(15, 80);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(102, 15);
 			this.label11.TabIndex = 5;
@@ -427,21 +432,21 @@ namespace CycleUploader
 			// 
 			// tSerialNumber
 			// 
-			this.tSerialNumber.Location = new System.Drawing.Point(118, 48);
+			this.tSerialNumber.Location = new System.Drawing.Point(118, 44);
 			this.tSerialNumber.Name = "tSerialNumber";
-			this.tSerialNumber.Size = new System.Drawing.Size(156, 15);
+			this.tSerialNumber.Size = new System.Drawing.Size(89, 15);
 			this.tSerialNumber.TabIndex = 2;
 			// 
 			// tSoftwareVersion
 			// 
-			this.tSoftwareVersion.Location = new System.Drawing.Point(118, 71);
+			this.tSoftwareVersion.Location = new System.Drawing.Point(118, 62);
 			this.tSoftwareVersion.Name = "tSoftwareVersion";
-			this.tSoftwareVersion.Size = new System.Drawing.Size(156, 15);
+			this.tSoftwareVersion.Size = new System.Drawing.Size(89, 15);
 			this.tSoftwareVersion.TabIndex = 4;
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(15, 71);
+			this.label3.Location = new System.Drawing.Point(15, 62);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(87, 15);
 			this.label3.TabIndex = 3;
@@ -450,9 +455,9 @@ namespace CycleUploader
 			// groupBox3
 			// 
 			this.groupBox3.Controls.Add(this.lstBikeProfile);
-			this.groupBox3.Location = new System.Drawing.Point(575, 30);
+			this.groupBox3.Location = new System.Drawing.Point(575, 19);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(267, 167);
+			this.groupBox3.Size = new System.Drawing.Size(267, 178);
 			this.groupBox3.TabIndex = 6;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Bike Profile";
@@ -470,7 +475,7 @@ namespace CycleUploader
 			this.lstBikeProfile.Location = new System.Drawing.Point(3, 16);
 			this.lstBikeProfile.MultiSelect = false;
 			this.lstBikeProfile.Name = "lstBikeProfile";
-			this.lstBikeProfile.Size = new System.Drawing.Size(261, 148);
+			this.lstBikeProfile.Size = new System.Drawing.Size(261, 159);
 			this.lstBikeProfile.TabIndex = 0;
 			this.lstBikeProfile.UseCompatibleStateImageBehavior = false;
 			this.lstBikeProfile.View = System.Windows.Forms.View.Details;
@@ -506,9 +511,9 @@ namespace CycleUploader
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(320, 30);
+			this.groupBox2.Location = new System.Drawing.Point(320, 19);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(249, 167);
+			this.groupBox2.Size = new System.Drawing.Size(249, 178);
 			this.groupBox2.TabIndex = 5;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "User Profile";
@@ -615,6 +620,10 @@ namespace CycleUploader
 			this.deviceImageList.Images.SetKeyName(5, "forerunner310.png");
 			this.deviceImageList.Images.SetKeyName(6, "forerunner405.png");
 			// 
+			// colFilePath
+			// 
+			this.colFilePath.Width = 0;
+			// 
 			// GarminSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -643,6 +652,7 @@ namespace CycleUploader
 			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ColumnHeader colFilePath;
 		private System.Windows.Forms.ImageList deviceImageList;
 		private System.Windows.Forms.PictureBox pbDeviceImage;
 		private System.Windows.Forms.Button btnProcessNow;

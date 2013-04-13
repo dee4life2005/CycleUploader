@@ -50,14 +50,14 @@ Source: ListViewExtended.dll; DestDir: {app}
 Source: isxdl.dll; Flags: dontcopy
 
 [Setup]
-VersionInfoVersion=1.0.26.2
+VersionInfoVersion=1.0.26.4
 VersionInfoDescription=Cycle Uploader
 VersionInfoCopyright=Copyright © 2013
 VersionInfoProductName=Cycle Uploader
-VersionInfoProductVersion=1.0.26.2
+VersionInfoProductVersion=1.0.26.4
 AppCopyright=© 2013 Steven Saunders
 AppName=Cycle Uploader
-AppVerName=Cycle Uploader v1.0.26.2
+AppVerName=Cycle Uploader v1.0.26.4
 SetupIconFile=cycle.ico
 DefaultDirName={pf}\CycleUploader
 OutputBaseFilename=CycleUploaderSetup

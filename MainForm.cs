@@ -530,26 +530,28 @@ namespace CycleUploader
 		}
 		
 		protected override void WndProc(ref Message m) {
-	        if(m.Msg == NativeMethods.WM_SHOWME) {
-	            ShowMe();
-	        }
-			if (m.Msg == WM_DEVICECHANGE)
-	        {
-	            DEV_BROADCAST_VOLUME vol = (DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_VOLUME));
-	            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
-	            {
-	            	if(checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\")){
-	            		if(_gs == null || (_gs != null && !_gs.Visible)){
-	            			showGarminSettings();
-	            		}
-	            	}
-	            }
-	            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
-	            {
-	            	//showGarminDeviceRemoved();
-	            }
-	        }
-	        base.WndProc(ref m);
+			try{
+		        if(m.Msg == NativeMethods.WM_SHOWME) {
+		            ShowMe();
+		        }
+				if (m.Msg == WM_DEVICECHANGE)
+		        {
+		            DEV_BROADCAST_VOLUME vol = (DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_VOLUME));
+		            if ((m.WParam.ToInt32() == DBT_DEVICEARRIVAL) &&  (vol.dbcv_devicetype == DBT_DEVTYPVOLUME) )
+		            {
+		            	if(checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\")){
+		            		if(_gs == null || (_gs != null && !_gs.Visible)){
+		            			showGarminSettings();
+		            		}
+		            	}
+		            }
+		            if ((m.WParam.ToInt32() == DBT_DEVICEREMOVALCOMPLETE) && (vol.dbcv_devicetype == DBT_DEVTYPVOLUME))
+		            {
+		            	//showGarminDeviceRemoved();
+		            }
+		        }
+		        base.WndProc(ref m);
+			}catch{}
 	    }
 		
 		[StructLayout(LayoutKind.Sequential)] //Same layout in mem
@@ -3923,15 +3925,17 @@ namespace CycleUploader
 			// show dialog and check if the result is YES, as this indicates that the user selected
 			// to batch process the unprocessed files on the device
 			if(_gs.ShowDialog(this) == DialogResult.Yes){
-				_activityBatch = new Batch(_previous_file_path, 
-			                           this,
-			                           cbkProviderRunkeeper.Checked,
-			                           cbkProviderStrava.Checked,
-			                           cbkProviderGarmin.Checked,
-			                           cbkProviderRideWithGps.Checked,
-			                           _gs.unprocessedFiles
-			                          );
-				_activityBatch.ShowDialog();
+				if(_gs.unprocessedFiles.Count > 0){
+					_activityBatch = new Batch(_previous_file_path, 
+				                           this,
+				                           cbkProviderRunkeeper.Checked,
+				                           cbkProviderStrava.Checked,
+				                           cbkProviderGarmin.Checked,
+				                           cbkProviderRideWithGps.Checked,
+				                           _gs.unprocessedFiles
+				                          );
+					_activityBatch.ShowDialog();
+				}
 			}
 			_gs.Visible = false;
 		}
