@@ -644,14 +644,40 @@ namespace CycleUploader
 				// encode each message, a definition message is automatically generated and output if necessary
 				encode.Write(fileIdMesg);
 				
+				SQLiteCommand cmd = new SQLiteCommand(_db);
+				string sql;
 				// TODO: write FIT File Summary Information here, suspect that's why GarminConnect
 				// is rejecting it because the summary data isn't there.
+				sql = string.Format("select fs.*, f.fileActivityDateTime from FileSummary fs join File f on f.idFile = fs.idFile where fs.idFile = {0}", _file);
+				cmd.CommandText = sql;
+				SQLiteDataReader rdr_summary = cmd.ExecuteReader();
+				if(rdr_summary.HasRows){
+					rdr_summary.Read();
+					SessionMesg sess = new SessionMesg();
+					//"fsMaxHeartRate" INTEGER,"fsMaxCadence" INTEGER,"fsMaxSpeed" FLOAT, "fsAvgPower" FLOAT, "fsMaxPower" FLOAT)
+					sess.SetTotalElapsedTime((float)Convert.ToDouble(rdr_summary["fsDuration"]));
+					sess.SetTotalMovingTime((float)Convert.ToDouble(rdr_summary["fsMovingTime"]));
+					sess.SetTotalTimerTime((float)Convert.ToDouble(rdr_summary["fsMovingTime"]));
+					sess.SetTotalDistance((float)(Convert.ToDouble(rdr_summary["fsDistance"]) * 1609.344)); // convert miles back to metres
+					sess.SetTotalCalories(Convert.ToUInt16(rdr_summary["fsCalories"]));
+					sess.SetAvgHeartRate(Convert.ToByte(Convert.ToInt32(rdr_summary["fsAvgHeart"])));
+					sess.SetAvgCadence(Convert.ToByte(Convert.ToInt32(rdr_summary["fsAvgCadence"])));
+					sess.SetAvgSpeed((float)(Convert.ToDouble(rdr_summary["fsAvgSpeed"])/2.23693629));
+					sess.SetTotalAscent(Convert.ToUInt16(Convert.ToDouble(rdr_summary["fsTotalAscent"])/3.2808399));
+					sess.SetTotalDescent(Convert.ToUInt16(Convert.ToDouble(rdr_summary["fsTotalDescent"])/3.2808399));
+					sess.SetMaxHeartRate(Convert.ToByte(Convert.ToInt32(rdr_summary["fsMaxHeartRate"])));
+					sess.SetMaxCadence(Convert.ToByte(Convert.ToInt32(rdr_summary["fsMaxCadence"])));
+					sess.SetMaxSpeed(Convert.ToByte(Convert.ToInt32(rdr_summary["fsMaxSpeed"])/2.23693629));
+					
+					Dynastream.Fit.DateTime dt_start = new Dynastream.Fit.DateTime(Convert.ToDateTime(rdr_summary["fileActivityDateTime"]));
+					sess.SetStartTime(dt_start);
+					encode.Write(sess);
+				}
+				rdr_summary.Close();
 				
 				// load and process the archived trackpoints for file
-				SQLiteCommand cmd = new SQLiteCommand(_db);
-				string sql = string.Format("select * from FileTrackpoints where idFile = {0}", 
-			                           _file
-			                          );
+				
+				sql = string.Format("select * from FileTrackpoints where idFile = {0}", _file);
 				cmd.CommandText = sql;
 				SQLiteDataReader rdr = cmd.ExecuteReader();
 				if(rdr.HasRows){
