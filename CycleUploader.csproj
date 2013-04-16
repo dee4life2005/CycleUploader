@@ -197,6 +197,10 @@
     <Compile Include="RideWithGpsConnect.Designer.cs">
       <DependentUpon>RideWithGpsConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Splash.cs" />
+    <Compile Include="Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
     <Compile Include="StravaConnect.cs" />
     <Compile Include="StravaConnect.Designer.cs">
       <DependentUpon>StravaConnect.cs</DependentUpon>
@@ -292,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RideWithGpsConnect.resx">
       <DependentUpon>RideWithGpsConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StravaConnect.resx">
       <DependentUpon>StravaConnect.cs</DependentUpon>

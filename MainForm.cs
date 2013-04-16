@@ -68,6 +68,7 @@ namespace CycleUploader
 		double avgCadence;
 		double avgSpeed;
 		//double avgPower;
+		Splash sp;
 		
 		string _client_id = "e54e428e76574fb1b5ae856f37befed2";
 		string _client_secret = "d1d13b891ffa44c891ff41f74d0a6951";
@@ -2677,6 +2678,40 @@ namespace CycleUploader
 			this.bIsAutomaticUpdate = true;
 			this.checkForUpdate.OnCheckForUpdate();
 			
+			this.Visible = false;
+			sp = new Splash(this._versionStr, this._versionDate, this._versionAuthor);
+			sp.ShowDialog();
+			
+			_gc_user = sp._gc_user;
+			_gc_password = sp._gc_password;
+			if(sp._gc_login){
+				EnableMenuItem(menuConnectToGarmin,false);
+				EnableMenuItem(menuViewAccountGarmin, true);
+			}
+			
+			_rwgps = sp._rwgps;
+			_ridewithgps_email = sp._ridewithgps_email;
+			_ridewithgps_password = sp._ridewithgps_password;
+			_ridewithgps_token = sp._ridewithgps_token;
+			if(_ridewithgps_token != ""){
+				EnableMenuItem(menuConnectToRideWithGps, false);
+				EnableMenuItem(menuViewAccountRideWithGps, true);
+			}
+			
+			// add the groups to the list view
+			foreach(ListViewGroup lvg in sp._lstGroups){
+				AddListViewGroup(lstFileHistory, lvg);
+			}
+			lstFileHistory.SetGroupState(ListViewGroupState.Collapsible);
+
+			// add the items to the list view
+			foreach(ListViewItem lvi in sp._lstItems){
+				AddListViewItem(lstFileHistory,lvi);
+			}
+			
+			ResizeListView(lstFileHistory);
+			SetListViewColumnWidth(lstFileHistory,9,0);
+			
 			_threadInit = new Thread(new ThreadStart(this.initialiseProviders));
 			_threadInit.Start();
 			}
@@ -2779,7 +2814,7 @@ namespace CycleUploader
 			int step =0; 
 			try{
 			SetStatusProgressThreadSafe(statusBar, "Value",step);
-			SetStatusProgressThreadSafe(statusBar, "Maximum", 8);
+			SetStatusProgressThreadSafe(statusBar, "Maximum", 4);
 			SetStatusTextThreadSafe(statusBar, "Initialising...");
 			checkForGUID();
 			
@@ -2794,31 +2829,31 @@ namespace CycleUploader
 			SetStatusTextThreadSafe(statusBar, "Loading Runkeeper Configuration...");
 			checkForRunkeeperConnectToken();
 			
-			SetStatusProgressThreadSafe(statusBar, "Value",++step);
-			SetStatusTextThreadSafe(statusBar, "Loading GarminConnect Configuration...");
-			checkForGarminConnectDetails();
+			//SetStatusProgressThreadSafe(statusBar, "Value",++step);
+			//SetStatusTextThreadSafe(statusBar, "Loading GarminConnect Configuration...");
+			//checkForGarminConnectDetails();
 			
 			SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			SetStatusTextThreadSafe(statusBar, "Loading Strava Configuration...");
 			checkForStravaConnectToken();
 			
-			SetStatusProgressThreadSafe(statusBar, "Value",++step);
-			SetStatusTextThreadSafe(statusBar, "Loading RideWithGPS Configuration...");
-			checkForRideWithGpsDetails();
+			//SetStatusProgressThreadSafe(statusBar, "Value",++step);
+			//SetStatusTextThreadSafe(statusBar, "Loading RideWithGPS Configuration...");
+			//checkForRideWithGpsDetails();
 			
 			SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			SetStatusTextThreadSafe(statusBar, "Performing Clean-Up...");
 			
-			SetStatusProgressThreadSafe(statusBar, "Value",++step);			
-			SetStatusTextThreadSafe(statusBar, "");
-			SetStatusProgressThreadSafe(statusBar, "Visible", 0);
+			//SetStatusProgressThreadSafe(statusBar, "Value",++step);			
+			//SetStatusTextThreadSafe(statusBar, "");
+			//SetStatusProgressThreadSafe(statusBar, "Visible", 0);
 			
 			// load the file open history information
-			SetStatusProgressThreadSafe(statusBar, "Value" ,++step);
-			SetStatusTextThreadSafe(statusBar, "Loading File History Information...");
-			SetStatusProgressThreadSafe(statusBar, "Visible", 0);
+			//SetStatusProgressThreadSafe(statusBar, "Value" ,++step);
+			//SetStatusTextThreadSafe(statusBar, "Loading File History Information...");
+			//SetStatusProgressThreadSafe(statusBar, "Visible", 0);
 			if(!_bIsBatchProcessing){
-				loadFileHistory();
+				//loadFileHistory();
 			}
 			SetStatusTextThreadSafe(statusBar, "Done.");
 			
@@ -2836,15 +2871,23 @@ namespace CycleUploader
 			catch(Exception ex){
 				
 				try{
-				//this.Invoke((MethodInvoker) delegate{ 
 					_threadInit.Abort();
 				    MessageBox.Show(ex.ToString()); 
-				//            });
 				}
 				catch{}
 				
 			}
-			
+			finally{
+				if(sp.InvokeRequired){
+					this.Invoke((MethodInvoker) delegate {
+					            	sp.Close();
+					            });
+				}
+				else{
+					sp.Close();
+				}
+				
+			}
 		}
 		
 		public void loadFileHistory()
@@ -2958,6 +3001,7 @@ namespace CycleUploader
 		void saveDbSetting(string settingName, string settingValue)
 		{
 			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+			cmd.CommandTimeout = 2;
 			string sql = string.Format(@"REPLACE INTO ApplicationSettings (SettingName, SettingValue) VALUES ('{0}', '{1}')",
 			                           settingName,
 			                           settingValue
@@ -3065,23 +3109,6 @@ namespace CycleUploader
 				EnableMenuItem(menuConnectToStrava, false);
 				EnableMenuItem(menuViewAccountStrava, true);
 			}
-			
-//			try{
-//				RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",false);	
-//				if(key != null){
-//					_strava_token = (string)key.GetValue("strava_token");
-//					_strava_name = (string)key.GetValue("strava_name");
-//					_strava_user_id = (int)key.GetValue("strava_user_id");
-//					_strava_username = (string)key.GetValue("strava_username");
-//					_strava_password = (string)key.GetValue("strava_password");
-//					if(_strava_token != null){
-//						// enable the view account button
-//						EnableMenuItem(menuConnectToStrava, false);
-//						EnableMenuItem(menuViewAccountStrava, true);
-//					}
-//				}
-//			}
-//			catch{}
 		}
 		
 		void checkForRunkeeperConnectToken()
@@ -3101,13 +3128,6 @@ namespace CycleUploader
 		void saveRunkeeperToken(string token)
 		{
 			saveDbSetting("rk_auth_token",token);
-			// try to open registry key for application
-//			RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-//			if(key == null){
-//				Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\CycleUploader\\");
-//				key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\CycleUploader",true);
-//			}
-//			key.SetValue("rk_auth_token",token);
 		}
 		
 		void menuViewAccountRunKeeperClick(object sender, EventArgs e)
@@ -3575,6 +3595,20 @@ namespace CycleUploader
 		
 		void MainFormFormClosing(object sender, FormClosingEventArgs e)
 		{
+			// try and stop the check for update process in a threadsafe manor
+			try{
+				if(this.InvokeRequired){
+					this.Invoke((MethodInvoker)delegate{
+					            	this.checkForUpdate.StopThread();
+					            });
+				}
+				else{
+					this.checkForUpdate.StopThread();
+				}
+				
+			}
+			catch{}
+			
 			// cancel closing of the application if a file is being processed 
 			// as we need that to complete for the database to be in a consistent state
 			// i.e. all track points archived etc.
@@ -3593,7 +3627,7 @@ namespace CycleUploader
 					
 				}
 				catch(Exception ex){
-					MessageBox.Show(ex.ToString());
+					//MessageBox.Show(ex.ToString());
 				}
 				
 				// check to see if the init thread is active, if it is abort it gracefully (ish)
@@ -3606,10 +3640,6 @@ namespace CycleUploader
 					MessageBox.Show(ex.ToString());
 				}
 			}
-			
-			try{
-			this.checkForUpdate.StopThread();
-			}catch{}
 		}
 		
 		void MenuAboutClick(object sender, EventArgs e)

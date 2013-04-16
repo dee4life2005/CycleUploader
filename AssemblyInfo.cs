@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TCX Parser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Cycle Uploader")]
+[assembly: AssemblyDescription("A Windows application to enable viewing of .FIT / .TCX and .GPX files, and supports uploading the resulting data to RunKeeper, Strava, Garmin Connect and RideWithGPS.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TCX Parser")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("Steven Saunders")]
+[assembly: AssemblyProduct("Cycle Uploader")]
+[assembly: AssemblyCopyright("© 2013 Steven Saunders")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

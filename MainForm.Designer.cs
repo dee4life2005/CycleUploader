@@ -262,7 +262,7 @@ namespace CycleUploader
 			this.grpSummary.ForeColor = System.Drawing.Color.RoyalBlue;
 			this.grpSummary.Location = new System.Drawing.Point(813, 12);
 			this.grpSummary.Name = "grpSummary";
-			this.grpSummary.Size = new System.Drawing.Size(21, 15);
+			this.grpSummary.Size = new System.Drawing.Size(20, 20);
 			this.grpSummary.TabIndex = 1;
 			this.grpSummary.TabStop = false;
 			this.grpSummary.Text = "File Contents Summary";

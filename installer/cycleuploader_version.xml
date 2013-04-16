@@ -17,5 +17,6 @@
 • Added support for selecting which un-processed files in GarminViewer are to be processed as batch.
 • Cleaned up UI by removing single file open, and adding some notes.
 • Bug Fix on closing of app while initialising providers.
+• Added Splash Screen to perform some initialisation routines and give feedback.
 </changes>
 </appinfo> 
