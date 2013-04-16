@@ -228,7 +228,7 @@ namespace CycleUploader
 		  		control.Invoke(new SetMenuStatusThreadSafeDelegate(SetMenuStatusThreadSafe), new object[] { control, field, value});
 		  	}
 			else{
-				menuOpenFile.Enabled = Convert.ToBoolean(value);
+				//menuOpenFile.Enabled = Convert.ToBoolean(value);
 			}
 		}
 		
@@ -2835,11 +2835,14 @@ namespace CycleUploader
 			}
 			catch(Exception ex){
 				
-				this.Invoke((MethodInvoker) delegate{ 
-				            	_threadInit.Abort();
-				            	
-				            	MessageBox.Show(ex.ToString()); 
-				            });
+				try{
+				//this.Invoke((MethodInvoker) delegate{ 
+					_threadInit.Abort();
+				    MessageBox.Show(ex.ToString()); 
+				//            });
+				}
+				catch{}
+				
 			}
 			
 		}
@@ -3604,7 +3607,9 @@ namespace CycleUploader
 				}
 			}
 			
+			try{
 			this.checkForUpdate.StopThread();
+			}catch{}
 		}
 		
 		void MenuAboutClick(object sender, EventArgs e)

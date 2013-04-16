@@ -67,6 +67,7 @@ namespace CycleUploader
 			this.pnlProviders = new System.Windows.Forms.Panel();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lineSeparator4 = new CycleUploader.LineSeparator();
+			this.label14 = new System.Windows.Forms.Label();
 			this.pnlProviders.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -300,6 +301,7 @@ namespace CycleUploader
 			// 
 			this.pnlProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.pnlProviders.BackColor = System.Drawing.SystemColors.Control;
+			this.pnlProviders.Controls.Add(this.label14);
 			this.pnlProviders.Controls.Add(this.cbkProviderRunkeeper);
 			this.pnlProviders.Controls.Add(this.cbkProviderRideWithGps);
 			this.pnlProviders.Controls.Add(this.cbkProviderStrava);
@@ -332,6 +334,15 @@ namespace CycleUploader
 			this.lineSeparator4.Size = new System.Drawing.Size(888, 2);
 			this.lineSeparator4.TabIndex = 17;
 			// 
+			// label14
+			// 
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label14.Location = new System.Drawing.Point(12, 46);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(409, 42);
+			this.label14.TabIndex = 5;
+			this.label14.Text = resources.GetString("label14.Text");
+			// 
 			// Batch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,6 +368,7 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label14;
 		private CycleUploader.LineSeparator lineSeparator4;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader colProcess;

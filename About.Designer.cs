@@ -202,7 +202,7 @@ namespace CycleUploader
 			// 
 			this.label2.Location = new System.Drawing.Point(166, 50);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(205, 23);
+			this.label2.Size = new System.Drawing.Size(205, 15);
 			this.label2.TabIndex = 2;
 			this.label2.Text = "Copyright © 2013, Steven Saunders";
 			// 

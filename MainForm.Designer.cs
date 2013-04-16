@@ -98,24 +98,6 @@ namespace CycleUploader
 			this.zedAltitude = new ZedGraph.ZedGraphControl();
 			this.tabControlOverview = new System.Windows.Forms.TabControl();
 			this.tabFileHistory = new System.Windows.Forms.TabPage();
-			this.lstFileHistory = new ListViewExtended.ListViewExtended();
-			this.colFileId = new System.Windows.Forms.ColumnHeader();
-			this.colActivityDateTime = new System.Windows.Forms.ColumnHeader();
-			this.colActivityFilename = new System.Windows.Forms.ColumnHeader();
-			this.colOpenedDateTime = new System.Windows.Forms.ColumnHeader();
-			this.colDistance = new System.Windows.Forms.ColumnHeader();
-			this.colDuration = new System.Windows.Forms.ColumnHeader();
-			this.colAvgSpeed = new System.Windows.Forms.ColumnHeader();
-			this.colIsCommute = new System.Windows.Forms.ColumnHeader();
-			this.colIsStationaryTrainer = new System.Windows.Forms.ColumnHeader();
-			this.colCourseId = new System.Windows.Forms.ColumnHeader();
-			this.colCourse = new System.Windows.Forms.ColumnHeader();
-			this.colNotes = new System.Windows.Forms.ColumnHeader();
-			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.menuFileHistoryEditActivity = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuFileHistoryCreateCourse = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.menuFileHistoryDeleteActivity = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabMap = new System.Windows.Forms.TabPage();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -152,9 +134,26 @@ namespace CycleUploader
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.txtDebug = new System.Windows.Forms.TextBox();
+			this.lstFileHistory = new ListViewExtended.ListViewExtended();
+			this.colFileId = new System.Windows.Forms.ColumnHeader();
+			this.colActivityDateTime = new System.Windows.Forms.ColumnHeader();
+			this.colActivityFilename = new System.Windows.Forms.ColumnHeader();
+			this.colOpenedDateTime = new System.Windows.Forms.ColumnHeader();
+			this.colDistance = new System.Windows.Forms.ColumnHeader();
+			this.colDuration = new System.Windows.Forms.ColumnHeader();
+			this.colAvgSpeed = new System.Windows.Forms.ColumnHeader();
+			this.colIsCommute = new System.Windows.Forms.ColumnHeader();
+			this.colIsStationaryTrainer = new System.Windows.Forms.ColumnHeader();
+			this.colCourseId = new System.Windows.Forms.ColumnHeader();
+			this.colCourse = new System.Windows.Forms.ColumnHeader();
+			this.colNotes = new System.Windows.Forms.ColumnHeader();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.menuFileHistoryEditActivity = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuFileHistoryCreateCourse = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.menuFileHistoryDeleteActivity = new System.Windows.Forms.ToolStripMenuItem();
 			this.menubar = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuOpenFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuOpenBatch = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.coursesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,6 +164,7 @@ namespace CycleUploader
 			this.menuAnalysisCharts = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuToolsGarminSettingsViewer = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuProviderRunkeeper = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuConnectToRunkeeper = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuViewAccountRunKeeper = new System.Windows.Forms.ToolStripMenuItem();
@@ -193,6 +193,7 @@ namespace CycleUploader
 			this.statusBarVersion = new System.Windows.Forms.ToolStripStatusLabel();
 			this.grpProviders = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.label28 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.cbkProviderRideWithGps = new System.Windows.Forms.CheckBox();
 			this.cbkProviderGarmin = new System.Windows.Forms.CheckBox();
@@ -205,13 +206,17 @@ namespace CycleUploader
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.pictureBox5 = new System.Windows.Forms.PictureBox();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.menuToolsGarminSettingsViewer = new System.Windows.Forms.ToolStripMenuItem();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
 			this.tabControlOverview.SuspendLayout();
-			this.tabFileHistory.SuspendLayout();
-			this.contextMenuStrip1.SuspendLayout();
 			this.tabMap.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage4.SuspendLayout();
@@ -233,6 +238,7 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.pbUploadStatusRunkeeper)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tabPage1.SuspendLayout();
+			this.contextMenuStrip1.SuspendLayout();
 			this.menubar.SuspendLayout();
 			this.statusBar.SuspendLayout();
 			this.grpProviders.SuspendLayout();
@@ -242,6 +248,8 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// grpSummary
@@ -252,12 +260,13 @@ namespace CycleUploader
 			this.grpSummary.Enabled = false;
 			this.grpSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpSummary.ForeColor = System.Drawing.Color.RoyalBlue;
-			this.grpSummary.Location = new System.Drawing.Point(5, 51);
+			this.grpSummary.Location = new System.Drawing.Point(813, 12);
 			this.grpSummary.Name = "grpSummary";
-			this.grpSummary.Size = new System.Drawing.Size(799, 205);
+			this.grpSummary.Size = new System.Drawing.Size(21, 15);
 			this.grpSummary.TabIndex = 1;
 			this.grpSummary.TabStop = false;
 			this.grpSummary.Text = "File Contents Summary";
+			this.grpSummary.Visible = false;
 			// 
 			// panel5
 			// 
@@ -871,151 +880,23 @@ namespace CycleUploader
 			this.tabControlOverview.Enabled = false;
 			this.tabControlOverview.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControlOverview.HotTrack = true;
-			this.tabControlOverview.Location = new System.Drawing.Point(5, 262);
+			this.tabControlOverview.Location = new System.Drawing.Point(852, 12);
 			this.tabControlOverview.Name = "tabControlOverview";
 			this.tabControlOverview.SelectedIndex = 0;
-			this.tabControlOverview.Size = new System.Drawing.Size(1024, 415);
+			this.tabControlOverview.Size = new System.Drawing.Size(74, 20);
 			this.tabControlOverview.TabIndex = 24;
+			this.tabControlOverview.Visible = false;
 			this.tabControlOverview.SelectedIndexChanged += new System.EventHandler(this.TabControlOverviewSelectedIndexChanged);
 			// 
 			// tabFileHistory
 			// 
-			this.tabFileHistory.Controls.Add(this.lstFileHistory);
 			this.tabFileHistory.Location = new System.Drawing.Point(4, 22);
 			this.tabFileHistory.Name = "tabFileHistory";
 			this.tabFileHistory.Padding = new System.Windows.Forms.Padding(3);
-			this.tabFileHistory.Size = new System.Drawing.Size(1016, 389);
+			this.tabFileHistory.Size = new System.Drawing.Size(66, 0);
 			this.tabFileHistory.TabIndex = 9;
 			this.tabFileHistory.Text = "File History";
 			this.tabFileHistory.UseVisualStyleBackColor = true;
-			// 
-			// lstFileHistory
-			// 
-			this.lstFileHistory.Activation = System.Windows.Forms.ItemActivation.OneClick;
-			this.lstFileHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.colFileId,
-									this.colActivityDateTime,
-									this.colActivityFilename,
-									this.colOpenedDateTime,
-									this.colDistance,
-									this.colDuration,
-									this.colAvgSpeed,
-									this.colIsCommute,
-									this.colIsStationaryTrainer,
-									this.colCourseId,
-									this.colCourse,
-									this.colNotes});
-			this.lstFileHistory.ContextMenuStrip = this.contextMenuStrip1;
-			this.lstFileHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lstFileHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lstFileHistory.FullRowSelect = true;
-			this.lstFileHistory.HideSelection = false;
-			this.lstFileHistory.Location = new System.Drawing.Point(3, 3);
-			this.lstFileHistory.MultiSelect = false;
-			this.lstFileHistory.Name = "lstFileHistory";
-			this.lstFileHistory.Size = new System.Drawing.Size(1010, 383);
-			this.lstFileHistory.TabIndex = 0;
-			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
-			this.lstFileHistory.View = System.Windows.Forms.View.Details;
-			this.lstFileHistory.DoubleClick += new System.EventHandler(this.LstFileHistoryDoubleClick);
-			// 
-			// colFileId
-			// 
-			this.colFileId.Text = "File ID";
-			this.colFileId.Width = 45;
-			// 
-			// colActivityDateTime
-			// 
-			this.colActivityDateTime.Text = "Activity Date/Time";
-			this.colActivityDateTime.Width = 105;
-			// 
-			// colActivityFilename
-			// 
-			this.colActivityFilename.Text = "Activity / FileName";
-			this.colActivityFilename.Width = 122;
-			// 
-			// colOpenedDateTime
-			// 
-			this.colOpenedDateTime.Text = "Date/Time (Opened)";
-			this.colOpenedDateTime.Width = 113;
-			// 
-			// colDistance
-			// 
-			this.colDistance.Text = "Distance";
-			this.colDistance.Width = 120;
-			// 
-			// colDuration
-			// 
-			this.colDuration.Text = "Duration";
-			this.colDuration.Width = 73;
-			// 
-			// colAvgSpeed
-			// 
-			this.colAvgSpeed.Text = "Avg. Speed";
-			this.colAvgSpeed.Width = 120;
-			// 
-			// colIsCommute
-			// 
-			this.colIsCommute.Text = "Commute";
-			this.colIsCommute.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			// 
-			// colIsStationaryTrainer
-			// 
-			this.colIsStationaryTrainer.Text = "Trainer";
-			this.colIsStationaryTrainer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			// 
-			// colCourseId
-			// 
-			this.colCourseId.Text = "CourseId";
-			this.colCourseId.Width = 0;
-			// 
-			// colCourse
-			// 
-			this.colCourse.Text = "Course";
-			// 
-			// colNotes
-			// 
-			this.colNotes.Text = "Notes";
-			this.colNotes.Width = 500;
-			// 
-			// contextMenuStrip1
-			// 
-			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.menuFileHistoryEditActivity,
-									this.menuFileHistoryCreateCourse,
-									this.toolStripSeparator1,
-									this.menuFileHistoryDeleteActivity});
-			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.contextMenuStrip1.Size = new System.Drawing.Size(185, 98);
-			// 
-			// menuFileHistoryEditActivity
-			// 
-			this.menuFileHistoryEditActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryEditActivity.Image")));
-			this.menuFileHistoryEditActivity.Name = "menuFileHistoryEditActivity";
-			this.menuFileHistoryEditActivity.Size = new System.Drawing.Size(184, 22);
-			this.menuFileHistoryEditActivity.Text = "Edit Activity Details...";
-			this.menuFileHistoryEditActivity.Click += new System.EventHandler(this.MenuFileHistoryEditActivityClick);
-			// 
-			// menuFileHistoryCreateCourse
-			// 
-			this.menuFileHistoryCreateCourse.Name = "menuFileHistoryCreateCourse";
-			this.menuFileHistoryCreateCourse.Size = new System.Drawing.Size(184, 22);
-			this.menuFileHistoryCreateCourse.Text = "Create as Course...";
-			this.menuFileHistoryCreateCourse.Click += new System.EventHandler(this.MenuFileHistoryCreateCourseClick);
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
-			// 
-			// menuFileHistoryDeleteActivity
-			// 
-			this.menuFileHistoryDeleteActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryDeleteActivity.Image")));
-			this.menuFileHistoryDeleteActivity.Name = "menuFileHistoryDeleteActivity";
-			this.menuFileHistoryDeleteActivity.Size = new System.Drawing.Size(184, 22);
-			this.menuFileHistoryDeleteActivity.Text = "Delete Activity...";
-			this.menuFileHistoryDeleteActivity.Click += new System.EventHandler(this.MenuFileHistoryDeleteActivityClick);
 			// 
 			// tabMap
 			// 
@@ -1024,7 +905,7 @@ namespace CycleUploader
 			this.tabMap.Location = new System.Drawing.Point(4, 22);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(1016, 389);
+			this.tabMap.Size = new System.Drawing.Size(66, 0);
 			this.tabMap.TabIndex = 5;
 			this.tabMap.Text = "Map";
 			this.tabMap.UseVisualStyleBackColor = true;
@@ -1048,7 +929,7 @@ namespace CycleUploader
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage3.Size = new System.Drawing.Size(66, 0);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Altitude";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1059,7 +940,7 @@ namespace CycleUploader
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(0);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage4.Size = new System.Drawing.Size(66, 0);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Speed";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1069,7 +950,7 @@ namespace CycleUploader
 			this.tabPage5.Controls.Add(this.zedCadence);
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage5.Size = new System.Drawing.Size(66, 0);
 			this.tabPage5.TabIndex = 2;
 			this.tabPage5.Text = "Cadence";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1079,7 +960,7 @@ namespace CycleUploader
 			this.tabPage6.Controls.Add(this.zedHeart);
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage6.Size = new System.Drawing.Size(66, 0);
 			this.tabPage6.TabIndex = 3;
 			this.tabPage6.Text = "Heart Rate";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -1089,7 +970,7 @@ namespace CycleUploader
 			this.tabPage2.Controls.Add(this.zedTemperature);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage2.Size = new System.Drawing.Size(66, 0);
 			this.tabPage2.TabIndex = 7;
 			this.tabPage2.Text = "Temperature";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1119,7 +1000,7 @@ namespace CycleUploader
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage7.Size = new System.Drawing.Size(66, 0);
 			this.tabPage7.TabIndex = 4;
 			this.tabPage7.Text = "Track Points";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -1134,7 +1015,7 @@ namespace CycleUploader
 			this.tabUploadStatus.Location = new System.Drawing.Point(4, 22);
 			this.tabUploadStatus.Name = "tabUploadStatus";
 			this.tabUploadStatus.Padding = new System.Windows.Forms.Padding(3);
-			this.tabUploadStatus.Size = new System.Drawing.Size(1016, 389);
+			this.tabUploadStatus.Size = new System.Drawing.Size(66, 0);
 			this.tabUploadStatus.TabIndex = 8;
 			this.tabUploadStatus.Text = "Upload Status";
 			// 
@@ -1412,7 +1293,7 @@ namespace CycleUploader
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(1016, 389);
+			this.tabPage1.Size = new System.Drawing.Size(66, 0);
 			this.tabPage1.TabIndex = 6;
 			this.tabPage1.Text = "Debug";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1425,6 +1306,134 @@ namespace CycleUploader
 			this.txtDebug.Name = "txtDebug";
 			this.txtDebug.Size = new System.Drawing.Size(1010, 383);
 			this.txtDebug.TabIndex = 0;
+			// 
+			// lstFileHistory
+			// 
+			this.lstFileHistory.Activation = System.Windows.Forms.ItemActivation.OneClick;
+			this.lstFileHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+									this.colFileId,
+									this.colActivityDateTime,
+									this.colActivityFilename,
+									this.colOpenedDateTime,
+									this.colDistance,
+									this.colDuration,
+									this.colAvgSpeed,
+									this.colIsCommute,
+									this.colIsStationaryTrainer,
+									this.colCourseId,
+									this.colCourse,
+									this.colNotes});
+			this.lstFileHistory.ContextMenuStrip = this.contextMenuStrip1;
+			this.lstFileHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lstFileHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstFileHistory.FullRowSelect = true;
+			this.lstFileHistory.HideSelection = false;
+			this.lstFileHistory.Location = new System.Drawing.Point(3, 16);
+			this.lstFileHistory.MultiSelect = false;
+			this.lstFileHistory.Name = "lstFileHistory";
+			this.lstFileHistory.Size = new System.Drawing.Size(786, 603);
+			this.lstFileHistory.TabIndex = 0;
+			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
+			this.lstFileHistory.View = System.Windows.Forms.View.Details;
+			this.lstFileHistory.DoubleClick += new System.EventHandler(this.LstFileHistoryDoubleClick);
+			// 
+			// colFileId
+			// 
+			this.colFileId.Text = "File ID";
+			this.colFileId.Width = 45;
+			// 
+			// colActivityDateTime
+			// 
+			this.colActivityDateTime.Text = "Activity Date/Time";
+			this.colActivityDateTime.Width = 105;
+			// 
+			// colActivityFilename
+			// 
+			this.colActivityFilename.Text = "Activity / FileName";
+			this.colActivityFilename.Width = 122;
+			// 
+			// colOpenedDateTime
+			// 
+			this.colOpenedDateTime.Text = "Date/Time (Opened)";
+			this.colOpenedDateTime.Width = 113;
+			// 
+			// colDistance
+			// 
+			this.colDistance.Text = "Distance";
+			this.colDistance.Width = 120;
+			// 
+			// colDuration
+			// 
+			this.colDuration.Text = "Duration";
+			this.colDuration.Width = 73;
+			// 
+			// colAvgSpeed
+			// 
+			this.colAvgSpeed.Text = "Avg. Speed";
+			this.colAvgSpeed.Width = 120;
+			// 
+			// colIsCommute
+			// 
+			this.colIsCommute.Text = "Commute";
+			this.colIsCommute.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// colIsStationaryTrainer
+			// 
+			this.colIsStationaryTrainer.Text = "Trainer";
+			this.colIsStationaryTrainer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// colCourseId
+			// 
+			this.colCourseId.Text = "CourseId";
+			this.colCourseId.Width = 0;
+			// 
+			// colCourse
+			// 
+			this.colCourse.Text = "Course";
+			// 
+			// colNotes
+			// 
+			this.colNotes.Text = "Notes";
+			this.colNotes.Width = 500;
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.menuFileHistoryEditActivity,
+									this.menuFileHistoryCreateCourse,
+									this.toolStripSeparator1,
+									this.menuFileHistoryDeleteActivity});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.contextMenuStrip1.Size = new System.Drawing.Size(185, 98);
+			// 
+			// menuFileHistoryEditActivity
+			// 
+			this.menuFileHistoryEditActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryEditActivity.Image")));
+			this.menuFileHistoryEditActivity.Name = "menuFileHistoryEditActivity";
+			this.menuFileHistoryEditActivity.Size = new System.Drawing.Size(184, 22);
+			this.menuFileHistoryEditActivity.Text = "Edit Activity Details...";
+			this.menuFileHistoryEditActivity.Click += new System.EventHandler(this.MenuFileHistoryEditActivityClick);
+			// 
+			// menuFileHistoryCreateCourse
+			// 
+			this.menuFileHistoryCreateCourse.Name = "menuFileHistoryCreateCourse";
+			this.menuFileHistoryCreateCourse.Size = new System.Drawing.Size(184, 22);
+			this.menuFileHistoryCreateCourse.Text = "Create as Course...";
+			this.menuFileHistoryCreateCourse.Click += new System.EventHandler(this.MenuFileHistoryCreateCourseClick);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+			// 
+			// menuFileHistoryDeleteActivity
+			// 
+			this.menuFileHistoryDeleteActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryDeleteActivity.Image")));
+			this.menuFileHistoryDeleteActivity.Name = "menuFileHistoryDeleteActivity";
+			this.menuFileHistoryDeleteActivity.Size = new System.Drawing.Size(184, 22);
+			this.menuFileHistoryDeleteActivity.Text = "Delete Activity...";
+			this.menuFileHistoryDeleteActivity.Click += new System.EventHandler(this.MenuFileHistoryDeleteActivityClick);
 			// 
 			// menubar
 			// 
@@ -1452,34 +1461,25 @@ namespace CycleUploader
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.menuOpenFile,
 									this.menuOpenBatch,
 									this.exitToolStripMenuItem});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(37, 36);
 			this.toolStripMenuItem1.Text = "File";
 			// 
-			// menuOpenFile
-			// 
-			this.menuOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("menuOpenFile.Image")));
-			this.menuOpenFile.Name = "menuOpenFile";
-			this.menuOpenFile.Size = new System.Drawing.Size(205, 22);
-			this.menuOpenFile.Text = "Import Ride...";
-			this.menuOpenFile.Click += new System.EventHandler(this.BtnOpenFileClick);
-			// 
 			// menuOpenBatch
 			// 
 			this.menuOpenBatch.Image = ((System.Drawing.Image)(resources.GetObject("menuOpenBatch.Image")));
 			this.menuOpenBatch.Name = "menuOpenBatch";
-			this.menuOpenBatch.Size = new System.Drawing.Size(205, 22);
-			this.menuOpenBatch.Text = "Import Multiple Ride(s)...";
+			this.menuOpenBatch.Size = new System.Drawing.Size(158, 22);
+			this.menuOpenBatch.Text = "Import Ride(s)...";
 			this.menuOpenBatch.Click += new System.EventHandler(this.MenuOpenBatchClick);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
 			// 
@@ -1548,6 +1548,13 @@ namespace CycleUploader
 			this.menuToolsOptions.Text = "Options...";
 			this.menuToolsOptions.Click += new System.EventHandler(this.MenuToolsOptionsClick);
 			// 
+			// menuToolsGarminSettingsViewer
+			// 
+			this.menuToolsGarminSettingsViewer.Name = "menuToolsGarminSettingsViewer";
+			this.menuToolsGarminSettingsViewer.Size = new System.Drawing.Size(205, 22);
+			this.menuToolsGarminSettingsViewer.Text = "Garmin Settings Viewer...";
+			this.menuToolsGarminSettingsViewer.Click += new System.EventHandler(this.MenuToolsGarminSettingsViewerClick);
+			// 
 			// menuProviderRunkeeper
 			// 
 			this.menuProviderRunkeeper.CheckOnClick = true;
@@ -1586,6 +1593,7 @@ namespace CycleUploader
 			this.menuUploadToRunKeeper.Name = "menuUploadToRunKeeper";
 			this.menuUploadToRunKeeper.Size = new System.Drawing.Size(201, 22);
 			this.menuUploadToRunKeeper.Text = "Upload Ride...";
+			this.menuUploadToRunKeeper.Visible = false;
 			this.menuUploadToRunKeeper.Click += new System.EventHandler(this.menuUploadToRunKeeperClick);
 			// 
 			// menuProviderStrava
@@ -1625,6 +1633,7 @@ namespace CycleUploader
 			this.menuUploadToStrava.Name = "menuUploadToStrava";
 			this.menuUploadToStrava.Size = new System.Drawing.Size(177, 22);
 			this.menuUploadToStrava.Text = "Upload Ride...";
+			this.menuUploadToStrava.Visible = false;
 			this.menuUploadToStrava.Click += new System.EventHandler(this.menuUploadToStravaClick);
 			// 
 			// menuProviderEndomondo
@@ -1691,6 +1700,7 @@ namespace CycleUploader
 			this.menuUploadToGarminConnect.Name = "menuUploadToGarminConnect";
 			this.menuUploadToGarminConnect.Size = new System.Drawing.Size(229, 22);
 			this.menuUploadToGarminConnect.Text = "Upload Ride...";
+			this.menuUploadToGarminConnect.Visible = false;
 			this.menuUploadToGarminConnect.Click += new System.EventHandler(this.menuUploadToGarminConnectClick);
 			// 
 			// menuProviderRideWithGps
@@ -1730,6 +1740,7 @@ namespace CycleUploader
 			this.menuUploadToRideWithGps.Name = "menuUploadToRideWithGps";
 			this.menuUploadToRideWithGps.Size = new System.Drawing.Size(213, 22);
 			this.menuUploadToRideWithGps.Text = "Upload Ride...";
+			this.menuUploadToRideWithGps.Visible = false;
 			this.menuUploadToRideWithGps.Click += new System.EventHandler(this.MenuUploadToRideWithGpsClick);
 			// 
 			// aboutToolStripMenuItem
@@ -1796,11 +1807,11 @@ namespace CycleUploader
 			this.grpProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpProviders.Controls.Add(this.panel1);
 			this.grpProviders.Enabled = false;
-			this.grpProviders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.grpProviders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpProviders.ForeColor = System.Drawing.Color.RoyalBlue;
 			this.grpProviders.Location = new System.Drawing.Point(810, 51);
 			this.grpProviders.Name = "grpProviders";
-			this.grpProviders.Size = new System.Drawing.Size(219, 205);
+			this.grpProviders.Size = new System.Drawing.Size(219, 434);
 			this.grpProviders.TabIndex = 28;
 			this.grpProviders.TabStop = false;
 			this.grpProviders.Text = "Available Providers";
@@ -1808,6 +1819,7 @@ namespace CycleUploader
 			// panel1
 			// 
 			this.panel1.AutoScroll = true;
+			this.panel1.Controls.Add(this.label28);
 			this.panel1.Controls.Add(this.label19);
 			this.panel1.Controls.Add(this.cbkProviderRideWithGps);
 			this.panel1.Controls.Add(this.cbkProviderGarmin);
@@ -1822,8 +1834,18 @@ namespace CycleUploader
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 16);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(213, 186);
+			this.panel1.Size = new System.Drawing.Size(213, 415);
 			this.panel1.TabIndex = 0;
+			// 
+			// label28
+			// 
+			this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label28.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label28.Location = new System.Drawing.Point(21, 206);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(184, 185);
+			this.label28.TabIndex = 5;
+			this.label28.Text = resources.GetString("label28.Text");
 			// 
 			// label19
 			// 
@@ -1868,7 +1890,7 @@ namespace CycleUploader
 			// cbkProviderStrava
 			// 
 			this.cbkProviderStrava.AutoSize = true;
-			this.cbkProviderStrava.Location = new System.Drawing.Point(19, 47);
+			this.cbkProviderStrava.Location = new System.Drawing.Point(18, 47);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
 			this.cbkProviderStrava.Size = new System.Drawing.Size(15, 14);
 			this.cbkProviderStrava.TabIndex = 1;
@@ -1878,7 +1900,7 @@ namespace CycleUploader
 			// cbkProviderRunkeeper
 			// 
 			this.cbkProviderRunkeeper.AutoSize = true;
-			this.cbkProviderRunkeeper.Location = new System.Drawing.Point(19, 13);
+			this.cbkProviderRunkeeper.Location = new System.Drawing.Point(18, 13);
 			this.cbkProviderRunkeeper.Name = "cbkProviderRunkeeper";
 			this.cbkProviderRunkeeper.Size = new System.Drawing.Size(15, 14);
 			this.cbkProviderRunkeeper.TabIndex = 0;
@@ -1949,23 +1971,87 @@ namespace CycleUploader
 			this.imageList1.Images.SetKeyName(7, "failure-icon.png");
 			this.imageList1.Images.SetKeyName(8, "success-icon.png");
 			// 
-			// menuToolsGarminSettingsViewer
+			// groupBox1
 			// 
-			this.menuToolsGarminSettingsViewer.Name = "menuToolsGarminSettingsViewer";
-			this.menuToolsGarminSettingsViewer.Size = new System.Drawing.Size(205, 22);
-			this.menuToolsGarminSettingsViewer.Text = "Garmin Settings Viewer...";
-			this.menuToolsGarminSettingsViewer.Click += new System.EventHandler(this.MenuToolsGarminSettingsViewerClick);
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.lstFileHistory);
+			this.groupBox1.Location = new System.Drawing.Point(12, 51);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(792, 622);
+			this.groupBox1.TabIndex = 29;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "File History";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.label27);
+			this.groupBox2.Controls.Add(this.label25);
+			this.groupBox2.Controls.Add(this.label14);
+			this.groupBox2.Controls.Add(this.label9);
+			this.groupBox2.Controls.Add(this.label6);
+			this.groupBox2.Location = new System.Drawing.Point(810, 491);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(219, 179);
+			this.groupBox2.TabIndex = 30;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Notes";
+			// 
+			// label27
+			// 
+			this.label27.Location = new System.Drawing.Point(56, 139);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(157, 18);
+			this.label27.TabIndex = 4;
+			this.label27.Text = "- Delete Activity";
+			// 
+			// label25
+			// 
+			this.label25.Location = new System.Drawing.Point(56, 121);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(157, 18);
+			this.label25.TabIndex = 3;
+			this.label25.Text = "- Create Course From Activity";
+			// 
+			// label14
+			// 
+			this.label14.Location = new System.Drawing.Point(56, 103);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(157, 18);
+			this.label14.TabIndex = 2;
+			this.label14.Text = "- Edit Activity";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(24, 85);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(157, 18);
+			this.label9.TabIndex = 1;
+			this.label9.Text = "Right-Click File History item to ";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(21, 40);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(184, 34);
+			this.label6.TabIndex = 0;
+			this.label6.Text = "Double-Click File History item to view activity details";
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1041, 702);
-			this.Controls.Add(this.grpSummary);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grpProviders);
+			this.Controls.Add(this.grpSummary);
 			this.Controls.Add(this.statusBar);
-			this.Controls.Add(this.tabControlOverview);
 			this.Controls.Add(this.menubar);
+			this.Controls.Add(this.tabControlOverview);
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(1057, 740);
@@ -1979,8 +2065,6 @@ namespace CycleUploader
 			this.panel5.PerformLayout();
 			this.pnlNoFile.ResumeLayout(false);
 			this.tabControlOverview.ResumeLayout(false);
-			this.tabFileHistory.ResumeLayout(false);
-			this.contextMenuStrip1.ResumeLayout(false);
 			this.tabMap.ResumeLayout(false);
 			this.tabMap.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
@@ -2008,6 +2092,7 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.menubar.ResumeLayout(false);
 			this.menubar.PerformLayout();
 			this.statusBar.ResumeLayout(false);
@@ -2020,9 +2105,19 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ToolStripMenuItem menuToolsGarminSettingsViewer;
 		private System.Windows.Forms.ToolStripMenuItem menuHelpCheckForUpdates;
 		private System.Windows.Forms.ToolStripMenuItem menuCoursesCourseList;
@@ -2131,7 +2226,6 @@ namespace CycleUploader
 		private System.Windows.Forms.ToolStripMenuItem menuUploadToRunKeeper;
 		private System.Windows.Forms.ToolStripMenuItem menuViewAccountRunKeeper;
 		private System.Windows.Forms.ToolStripMenuItem menuProviderRunkeeper;
-		private System.Windows.Forms.ToolStripMenuItem menuOpenFile;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 		private System.Windows.Forms.MenuStrip menubar;
 		private System.Windows.Forms.Label label10;

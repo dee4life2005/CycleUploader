@@ -42,6 +42,9 @@ namespace CycleUploader
 			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Calculating");
 			this.tabControlHistory = new System.Windows.Forms.TabControl();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btnSaveTcx = new System.Windows.Forms.Button();
+			this.btnSaveFit = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lstMileSplits = new ListViewNF.ListViewNF();
 			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
@@ -109,12 +112,10 @@ namespace CycleUploader
 			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
 			this.lblHistoryName = new System.Windows.Forms.Label();
 			this.lblHistoryDate = new System.Windows.Forms.Label();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.btnSaveFit = new System.Windows.Forms.Button();
-			this.btnSaveTcx = new System.Windows.Forms.Button();
 			this.saveFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.tabControlHistory.SuspendLayout();
 			this.tabHistorySummary.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.pnlHistoryUploadRideWithGPS.SuspendLayout();
@@ -130,7 +131,6 @@ namespace CycleUploader
 			this.tabPage9.SuspendLayout();
 			this.tabPage10.SuspendLayout();
 			this.tabPage11.SuspendLayout();
-			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControlHistory
@@ -191,6 +191,37 @@ namespace CycleUploader
 			this.tabHistorySummary.TabIndex = 4;
 			this.tabHistorySummary.Text = "Summary";
 			this.tabHistorySummary.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.btnSaveTcx);
+			this.groupBox2.Controls.Add(this.btnSaveFit);
+			this.groupBox2.Location = new System.Drawing.Point(524, 220);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(146, 57);
+			this.groupBox2.TabIndex = 70;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Downloads";
+			this.groupBox2.Visible = false;
+			// 
+			// btnSaveTcx
+			// 
+			this.btnSaveTcx.Location = new System.Drawing.Point(78, 28);
+			this.btnSaveTcx.Name = "btnSaveTcx";
+			this.btnSaveTcx.Size = new System.Drawing.Size(62, 23);
+			this.btnSaveTcx.TabIndex = 1;
+			this.btnSaveTcx.Text = ".TCX";
+			this.btnSaveTcx.UseVisualStyleBackColor = true;
+			// 
+			// btnSaveFit
+			// 
+			this.btnSaveFit.Location = new System.Drawing.Point(6, 28);
+			this.btnSaveFit.Name = "btnSaveFit";
+			this.btnSaveFit.Size = new System.Drawing.Size(62, 23);
+			this.btnSaveFit.TabIndex = 0;
+			this.btnSaveFit.Text = ".FIT";
+			this.btnSaveFit.UseVisualStyleBackColor = true;
+			this.btnSaveFit.Click += new System.EventHandler(this.BtnSaveFitClick);
 			// 
 			// groupBox1
 			// 
@@ -931,36 +962,6 @@ namespace CycleUploader
 			this.lblHistoryDate.TabIndex = 1;
 			this.lblHistoryDate.Text = " ";
 			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.btnSaveTcx);
-			this.groupBox2.Controls.Add(this.btnSaveFit);
-			this.groupBox2.Location = new System.Drawing.Point(524, 220);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(146, 57);
-			this.groupBox2.TabIndex = 70;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Downloads";
-			// 
-			// btnSaveFit
-			// 
-			this.btnSaveFit.Location = new System.Drawing.Point(6, 28);
-			this.btnSaveFit.Name = "btnSaveFit";
-			this.btnSaveFit.Size = new System.Drawing.Size(62, 23);
-			this.btnSaveFit.TabIndex = 0;
-			this.btnSaveFit.Text = ".FIT";
-			this.btnSaveFit.UseVisualStyleBackColor = true;
-			this.btnSaveFit.Click += new System.EventHandler(this.BtnSaveFitClick);
-			// 
-			// btnSaveTcx
-			// 
-			this.btnSaveTcx.Location = new System.Drawing.Point(78, 28);
-			this.btnSaveTcx.Name = "btnSaveTcx";
-			this.btnSaveTcx.Size = new System.Drawing.Size(62, 23);
-			this.btnSaveTcx.TabIndex = 1;
-			this.btnSaveTcx.Text = ".TCX";
-			this.btnSaveTcx.UseVisualStyleBackColor = true;
-			// 
 			// FileSummary
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -980,6 +981,7 @@ namespace CycleUploader
 			this.tabControlHistory.ResumeLayout(false);
 			this.tabHistorySummary.ResumeLayout(false);
 			this.tabHistorySummary.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.pnlHistoryUploadRideWithGPS.ResumeLayout(false);
@@ -999,7 +1001,6 @@ namespace CycleUploader
 			this.tabPage9.ResumeLayout(false);
 			this.tabPage10.ResumeLayout(false);
 			this.tabPage11.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
 		private System.Windows.Forms.SaveFileDialog saveFileDlg;
