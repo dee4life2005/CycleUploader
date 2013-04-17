@@ -9,6 +9,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
 
 namespace CycleUploader
 {
@@ -47,6 +49,18 @@ namespace CycleUploader
 			//tvSupportedDevices.Nodes.Find("nodeGarmin500",true)[0].Expand();
 			//tvSupportedDevices.Nodes.Find("nodeMioCyclo100",true)[0].Expand();
 			lblVersionStr.Text = "v " + _versionStr;
+			
+			// set the change log text by loading from resource
+			
+			using (Stream strm = Assembly.GetExecutingAssembly().GetManifestResourceStream("CycleUploader.change_log.rtf"))
+			{  
+			  tChangeLog.LoadFile(strm, RichTextBoxStreamType.RichText);
+			} 
+		}
+		
+		void LinkEmailLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("mailto:" + ((LinkLabel)sender).Text);
 		}
 	}
 }

@@ -77,20 +77,32 @@ namespace CycleUploader
 		
 		void ProcessStartupRoutines()
 		{
+			int progressVal = 0;
 			string versionInfo = string.Format("v {0}, Release Date: {1}", _versionStr, _versionDate);
 			SetControlPropertyThreadSafe(lblVersionStr, "Text", versionInfo);
+			SetControlPropertyThreadSafe(tStatus, "Maximum", 4);
+			SetControlPropertyThreadSafe(tStatus, "Value", progressVal);
 			
 			// open a connection to the cycle uploader database
 			SetControlPropertyThreadSafe(tStatusText, "Text", "Opening Database...");
 			_m_dbConnection = new SQLiteConnection("Data Source=cycleuploader.sqlite;Version=3;");
 			_m_dbConnection.Open();
+			progressVal++;
+			SetControlPropertyThreadSafe(tStatus, "Value", progressVal);
 			
 			SetControlPropertyThreadSafe(tStatusText, "Text", "Retrieving Imported Ride History...");
 			loadFileHistory();
-			
+			progressVal++;
+			SetControlPropertyThreadSafe(tStatus, "Value", progressVal);
 			
 			checkForGarminConnectDetails();
+			progressVal++;
+			SetControlPropertyThreadSafe(tStatus, "Value", progressVal);
+			
 			checkForRideWithGpsDetails();
+			progressVal++;
+			SetControlPropertyThreadSafe(tStatus, "Value", progressVal);
+			
 			
 			if(this.InvokeRequired){
 				this.Invoke((MethodInvoker)delegate{

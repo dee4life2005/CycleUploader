@@ -779,8 +779,26 @@ namespace CycleUploader
 				using( var trans = conn.BeginTransaction())
 				{
 					using(var command = new SQLiteCommand(conn)){
-						
+						// set command text, and add parameters
+						string sql = @"
+							insert into FileTrackpoints (idFile, tpTime, tpDuration, tpAltitude, tpDistance, tpHeart, tpCadence, tpSpeed, tpLongitude, tpLatitude, tpTemperature, tpIsAutoPaused)
+							values(?,?,?,?,?,?,?,?,?,?,?,?)";
+						command.CommandText = sql;
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());
+						command.Parameters.Add(new SQLiteParameter());							                           
+							                          						
 						for(int tp = 0; tp < lstTrackpoints.Items.Count; tp++){
+							/*
 							string sql = string.Format("insert into FileTrackpoints (idFile, tpTime, tpDuration, tpAltitude, tpDistance, tpHeart, tpCadence, tpSpeed, tpLongitude, tpLatitude, tpTemperature, tpIsAutoPaused) " +
 							                           "values(" +
 							                           "	{0},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\""+
@@ -799,11 +817,30 @@ namespace CycleUploader
 							                           GetListViewItemValue(lstTrackpoints,tp,10)
 							                          );
 							command.CommandText = sql;
+							*/
+							
+							command.Parameters[0].Value = _dbFileId;
+							command.Parameters[1].Value = GetListViewItemValue(lstTrackpoints,tp,0);
+							command.Parameters[2].Value = GetListViewItemValue(lstTrackpoints,tp,1);
+							command.Parameters[3].Value = GetListViewItemValue(lstTrackpoints,tp,2);
+							command.Parameters[4].Value = GetListViewItemValue(lstTrackpoints,tp,3);
+							command.Parameters[5].Value = GetListViewItemValue(lstTrackpoints,tp,4);
+							command.Parameters[6].Value = GetListViewItemValue(lstTrackpoints,tp,5);
+							command.Parameters[7].Value = GetListViewItemValue(lstTrackpoints,tp,6);
+							command.Parameters[8].Value = GetListViewItemValue(lstTrackpoints,tp,7);
+							command.Parameters[9].Value = GetListViewItemValue(lstTrackpoints,tp,8);
+							command.Parameters[10].Value = GetListViewItemValue(lstTrackpoints,tp,9);
+							command.Parameters[11].Value = GetListViewItemValue(lstTrackpoints,tp,10);
+							
 							command.ExecuteNonQuery();
-							SetStatusProgressThreadSafe(statusBar, "Value", tp);
-							SetStatusTextThreadSafe(statusBar, string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
-							if(_bIsBatchProcessing){
-								_activityBatch.setUploadProgressStatus(string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
+							// to reduce GUI updates, only update status every 50 trackpoints
+							if((tp+1) % 50 == 0){
+								SetStatusProgressThreadSafe(statusBar, "Value", tp);
+								
+								SetStatusTextThreadSafe(statusBar, string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
+								if(_bIsBatchProcessing){
+									_activityBatch.setUploadProgressStatus(string.Format("Archiving file information ... Data Point {0} of {1}", tp+1, lstTrackpoints.Items.Count));
+								}
 							}
 						}
 					}

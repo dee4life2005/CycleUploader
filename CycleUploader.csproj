@@ -339,6 +339,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="change_log.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="cycleuploader.sqlite">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

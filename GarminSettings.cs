@@ -136,8 +136,8 @@ namespace CycleUploader
 			SessionMesg mySession = (SessionMesg)e.mesg;
 	         try
 	         {
-	         	TimeSpan tsTotal = TimeSpan.FromSeconds(Convert.ToDouble(mySession.GetTotalTimerTime()));
-	         	TimeSpan tsMoving= TimeSpan.FromSeconds(Convert.ToDouble(mySession.GetTotalElapsedTime()));
+	         	TimeSpan tsMoving = TimeSpan.FromSeconds(Convert.ToDouble(mySession.GetTotalTimerTime()));
+	         	TimeSpan tsTotal = TimeSpan.FromSeconds(Convert.ToDouble(mySession.GetTotalElapsedTime()));
 	         	
 	         	try{
 		         	string sql = string.Format(@"select count(*) from File f where f.fileName = ""{0}""", Path.GetFileName(curDeviceFile));
@@ -152,7 +152,7 @@ namespace CycleUploader
 		         	}
 	         	}
 	         	catch(Exception ex){
-	         		MessageBox.Show(ex.ToString());
+	         		//MessageBox.Show(ex.ToString());
 	         	}
 	         	
 	         	string[] row = {
@@ -391,12 +391,14 @@ namespace CycleUploader
 		private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
 		public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
 		{
-			if (control.InvokeRequired){
-		  		control.Invoke(new SetControlPropertyThreadSafeDelegate(SetControlPropertyThreadSafe), new object[] { control, propertyName, propertyValue });
-		  	}
-			else{
-				control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
-			}
+			try{
+				if (control.InvokeRequired){
+			  		control.Invoke(new SetControlPropertyThreadSafeDelegate(SetControlPropertyThreadSafe), new object[] { control, propertyName, propertyValue });
+			  	}
+				else{
+					control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+				}
+			}catch{}
 		}
 		
 		private delegate void SetListViewItemValueDelegate(Control ctrl, int itemIdx, int subItemIdx, string value);			
