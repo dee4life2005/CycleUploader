@@ -113,6 +113,7 @@ namespace CycleUploader
 			this.lblHistoryName = new System.Windows.Forms.Label();
 			this.lblHistoryDate = new System.Windows.Forms.Label();
 			this.saveFileDlg = new System.Windows.Forms.SaveFileDialog();
+			this.lineSeparator1 = new CycleUploader.LineSeparator();
 			this.tabControlHistory.SuspendLayout();
 			this.tabHistorySummary.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -147,7 +148,7 @@ namespace CycleUploader
 			this.tabControlHistory.Location = new System.Drawing.Point(0, 70);
 			this.tabControlHistory.Name = "tabControlHistory";
 			this.tabControlHistory.SelectedIndex = 0;
-			this.tabControlHistory.Size = new System.Drawing.Size(1022, 340);
+			this.tabControlHistory.Size = new System.Drawing.Size(1022, 435);
 			this.tabControlHistory.TabIndex = 2;
 			// 
 			// tabHistorySummary
@@ -187,7 +188,7 @@ namespace CycleUploader
 			this.tabHistorySummary.Location = new System.Drawing.Point(4, 22);
 			this.tabHistorySummary.Name = "tabHistorySummary";
 			this.tabHistorySummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHistorySummary.Size = new System.Drawing.Size(1014, 314);
+			this.tabHistorySummary.Size = new System.Drawing.Size(1014, 409);
 			this.tabHistorySummary.TabIndex = 4;
 			this.tabHistorySummary.Text = "Summary";
 			this.tabHistorySummary.UseVisualStyleBackColor = true;
@@ -230,7 +231,7 @@ namespace CycleUploader
 			this.groupBox1.Controls.Add(this.lstMileSplits);
 			this.groupBox1.Location = new System.Drawing.Point(701, 111);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(305, 193);
+			this.groupBox1.Size = new System.Drawing.Size(305, 288);
 			this.groupBox1.TabIndex = 69;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Mile Splits";
@@ -245,7 +246,7 @@ namespace CycleUploader
 			this.lstMileSplits.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lstMileSplits.Location = new System.Drawing.Point(3, 16);
 			this.lstMileSplits.Name = "lstMileSplits";
-			this.lstMileSplits.Size = new System.Drawing.Size(299, 174);
+			this.lstMileSplits.Size = new System.Drawing.Size(299, 269);
 			this.lstMileSplits.TabIndex = 0;
 			this.lstMileSplits.UseCompatibleStateImageBehavior = false;
 			this.lstMileSplits.View = System.Windows.Forms.View.Details;
@@ -962,11 +963,23 @@ namespace CycleUploader
 			this.lblHistoryDate.TabIndex = 1;
 			this.lblHistoryDate.Text = " ";
 			// 
+			// lineSeparator1
+			// 
+			this.lineSeparator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.lineSeparator1.Location = new System.Drawing.Point(0, 55);
+			this.lineSeparator1.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator1.Name = "lineSeparator1";
+			this.lineSeparator1.Size = new System.Drawing.Size(1022, 2);
+			this.lineSeparator1.TabIndex = 3;
+			// 
 			// FileSummary
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1022, 412);
+			this.ClientSize = new System.Drawing.Size(1022, 507);
+			this.Controls.Add(this.lineSeparator1);
 			this.Controls.Add(this.lblHistoryDate);
 			this.Controls.Add(this.tabControlHistory);
 			this.Controls.Add(this.lblHistoryName);
@@ -1003,6 +1016,7 @@ namespace CycleUploader
 			this.tabPage11.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private CycleUploader.LineSeparator lineSeparator1;
 		private System.Windows.Forms.SaveFileDialog saveFileDlg;
 		private System.Windows.Forms.Button btnSaveFit;
 		private System.Windows.Forms.Button btnSaveTcx;

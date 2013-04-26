@@ -261,6 +261,8 @@ namespace CycleUploader
 		void LstCoursesSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if(lstCourses.SelectedIndex != -1){
+				// stop the map from loading any further
+				map.Stop();
 				initialiseForm();
 				loadCourseInfo(((ComboboxItem)lstCourses.SelectedItem).Value);
 				double distance = loadCourseMap(((ComboboxItem)lstCourses.SelectedItem).Value);

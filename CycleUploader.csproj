@@ -226,6 +226,10 @@
     <Compile Include="UserRecords.Designer.cs">
       <DependentUpon>UserRecords.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserWeeklyStats.cs" />
+    <Compile Include="UserWeeklyStats.Designer.cs">
+      <DependentUpon>UserWeeklyStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewerEndomondo.cs" />
     <Compile Include="ViewerEndomondo.Designer.cs">
       <DependentUpon>ViewerEndomondo.cs</DependentUpon>
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserRecords.resx">
       <DependentUpon>UserRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserWeeklyStats.resx">
+      <DependentUpon>UserWeeklyStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewerEndomondo.resx">
       <DependentUpon>ViewerEndomondo.cs</DependentUpon>

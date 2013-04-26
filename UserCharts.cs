@@ -54,24 +54,6 @@ namespace CycleUploader
 		
 		void loadWeeklyChart(string type)
 		{
-			Debug.WriteLine("loadWeeklyChart("+type+")");
-			/*
-			string sql = @"
-				select 
-					strftime(""%Y%W"", f.fileActivityDateTime) as `yw`,
-					strftime(""%Y"", f.fileActivityDateTime) as `year`,
-					strftime(""%W"", f.fileActivityDateTime) as `weekno`,					
-					count(f.idFile) as `NoActivities`,
-					cast(sum(fs.fsDuration) as double)/3600 as `TotalDurationHours`,
-					sum(fs.fsDistance) as `TotalDistanceMiles`,
-					sum(fs.fsCalories) as `TotalCalories`,
-					sum(ifnull(fs.fsTotalAscent,0)) as `TotalAscent`
-				from File f
-				join FileSummary fs on fs.idFile = f.idFile
-				where f.fileActivityDateTime between ""{0}"" and ""{1}""
-				group by yw
-			";
-			*/
 			// tweaked code to get iso year / week no. based on first 4 day week of year being week 1
 			string sql = @"
 				select 
@@ -103,7 +85,7 @@ namespace CycleUploader
 			while(rdr.Read()){
 				DateTime dt = FirstDateOfWeek(
 					Convert.ToInt32(rdr["iso_year"]),
-					Convert.ToInt32(rdr["iso_week"])-1,
+					Convert.ToInt32(rdr["iso_week"]),
 					CalendarWeekRule.FirstFourDayWeek
 				);
 				switch(type){
@@ -130,8 +112,6 @@ namespace CycleUploader
 							Convert.ToDouble(rdr["TotalDurationHours"]),
 							tag
 						);
-						
-						
 						zedGraph.GraphPane.YAxis.Title.Text = "Total Duration(h:m:s)";
 						zedGraph.GraphPane.XAxis.Title.Text = "Week";
 						break;
@@ -190,7 +170,6 @@ namespace CycleUploader
 		
 		void loadMonthlyChart(string type)
 		{
-			Debug.WriteLine("loadMonthlyChart("+type+")");
 			string sql = @"
 				select 
 					strftime(""%Y-%m-01"", f.fileActivityDateTime) as `ym`,
@@ -344,25 +323,19 @@ namespace CycleUploader
 		
 		static DateTime FirstDateOfWeek(int year, int weekNum, CalendarWeekRule rule)
 		{
-		    //Debug.Assert(weekNum >= 1);
-		
 		    DateTime jan1 = new DateTime(year, 1, 1);
+		    int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
 		
-		    int daysOffset = DayOfWeek.Monday - jan1.DayOfWeek;
-		    DateTime firstMonday = jan1.AddDays(daysOffset);
-		    Debug.Assert(firstMonday.DayOfWeek == DayOfWeek.Monday);
-		
+		    DateTime firstThursday = jan1.AddDays(daysOffset);
 		    var cal = CultureInfo.CurrentCulture.Calendar;
-		    int firstWeek = cal.GetWeekOfYear(firstMonday, rule, DayOfWeek.Monday);
+		    int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 		
 		    if (firstWeek <= 1)
 		    {
 		        weekNum -= 1;
 		    }
-		
-		    DateTime result = firstMonday.AddDays(weekNum * 7);
-		
-		    return result;
+		    var result = firstThursday.AddDays(weekNum * 7);
+		    return result.AddDays(-3);
 		}
 		
 		void RdoGroupCheckedChanged(object sender, EventArgs e)

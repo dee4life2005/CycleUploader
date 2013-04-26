@@ -213,6 +213,9 @@ namespace CycleUploader
 			this.label14 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
+			this.menuAnalysisWeeklyStats = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -720,7 +723,7 @@ namespace CycleUploader
 			this.lstTrackpoints.Location = new System.Drawing.Point(3, 3);
 			this.lstTrackpoints.Name = "lstTrackpoints";
 			this.lstTrackpoints.ShowGroups = false;
-			this.lstTrackpoints.Size = new System.Drawing.Size(1010, 383);
+			this.lstTrackpoints.Size = new System.Drawing.Size(60, 0);
 			this.lstTrackpoints.TabIndex = 2;
 			this.lstTrackpoints.UseCompatibleStateImageBehavior = false;
 			this.lstTrackpoints.View = System.Windows.Forms.View.Details;
@@ -783,7 +786,7 @@ namespace CycleUploader
 			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser1.Name = "webBrowser1";
 			this.webBrowser1.ScrollBarsEnabled = false;
-			this.webBrowser1.Size = new System.Drawing.Size(976, 383);
+			this.webBrowser1.Size = new System.Drawing.Size(26, 20);
 			this.webBrowser1.TabIndex = 0;
 			// 
 			// zedSpeed
@@ -802,7 +805,7 @@ namespace CycleUploader
 			this.zedSpeed.ScrollMinX = 0D;
 			this.zedSpeed.ScrollMinY = 0D;
 			this.zedSpeed.ScrollMinY2 = 0D;
-			this.zedSpeed.Size = new System.Drawing.Size(1016, 389);
+			this.zedSpeed.Size = new System.Drawing.Size(66, 0);
 			this.zedSpeed.TabIndex = 18;
 			// 
 			// zedHeart
@@ -821,7 +824,7 @@ namespace CycleUploader
 			this.zedHeart.ScrollMinX = 0D;
 			this.zedHeart.ScrollMinY = 0D;
 			this.zedHeart.ScrollMinY2 = 0D;
-			this.zedHeart.Size = new System.Drawing.Size(1016, 389);
+			this.zedHeart.Size = new System.Drawing.Size(66, 0);
 			this.zedHeart.TabIndex = 19;
 			// 
 			// zedCadence
@@ -840,7 +843,7 @@ namespace CycleUploader
 			this.zedCadence.ScrollMinX = 0D;
 			this.zedCadence.ScrollMinY = 0D;
 			this.zedCadence.ScrollMinY2 = 0D;
-			this.zedCadence.Size = new System.Drawing.Size(1016, 389);
+			this.zedCadence.Size = new System.Drawing.Size(66, 0);
 			this.zedCadence.TabIndex = 20;
 			// 
 			// zedAltitude
@@ -859,7 +862,7 @@ namespace CycleUploader
 			this.zedAltitude.ScrollMinX = 0D;
 			this.zedAltitude.ScrollMinY = 0D;
 			this.zedAltitude.ScrollMinY2 = 0D;
-			this.zedAltitude.Size = new System.Drawing.Size(1016, 389);
+			this.zedAltitude.Size = new System.Drawing.Size(66, 0);
 			this.zedAltitude.TabIndex = 21;
 			// 
 			// tabControlOverview
@@ -915,9 +918,9 @@ namespace CycleUploader
 			this.btnMapFullscreen.AutoSize = true;
 			this.btnMapFullscreen.Dock = System.Windows.Forms.DockStyle.Right;
 			this.btnMapFullscreen.Image = ((System.Drawing.Image)(resources.GetObject("btnMapFullscreen.Image")));
-			this.btnMapFullscreen.Location = new System.Drawing.Point(979, 3);
+			this.btnMapFullscreen.Location = new System.Drawing.Point(29, 3);
 			this.btnMapFullscreen.Name = "btnMapFullscreen";
-			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 383);
+			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 0);
 			this.btnMapFullscreen.TabIndex = 1;
 			this.btnMapFullscreen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnMapFullscreen.UseVisualStyleBackColor = true;
@@ -991,7 +994,7 @@ namespace CycleUploader
 			this.zedTemperature.ScrollMinX = 0D;
 			this.zedTemperature.ScrollMinY = 0D;
 			this.zedTemperature.ScrollMinY2 = 0D;
-			this.zedTemperature.Size = new System.Drawing.Size(1016, 389);
+			this.zedTemperature.Size = new System.Drawing.Size(66, 0);
 			this.zedTemperature.TabIndex = 20;
 			// 
 			// tabPage7
@@ -1081,7 +1084,7 @@ namespace CycleUploader
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(145, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
@@ -1148,7 +1151,7 @@ namespace CycleUploader
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
@@ -1215,7 +1218,7 @@ namespace CycleUploader
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
@@ -1282,7 +1285,7 @@ namespace CycleUploader
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(38, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(240, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
@@ -1304,7 +1307,7 @@ namespace CycleUploader
 			this.txtDebug.Location = new System.Drawing.Point(3, 3);
 			this.txtDebug.Multiline = true;
 			this.txtDebug.Name = "txtDebug";
-			this.txtDebug.Size = new System.Drawing.Size(1010, 383);
+			this.txtDebug.Size = new System.Drawing.Size(60, 0);
 			this.txtDebug.TabIndex = 0;
 			// 
 			// lstFileHistory
@@ -1406,7 +1409,7 @@ namespace CycleUploader
 									this.menuFileHistoryDeleteActivity});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.contextMenuStrip1.Size = new System.Drawing.Size(185, 98);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(185, 76);
 			// 
 			// menuFileHistoryEditActivity
 			// 
@@ -1495,15 +1498,18 @@ namespace CycleUploader
 			// menuCoursesCourseList
 			// 
 			this.menuCoursesCourseList.Name = "menuCoursesCourseList";
-			this.menuCoursesCourseList.Size = new System.Drawing.Size(141, 22);
+			this.menuCoursesCourseList.Size = new System.Drawing.Size(152, 22);
 			this.menuCoursesCourseList.Text = "Course List...";
 			this.menuCoursesCourseList.Click += new System.EventHandler(this.MenuCoursesCourseListClick);
 			// 
 			// analysisToolStripMenuItem
 			// 
 			this.analysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+									this.menuAnalysisWeeklyStats,
 									this.menuAnalysisMonthlyStats,
+									this.toolStripSeparator2,
 									this.menuAnalysisRecords,
+									this.toolStripSeparator3,
 									this.menuAnalysisCharts});
 			this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
 			this.analysisToolStripMenuItem.Size = new System.Drawing.Size(62, 36);
@@ -2041,6 +2047,23 @@ namespace CycleUploader
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Double-Click File History item to view activity details";
 			// 
+			// menuAnalysisWeeklyStats
+			// 
+			this.menuAnalysisWeeklyStats.Name = "menuAnalysisWeeklyStats";
+			this.menuAnalysisWeeklyStats.Size = new System.Drawing.Size(156, 22);
+			this.menuAnalysisWeeklyStats.Text = "Weekly Stats...";
+			this.menuAnalysisWeeklyStats.Click += new System.EventHandler(this.MenuAnalysisWeeklyStatsClick);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(153, 6);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2061,6 +2084,7 @@ namespace CycleUploader
 			this.Text = "Cycling Activity File Uploader";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
 			this.Load += new System.EventHandler(this.MainFormLoad);
+			this.Shown += new System.EventHandler(this.MainFormShown);
 			this.grpSummary.ResumeLayout(false);
 			this.panel5.ResumeLayout(false);
 			this.panel5.PerformLayout();
@@ -2111,6 +2135,9 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripMenuItem menuAnalysisWeeklyStats;
 		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.Label label25;

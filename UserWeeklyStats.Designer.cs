@@ -8,7 +8,7 @@
  */
 namespace CycleUploader
 {
-	partial class UserMonthlyStats
+	partial class UserWeeklyStats
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -36,7 +36,7 @@ namespace CycleUploader
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserMonthlyStats));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserWeeklyStats));
 			this.label1 = new System.Windows.Forms.Label();
 			this.lstMonthlyStats = new System.Windows.Forms.ListView();
 			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
@@ -51,12 +51,12 @@ namespace CycleUploader
 			this.columnHeader26 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader27 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader28 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader29 = new System.Windows.Forms.ColumnHeader();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.lineSeparator4 = new CycleUploader.LineSeparator();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -67,7 +67,7 @@ namespace CycleUploader
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(260, 23);
 			this.label1.TabIndex = 48;
-			this.label1.Text = "User Monthly Statistics";
+			this.label1.Text = "User Weekly Statistics";
 			// 
 			// lstMonthlyStats
 			// 
@@ -94,7 +94,7 @@ namespace CycleUploader
 			this.lstMonthlyStats.GridLines = true;
 			this.lstMonthlyStats.Location = new System.Drawing.Point(12, 35);
 			this.lstMonthlyStats.Name = "lstMonthlyStats";
-			this.lstMonthlyStats.Size = new System.Drawing.Size(967, 317);
+			this.lstMonthlyStats.Size = new System.Drawing.Size(999, 317);
 			this.lstMonthlyStats.TabIndex = 49;
 			this.lstMonthlyStats.UseCompatibleStateImageBehavior = false;
 			this.lstMonthlyStats.View = System.Windows.Forms.View.Details;
@@ -102,7 +102,7 @@ namespace CycleUploader
 			// 
 			// columnHeader15
 			// 
-			this.columnHeader15.Text = "Month";
+			this.columnHeader15.Text = "Week";
 			this.columnHeader15.Width = 73;
 			// 
 			// columnHeader23
@@ -168,6 +168,16 @@ namespace CycleUploader
 			this.columnHeader28.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.columnHeader28.Width = 67;
 			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "No. Commute";
+			this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Commute Distance (miles).";
+			this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// columnHeader29
 			// 
 			this.columnHeader29.Text = "";
@@ -181,13 +191,13 @@ namespace CycleUploader
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel1.Location = new System.Drawing.Point(0, 358);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(991, 45);
+			this.panel1.Size = new System.Drawing.Size(1023, 45);
 			this.panel1.TabIndex = 50;
 			// 
 			// btnOk
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOk.Location = new System.Drawing.Point(904, 8);
+			this.btnOk.Location = new System.Drawing.Point(936, 8);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(75, 32);
 			this.btnOk.TabIndex = 24;
@@ -203,33 +213,23 @@ namespace CycleUploader
 			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator4.Name = "lineSeparator4";
-			this.lineSeparator4.Size = new System.Drawing.Size(991, 2);
+			this.lineSeparator4.Size = new System.Drawing.Size(1023, 2);
 			this.lineSeparator4.TabIndex = 17;
 			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Commute Days";
-			this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Commute Distance (miles)";
-			this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// UserMonthlyStats
+			// UserWeeklyStats
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(991, 403);
+			this.ClientSize = new System.Drawing.Size(1023, 403);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.lstMonthlyStats);
 			this.Controls.Add(this.label1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(1007, 441);
-			this.Name = "UserMonthlyStats";
+			this.MinimumSize = new System.Drawing.Size(1039, 441);
+			this.Name = "UserWeeklyStats";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "User Monthly Statistics";
-			this.Load += new System.EventHandler(this.UserMonthlyStatsLoad);
+			this.Text = "User Weekly Statistics";
+			this.Load += new System.EventHandler(this.UserWeeklyStatsLoad);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}

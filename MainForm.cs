@@ -64,6 +64,10 @@ namespace CycleUploader
 		private DownloadedVersionInfo downloadedVersionInfo;
 		private long _db_version;
 		private GarminSettings _gs;
+		
+		private bool bSplashShown = false;
+		private bool bGarminDetected = false;
+		
 		double avgHeart;
 		double avgCadence;
 		double avgSpeed;
@@ -542,7 +546,10 @@ namespace CycleUploader
 		            {
 		            	if(checkForGarminDevice(DriveMaskToLetter(vol.dbcv_unitmask).ToString() + ":\\")){
 		            		if(_gs == null || (_gs != null && !_gs.Visible)){
-		            			showGarminSettings();
+		            			bGarminDetected = true;
+		            			if(bSplashShown){
+		            				showGarminSettings();
+		            			}
 		            		}
 		            	}
 		            }
@@ -2718,6 +2725,7 @@ namespace CycleUploader
 			this.Visible = false;
 			sp = new Splash(this._versionStr, this._versionDate, this._versionAuthor);
 			sp.ShowDialog();
+			bSplashShown = true;
 			
 			_gc_user = sp._gc_user;
 			_gc_password = sp._gc_password;
@@ -4010,6 +4018,19 @@ namespace CycleUploader
 				}
 			}
 			_gs.Visible = false;
+		}
+		
+		void MainFormShown(object sender, EventArgs e)
+		{
+			if(bSplashShown && bGarminDetected){
+				showGarminSettings();
+			}
+		}
+		
+		void MenuAnalysisWeeklyStatsClick(object sender, EventArgs e)
+		{
+			UserWeeklyStats weeklystats = new UserWeeklyStats(_m_dbConnection);
+			weeklystats.ShowDialog();
 		}
 	}
 }
