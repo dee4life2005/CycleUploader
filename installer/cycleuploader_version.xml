@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.29.0</version>
+<version>1.0.30.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>26/04/2013</date>
+<date>02/05/2013</date>
 <changes>
-• weekly stats added, and bug fixes.
+• re-compiled to target .NET Framework 4.0 Client Profile
 </changes>
 </appinfo> 

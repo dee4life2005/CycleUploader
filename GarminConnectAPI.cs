@@ -117,15 +117,20 @@ namespace CycleUploader
 		{
 			//ServicePointManager.ServerCertificateValidationCallback = (RemoteCertificateValidationCallback)System.Delegate.Combine(ServicePointManager.ServerCertificateValidationCallback, (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) => true);
 			//ServicePointManager.ServerCertificateValidationCallback = Nothing;
-			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://connect.garmin.com:" + 443 + "/signin");
-			httpWebRequest.Proxy = null;
-			httpWebRequest.Credentials = CredentialCache.DefaultCredentials;
-			httpWebRequest.CookieContainer = new CookieContainer();
-			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-			{
-				this._cookieCollection = httpWebResponse.Cookies;
+			try{
+				HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://connect.garmin.com:" + 443 + "/signin");
+				httpWebRequest.Proxy = null;
+				httpWebRequest.Credentials = CredentialCache.DefaultCredentials;
+				httpWebRequest.CookieContainer = new CookieContainer();
+				using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+				{
+					this._cookieCollection = httpWebResponse.Cookies;
+				}
+				this._init = true;
 			}
-			this._init = true;
+			catch(Exception ex){
+				MessageBox.Show("GarminConnect: error initialising connection");
+			}
 		}
 		public bool Login(string username, string password)
 		{
@@ -133,34 +138,37 @@ namespace CycleUploader
 			{
 				this.Initialise();
 			}
-			_username = username;
-			System.Text.ASCIIEncoding aSCIIEncoding = new System.Text.ASCIIEncoding();
-			string s = string.Format("login=login&login:loginUsernameField={0}&login%3Apassword={1}&login:signInButton=Sign+In&javax.faces.ViewState=j_id1", username, password);
-			byte[] bytes = aSCIIEncoding.GetBytes(s);
-			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://connect.garmin.com:" + 443 + "/signin");
-			httpWebRequest.Proxy = null;
-			httpWebRequest.Credentials = CredentialCache.DefaultCredentials;
-			httpWebRequest.Method = "POST";
-			httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-			httpWebRequest.ContentLength = (long)bytes.Length;
-			httpWebRequest.CookieContainer = this.GetCookieContainer();
-			httpWebRequest.Timeout = 10000;
-			System.IO.Stream requestStream = httpWebRequest.GetRequestStream();
-			requestStream.Write(bytes, 0, bytes.Length);
-			requestStream.Close();
-			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-			{
-				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
-				if (responseStream != null)
+			if(this._init){
+				_username = username;
+				System.Text.ASCIIEncoding aSCIIEncoding = new System.Text.ASCIIEncoding();
+				string s = string.Format("login=login&login:loginUsernameField={0}&login%3Apassword={1}&login:signInButton=Sign+In&javax.faces.ViewState=j_id1", username, password);
+				byte[] bytes = aSCIIEncoding.GetBytes(s);
+				HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://connect.garmin.com:" + 443 + "/signin");
+				httpWebRequest.Proxy = null;
+				httpWebRequest.Credentials = CredentialCache.DefaultCredentials;
+				httpWebRequest.Method = "POST";
+				httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+				httpWebRequest.ContentLength = (long)bytes.Length;
+				httpWebRequest.CookieContainer = this.GetCookieContainer();
+				httpWebRequest.Timeout = 10000;
+				System.IO.Stream requestStream = httpWebRequest.GetRequestStream();
+				requestStream.Write(bytes, 0, bytes.Length);
+				requestStream.Close();
+				using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
 				{
-					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
-					string text = streamReader.ReadToEnd();
-					this.LastOutput = text;
-					bool flag = text.IndexOf("Invalid username/password combination.", System.StringComparison.Ordinal) >= 0;
-					bool flag2 = text.IndexOf("Welcome, " + username, System.StringComparison.Ordinal) >= 0;
-					this._loggedIn = (!flag && flag2);
-					return this._loggedIn;
+					System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+					if (responseStream != null)
+					{
+						System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+						string text = streamReader.ReadToEnd();
+						this.LastOutput = text;
+						bool flag = text.IndexOf("Invalid username/password combination.", System.StringComparison.Ordinal) >= 0;
+						bool flag2 = text.IndexOf("Welcome, " + username, System.StringComparison.Ordinal) >= 0;
+						this._loggedIn = (!flag && flag2);
+						return this._loggedIn;
+					}
 				}
+				return false;
 			}
 			return false;
 		}

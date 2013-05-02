@@ -64,6 +64,7 @@ namespace CycleUploader
 			this.colMaxSpeed = new System.Windows.Forms.ColumnHeader();
 			this.colMaxHeart = new System.Windows.Forms.ColumnHeader();
 			this.colMaxCadence = new System.Windows.Forms.ColumnHeader();
+			this.colFilePath = new System.Windows.Forms.ColumnHeader();
 			this.colDummy = new System.Windows.Forms.ColumnHeader();
 			this.pnlLoadingActivities = new System.Windows.Forms.Panel();
 			this.label2 = new System.Windows.Forms.Label();
@@ -96,7 +97,6 @@ namespace CycleUploader
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.deviceImageList = new System.Windows.Forms.ImageList(this.components);
-			this.colFilePath = new System.Windows.Forms.ColumnHeader();
 			this.panel1.SuspendLayout();
 			this.pnlRequiresProcessing.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbRequiresProcessingIcon)).BeginInit();
@@ -334,6 +334,10 @@ namespace CycleUploader
 			// 
 			this.colMaxCadence.Text = "Max.Cadence";
 			this.colMaxCadence.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// colFilePath
+			// 
+			this.colFilePath.Width = 0;
 			// 
 			// colDummy
 			// 
@@ -619,10 +623,6 @@ namespace CycleUploader
 			this.deviceImageList.Images.SetKeyName(4, "forerunner60.png");
 			this.deviceImageList.Images.SetKeyName(5, "forerunner310.png");
 			this.deviceImageList.Images.SetKeyName(6, "forerunner405.png");
-			// 
-			// colFilePath
-			// 
-			this.colFilePath.Width = 0;
 			// 
 			// GarminSettings
 			// 

@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="openFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>14, 8</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="openFile.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>14, 8</value>
+  </data>
   <data name="btnMapFullscreen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
@@ -356,9 +356,9 @@
         NtlkkuVBnZB+xxaRsWd8Qu4fFEVR/gtdyp9yLva+OAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>423, 8</value>
-  </metadata>
+  </data>
   <data name="menuFileHistoryEditActivity.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
@@ -382,9 +382,9 @@
         AElFTkSuQmCC
 </value>
   </data>
-  <metadata name="menubar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="menubar.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>109, 8</value>
-  </metadata>
+  </data>
   <data name="menubar.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB0AAAAoCAIAAACNRmZGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -984,9 +984,9 @@
         AABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="statusBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="statusBar.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>218, 8</value>
-  </metadata>
+  </data>
   <data name="statusBar.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAIAAACtAwlQAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -1253,9 +1253,9 @@ Note: The name / notes information isn't supported for upload by all providers.<
         NtlkkuVBnZB+xxaRsWd8Qu4fFEVR/gtdyp9yLva+OAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>317, 8</value>
-  </metadata>
+  </data>
   <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w

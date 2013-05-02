@@ -244,6 +244,7 @@ namespace CycleUploader
 			this.btnOk.TabIndex = 23;
 			this.btnOk.Text = "Close";
 			this.btnOk.UseVisualStyleBackColor = true;
+			this.btnOk.Click += new System.EventHandler(this.BtnOkClick);
 			// 
 			// lineSeparator4
 			// 

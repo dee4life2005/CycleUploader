@@ -12,7 +12,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ApplicationIcon>imgs\cycle.ico</ApplicationIcon>
     <NoWin32Manifest>False</NoWin32Manifest>

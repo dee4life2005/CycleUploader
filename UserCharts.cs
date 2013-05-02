@@ -358,5 +358,11 @@ namespace CycleUploader
 				loadWeeklyChart(_chartType.Text);
 			}
 		}
+		
+		void BtnOkClick(object sender, EventArgs e)
+		{
+			this.DialogResult = DialogResult.OK;
+			this.Close();
+		}
 	}
 }
