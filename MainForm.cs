@@ -1490,6 +1490,7 @@ namespace CycleUploader
 				activity._avgCadence = avg_cadence;
 				activity._avgHeartRate = avg_heart;		
 				activity._avgSpeed = avg_speed_metres_per_sec;		
+				activity._startTime = System.DateTime.Parse(GetListViewItemValue(lstTrackpoints, 0, 0));
 			
 				
 				// set the summary information
@@ -1531,6 +1532,7 @@ namespace CycleUploader
 				activity._maxHeartRate = max_heartrate;
 				activity._avgSpeed = avg_speed_metres_per_sec;
 				activity._calories = Convert.ToDouble(doc.GetElementsByTagName("calories").Item(0).InnerText);
+				activity._startTime = System.DateTime.Parse(GetListViewItemValue(lstTrackpoints, 0, 0));
 				
 				_fileSummary.distanceMiles = dist_miles;
 				_fileSummary.durationSeconds = (int)tot_duration.TotalSeconds;
@@ -3933,22 +3935,45 @@ namespace CycleUploader
 		void MenuFileHistoryDeleteActivityClick(object sender, EventArgs e)
 		{
 			if(lstFileHistory.SelectedItems.Count > 0){
-				string activityName = lstFileHistory.SelectedItems[0].SubItems[2].Text;
-				string activityDate = System.DateTime.Parse(lstFileHistory.SelectedItems[0].SubItems[1].Text).ToString("dd MMMM yyyy 'at' HH:mm");
-				int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
-				
-				if(MessageBox.Show("Are you sure you want to delete activity `"+activityName+"` ridden on "+activityDate+" ?", "Confirm Deletion of Activity...",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
-					SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
-					string sql = string.Format(@"delete from FileTrackpoints where idFile = {0}", fileId);
-					cmd.CommandText = sql;
-					cmd.ExecuteNonQuery();
-					sql = string.Format(@"delete from FileSummary where idFile = {0}", fileId);
-					cmd.CommandText = sql;
-					cmd.ExecuteNonQuery();
-					sql = string.Format(@"delete from File where idFile = {0}", fileId);
-					cmd.CommandText = sql;
-					cmd.ExecuteNonQuery();
-					lstFileHistory.Items.Remove(lstFileHistory.SelectedItems[0]);
+				if(lstFileHistory.SelectedItems.Count == 1){
+					string activityName = lstFileHistory.SelectedItems[0].SubItems[2].Text;
+					string activityDate = System.DateTime.Parse(lstFileHistory.SelectedItems[0].SubItems[1].Text).ToString("dd MMMM yyyy 'at' HH:mm");
+					int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
+					
+					if(MessageBox.Show("Are you sure you want to delete activity `"+activityName+"` ridden on "+activityDate+" ?", "Confirm Deletion of Activity...",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
+						SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+						string sql = string.Format(@"delete from FileTrackpoints where idFile = {0}", fileId);
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = string.Format(@"delete from FileSummary where idFile = {0}", fileId);
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						sql = string.Format(@"delete from File where idFile = {0}", fileId);
+						cmd.CommandText = sql;
+						cmd.ExecuteNonQuery();
+						lstFileHistory.Items.Remove(lstFileHistory.SelectedItems[0]);
+					}
+				}
+				else{
+					if(MessageBox.Show("Are you sure you want to delete the " + lstFileHistory.SelectedItems.Count.ToString() + " selected activities ?", "Confirm Deletion of Activities...", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
+						SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+						foreach(ListViewItem lvi in lstFileHistory.SelectedItems){
+						
+							int fileId = Convert.ToInt32(lvi.SubItems[0].Text);
+							string sql = string.Format(@"delete from FileTrackpoints where idFile = {0}", fileId);
+							cmd.CommandText = sql;
+							cmd.ExecuteNonQuery();
+							sql = string.Format(@"delete from FileSummary where idFile = {0}", fileId);
+							cmd.CommandText = sql;
+							cmd.ExecuteNonQuery();
+							sql = string.Format(@"delete from File where idFile = {0}", fileId);
+							cmd.CommandText = sql;
+							cmd.ExecuteNonQuery();
+							lstFileHistory.Items.Remove(lvi);	
+							
+						}
+						
+					}
 				}
 			}
 			else{
@@ -4031,6 +4056,18 @@ namespace CycleUploader
 		{
 			UserWeeklyStats weeklystats = new UserWeeklyStats(_m_dbConnection);
 			weeklystats.ShowDialog();
+		}
+		
+		void ContextMenuStrip1Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if(lstFileHistory.SelectedItems.Count > 1){
+				menuFileHistoryEditActivity.Visible = false;
+				menuFileHistoryCreateCourse.Visible = false;				
+			}
+			else{
+				menuFileHistoryEditActivity.Visible = true;
+				menuFileHistoryCreateCourse.Visible = true;				
+			}
 		}
 	}
 }

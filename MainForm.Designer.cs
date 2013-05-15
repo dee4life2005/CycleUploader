@@ -159,8 +159,11 @@ namespace CycleUploader
 			this.coursesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuCoursesCourseList = new System.Windows.Forms.ToolStripMenuItem();
 			this.analysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuAnalysisWeeklyStats = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuAnalysisMonthlyStats = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuAnalysisRecords = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuAnalysisCharts = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -213,9 +216,6 @@ namespace CycleUploader
 			this.label14 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
-			this.menuAnalysisWeeklyStats = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -1333,7 +1333,6 @@ namespace CycleUploader
 			this.lstFileHistory.GridLines = true;
 			this.lstFileHistory.HideSelection = false;
 			this.lstFileHistory.Location = new System.Drawing.Point(3, 16);
-			this.lstFileHistory.MultiSelect = false;
 			this.lstFileHistory.Name = "lstFileHistory";
 			this.lstFileHistory.Size = new System.Drawing.Size(786, 603);
 			this.lstFileHistory.TabIndex = 0;
@@ -1409,34 +1408,35 @@ namespace CycleUploader
 									this.menuFileHistoryDeleteActivity});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.contextMenuStrip1.Size = new System.Drawing.Size(185, 76);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(215, 76);
+			this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1Opening);
 			// 
 			// menuFileHistoryEditActivity
 			// 
 			this.menuFileHistoryEditActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryEditActivity.Image")));
 			this.menuFileHistoryEditActivity.Name = "menuFileHistoryEditActivity";
-			this.menuFileHistoryEditActivity.Size = new System.Drawing.Size(184, 22);
+			this.menuFileHistoryEditActivity.Size = new System.Drawing.Size(214, 22);
 			this.menuFileHistoryEditActivity.Text = "Edit Activity Details...";
 			this.menuFileHistoryEditActivity.Click += new System.EventHandler(this.MenuFileHistoryEditActivityClick);
 			// 
 			// menuFileHistoryCreateCourse
 			// 
 			this.menuFileHistoryCreateCourse.Name = "menuFileHistoryCreateCourse";
-			this.menuFileHistoryCreateCourse.Size = new System.Drawing.Size(184, 22);
+			this.menuFileHistoryCreateCourse.Size = new System.Drawing.Size(214, 22);
 			this.menuFileHistoryCreateCourse.Text = "Create as Course...";
 			this.menuFileHistoryCreateCourse.Click += new System.EventHandler(this.MenuFileHistoryCreateCourseClick);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(211, 6);
 			// 
 			// menuFileHistoryDeleteActivity
 			// 
 			this.menuFileHistoryDeleteActivity.Image = ((System.Drawing.Image)(resources.GetObject("menuFileHistoryDeleteActivity.Image")));
 			this.menuFileHistoryDeleteActivity.Name = "menuFileHistoryDeleteActivity";
-			this.menuFileHistoryDeleteActivity.Size = new System.Drawing.Size(184, 22);
-			this.menuFileHistoryDeleteActivity.Text = "Delete Activity...";
+			this.menuFileHistoryDeleteActivity.Size = new System.Drawing.Size(214, 22);
+			this.menuFileHistoryDeleteActivity.Text = "Delete Selected Activities...";
 			this.menuFileHistoryDeleteActivity.Click += new System.EventHandler(this.MenuFileHistoryDeleteActivityClick);
 			// 
 			// menubar
@@ -1498,7 +1498,7 @@ namespace CycleUploader
 			// menuCoursesCourseList
 			// 
 			this.menuCoursesCourseList.Name = "menuCoursesCourseList";
-			this.menuCoursesCourseList.Size = new System.Drawing.Size(152, 22);
+			this.menuCoursesCourseList.Size = new System.Drawing.Size(141, 22);
 			this.menuCoursesCourseList.Text = "Course List...";
 			this.menuCoursesCourseList.Click += new System.EventHandler(this.MenuCoursesCourseListClick);
 			// 
@@ -1515,12 +1515,24 @@ namespace CycleUploader
 			this.analysisToolStripMenuItem.Size = new System.Drawing.Size(62, 36);
 			this.analysisToolStripMenuItem.Text = "Analysis";
 			// 
+			// menuAnalysisWeeklyStats
+			// 
+			this.menuAnalysisWeeklyStats.Name = "menuAnalysisWeeklyStats";
+			this.menuAnalysisWeeklyStats.Size = new System.Drawing.Size(156, 22);
+			this.menuAnalysisWeeklyStats.Text = "Weekly Stats...";
+			this.menuAnalysisWeeklyStats.Click += new System.EventHandler(this.MenuAnalysisWeeklyStatsClick);
+			// 
 			// menuAnalysisMonthlyStats
 			// 
 			this.menuAnalysisMonthlyStats.Name = "menuAnalysisMonthlyStats";
 			this.menuAnalysisMonthlyStats.Size = new System.Drawing.Size(156, 22);
 			this.menuAnalysisMonthlyStats.Text = "Monthly Stats...";
 			this.menuAnalysisMonthlyStats.Click += new System.EventHandler(this.MenuAnalysisMonthlyStatsClick);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
 			// 
 			// menuAnalysisRecords
 			// 
@@ -1529,6 +1541,11 @@ namespace CycleUploader
 			this.menuAnalysisRecords.Size = new System.Drawing.Size(156, 22);
 			this.menuAnalysisRecords.Text = "Records...";
 			this.menuAnalysisRecords.Click += new System.EventHandler(this.MenuAnalysisRecordsClick);
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(153, 6);
 			// 
 			// menuAnalysisCharts
 			// 
@@ -2046,23 +2063,6 @@ namespace CycleUploader
 			this.label6.Size = new System.Drawing.Size(184, 34);
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Double-Click File History item to view activity details";
-			// 
-			// menuAnalysisWeeklyStats
-			// 
-			this.menuAnalysisWeeklyStats.Name = "menuAnalysisWeeklyStats";
-			this.menuAnalysisWeeklyStats.Size = new System.Drawing.Size(156, 22);
-			this.menuAnalysisWeeklyStats.Text = "Weekly Stats...";
-			this.menuAnalysisWeeklyStats.Click += new System.EventHandler(this.MenuAnalysisWeeklyStatsClick);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
-			// 
-			// toolStripSeparator3
-			// 
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(153, 6);
 			// 
 			// MainForm
 			// 

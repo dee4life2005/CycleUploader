@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.30.0</version>
+<version>1.0.31.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>02/05/2013</date>
+<date>15/05/2013</date>
 <changes>
-• re-compiled to target .NET Framework 4.0 Client Profile
+• added multiple activity deletion.
+• fixed bug with uploading of GPX files where the activity name was set as Jan 01, 0001.
 </changes>
 </appinfo> 
