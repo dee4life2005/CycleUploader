@@ -17,8 +17,8 @@ namespace CycleUploader
 	/// </summary>
 	internal sealed class Program
 	{
-		private static string versionStr = "1.0.31.0";
-		private static string versionDate = "15/05/2013";
+		private static string versionStr = "1.0.32.0";
+		private static string versionDate = "23/05/2013";
 		private static string versionAuthor = "Steven Saunders";
 		private static long db_version = 9;
 		

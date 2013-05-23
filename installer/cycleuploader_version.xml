@@ -7,6 +7,8 @@
 <date>15/05/2013</date>
 <changes>
 • added multiple activity deletion.
+
 • fixed bug with uploading of GPX files where the activity name was set as Jan 01, 0001.
+
 </changes>
 </appinfo> 

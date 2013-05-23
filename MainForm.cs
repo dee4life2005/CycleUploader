@@ -673,6 +673,29 @@ namespace CycleUploader
 			SetMenuStatusThreadSafe(menubar, "Enabled", false);
 			
 			// add the file record to our File log in cycleuploader sqllite database
+			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+			string sql = "insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) value (?,?,?,?,?,?,?,?)";
+			command.CommandText = sql;
+			
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			// add parameters values
+			command.Parameters[0].Value = Path.GetExtension(filename).ToLower();
+			command.Parameters[1].Value = Path.GetFileName(filename);
+			command.Parameters[2].Value = Path.GetDirectoryName(filename);
+			command.Parameters[3].Value = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+			command.Parameters[4].Value = txtActivityName.Text;
+			command.Parameters[5].Value = txtActivityNotes.Text;
+			command.Parameters[6].Value = cbkIsCommute.Checked ? 1 : 0;
+			command.Parameters[7].Value = cbkIsStationaryTrainer.Checked ? 1 : 0;
+			
+			/*
 			string sql = string.Format("insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\",{6},{7})",
 			                           Path.GetExtension(filename).ToLower(),
 			                           Path.GetFileName(filename),
@@ -683,8 +706,8 @@ namespace CycleUploader
 			                           cbkIsCommute.Checked ? 1 :0,
 			                           cbkIsStationaryTrainer.Checked ? 1 : 0
 			                          );
+			*/
 			
-			SQLiteCommand command = new SQLiteCommand(sql, _m_dbConnection);
 			command.ExecuteNonQuery();				                           
 			
 			// retrieve the ID of the `file` from the database as we will need this later to 
@@ -751,7 +774,40 @@ namespace CycleUploader
 				_activityBatch.setUploadProgressStatus("Archiving File information");
 			}
 			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
-			string sql = string.Format("insert into FileSummary(idFile, fsDuration, fsDistance, fsCalories, fsAvgHeart, fsAvgCadence, fsAvgSpeed, fsMovingTime, fsTotalAscent, fsTotalDescent, fsMaxHeartRate, fsMaxCadence, fsMaxSpeed) "+
+			
+			string sql = "insert into FileSummary(idFile, fsDuration, fsDistance, fsCalories, fsAvgHeart, fsAvgCadence, fsAvgSpeed, fsMovingTime, fsTotalAscent, fsTotalDescent, fsMaxHeartRate, fsMaxCadence, fsMaxSpeed) "+
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			command.CommandText = sql;
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			command.Parameters.Add(new SQLiteParameter());
+			// add parameters values
+			command.Parameters[0].Value = _fileSummary.dbId;
+			command.Parameters[1].Value = _fileSummary.durationSeconds;
+			command.Parameters[2].Value = _fileSummary.distanceMiles;
+			command.Parameters[3].Value = _fileSummary.calories;
+			command.Parameters[4].Value = _fileSummary.avgHeartRate;
+			command.Parameters[5].Value = _fileSummary.avgCadence;
+			command.Parameters[6].Value = _fileSummary.avgSpeedMph;
+			command.Parameters[7].Value = _fileSummary.movingTimeSeconds;
+			command.Parameters[8].Value = _fileSummary.totalAscentFeet;
+			command.Parameters[9].Value = _fileSummary.totalDescentFeet;
+			command.Parameters[10].Value = _fileSummary.maxHeartRate;
+			command.Parameters[11].Value = _fileSummary.maxCadence;
+			command.Parameters[12].Value = _fileSummary.maxSpeedMph;
+			
+			/*
+ 				string sql = string.Format("insert into FileSummary(idFile, fsDuration, fsDistance, fsCalories, fsAvgHeart, fsAvgCadence, fsAvgSpeed, fsMovingTime, fsTotalAscent, fsTotalDescent, fsMaxHeartRate, fsMaxCadence, fsMaxSpeed) "+
 			                           "VALUES ("+
 			                           "  {0}, \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\", \"{6}\", \"{7}\", \"{8}\", \"{9}\", \"{10}\", \"{11}\", \"{12}\" "+
 			                           ")",
@@ -770,6 +826,7 @@ namespace CycleUploader
 			                           _fileSummary.maxSpeedMph
 			                          );
 			command.CommandText = sql;
+			*/
 			command.ExecuteNonQuery();
 		}
 		
@@ -984,6 +1041,25 @@ namespace CycleUploader
     			setUpdateRideId("strava", strava_id.ToString());
     			
     			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+    			
+    			string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadStrava = ?, fileIsCommute = ?, fileIsStationaryTrainer = ? where idFile = ?";
+    			
+    			cmd.CommandText = sql;
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			cmd.Parameters.Add(new SQLiteParameter());
+    			// add the parameter values
+    			cmd.Parameters[0].Value = txtActivityName.Text;
+    			cmd.Parameters[1].Value = txtActivityNotes.Text;
+    			cmd.Parameters[2].Value = string.Format("http://app.strava.com/activities/{0}",strava_id);
+    			cmd.Parameters[3].Value = cbkIsCommute.Checked ? 1 : 0;
+    			cmd.Parameters[4].Value = cbkIsStationaryTrainer.Checked ? 1 : 0;
+    			cmd.Parameters[5].Value = _dbFileId;
+    			
+    			/*
 				string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadStrava = \"{0}\", fileIsCommute = {4}, fileIsStationaryTrainer = {5} where idFile = {1}", 
 				                           string.Format("http://app.strava.com/activities/{0}",strava_id), 
 				                           _dbFileId,
@@ -993,6 +1069,7 @@ namespace CycleUploader
 				                           cbkIsStationaryTrainer.Checked ? 1 : 0
 				                          );
 				cmd.CommandText = sql;
+				*/
 				cmd.ExecuteNonQuery();
     			setUpdateRideImg("strava",Image.FromFile("success-icon.png"));
     			if(_bIsBatchProcessing){
@@ -2656,6 +2733,21 @@ namespace CycleUploader
 					}
 					
 					SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+					
+					string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadRunkeeper = ? where idFile = ?";
+    			
+	    			cmd.CommandText = sql;
+	    			cmd.Parameters.Add(new SQLiteParameter());
+	    			cmd.Parameters.Add(new SQLiteParameter());
+	    			cmd.Parameters.Add(new SQLiteParameter());
+	    			cmd.Parameters.Add(new SQLiteParameter());
+	    			// add the parameter values
+	    			cmd.Parameters[0].Value = txtActivityName.Text;
+	    			cmd.Parameters[1].Value = txtActivityNotes.Text;
+	    			cmd.Parameters[2].Value = profile.Profile + link;
+	    			cmd.Parameters[3].Value = _dbFileId;
+					
+	    			/*
 					string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRunkeeper = \"{0}\" where idFile = {1}", 
 					                           profile.Profile + link , 
 					                           _dbFileId,
@@ -2665,6 +2757,7 @@ namespace CycleUploader
 					                           cbkIsStationaryTrainer.Checked ? 1 : 0
 					                          );
 					cmd.CommandText = sql;
+					*/
 					cmd.ExecuteNonQuery();
 					
 				}
@@ -3903,7 +3996,28 @@ namespace CycleUploader
 				if(actName.ShowDialog() == DialogResult.OK){
 					// get the id of the file selected
 					int fileId = Convert.ToInt32(lstFileHistory.SelectedItems[0].SubItems[0].Text);
-					string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\", fileIsCommute = {3}, fileIsStationaryTrainer = {4}, fileIsIncludedInStats = {5}, idCourse = {6} where idFile = {1}",
+					
+					SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+					string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileIsCommute = ?, fileIsStationaryTrainer = ?, fileIsIncludedInStats = ?, idCourse = ? where idFile = ?";
+					command.CommandText = sql;
+					
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					command.Parameters.Add(new SQLiteParameter());
+					// add parameter values
+					command.Parameters[0].Value = actName._activityName;
+					command.Parameters[1].Value = actName._activityNotes;
+					command.Parameters[2].Value = actName._activityIsCommute ? 1 : 0;
+					command.Parameters[3].Value = actName._activityIsStationaryTrainer ? 1 : 0;
+					command.Parameters[4].Value = actName._activityIsIncludedInStatistics ? 1 : 0;
+					command.Parameters[5].Value = actName.courseId;
+					command.Parameters[6].Value = fileId;
+					
+					/*string sql = string.Format("update File set fileActivityName = \"{0}\", fileActivityNotes = \"{2}\", fileIsCommute = {3}, fileIsStationaryTrainer = {4}, fileIsIncludedInStats = {5}, idCourse = {6} where idFile = {1}",
 					                           actName._activityName,
 					                           fileId,
 					                           actName._activityNotes,
@@ -3912,8 +4026,9 @@ namespace CycleUploader
 					                           actName._activityIsIncludedInStatistics ? 1 : 0,
 					                           actName.courseId
 					                          );
-					SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
+					
 					command.CommandText = sql;
+					*/
 					int index = lstFileHistory.SelectedItems[0].Index;
 					command.ExecuteNonQuery();
 					//loadFileHistory();

@@ -285,13 +285,27 @@ namespace CycleUploader
 	            	wId = Convert.ToInt32(sRec.internalId);
 	            	
 	            	SQLiteCommand cmd = new SQLiteCommand(dbConnection);
-					string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadGarmin = \"{0}\" where idFile = {1}", 
+	            	
+	            	string sql = "update File set FileActivityName = ?, fileActivityNotes = ?, fileUploadGarmin = ? where idFile = ?";
+	            	cmd.CommandText = sql;
+	            	cmd.Parameters.Add(new SQLiteParameter());
+	            	cmd.Parameters.Add(new SQLiteParameter());
+	            	cmd.Parameters.Add(new SQLiteParameter());
+	            	cmd.Parameters.Add(new SQLiteParameter());
+	            	// add the parameter values
+	            	cmd.Parameters[0].Value = activityName;
+	            	cmd.Parameters[1].Value = activityNotes;
+	            	cmd.Parameters[2].Value = string.Format("http://connect.garmin.com/activity/{0}",sRec.internalId);
+	            	cmd.Parameters[3].Value = fileId;
+	            	
+					/*string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadGarmin = \"{0}\" where idFile = {1}", 
 					                           string.Format("http://connect.garmin.com/activity/{0}",sRec.internalId), 
 					                           fileId,
 					                           activityName, 
 					                           activityNotes
 					                          );
 					cmd.CommandText = sql;
+					*/
 					cmd.ExecuteNonQuery();
 	            	
 	            	bSetName = true;

@@ -230,13 +230,26 @@ namespace CycleUploader
 						}
 				
 						SQLiteCommand cmd = new SQLiteCommand(dbConnection);
-						string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRWGPS = \"{0}\" where idFile = {1}", 
+						string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadRWGPS = ? where idFile = ?";
+						cmd.CommandText = sql;
+						cmd.Parameters.Add(new SQLiteParameter());
+						cmd.Parameters.Add(new SQLiteParameter());
+						cmd.Parameters.Add(new SQLiteParameter());
+						cmd.Parameters.Add(new SQLiteParameter());
+						// add values to parameters
+						cmd.Parameters[0].Value = activityName;
+						cmd.Parameters[1].Value = activityNotes;
+						cmd.Parameters[2].Value = string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value);
+						cmd.Parameters[3].Value = fileId;
+						
+						/*string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadRWGPS = \"{0}\" where idFile = {1}", 
 					                           string.Format("http://ridewithgps.com/trips/{0}",KeywordMatch.Groups[1].Value), 
 					                           fileId,
 					                           activityName, 
 					                           activityNotes
 					                          );
 						cmd.CommandText = sql;
+						*/
 						cmd.ExecuteNonQuery();
 					}
 					else{
