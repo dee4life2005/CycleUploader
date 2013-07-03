@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Reflection;
 using System.Data.SQLite;
+using System.Linq;
 
 namespace CycleUploader
 {
@@ -374,7 +375,8 @@ namespace CycleUploader
 			// determine if there are any activities on the device
 			
 			string[] files = Directory.GetFiles(driveRoot + "Garmin\\Activities\\", "*.fit");
-			Array.Sort(files,StringComparer.InvariantCulture);
+			Array.Sort(files);
+			//Array.Sort(files,StringComparer.InvariantCulture);
 			if(files.Length > 0){
 				tNumActivities.Text = files.Length.ToString();
 				if(th_loadingActivities != null && th_loadingActivities.IsAlive){
@@ -464,7 +466,8 @@ namespace CycleUploader
 			}
 			ClearListView(lstDeviceActivities);
 						
-			string[] files = Directory.GetFiles((string)driveRoot + "Garmin\\Activities\\", "*.fit");
+			string[] files = Directory.GetFiles((string)driveRoot + "Garmin\\Activities\\", "*.fit").OrderByDescending(d => new FileInfo(d).CreationTime).ToArray();
+			
 			SetControlPropertyThreadSafe(prgReadingActivities, "Value", 0);
 			SetControlPropertyThreadSafe(prgReadingActivities, "Maximum", files.Length);
 			SetControlPropertyThreadSafe(prgReadingActivities, "Step", 1);
@@ -504,6 +507,8 @@ namespace CycleUploader
 			}
 			ResizeListView(lstDeviceActivities);
 			//SetListViewColumnWidth(lstDeviceActivities,0,0);
+			SetListViewColumnWidth(lstDeviceActivities,14,0);
+			SetListViewColumnWidth(lstDeviceActivities,15,0);
 			if(lstDeviceActivities.InvokeRequired){
 				lstDeviceActivities.Invoke(new MethodInvoker(lstDeviceActivities.BringToFront));
 			}

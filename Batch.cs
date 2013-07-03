@@ -254,11 +254,23 @@ namespace CycleUploader
 				
 				SetListViewItemValue(lstBatchFiles,_batchCurrentIdx,0, "indicator", "");
 				_mainFrm._bIsBatchProcessing = true;
+				
+				string activityName = lstBatchFiles.Items[_batchCurrentIdx].SubItems[3].Text;
+				string activityNotes= lstBatchFiles.Items[_batchCurrentIdx].SubItems[4].Text;
+				// convert quotes to backticks in the activity notes / name to avoid it breaking the json uploaded, 
+				// and possibility of sql injection - although this is probably negated by using Parameterised Queries
+				// so may not strictly be necessary. App seems to hang though when quotes are present, and not sure where
+				// the issue lies. This should hopefully provide a short-term(ish) fix.
+				activityNotes = activityNotes.Replace("\"","`").Replace("'","`");
+				activityName  = activityName.Replace("\"","`").Replace("'","`");
+				
 				_mainFrm.openSelectedFile(
 					_batchCurrentIdx, 
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[11].Text,	// file name
-					lstBatchFiles.Items[_batchCurrentIdx].SubItems[3].Text,		// activity name
-					lstBatchFiles.Items[_batchCurrentIdx].SubItems[4].Text,		// activity notes
+					activityName,
+					activityNotes,
+					//lstBatchFiles.Items[_batchCurrentIdx].SubItems[3].Text,		// activity name
+					//lstBatchFiles.Items[_batchCurrentIdx].SubItems[4].Text,		// activity notes
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[5].Text == "Y" ? true : false, // activity is commute
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[6].Text == "Y" ? true : false // activity is stationary trainer
 				);

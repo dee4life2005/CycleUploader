@@ -674,7 +674,7 @@ namespace CycleUploader
 			
 			// add the file record to our File log in cycleuploader sqllite database
 			SQLiteCommand command = new SQLiteCommand(_m_dbConnection);
-			string sql = "insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) value (?,?,?,?,?,?,?,?)";
+			string sql = "insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) values (?,?,?,?,?,?,?,?)";
 			command.CommandText = sql;
 			
 			command.Parameters.Add(new SQLiteParameter());
@@ -3154,7 +3154,8 @@ namespace CycleUploader
 		{
 			string rk = loadDbSetting("checkRunkeeper","False");
 			SetControlPropertyThreadSafe(cbkProviderRunkeeper, "Checked", Convert.ToBoolean(loadDbSetting("checkRunkeeper","False")));
-			SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean(loadDbSetting("checkStrava","False")));
+			//SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean(loadDbSetting("checkStrava","False")));
+			SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", false);
 			SetControlPropertyThreadSafe(cbkProviderEndomondo, "Checked", Convert.ToBoolean(loadDbSetting("checkEndomondo","False")));
 			SetControlPropertyThreadSafe(cbkProviderGarmin, "Checked", Convert.ToBoolean(loadDbSetting("checkGarmin","False")));
 			SetControlPropertyThreadSafe(cbkProviderRideWithGps, "Checked", Convert.ToBoolean(loadDbSetting("checkRideWithGps","False")));

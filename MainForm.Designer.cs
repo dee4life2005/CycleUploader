@@ -196,6 +196,7 @@ namespace CycleUploader
 			this.statusBarVersion = new System.Windows.Forms.ToolStripStatusLabel();
 			this.grpProviders = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.label29 = new System.Windows.Forms.Label();
 			this.label28 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.cbkProviderRideWithGps = new System.Windows.Forms.CheckBox();
@@ -216,6 +217,7 @@ namespace CycleUploader
 			this.label14 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
 			this.grpSummary.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.pnlNoFile.SuspendLayout();
@@ -263,7 +265,7 @@ namespace CycleUploader
 			this.grpSummary.Enabled = false;
 			this.grpSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpSummary.ForeColor = System.Drawing.Color.RoyalBlue;
-			this.grpSummary.Location = new System.Drawing.Point(813, 12);
+			this.grpSummary.Location = new System.Drawing.Point(185, 7);
 			this.grpSummary.Name = "grpSummary";
 			this.grpSummary.Size = new System.Drawing.Size(20, 20);
 			this.grpSummary.TabIndex = 1;
@@ -1084,7 +1086,7 @@ namespace CycleUploader
 			this.pictureBox4.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox4.Name = "pictureBox4";
 			this.pictureBox4.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox4.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox4.Size = new System.Drawing.Size(145, 38);
 			this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox4.TabIndex = 1;
 			this.pictureBox4.TabStop = false;
@@ -1151,7 +1153,7 @@ namespace CycleUploader
 			this.pictureBox3.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox3.Name = "pictureBox3";
 			this.pictureBox3.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox3.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox3.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox3.TabIndex = 1;
 			this.pictureBox3.TabStop = false;
@@ -1218,7 +1220,7 @@ namespace CycleUploader
 			this.pictureBox2.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox2.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox2.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox2.TabIndex = 1;
 			this.pictureBox2.TabStop = false;
@@ -1285,7 +1287,7 @@ namespace CycleUploader
 			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Padding = new System.Windows.Forms.Padding(3);
-			this.pictureBox1.Size = new System.Drawing.Size(240, 38);
+			this.pictureBox1.Size = new System.Drawing.Size(38, 38);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
@@ -1334,7 +1336,7 @@ namespace CycleUploader
 			this.lstFileHistory.HideSelection = false;
 			this.lstFileHistory.Location = new System.Drawing.Point(3, 16);
 			this.lstFileHistory.Name = "lstFileHistory";
-			this.lstFileHistory.Size = new System.Drawing.Size(786, 603);
+			this.lstFileHistory.Size = new System.Drawing.Size(786, 557);
 			this.lstFileHistory.TabIndex = 0;
 			this.lstFileHistory.UseCompatibleStateImageBehavior = false;
 			this.lstFileHistory.View = System.Windows.Forms.View.Details;
@@ -1631,6 +1633,7 @@ namespace CycleUploader
 			this.menuProviderStrava.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.menuProviderStrava.Name = "menuProviderStrava";
 			this.menuProviderStrava.Size = new System.Drawing.Size(44, 36);
+			this.menuProviderStrava.Visible = false;
 			// 
 			// menuConnectToStrava
 			// 
@@ -1843,10 +1846,12 @@ namespace CycleUploader
 			// panel1
 			// 
 			this.panel1.AutoScroll = true;
+			this.panel1.Controls.Add(this.label29);
 			this.panel1.Controls.Add(this.label28);
 			this.panel1.Controls.Add(this.label19);
 			this.panel1.Controls.Add(this.cbkProviderRideWithGps);
 			this.panel1.Controls.Add(this.cbkProviderGarmin);
+			this.panel1.Controls.Add(this.grpSummary);
 			this.panel1.Controls.Add(this.cbkProviderEndomondo);
 			this.panel1.Controls.Add(this.cbkProviderStrava);
 			this.panel1.Controls.Add(this.cbkProviderRunkeeper);
@@ -1861,6 +1866,16 @@ namespace CycleUploader
 			this.panel1.Size = new System.Drawing.Size(213, 415);
 			this.panel1.TabIndex = 0;
 			// 
+			// label29
+			// 
+			this.label29.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label29.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label29.Location = new System.Drawing.Point(78, 47);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(124, 18);
+			this.label29.TabIndex = 18;
+			this.label29.Text = "API Support Disabled";
+			// 
 			// label28
 			// 
 			this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1873,7 +1888,7 @@ namespace CycleUploader
 			// 
 			// label19
 			// 
-			this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label19.ForeColor = System.Drawing.Color.SteelBlue;
 			this.label19.Location = new System.Drawing.Point(78, 82);
 			this.label19.Name = "label19";
@@ -1914,6 +1929,7 @@ namespace CycleUploader
 			// cbkProviderStrava
 			// 
 			this.cbkProviderStrava.AutoSize = true;
+			this.cbkProviderStrava.Enabled = false;
 			this.cbkProviderStrava.Location = new System.Drawing.Point(18, 47);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
 			this.cbkProviderStrava.Size = new System.Drawing.Size(15, 14);
@@ -1963,6 +1979,7 @@ namespace CycleUploader
 			// 
 			// pictureBox6
 			// 
+			this.pictureBox6.Enabled = false;
 			this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
 			this.pictureBox6.Location = new System.Drawing.Point(39, 38);
 			this.pictureBox6.Name = "pictureBox6";
@@ -2003,7 +2020,7 @@ namespace CycleUploader
 			this.groupBox1.Controls.Add(this.lstFileHistory);
 			this.groupBox1.Location = new System.Drawing.Point(12, 51);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(792, 622);
+			this.groupBox1.Size = new System.Drawing.Size(792, 576);
 			this.groupBox1.TabIndex = 29;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "File History";
@@ -2064,15 +2081,26 @@ namespace CycleUploader
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Double-Click File History item to view activity details";
 			// 
+			// label30
+			// 
+			this.label30.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.label30.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label30.Location = new System.Drawing.Point(12, 630);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(792, 40);
+			this.label30.TabIndex = 31;
+			this.label30.Text = "Note: \r\nSTRAVA support removed as of 03/07/2013 due to them dropping support for " +
+			"V1/V2 of their API. \r\nAccess to V3 of their API wasn\'t granted, unfortunately.";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1041, 702);
+			this.Controls.Add(this.label30);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grpProviders);
-			this.Controls.Add(this.grpSummary);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.menubar);
 			this.Controls.Add(this.tabControlOverview);
@@ -2135,6 +2163,8 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label label29;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem menuAnalysisWeeklyStats;

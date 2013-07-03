@@ -154,6 +154,7 @@ namespace CycleUploader
 		
 		void loadFileHistoryInformation()
 		{
+			string gradient_debug = "";
 			SQLiteCommand command = new SQLiteCommand(_db);
 			SQLiteDataReader rdrSummary;
 			SQLiteDataReader rdr;
@@ -283,6 +284,8 @@ namespace CycleUploader
 				double start_lng = 0;
 				double finish_lat = 0;
 				double finish_lng = 0;
+				double prev_lat = 0;
+				double prev_lng = 0;
 				string js_coords = "";
 				string js_mile_markers = "";
 				string js_bounds = "";
@@ -342,6 +345,12 @@ namespace CycleUploader
 				
 				double distance = 0;
 				double p_duration = 0;
+				
+				double prev_altitude = 0;
+				double prev_distance = 0;
+				double distance_metres = 0;
+				double gradient = 0;
+				
 				while(rdr.Read()){
 					rowCount++;
 					
@@ -353,7 +362,9 @@ namespace CycleUploader
 					finish_lat = Convert.ToDouble(rdr["tpLatitude"]);
 					finish_lng = Convert.ToDouble(rdr["tpLongitude"]);
 					
-					distance = (Convert.ToDouble(rdr["tpDistance"])/1000) * 0.621371192; // convert metres to miles
+					
+					distance_metres = Convert.ToDouble(rdr["tpDistance"]);
+					distance = (distance_metres/1000) * 0.621371192; // convert metres to miles
 					double duration = Convert.ToDouble(rdr["tpDuration"]);
 					double altitude = Convert.ToDouble(rdr["tpAltitude"]);
 					double speed = Convert.ToDouble(rdr["tpSpeed"]) * 2.23693629; // metres per second to mph
@@ -361,7 +372,29 @@ namespace CycleUploader
 					double heart = Convert.ToDouble(rdr["tpHeart"]);
 					
 					tag = (string)rdr["tpTime"] + "\r\nDistance = " + distance.ToString("0.00") + " miles\r\n";
+					
+					if(rowCount > 1){
+						double cur_distance_metres = GeoMath.Distance(
+							finish_lat, finish_lng, prev_lat, prev_lng, GeoMath.MeasureUnits.Kilometers
+						) * 1000; 
+						double alt_diff = altitude - prev_altitude;
+						//double gradient = GeoMath.Gradient(distance_metres - prev_distance,altitude*0.3048, prev_altitude*0.3048);
+						gradient = (Math.Abs((altitude*0.3048)-(prev_altitude*0.3048)) / (cur_distance_metres)) * 100;
+						gradient_debug += string.Format("altitude1 = {0}m, altitude2 = {1}m, distance = {2}m, gradient = {3}",
+						                                altitude*0.3048, 
+						                                prev_altitude*0.3048,
+						                                cur_distance_metres,
+						                                gradient
+						                                );
+						gradient_debug += Environment.NewLine;						
+						
+						// update the previous data for the next iteration
+						prev_distance = cur_distance_metres;
+						prev_altitude= Convert.ToDouble(rdr["tpAltitude"]);
+					}
+					
 					if(distance != 0){
+						//graphListAltitude.Add(distance,altitude,tag + "Altitude = " + altitude.ToString("0.00") + " feet" + Environment.NewLine + "Gradient = " + gradient.ToString("0.00") + "%");
 						graphListAltitude.Add(distance,altitude,tag + "Altitude = " + altitude.ToString("0.00") + " feet");
 						graphListSpeed.Add(distance, speed, tag + "Speed = " + speed.ToString("0.00") + " mph");
 						graphListCadence.Add(distance, cadence, tag + "Cadence = " + cadence.ToString("0") + " rpm");
@@ -374,7 +407,10 @@ namespace CycleUploader
 					lat = Convert.ToDouble(rdr["tpLatitude"]);
 					lng = Convert.ToDouble(rdr["tpLongitude"]);
 					
+					// if row is > 1 then we have the previous point data to be able to calculate the gradient
 					
+					prev_lat = finish_lat;
+					prev_lng = finish_lng;
 					p_duration = duration;
 					
 					// increment the running totals
@@ -615,6 +651,8 @@ namespace CycleUploader
 			catch(Exception ex){
 				MessageBox.Show(ex.ToString());
 			}
+			
+			SetControlPropertyThreadSafe(txtGradientDebug, "Text", gradient_debug);
 			
 		}
 		

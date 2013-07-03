@@ -52,6 +52,7 @@ namespace CycleUploader
 			this.tStatusText = new System.Windows.Forms.Label();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.lineSeparator1 = new CycleUploader.LineSeparator();
+			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -195,12 +196,24 @@ namespace CycleUploader
 			this.lineSeparator1.Size = new System.Drawing.Size(587, 2);
 			this.lineSeparator1.TabIndex = 28;
 			// 
+			// label3
+			// 
+			this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.label3.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(12, 173);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(563, 41);
+			this.label3.TabIndex = 29;
+			this.label3.Text = "Note: \r\nSTRAVA support removed as of 03/07/2013 due to them dropping support for " +
+			"V1/V2 of their API. \r\nAccess to V3 of their API wasn\'t granted, unfortunately.";
+			// 
 			// Splash
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(587, 248);
+			this.ClientSize = new System.Drawing.Size(587, 244);
 			this.ControlBox = false;
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.lineSeparator1);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.lblVersionStr);
@@ -227,6 +240,7 @@ namespace CycleUploader
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Label label3;
 		private CycleUploader.LineSeparator lineSeparator1;
 		private System.Windows.Forms.PictureBox pictureBox4;
 		private System.Windows.Forms.PictureBox pictureBox3;

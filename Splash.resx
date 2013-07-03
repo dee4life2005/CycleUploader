@@ -200,7 +200,7 @@
   <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
+        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
         oQAACTZJREFUWEd1l2lQVFcChd+f+Zm/U+MeUfu9hmbTICHigrKIIiiu8ZkYY0w0o4lGVJBVNiVDMiaa
         4EbUmMToyGgcowLdsjfiQtQkRo1sgqBiC7hkZmpq5sy5971um9Hpqq+uVSrfPefcrlIlLi7udwo/ts3O
         ODXP2WDJc/5rZK4TPmR4jsGLXgwjQ3PqMDTbiSGb6iRDxZlVKxmcVYPBmTUYlFEtGZhRhYHpJmmVGJJe
@@ -277,7 +277,7 @@
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIsAAAAgCAYAAAAiwovSAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
+        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
         oQAADh1JREFUeF7tmwt0VdWZx/N+kKeQ5725uTcJAQmSQIJopxWRV1AERAUUZFRQCo4YJECgFbU85CkP
         UWAAX4hYS2etduxMO7bK6tQydq0uHW3tms7YWUytskA71KIoEPjPb5/spLk35948bhJdU/5r/dY5d+/v
         +/bZZ393n33uOTemN6RdMXHaG5Olp2IG6unYWj0dsxr265mY1+A59pdSN1j7YuKty0X9NUrbY5K0N+5m
@@ -344,7 +344,7 @@
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
+        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRy
         oQAADCZJREFUWEdlVwlYTmkbPsa4hohE6WtX2lRoL2Ek2lAaZYlJtpRWkhaV+hoqrV/aaCVaLKFSpGYq
         rfasY37bDGMNY8xiOZf7f97zlZn/+s913dd5z/uc8973cz/P+37FDV7e6YXKWw83pUccPHEvt675Y0Vz
         Bx+zp5KPz9vHR6fn8+f7rvMABHz69ImvaenkY7KL+QTJHl6cvZcX55Xx4sJqXlx8hBeXHefF1Y28uLaV
@@ -400,7 +400,7 @@
         J6ldAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
+  </metadata>
 </root>

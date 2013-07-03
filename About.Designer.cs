@@ -111,6 +111,7 @@ namespace CycleUploader
 			this.linkEmail = new System.Windows.Forms.LinkLabel();
 			this.lineSeparator1 = new CycleUploader.LineSeparator();
 			this.lineSeparator2 = new CycleUploader.LineSeparator();
+			this.label4 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -251,6 +252,7 @@ namespace CycleUploader
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage1.Controls.Add(this.tvSupportedDevices);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
@@ -258,10 +260,10 @@ namespace CycleUploader
 			this.tabPage1.Size = new System.Drawing.Size(489, 186);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Supported Devices";
-			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage2.Controls.Add(this.tChangeLog);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
@@ -269,14 +271,15 @@ namespace CycleUploader
 			this.tabPage2.Size = new System.Drawing.Size(489, 186);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Change Log";
-			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// tChangeLog
 			// 
+			this.tChangeLog.BackColor = System.Drawing.SystemColors.Window;
 			this.tChangeLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.tChangeLog.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tChangeLog.Location = new System.Drawing.Point(3, 3);
 			this.tChangeLog.Name = "tChangeLog";
+			this.tChangeLog.ReadOnly = true;
 			this.tChangeLog.Size = new System.Drawing.Size(483, 180);
 			this.tChangeLog.TabIndex = 1;
 			this.tChangeLog.Text = "";
@@ -288,7 +291,7 @@ namespace CycleUploader
 			this.panel1.Controls.Add(this.linkEmail);
 			this.panel1.Controls.Add(this.label2);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 302);
+			this.panel1.Location = new System.Drawing.Point(0, 349);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(518, 45);
 			this.panel1.TabIndex = 8;
@@ -318,7 +321,7 @@ namespace CycleUploader
 			// 
 			this.lineSeparator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.lineSeparator1.Location = new System.Drawing.Point(0, 302);
+			this.lineSeparator1.Location = new System.Drawing.Point(0, 349);
 			this.lineSeparator1.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator1.Name = "lineSeparator1";
@@ -329,18 +332,30 @@ namespace CycleUploader
 			// 
 			this.lineSeparator2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.lineSeparator2.Location = new System.Drawing.Point(0, 302);
+			this.lineSeparator2.Location = new System.Drawing.Point(0, 349);
 			this.lineSeparator2.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator2.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator2.Name = "lineSeparator2";
 			this.lineSeparator2.Size = new System.Drawing.Size(518, 2);
 			this.lineSeparator2.TabIndex = 9;
 			// 
+			// label4
+			// 
+			this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.label4.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(12, 297);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(497, 41);
+			this.label4.TabIndex = 30;
+			this.label4.Text = "Note: \r\nSTRAVA support removed as of 03/07/2013 due to them dropping support for " +
+			"V1/V2 of their API. \r\nAccess to V3 of their API wasn\'t granted, unfortunately.";
+			// 
 			// About
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(518, 347);
+			this.ClientSize = new System.Drawing.Size(518, 394);
+			this.Controls.Add(this.label4);
 			this.Controls.Add(this.lineSeparator2);
 			this.Controls.Add(this.lineSeparator1);
 			this.Controls.Add(this.panel1);
@@ -365,6 +380,7 @@ namespace CycleUploader
 			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.RichTextBox tChangeLog;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.LinkLabel linkEmail;

@@ -65,9 +65,9 @@ namespace CycleUploader
 			this.cbkProviderStrava = new System.Windows.Forms.CheckBox();
 			this.cbkProviderRunkeeper = new System.Windows.Forms.CheckBox();
 			this.pnlProviders = new System.Windows.Forms.Panel();
+			this.label14 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lineSeparator4 = new CycleUploader.LineSeparator();
-			this.label14 = new System.Windows.Forms.Label();
 			this.pnlProviders.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -272,6 +272,7 @@ namespace CycleUploader
 			// cbkProviderStrava
 			// 
 			this.cbkProviderStrava.AutoSize = true;
+			this.cbkProviderStrava.Enabled = false;
 			this.cbkProviderStrava.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderStrava.Image")));
 			this.cbkProviderStrava.Location = new System.Drawing.Point(89, 3);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
@@ -312,6 +313,15 @@ namespace CycleUploader
 			this.pnlProviders.Size = new System.Drawing.Size(424, 90);
 			this.pnlProviders.TabIndex = 5;
 			// 
+			// label14
+			// 
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label14.Location = new System.Drawing.Point(12, 46);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(409, 42);
+			this.label14.TabIndex = 5;
+			this.label14.Text = resources.GetString("label14.Text");
+			// 
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -333,15 +343,6 @@ namespace CycleUploader
 			this.lineSeparator4.Name = "lineSeparator4";
 			this.lineSeparator4.Size = new System.Drawing.Size(888, 2);
 			this.lineSeparator4.TabIndex = 17;
-			// 
-			// label14
-			// 
-			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.Location = new System.Drawing.Point(12, 46);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(409, 42);
-			this.label14.TabIndex = 5;
-			this.label14.Text = resources.GetString("label14.Text");
 			// 
 			// Batch
 			// 

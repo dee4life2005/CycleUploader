@@ -337,6 +337,7 @@ namespace CycleUploader
 			// 
 			// colFilePath
 			// 
+			this.colFilePath.Text = "File Path";
 			this.colFilePath.Width = 0;
 			// 
 			// colDummy

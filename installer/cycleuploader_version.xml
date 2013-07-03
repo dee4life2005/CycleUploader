@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.31.0</version>
+<version>1.0.33.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>15/05/2013</date>
+<date>03/07/2013</date>
 <changes>
-• added multiple activity deletion.
-
-• fixed bug with uploading of GPX files where the activity name was set as Jan 01, 0001.
-
+• Removed STRAVA support, due to them removing access to V1 and V2 of their API. V3 access was requested, but rejected - sadly.
 </changes>
 </appinfo> 

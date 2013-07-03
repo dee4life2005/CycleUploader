@@ -42,6 +42,7 @@ namespace CycleUploader
 			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Calculating");
 			this.tabControlHistory = new System.Windows.Forms.TabControl();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
+			this.txtGradientDebug = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnSaveTcx = new System.Windows.Forms.Button();
 			this.btnSaveFit = new System.Windows.Forms.Button();
@@ -153,6 +154,8 @@ namespace CycleUploader
 			// 
 			// tabHistorySummary
 			// 
+			this.tabHistorySummary.BackColor = System.Drawing.SystemColors.Control;
+			this.tabHistorySummary.Controls.Add(this.txtGradientDebug);
 			this.tabHistorySummary.Controls.Add(this.groupBox2);
 			this.tabHistorySummary.Controls.Add(this.groupBox1);
 			this.tabHistorySummary.Controls.Add(this.groupBox4);
@@ -191,7 +194,20 @@ namespace CycleUploader
 			this.tabHistorySummary.Size = new System.Drawing.Size(1014, 409);
 			this.tabHistorySummary.TabIndex = 4;
 			this.tabHistorySummary.Text = "Summary";
-			this.tabHistorySummary.UseVisualStyleBackColor = true;
+			// 
+			// txtGradientDebug
+			// 
+			this.txtGradientDebug.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
+			this.txtGradientDebug.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtGradientDebug.Location = new System.Drawing.Point(110, 283);
+			this.txtGradientDebug.Multiline = true;
+			this.txtGradientDebug.Name = "txtGradientDebug";
+			this.txtGradientDebug.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtGradientDebug.Size = new System.Drawing.Size(585, 120);
+			this.txtGradientDebug.TabIndex = 71;
+			this.txtGradientDebug.Visible = false;
+			this.txtGradientDebug.WordWrap = false;
 			// 
 			// groupBox2
 			// 
@@ -229,6 +245,7 @@ namespace CycleUploader
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left)));
 			this.groupBox1.Controls.Add(this.lstMileSplits);
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(701, 111);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(305, 288);
@@ -238,12 +255,16 @@ namespace CycleUploader
 			// 
 			// lstMileSplits
 			// 
+			this.lstMileSplits.BackColor = System.Drawing.SystemColors.Window;
 			this.lstMileSplits.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.lstMileSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 									this.columnHeader11,
 									this.columnHeader12,
 									this.columnHeader13});
 			this.lstMileSplits.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lstMileSplits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lstMileSplits.FullRowSelect = true;
+			this.lstMileSplits.GridLines = true;
 			this.lstMileSplits.Location = new System.Drawing.Point(3, 16);
 			this.lstMileSplits.Name = "lstMileSplits";
 			this.lstMileSplits.Size = new System.Drawing.Size(299, 269);
@@ -271,6 +292,7 @@ namespace CycleUploader
 			this.groupBox4.Controls.Add(this.pnlHistoryUploadGarmin);
 			this.groupBox4.Controls.Add(this.pnlHistoryUploadStrava);
 			this.groupBox4.Controls.Add(this.pnlHistoryUploadRunkeeper);
+			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox4.Location = new System.Drawing.Point(524, 6);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(482, 99);
@@ -474,7 +496,7 @@ namespace CycleUploader
 			// 
 			this.cbkSummaryIncludeInStats.Enabled = false;
 			this.cbkSummaryIncludeInStats.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIncludeInStats.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIncludeInStats.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.cbkSummaryIncludeInStats.Location = new System.Drawing.Point(535, 170);
 			this.cbkSummaryIncludeInStats.Name = "cbkSummaryIncludeInStats";
 			this.cbkSummaryIncludeInStats.Size = new System.Drawing.Size(129, 24);
@@ -486,7 +508,7 @@ namespace CycleUploader
 			// 
 			this.cbkSummaryIsStationaryTrainer.Enabled = false;
 			this.cbkSummaryIsStationaryTrainer.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIsStationaryTrainer.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIsStationaryTrainer.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.cbkSummaryIsStationaryTrainer.Location = new System.Drawing.Point(535, 147);
 			this.cbkSummaryIsStationaryTrainer.Name = "cbkSummaryIsStationaryTrainer";
 			this.cbkSummaryIsStationaryTrainer.Size = new System.Drawing.Size(104, 24);
@@ -498,7 +520,7 @@ namespace CycleUploader
 			// 
 			this.cbkSummaryIsCommute.Enabled = false;
 			this.cbkSummaryIsCommute.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbkSummaryIsCommute.ForeColor = System.Drawing.Color.SteelBlue;
+			this.cbkSummaryIsCommute.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.cbkSummaryIsCommute.Location = new System.Drawing.Point(535, 124);
 			this.cbkSummaryIsCommute.Name = "cbkSummaryIsCommute";
 			this.cbkSummaryIsCommute.Size = new System.Drawing.Size(104, 24);
@@ -508,6 +530,7 @@ namespace CycleUploader
 			// 
 			// txtHistoryNotes
 			// 
+			this.txtHistoryNotes.BackColor = System.Drawing.SystemColors.Window;
 			this.txtHistoryNotes.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtHistoryNotes.Location = new System.Drawing.Point(110, 155);
 			this.txtHistoryNotes.Multiline = true;
@@ -519,8 +542,8 @@ namespace CycleUploader
 			// 
 			// label6
 			// 
-			this.label6.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label6.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label6.Location = new System.Drawing.Point(15, 154);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(89, 19);
@@ -530,7 +553,7 @@ namespace CycleUploader
 			// lblHistoryMaxSpeed
 			// 
 			this.lblHistoryMaxSpeed.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryMaxSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxSpeed.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryMaxSpeed.Location = new System.Drawing.Point(333, 129);
 			this.lblHistoryMaxSpeed.Name = "lblHistoryMaxSpeed";
 			this.lblHistoryMaxSpeed.Size = new System.Drawing.Size(117, 23);
@@ -539,8 +562,8 @@ namespace CycleUploader
 			// 
 			// label9
 			// 
-			this.label9.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label9.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label9.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label9.Location = new System.Drawing.Point(238, 129);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(89, 19);
@@ -550,7 +573,7 @@ namespace CycleUploader
 			// lblHistoryMaxCadence
 			// 
 			this.lblHistoryMaxCadence.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryMaxCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxCadence.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryMaxCadence.Location = new System.Drawing.Point(333, 105);
 			this.lblHistoryMaxCadence.Name = "lblHistoryMaxCadence";
 			this.lblHistoryMaxCadence.Size = new System.Drawing.Size(117, 23);
@@ -560,7 +583,7 @@ namespace CycleUploader
 			// lblHistoryMaxHeartRate
 			// 
 			this.lblHistoryMaxHeartRate.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryMaxHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMaxHeartRate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryMaxHeartRate.Location = new System.Drawing.Point(333, 82);
 			this.lblHistoryMaxHeartRate.Name = "lblHistoryMaxHeartRate";
 			this.lblHistoryMaxHeartRate.Size = new System.Drawing.Size(117, 23);
@@ -570,7 +593,7 @@ namespace CycleUploader
 			// lblHistoryTotalDescent
 			// 
 			this.lblHistoryTotalDescent.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryTotalDescent.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryTotalDescent.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryTotalDescent.Location = new System.Drawing.Point(333, 59);
 			this.lblHistoryTotalDescent.Name = "lblHistoryTotalDescent";
 			this.lblHistoryTotalDescent.Size = new System.Drawing.Size(117, 23);
@@ -580,7 +603,7 @@ namespace CycleUploader
 			// lblHistoryTotalAscent
 			// 
 			this.lblHistoryTotalAscent.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryTotalAscent.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryTotalAscent.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryTotalAscent.Location = new System.Drawing.Point(333, 37);
 			this.lblHistoryTotalAscent.Name = "lblHistoryTotalAscent";
 			this.lblHistoryTotalAscent.Size = new System.Drawing.Size(117, 15);
@@ -590,7 +613,7 @@ namespace CycleUploader
 			// lblHistoryMovingTime
 			// 
 			this.lblHistoryMovingTime.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryMovingTime.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryMovingTime.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryMovingTime.Location = new System.Drawing.Point(333, 13);
 			this.lblHistoryMovingTime.Name = "lblHistoryMovingTime";
 			this.lblHistoryMovingTime.Size = new System.Drawing.Size(117, 23);
@@ -599,8 +622,8 @@ namespace CycleUploader
 			// 
 			// label30
 			// 
-			this.label30.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label30.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label30.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label30.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label30.Location = new System.Drawing.Point(238, 105);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(82, 19);
@@ -609,8 +632,8 @@ namespace CycleUploader
 			// 
 			// label31
 			// 
-			this.label31.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label31.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label31.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label31.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label31.Location = new System.Drawing.Point(238, 82);
 			this.label31.Name = "label31";
 			this.label31.Size = new System.Drawing.Size(89, 23);
@@ -619,8 +642,8 @@ namespace CycleUploader
 			// 
 			// label32
 			// 
-			this.label32.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label32.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label32.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label32.Location = new System.Drawing.Point(238, 59);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(89, 23);
@@ -629,8 +652,8 @@ namespace CycleUploader
 			// 
 			// label33
 			// 
-			this.label33.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label33.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label33.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label33.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label33.Location = new System.Drawing.Point(238, 37);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(89, 15);
@@ -639,8 +662,8 @@ namespace CycleUploader
 			// 
 			// label34
 			// 
-			this.label34.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label34.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label34.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label34.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label34.Location = new System.Drawing.Point(238, 14);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(89, 22);
@@ -650,7 +673,7 @@ namespace CycleUploader
 			// lblHistoryAvgSpeed
 			// 
 			this.lblHistoryAvgSpeed.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryAvgSpeed.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgSpeed.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryAvgSpeed.Location = new System.Drawing.Point(110, 130);
 			this.lblHistoryAvgSpeed.Name = "lblHistoryAvgSpeed";
 			this.lblHistoryAvgSpeed.Size = new System.Drawing.Size(122, 19);
@@ -659,8 +682,8 @@ namespace CycleUploader
 			// 
 			// label36
 			// 
-			this.label36.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label36.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label36.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label36.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label36.Location = new System.Drawing.Point(15, 130);
 			this.label36.Name = "label36";
 			this.label36.Size = new System.Drawing.Size(89, 19);
@@ -670,7 +693,7 @@ namespace CycleUploader
 			// lblHistoryAvgCadence
 			// 
 			this.lblHistoryAvgCadence.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryAvgCadence.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgCadence.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryAvgCadence.Location = new System.Drawing.Point(110, 106);
 			this.lblHistoryAvgCadence.Name = "lblHistoryAvgCadence";
 			this.lblHistoryAvgCadence.Size = new System.Drawing.Size(122, 19);
@@ -680,7 +703,7 @@ namespace CycleUploader
 			// lblHistoryAvgHeartRate
 			// 
 			this.lblHistoryAvgHeartRate.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryAvgHeartRate.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryAvgHeartRate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryAvgHeartRate.Location = new System.Drawing.Point(110, 83);
 			this.lblHistoryAvgHeartRate.Name = "lblHistoryAvgHeartRate";
 			this.lblHistoryAvgHeartRate.Size = new System.Drawing.Size(122, 23);
@@ -690,7 +713,7 @@ namespace CycleUploader
 			// lblHistoryCalories
 			// 
 			this.lblHistoryCalories.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryCalories.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryCalories.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryCalories.Location = new System.Drawing.Point(110, 60);
 			this.lblHistoryCalories.Name = "lblHistoryCalories";
 			this.lblHistoryCalories.Size = new System.Drawing.Size(122, 23);
@@ -700,7 +723,7 @@ namespace CycleUploader
 			// lblHistoryDistance
 			// 
 			this.lblHistoryDistance.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryDistance.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryDistance.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryDistance.Location = new System.Drawing.Point(110, 37);
 			this.lblHistoryDistance.Name = "lblHistoryDistance";
 			this.lblHistoryDistance.Size = new System.Drawing.Size(122, 23);
@@ -710,7 +733,7 @@ namespace CycleUploader
 			// lblHistoryDuration
 			// 
 			this.lblHistoryDuration.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHistoryDuration.ForeColor = System.Drawing.Color.Gray;
+			this.lblHistoryDuration.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblHistoryDuration.Location = new System.Drawing.Point(110, 14);
 			this.lblHistoryDuration.Name = "lblHistoryDuration";
 			this.lblHistoryDuration.Size = new System.Drawing.Size(122, 23);
@@ -719,8 +742,8 @@ namespace CycleUploader
 			// 
 			// label44
 			// 
-			this.label44.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label44.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label44.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label44.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label44.Location = new System.Drawing.Point(15, 106);
 			this.label44.Name = "label44";
 			this.label44.Size = new System.Drawing.Size(99, 19);
@@ -729,8 +752,8 @@ namespace CycleUploader
 			// 
 			// label45
 			// 
-			this.label45.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label45.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label45.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label45.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label45.Location = new System.Drawing.Point(15, 83);
 			this.label45.Name = "label45";
 			this.label45.Size = new System.Drawing.Size(89, 23);
@@ -739,8 +762,8 @@ namespace CycleUploader
 			// 
 			// label46
 			// 
-			this.label46.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label46.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label46.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label46.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label46.Location = new System.Drawing.Point(15, 60);
 			this.label46.Name = "label46";
 			this.label46.Size = new System.Drawing.Size(89, 23);
@@ -749,8 +772,8 @@ namespace CycleUploader
 			// 
 			// label47
 			// 
-			this.label47.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label47.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label47.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label47.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label47.Location = new System.Drawing.Point(15, 37);
 			this.label47.Name = "label47";
 			this.label47.Size = new System.Drawing.Size(89, 23);
@@ -759,8 +782,8 @@ namespace CycleUploader
 			// 
 			// label48
 			// 
-			this.label48.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label48.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label48.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label48.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label48.Location = new System.Drawing.Point(15, 14);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(89, 23);
@@ -773,7 +796,7 @@ namespace CycleUploader
 			this.tabHistoryMap.Location = new System.Drawing.Point(4, 22);
 			this.tabHistoryMap.Name = "tabHistoryMap";
 			this.tabHistoryMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHistoryMap.Size = new System.Drawing.Size(1014, 314);
+			this.tabHistoryMap.Size = new System.Drawing.Size(1014, 409);
 			this.tabHistoryMap.TabIndex = 5;
 			this.tabHistoryMap.Text = "Map";
 			this.tabHistoryMap.UseVisualStyleBackColor = true;
@@ -785,7 +808,7 @@ namespace CycleUploader
 			this.webBrowserHistoryMap.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowserHistoryMap.Name = "webBrowserHistoryMap";
 			this.webBrowserHistoryMap.ScrollBarsEnabled = false;
-			this.webBrowserHistoryMap.Size = new System.Drawing.Size(1008, 308);
+			this.webBrowserHistoryMap.Size = new System.Drawing.Size(1008, 403);
 			this.webBrowserHistoryMap.TabIndex = 1;
 			// 
 			// tabPage8
@@ -794,7 +817,7 @@ namespace CycleUploader
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
 			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage8.Size = new System.Drawing.Size(1014, 314);
+			this.tabPage8.Size = new System.Drawing.Size(1014, 409);
 			this.tabPage8.TabIndex = 0;
 			this.tabPage8.Text = "Altitude";
 			this.tabPage8.UseVisualStyleBackColor = true;
@@ -813,7 +836,7 @@ namespace CycleUploader
 			this.zedHistoryAltitude.ScrollMinX = 0D;
 			this.zedHistoryAltitude.ScrollMinY = 0D;
 			this.zedHistoryAltitude.ScrollMinY2 = 0D;
-			this.zedHistoryAltitude.Size = new System.Drawing.Size(1008, 308);
+			this.zedHistoryAltitude.Size = new System.Drawing.Size(1008, 403);
 			this.zedHistoryAltitude.TabIndex = 0;
 			// 
 			// tabPage9
@@ -822,7 +845,7 @@ namespace CycleUploader
 			this.tabPage9.Location = new System.Drawing.Point(4, 22);
 			this.tabPage9.Name = "tabPage9";
 			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage9.Size = new System.Drawing.Size(1014, 314);
+			this.tabPage9.Size = new System.Drawing.Size(1014, 409);
 			this.tabPage9.TabIndex = 1;
 			this.tabPage9.Text = "Speed";
 			this.tabPage9.UseVisualStyleBackColor = true;
@@ -841,7 +864,7 @@ namespace CycleUploader
 			this.zedHistorySpeed.ScrollMinX = 0D;
 			this.zedHistorySpeed.ScrollMinY = 0D;
 			this.zedHistorySpeed.ScrollMinY2 = 0D;
-			this.zedHistorySpeed.Size = new System.Drawing.Size(1008, 308);
+			this.zedHistorySpeed.Size = new System.Drawing.Size(1008, 403);
 			this.zedHistorySpeed.TabIndex = 1;
 			// 
 			// tabPage10
@@ -850,7 +873,7 @@ namespace CycleUploader
 			this.tabPage10.Location = new System.Drawing.Point(4, 22);
 			this.tabPage10.Name = "tabPage10";
 			this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage10.Size = new System.Drawing.Size(1014, 314);
+			this.tabPage10.Size = new System.Drawing.Size(1014, 409);
 			this.tabPage10.TabIndex = 2;
 			this.tabPage10.Text = "Cadence";
 			this.tabPage10.UseVisualStyleBackColor = true;
@@ -869,7 +892,7 @@ namespace CycleUploader
 			this.zedHistoryCadence.ScrollMinX = 0D;
 			this.zedHistoryCadence.ScrollMinY = 0D;
 			this.zedHistoryCadence.ScrollMinY2 = 0D;
-			this.zedHistoryCadence.Size = new System.Drawing.Size(1008, 308);
+			this.zedHistoryCadence.Size = new System.Drawing.Size(1008, 403);
 			this.zedHistoryCadence.TabIndex = 1;
 			// 
 			// tabPage11
@@ -879,7 +902,7 @@ namespace CycleUploader
 			this.tabPage11.Location = new System.Drawing.Point(4, 22);
 			this.tabPage11.Name = "tabPage11";
 			this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage11.Size = new System.Drawing.Size(1014, 314);
+			this.tabPage11.Size = new System.Drawing.Size(1014, 409);
 			this.tabPage11.TabIndex = 3;
 			this.tabPage11.Text = "Heart Rate";
 			this.tabPage11.UseVisualStyleBackColor = true;
@@ -1016,6 +1039,7 @@ namespace CycleUploader
 			this.tabPage11.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.TextBox txtGradientDebug;
 		private CycleUploader.LineSeparator lineSeparator1;
 		private System.Windows.Forms.SaveFileDialog saveFileDlg;
 		private System.Windows.Forms.Button btnSaveFit;

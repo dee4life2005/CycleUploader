@@ -149,7 +149,7 @@ namespace CycleUploader
 			this.pnlProfile.Controls.Add(this.lblProfileName);
 			this.pnlProfile.Controls.Add(this.pbProfileMedium);
 			this.pnlProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.pnlProfile.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.pnlProfile.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.pnlProfile.Location = new System.Drawing.Point(4, 38);
 			this.pnlProfile.Name = "pnlProfile";
 			this.pnlProfile.Size = new System.Drawing.Size(345, 127);
@@ -318,7 +318,7 @@ namespace CycleUploader
 			// 
 			this.pnlRecords.Controls.Add(this.lstRecords);
 			this.pnlRecords.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.pnlRecords.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.pnlRecords.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.pnlRecords.Location = new System.Drawing.Point(4, 171);
 			this.pnlRecords.Name = "pnlRecords";
 			this.pnlRecords.Size = new System.Drawing.Size(256, 182);
@@ -366,7 +366,7 @@ namespace CycleUploader
 			this.pnlActivities.Controls.Add(this.label5);
 			this.pnlActivities.Controls.Add(this.lstActivities);
 			this.pnlActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.pnlActivities.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.pnlActivities.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.pnlActivities.Location = new System.Drawing.Point(263, 171);
 			this.pnlActivities.Name = "pnlActivities";
 			this.pnlActivities.Size = new System.Drawing.Size(596, 182);
@@ -443,7 +443,7 @@ namespace CycleUploader
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.tabControl1);
 			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox4.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.groupBox4.Location = new System.Drawing.Point(4, 359);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(855, 319);
@@ -504,7 +504,7 @@ namespace CycleUploader
 			// label12
 			// 
 			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label12.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label12.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label12.Location = new System.Drawing.Point(546, 3);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(100, 11);
@@ -515,7 +515,7 @@ namespace CycleUploader
 			// 
 			this.lstSplits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left)));
-			this.lstSplits.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.lstSplits.BackColor = System.Drawing.SystemColors.Window;
 			this.lstSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 									this.columnHeader11,
 									this.columnHeader14,
@@ -548,7 +548,7 @@ namespace CycleUploader
 			// label14
 			// 
 			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label14.Location = new System.Drawing.Point(297, 155);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(100, 10);
@@ -559,7 +559,7 @@ namespace CycleUploader
 			// 
 			this.richActivityComments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left)));
-			this.richActivityComments.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.richActivityComments.BackColor = System.Drawing.SystemColors.Window;
 			this.richActivityComments.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.richActivityComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.richActivityComments.Location = new System.Drawing.Point(297, 168);
@@ -574,7 +574,7 @@ namespace CycleUploader
 			// 
 			this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left)));
-			this.txtNotes.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.txtNotes.BackColor = System.Drawing.SystemColors.Window;
 			this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtNotes.Location = new System.Drawing.Point(17, 168);
@@ -600,7 +600,7 @@ namespace CycleUploader
 			// label6
 			// 
 			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label6.Location = new System.Drawing.Point(17, 155);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(100, 10);
@@ -610,7 +610,7 @@ namespace CycleUploader
 			// lblLastModified
 			// 
 			this.lblLastModified.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblLastModified.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblLastModified.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblLastModified.Location = new System.Drawing.Point(415, 109);
 			this.lblLastModified.Name = "lblLastModified";
 			this.lblLastModified.Size = new System.Drawing.Size(132, 23);
@@ -620,7 +620,7 @@ namespace CycleUploader
 			// lblTotalAscent
 			// 
 			this.lblTotalAscent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalAscent.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblTotalAscent.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblTotalAscent.Location = new System.Drawing.Point(415, 86);
 			this.lblTotalAscent.Name = "lblTotalAscent";
 			this.lblTotalAscent.Size = new System.Drawing.Size(132, 23);
@@ -630,7 +630,7 @@ namespace CycleUploader
 			// lblActivityEquipment
 			// 
 			this.lblActivityEquipment.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityEquipment.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblActivityEquipment.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblActivityEquipment.Location = new System.Drawing.Point(415, 63);
 			this.lblActivityEquipment.Name = "lblActivityEquipment";
 			this.lblActivityEquipment.Size = new System.Drawing.Size(132, 23);
@@ -640,7 +640,7 @@ namespace CycleUploader
 			// lblActivityType
 			// 
 			this.lblActivityType.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityType.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblActivityType.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblActivityType.Location = new System.Drawing.Point(415, 40);
 			this.lblActivityType.Name = "lblActivityType";
 			this.lblActivityType.Size = new System.Drawing.Size(132, 23);
@@ -650,7 +650,7 @@ namespace CycleUploader
 			// label21
 			// 
 			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label21.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label21.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label21.Location = new System.Drawing.Point(297, 109);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(118, 23);
@@ -660,7 +660,7 @@ namespace CycleUploader
 			// label22
 			// 
 			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label22.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label22.Location = new System.Drawing.Point(297, 86);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(100, 23);
@@ -670,7 +670,7 @@ namespace CycleUploader
 			// label23
 			// 
 			this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label23.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label23.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label23.Location = new System.Drawing.Point(297, 63);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(100, 23);
@@ -680,7 +680,7 @@ namespace CycleUploader
 			// label24
 			// 
 			this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label24.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label24.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label24.Location = new System.Drawing.Point(297, 40);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(100, 23);
@@ -690,7 +690,7 @@ namespace CycleUploader
 			// lblAvgSpeed
 			// 
 			this.lblAvgSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAvgSpeed.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblAvgSpeed.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblAvgSpeed.Location = new System.Drawing.Point(135, 132);
 			this.lblAvgSpeed.Name = "lblAvgSpeed";
 			this.lblAvgSpeed.Size = new System.Drawing.Size(156, 19);
@@ -700,7 +700,7 @@ namespace CycleUploader
 			// label8
 			// 
 			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label8.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label8.Location = new System.Drawing.Point(17, 132);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(100, 19);
@@ -710,7 +710,7 @@ namespace CycleUploader
 			// lblActivityDateTime
 			// 
 			this.lblActivityDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityDateTime.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblActivityDateTime.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblActivityDateTime.Location = new System.Drawing.Point(135, 17);
 			this.lblActivityDateTime.Name = "lblActivityDateTime";
 			this.lblActivityDateTime.Size = new System.Drawing.Size(156, 23);
@@ -720,7 +720,7 @@ namespace CycleUploader
 			// label7
 			// 
 			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label7.Location = new System.Drawing.Point(17, 17);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(118, 23);
@@ -730,7 +730,7 @@ namespace CycleUploader
 			// lblAvgHeartRate
 			// 
 			this.lblAvgHeartRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAvgHeartRate.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblAvgHeartRate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblAvgHeartRate.Location = new System.Drawing.Point(135, 109);
 			this.lblAvgHeartRate.Name = "lblAvgHeartRate";
 			this.lblAvgHeartRate.Size = new System.Drawing.Size(156, 23);
@@ -740,7 +740,7 @@ namespace CycleUploader
 			// lblCalories
 			// 
 			this.lblCalories.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCalories.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblCalories.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblCalories.Location = new System.Drawing.Point(135, 86);
 			this.lblCalories.Name = "lblCalories";
 			this.lblCalories.Size = new System.Drawing.Size(156, 23);
@@ -750,7 +750,7 @@ namespace CycleUploader
 			// lblDistance
 			// 
 			this.lblDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDistance.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblDistance.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblDistance.Location = new System.Drawing.Point(135, 63);
 			this.lblDistance.Name = "lblDistance";
 			this.lblDistance.Size = new System.Drawing.Size(156, 23);
@@ -760,7 +760,7 @@ namespace CycleUploader
 			// lblDuration
 			// 
 			this.lblDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDuration.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblDuration.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lblDuration.Location = new System.Drawing.Point(135, 40);
 			this.lblDuration.Name = "lblDuration";
 			this.lblDuration.Size = new System.Drawing.Size(156, 23);
@@ -770,7 +770,7 @@ namespace CycleUploader
 			// label9
 			// 
 			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label9.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label9.Location = new System.Drawing.Point(17, 109);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(118, 23);
@@ -780,7 +780,7 @@ namespace CycleUploader
 			// label10
 			// 
 			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label10.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label10.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label10.Location = new System.Drawing.Point(17, 86);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(100, 23);
@@ -790,7 +790,7 @@ namespace CycleUploader
 			// label11
 			// 
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label11.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label11.Location = new System.Drawing.Point(17, 63);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(100, 23);
@@ -800,7 +800,7 @@ namespace CycleUploader
 			// label13
 			// 
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label13.ForeColor = System.Drawing.Color.SteelBlue;
+			this.label13.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label13.Location = new System.Drawing.Point(17, 40);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(100, 23);
@@ -916,7 +916,7 @@ namespace CycleUploader
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.pnlStreetTeam.Controls.Add(this.lstStreetTeam);
 			this.pnlStreetTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.pnlStreetTeam.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.pnlStreetTeam.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.pnlStreetTeam.Location = new System.Drawing.Point(355, 38);
 			this.pnlStreetTeam.Name = "pnlStreetTeam";
 			this.pnlStreetTeam.Size = new System.Drawing.Size(504, 127);
