@@ -282,6 +282,7 @@ namespace CycleUploader
 			this.cbkProviderStrava.Text = " ";
 			this.cbkProviderStrava.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			this.cbkProviderStrava.UseVisualStyleBackColor = true;
+			this.cbkProviderStrava.CheckedChanged += new System.EventHandler(this.CbkProviderStravaCheckedChanged);
 			this.cbkProviderStrava.CheckStateChanged += new System.EventHandler(this.CbkProviderCheckStateChanged);
 			// 
 			// cbkProviderRunkeeper

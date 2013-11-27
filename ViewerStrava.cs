@@ -9,9 +9,12 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Stravan;
-using Stravan.Json;
+using System.Web;
+using System.Net;
+using System.Json;
+using System.Threading;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace CycleUploader
 {
@@ -21,10 +24,42 @@ namespace CycleUploader
 	public partial class ViewerStrava : Form
 	{
 		private string _token;
-		private string _user;
-		private int _user_id;
+		private Thread _threadProfile;
+		private Thread _threadActivity;
 		
-		public ViewerStrava(string token, string username, int user_id)
+		private delegate void AddListViewItemDelegate(Control ctrl, ListViewItem newItem);			
+		private static void AddListViewItem(Control ctrl, ListViewItem newItem)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new AddListViewItemDelegate(AddListViewItem), new object[] {ctrl, newItem});
+			}
+			else{
+				((ListView)ctrl).Items.Add(newItem);
+			}
+		}
+		
+		private delegate void ResizeListViewDelegate(Control ctrl);
+		private void ResizeListView(Control ctrl)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new ResizeListViewDelegate(ResizeListView), new object[] { ctrl});
+			}
+			else{
+				((ListView)ctrl).AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+			}
+		}
+		private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
+		public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
+		{
+			if (control.InvokeRequired){
+		  		control.Invoke(new SetControlPropertyThreadSafeDelegate(SetControlPropertyThreadSafe), new object[] { control, propertyName, propertyValue });
+		  	}
+			else{
+				control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+			}
+		}
+		
+		public ViewerStrava(string token)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -35,77 +70,118 @@ namespace CycleUploader
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 			_token = token;
-			_user = username;
-			_user_id = user_id;
 		}
 		
-		void ViewerStravaShown(object sender, EventArgs e)
+		void loadProfile()
 		{
-			this.Refresh();
-			StravaWebClient wc = new StravaWebClient();
-			AthleteService p = new AthleteService(wc);
-			Athlete a = p.Show(_token, _user_id);
+			string url = "https://www.strava.com/api/v3/athlete?";
+			url += "access_token=" + _token;
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
 			
-			lblProfileName.Text = a.Name;
-			grpProfile.Refresh();
-			
-			int page = 0;
-			int pageCount = 50;
-			List<Ride> rides;
-			
-			RideService ride_service = new RideService(wc);
-
-			do{
-				rides = ride_service.Index(null, a.Id, null, null, null, null, page*pageCount);
-				
-				for(int r=0;r<rides.Count;r++){
-					string[] row = {
-						rides[r].Id.ToString(),
-						"",
-						rides[r].Name,
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""
-					};
-					lstStravaRides.Items.Add(new ListViewItem(row));
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					dynamic json = JsonValue.Parse(text);
+					
+					SetControlPropertyThreadSafe(lblProfileName,"Text", String.Format("{0} {1}",(string)json.firstname, (string)json.lastname));
+					pbProfile.Load((string)json.profile);
+					SetControlPropertyThreadSafe(frmGender,"Text",(string)json.sex);
+					SetControlPropertyThreadSafe(frmLocation,"Text",(string)json.city + ", " + (string)json.state);
+					SetControlPropertyThreadSafe(frmCreated,"Text", (string)json.created_at);
+					SetControlPropertyThreadSafe(frmUpdated,"Text", (string)json.updated_at);
+					SetControlPropertyThreadSafe(frmPremium,"Text", (bool)json.premium ? "Yes" : "No");
+					
+					for(int bike = 0; bike < json.bikes.Count; bike++){
+						string [] bike_info = {
+							json.bikes[bike].name,
+							String.Format("{0:0.00}",((double)json.bikes[bike].distance * 0.00062137)) + "ml", // convert metres to miles
+							json.bikes[bike].primary
+						};
+						
+						AddListViewItem(frmBikes, new ListViewItem(bike_info));
+					}
+					
 				}
-				
-				lblTotalActivities.Text = ((page*pageCount) + rides.Count).ToString();
-				lblTotalActivities.Refresh();
-				if(rides.Count == 50){
-					page++;
-				}
-			}while(rides.Count == 50);
-			
-			// load the extended ride information
-			pbLoading.Maximum = lstStravaRides.Items.Count;
-			pbLoading.Step = 1;
-			pbLoading.Value = 0;
-			lstStravaRides.Refresh();
-			lblLoadingStatus.Text = "Loading Extended Activity Information ... this may take a while";
-			lblLoadingStatus.Refresh();
-			for(int i = 0; i < lstStravaRides.Items.Count; i++){
-				Ride r = ride_service.Show(Convert.ToInt32(lstStravaRides.Items[i].SubItems[0].Text));
-				
-				lstStravaRides.Items[i].SubItems[1].Text = r.StartDate;
-				lstStravaRides.Items[i].SubItems[3].Text = r.Distance.ToString();
-				lstStravaRides.Items[i].SubItems[4].Text = r.ElapsedTime.ToString();
-				lstStravaRides.Items[i].SubItems[5].Text = r.MovingTime.ToString();
-				lstStravaRides.Items[i].SubItems[6].Text = r.AverageSpeed.ToString();
-				lstStravaRides.Items[i].SubItems[7].Text = r.ElevationGain.ToString();
-				lstStravaRides.Items[i].SubItems[8].Text = r.Bike.Name;
-				lstStravaRides.Items[i].SubItems[9].Text = r.IsCommute.ToString();
-				lstStravaRides.Items[i].SubItems[10].Text = r.IsTrainer.ToString();
-				
-				lstStravaRides.Refresh();
-				pbLoading.Value += pbLoading.Step;
 			}
 			
+			//grpProfile.Refresh();
+			getActivities();
+			
+			
+		}
+		
+		void getActivities()
+		{
+			string url = "https://www.strava.com/api/v3/athlete/activities?";
+			url += "access_token=" + _token;
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
+			
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					dynamic json = JsonValue.Parse(text);
+					SuspendLayout();
+					for(int act = 0; act < json.Count; act++){
+						TimeSpan duration_e = TimeSpan.FromSeconds((double)json[act].elapsed_time);
+						TimeSpan duration_m = TimeSpan.FromSeconds((double)json[act].moving_time);
+						string duration_elapsed =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+							    			duration_e.Hours, 
+							    			duration_e.Minutes, 
+							    			duration_e.Seconds
+							    		);
+						string duration_moving=  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+							    			duration_m.Hours, 
+							    			duration_m.Minutes, 
+							    			duration_m.Seconds
+							    		);
+						string [] activity = {
+							json[act].id,
+							json[act].start_date,
+							json[act].name,
+							string.Format("{0:0.00}",(double)json[act].distance * 0.00062137) + " ml",
+							duration_elapsed,
+							duration_moving,
+							string.Format("{0:0.00} mph",(double)json[act].average_speed * 2.23693629), // m/sec to mph
+							string.Format("{0:0} rpm",(float)json[act].average_cadence),
+							//string.Format("{0:0} bpm", (int)json[act].average_heartrate),
+							string.Format("{0:0.00} watts", (float)json[act].average_watts),
+							string.Format("{0:0.00} ft",(float)json[act].total_elevation_gain * 3.2808399), // metres to feet
+							(bool)json[act].commute ? "Y": "",
+							(bool)json[act].trainer ? "Y": "",
+							(bool)json[act].manual ? "Y": "",
+							(bool)json[act]["private"] ? "Y" : "",
+							(bool)json[act].flagged ? "Y" : ""
+						};
+						AddListViewItem(frmActivities, new ListViewItem(activity));
+					}
+					ResumeLayout();
+					ResizeListView(frmActivities);
+						
+					
+				}
+			}
+		}
+		
+		void ViewerStravaLoad(object sender, EventArgs e)
+		{
+			_threadProfile = new Thread(new ThreadStart(this.loadProfile));
+			_threadProfile.Start();
 		}
 	}
 }

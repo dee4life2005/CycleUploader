@@ -353,5 +353,10 @@ namespace CycleUploader
 			_mainFrm.SetProviderState("Garmin", cbkProviderGarmin.Checked);
 			_mainFrm.SetProviderState("RWGPS", cbkProviderRideWithGps.Checked);
 		}
+		
+		void CbkProviderStravaCheckedChanged(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

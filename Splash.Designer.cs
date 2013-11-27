@@ -204,8 +204,8 @@ namespace CycleUploader
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(563, 41);
 			this.label3.TabIndex = 29;
-			this.label3.Text = "Note: \r\nSTRAVA support removed as of 03/07/2013 due to them dropping support for " +
-			"V1/V2 of their API. \r\nAccess to V3 of their API wasn\'t granted, unfortunately.";
+			this.label3.Text = "STRAVA UPDATE\r\n26/11/2013, STRAVA support re-enabled (experimental).\r\nNote: You w" +
+			"ill need to reconnect with Strava to enable access to V3 of their API.\r\n";
 			// 
 			// Splash
 			// 

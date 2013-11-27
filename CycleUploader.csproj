@@ -205,6 +205,10 @@
     <Compile Include="StravaConnect.Designer.cs">
       <DependentUpon>StravaConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="StravaConnectV3.cs" />
+    <Compile Include="StravaConnectV3.Designer.cs">
+      <DependentUpon>StravaConnectV3.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolsOptions.cs" />
     <Compile Include="ToolsOptions.Designer.cs">
       <DependentUpon>ToolsOptions.cs</DependentUpon>
@@ -306,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StravaConnect.resx">
       <DependentUpon>StravaConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StravaConnectV3.resx">
+      <DependentUpon>StravaConnectV3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsOptions.resx">
       <DependentUpon>ToolsOptions.cs</DependentUpon>

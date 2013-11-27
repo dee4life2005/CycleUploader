@@ -196,7 +196,6 @@ namespace CycleUploader
 			this.statusBarVersion = new System.Windows.Forms.ToolStripStatusLabel();
 			this.grpProviders = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.label29 = new System.Windows.Forms.Label();
 			this.label28 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
 			this.cbkProviderRideWithGps = new System.Windows.Forms.CheckBox();
@@ -265,9 +264,9 @@ namespace CycleUploader
 			this.grpSummary.Enabled = false;
 			this.grpSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.grpSummary.ForeColor = System.Drawing.Color.RoyalBlue;
-			this.grpSummary.Location = new System.Drawing.Point(185, 7);
+			this.grpSummary.Location = new System.Drawing.Point(187, 7);
 			this.grpSummary.Name = "grpSummary";
-			this.grpSummary.Size = new System.Drawing.Size(20, 20);
+			this.grpSummary.Size = new System.Drawing.Size(18, 10);
 			this.grpSummary.TabIndex = 1;
 			this.grpSummary.TabStop = false;
 			this.grpSummary.Text = "File Contents Summary";
@@ -1633,7 +1632,6 @@ namespace CycleUploader
 			this.menuProviderStrava.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.menuProviderStrava.Name = "menuProviderStrava";
 			this.menuProviderStrava.Size = new System.Drawing.Size(44, 36);
-			this.menuProviderStrava.Visible = false;
 			// 
 			// menuConnectToStrava
 			// 
@@ -1650,7 +1648,6 @@ namespace CycleUploader
 			this.menuViewAccountStrava.Name = "menuViewAccountStrava";
 			this.menuViewAccountStrava.Size = new System.Drawing.Size(177, 22);
 			this.menuViewAccountStrava.Text = "View Account...";
-			this.menuViewAccountStrava.Visible = false;
 			this.menuViewAccountStrava.Click += new System.EventHandler(this.menuViewAccountStravaClick);
 			// 
 			// menuUploadToStrava
@@ -1846,7 +1843,6 @@ namespace CycleUploader
 			// panel1
 			// 
 			this.panel1.AutoScroll = true;
-			this.panel1.Controls.Add(this.label29);
 			this.panel1.Controls.Add(this.label28);
 			this.panel1.Controls.Add(this.label19);
 			this.panel1.Controls.Add(this.cbkProviderRideWithGps);
@@ -1865,16 +1861,6 @@ namespace CycleUploader
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(213, 415);
 			this.panel1.TabIndex = 0;
-			// 
-			// label29
-			// 
-			this.label29.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label29.ForeColor = System.Drawing.Color.SteelBlue;
-			this.label29.Location = new System.Drawing.Point(78, 47);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(124, 18);
-			this.label29.TabIndex = 18;
-			this.label29.Text = "API Support Disabled";
 			// 
 			// label28
 			// 
@@ -1929,7 +1915,6 @@ namespace CycleUploader
 			// cbkProviderStrava
 			// 
 			this.cbkProviderStrava.AutoSize = true;
-			this.cbkProviderStrava.Enabled = false;
 			this.cbkProviderStrava.Location = new System.Drawing.Point(18, 47);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
 			this.cbkProviderStrava.Size = new System.Drawing.Size(15, 14);
@@ -2083,14 +2068,16 @@ namespace CycleUploader
 			// 
 			// label30
 			// 
+			this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
 			this.label30.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.label30.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label30.Location = new System.Drawing.Point(12, 630);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(792, 40);
 			this.label30.TabIndex = 31;
-			this.label30.Text = "Note: \r\nSTRAVA support removed as of 03/07/2013 due to them dropping support for " +
-			"V1/V2 of their API. \r\nAccess to V3 of their API wasn\'t granted, unfortunately.";
+			this.label30.Text = "STRAVA UPDATE\r\n26/11/2013, STRAVA support re-enabled (experimental).\r\nNote: You w" +
+			"ill need to reconnect with Strava to enable access to V3 of their API.";
 			// 
 			// MainForm
 			// 
@@ -2164,7 +2151,6 @@ namespace CycleUploader
 			this.PerformLayout();
 		}
 		private System.Windows.Forms.Label label30;
-		private System.Windows.Forms.Label label29;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem menuAnalysisWeeklyStats;

@@ -28,6 +28,7 @@ using System.Web.Script.Serialization;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Json;
 using ZedGraph;
 using Dynastream.Fit;
 using Dynastream.Utility;
@@ -45,6 +46,8 @@ using System.Reflection;
 using ListViewNF;
 using System.Data.SQLite;
 using ListViewExtended;
+using System.Net.Mail;
+using System.Diagnostics;
 
 namespace CycleUploader
 {
@@ -78,11 +81,7 @@ namespace CycleUploader
 		string _client_secret = "d1d13b891ffa44c891ff41f74d0a6951";
 		string _client_uri = "http://127.0.0.1/runkeeper.html";
 		string _rk_auth_token = "";
-		string _strava_token = "";
-		int _strava_user_id = 0;
-		string _strava_name = "";
-		string _strava_username ="";
-		string _strava_password = "";
+		string _strava_access_token = "";
 		string _gc_user;
 		string _gc_password;	
 		string _endomondo_authToken;
@@ -970,122 +969,93 @@ namespace CycleUploader
 				_activityBatch.setUploadStatus("strava","inprogress");
 			}
 			
-			StravaWebClient swc = new StravaWebClient();
-			AuthenticationService auth = new AuthenticationService(swc);
-
 			setUpdateRideMsg("strava", "Authenticating User Credentials");
 			if(_bIsBatchProcessing){
 				_activityBatch.setUploadProgressStatus("Strava: Authenticating user credentials");
 			}
-			AuthenticationV2 authV2 = auth.LoginV2(_strava_username, _strava_password);
 			
-			NameValueCollection nameValuePairs = new NameValueCollection();
+			string url = "https://www.strava.com/api/v3/uploads";			
+			NameValueCollection nvc = new NameValueCollection();						
 			
-			nameValuePairs.Add("token", authV2.Token);
-			nameValuePairs.Add("type", "tcx"); //_activity_file_type);
-			nameValuePairs.Add(System.Web.HttpUtility.UrlEncode("activity_type"), "ride");
-			nameValuePairs.Add(System.Web.HttpUtility.UrlEncode("activity_name"), System.Web.HttpUtility.UrlEncode(txtActivityName.Text));
+			nvc.Add("access_token",_strava_access_token);
+			nvc.Add("activity_type","ride");
+			nvc.Add("activity_name",txtActivityName.Text);
+			nvc.Add("private",Convert.ToString(0));
+			nvc.Add("data_type",Path.GetExtension(_activity_file_name).Replace(".",""));
 			
 			setUpdateRideMsg("strava", "Preparing Activity Information For Upload");
 			if(_bIsBatchProcessing){
 				_activityBatch.setUploadProgressStatus("Strava: Preparing activity for upload");
 			}
 			
-			string tcx = TrackPointsToTcx();
-			
-			nameValuePairs.Add("data", tcx);
-			
 			setUpdateRideMsg("strava", "Uploading, waiting for a response");
 			if(_bIsBatchProcessing){
 				_activityBatch.setUploadProgressStatus("Strava: Uploading activity, waiting for a response");
 			}
-			var request = WebRequest.Create("http://www.strava.com/api/v2/upload");
-			request.Method = "POST";
-			var boundary = "---------------------------" + System.DateTime.Now.Ticks.ToString("x", NumberFormatInfo.InvariantInfo);
-			request.ContentType = "multipart/form-data; boundary=" + boundary;
-    		boundary = "--" + boundary;
-			
-    		using(var requestStream = request.GetRequestStream())
-    		{
-    			foreach(string name in nameValuePairs.Keys)
-    			{
-    				var buffer = Encoding.ASCII.GetBytes(boundary + Environment.NewLine);
-    				requestStream.Write(buffer, 0, buffer.Length);
-    				if(name == "data"){
-    					buffer = Encoding.ASCII.GetBytes(string.Format("Content-Disposition: form-data; name=\"{0}\"{1}Content-Type: application/octet-stream{1}{1}", name, Environment.NewLine));
-    				}
-    				else{
-		            buffer = Encoding.ASCII.GetBytes(string.Format("Content-Disposition: form-data; name=\"{0}\"{1}{1}", name, Environment.NewLine));
-    				}
-		            requestStream.Write(buffer, 0, buffer.Length);
-		            buffer = Encoding.UTF8.GetBytes(nameValuePairs[name] + Environment.NewLine);
-		            requestStream.Write(buffer, 0, buffer.Length);
-    			}
-    			    			
-    			var boundaryBuffer = Encoding.ASCII.GetBytes(boundary + "--");
-        		requestStream.Write(boundaryBuffer, 0, boundaryBuffer.Length);
-        		
-    		}
-			WebResponse response = request.GetResponse();
-    		
-    		Stream responseStream = response.GetResponseStream();
-    		StreamReader responseStreamReader = new StreamReader(responseStream);
-    		
-    		string json = responseStreamReader.ReadToEnd();
-    		
-    		// try and parse the response
-    		try{
-    			StravaResponse stravaOut = new JavaScriptSerializer().Deserialize<StravaResponse>(json);
-    			int strava_id = Convert.ToInt32(stravaOut.upload_id);
-    			setUpdateRideMsg("strava", "Ride Uploaded Successfully");
-    			setUpdateRideId("strava", strava_id.ToString());
-    			
-    			SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
-    			
-    			string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadStrava = ?, fileIsCommute = ?, fileIsStationaryTrainer = ? where idFile = ?";
-    			
-    			cmd.CommandText = sql;
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			cmd.Parameters.Add(new SQLiteParameter());
-    			// add the parameter values
-    			cmd.Parameters[0].Value = txtActivityName.Text;
-    			cmd.Parameters[1].Value = txtActivityNotes.Text;
-    			cmd.Parameters[2].Value = string.Format("http://app.strava.com/activities/{0}",strava_id);
-    			cmd.Parameters[3].Value = cbkIsCommute.Checked ? 1 : 0;
-    			cmd.Parameters[4].Value = cbkIsStationaryTrainer.Checked ? 1 : 0;
-    			cmd.Parameters[5].Value = _dbFileId;
-    			
-    			/*
-				string sql = string.Format("update File set fileActivityName = \"{2}\", fileActivityNotes = \"{3}\", fileUploadStrava = \"{0}\", fileIsCommute = {4}, fileIsStationaryTrainer = {5} where idFile = {1}", 
-				                           string.Format("http://app.strava.com/activities/{0}",strava_id), 
-				                           _dbFileId,
-				                           txtActivityName.Text, 
-				                           txtActivityNotes.Text,
-				                           cbkIsCommute.Checked ? 1 : 0,
-				                           cbkIsStationaryTrainer.Checked ? 1 : 0
-				                          );
-				cmd.CommandText = sql;
-				*/
-				cmd.ExecuteNonQuery();
-    			setUpdateRideImg("strava",Image.FromFile("success-icon.png"));
-    			if(_bIsBatchProcessing){
-    				_activityBatch.setUploadStatus("strava","success", string.Format("http://app.strava.com/activities/{0}",strava_id));
-    				_activityBatch.setUploadProgressStatus("Strava: Uploaded Successfully. *note: if duplicate, it will be ignored automatically by Strava");
-    			}
-    		}
-    		catch(Exception ex){
-    			setUpdateRideMsg("strava", "Error processing response. " + ex.ToString());
-    			setUpdateRideImg("strava",Image.FromFile("failure-icon.png"));
-    			if(_bIsBatchProcessing){
-    				_activityBatch.setUploadStatus("strava","error", "Strava: Error processing response. \r\n" + ex.ToString());
-    				_activityBatch.setUploadProgressStatus("Strava: Error." + ex.Message);
-    			}
-    		}
+
+			HttpUploadFile("https://www.strava.com/api/v3/uploads",
+	           _activity_file_name,
+	           "file",
+	           "", nvc
+	          );
 		}
+		
+		public static void HttpUploadFile(string url, string file, string paramName, string contentType, NameValueCollection nvc) {
+	        Debug.Write(string.Format("Uploading {0} to {1}", file, url));
+	        string boundary = "---------------------------" + System.DateTime.Now.Ticks.ToString("x");
+	        byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+	
+	        HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
+	        wr.ContentType = "multipart/form-data; boundary=" + boundary;
+	        wr.Method = "POST";
+	        wr.KeepAlive = true;
+	        wr.Credentials = System.Net.CredentialCache.DefaultCredentials;
+	
+	        Stream rs = wr.GetRequestStream();
+	
+	        string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+	        foreach (string key in nvc.Keys)
+	        {
+	            rs.Write(boundarybytes, 0, boundarybytes.Length);
+	            string formitem = string.Format(formdataTemplate, key, nvc[key]);
+	            byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+	            rs.Write(formitembytes, 0, formitembytes.Length);
+	        }
+	        rs.Write(boundarybytes, 0, boundarybytes.Length);
+	
+	        string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+	        string header = string.Format(headerTemplate, paramName, file, contentType);
+	        byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+	        rs.Write(headerbytes, 0, headerbytes.Length);
+	
+	        FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+	        byte[] buffer = new byte[4096];
+	        int bytesRead = 0;
+	        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) {
+	            rs.Write(buffer, 0, bytesRead);
+	        }
+	        fileStream.Close();
+	
+	        byte[] trailer = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+	        rs.Write(trailer, 0, trailer.Length);
+	        rs.Close();
+	
+	        WebResponse wresp = null;
+	        try {
+	            wresp = wr.GetResponse();
+	            Stream stream2 = wresp.GetResponseStream();
+	            StreamReader reader2 = new StreamReader(stream2);
+	            Debug.Write(string.Format("File uploaded, server response is: {0}", reader2.ReadToEnd()));
+	        } catch(Exception ex) {
+	            Debug.Write("Error uploading file", ex.Message);
+	            if(wresp != null) {
+	                wresp.Close();
+	                wresp = null;
+	            }
+	        } finally {
+	            wr = null;
+	        }
+	    }
 		
 		
 		#region Fit File Processing Handlers
@@ -3154,8 +3124,7 @@ namespace CycleUploader
 		{
 			string rk = loadDbSetting("checkRunkeeper","False");
 			SetControlPropertyThreadSafe(cbkProviderRunkeeper, "Checked", Convert.ToBoolean(loadDbSetting("checkRunkeeper","False")));
-			//SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean(loadDbSetting("checkStrava","False")));
-			SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", false);
+			SetControlPropertyThreadSafe(cbkProviderStrava, "Checked", Convert.ToBoolean(loadDbSetting("checkStrava","False")));
 			SetControlPropertyThreadSafe(cbkProviderEndomondo, "Checked", Convert.ToBoolean(loadDbSetting("checkEndomondo","False")));
 			SetControlPropertyThreadSafe(cbkProviderGarmin, "Checked", Convert.ToBoolean(loadDbSetting("checkGarmin","False")));
 			SetControlPropertyThreadSafe(cbkProviderRideWithGps, "Checked", Convert.ToBoolean(loadDbSetting("checkRideWithGps","False")));
@@ -3238,14 +3207,9 @@ namespace CycleUploader
 		
 		void checkForStravaConnectToken()
 		{
-			
-			_strava_token = loadDbSetting("strava_token","");
-			_strava_name = loadDbSetting("strava_name","");
-			_strava_user_id = Convert.ToInt32(loadDbSetting("strava_user_id","0"));
-			_strava_username = loadDbSetting("strava_username","");
-			_strava_password = loadDbSetting("strava_password","");
-			
-			if(_strava_token != ""){
+			_strava_access_token = loadDbSetting("strava_access_token","");
+
+			if(_strava_access_token != ""){
 				// enable the view account button
 				EnableMenuItem(menuConnectToStrava, false);
 				EnableMenuItem(menuViewAccountStrava, true);
@@ -3287,20 +3251,12 @@ namespace CycleUploader
 		
 		void MenuConnectToStravaClick(object sender, EventArgs e)
 		{
-			StravaConnect sc = new StravaConnect();
+			StravaConnectV3 sc = new StravaConnectV3();
 			if(sc.ShowDialog() == DialogResult.OK){
+				_strava_access_token = sc._strava_access_token;
 				EnableMenuItem(menuConnectToStrava, false);
 				EnableMenuItem(menuViewAccountStrava, true);
-				_strava_token = sc._token;
-				_strava_name = sc._name;
-				_strava_username = sc._email;
-				_strava_password = sc._password;
-				_strava_user_id = sc._user_id;
-				saveDbSetting("strava_token", _strava_token);
-				saveDbSetting("strava_name", _strava_name);
-				saveDbSetting("strava_username", _strava_username);
-				saveDbSetting("strava_password", _strava_password);
-				saveDbSetting("strava_user_id", _strava_user_id.ToString());
+				saveDbSetting("strava_access_token",_strava_access_token);
 			}
 		}
 		
@@ -3326,7 +3282,7 @@ namespace CycleUploader
 		
 		void menuViewAccountStravaClick(object sender, EventArgs e)
 		{
-			ViewerStrava vs = new ViewerStrava(_strava_token, _strava_name, _strava_user_id);
+			ViewerStrava vs = new ViewerStrava(_strava_access_token);
 			vs.ShowDialog();
 		}
 		
@@ -4184,6 +4140,6 @@ namespace CycleUploader
 				menuFileHistoryEditActivity.Visible = true;
 				menuFileHistoryCreateCourse.Visible = true;				
 			}
-		}
+		}		
 	}
 }
