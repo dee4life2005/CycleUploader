@@ -307,7 +307,6 @@ namespace CycleUploader
 			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.linkHistoryUploadRideWithGPS);
 			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.cbkHistoryUploadRideWithGPS);
 			this.pnlHistoryUploadRideWithGPS.Controls.Add(this.pictureBox13);
-			this.pnlHistoryUploadRideWithGPS.Enabled = false;
 			this.pnlHistoryUploadRideWithGPS.Location = new System.Drawing.Point(329, 21);
 			this.pnlHistoryUploadRideWithGPS.Name = "pnlHistoryUploadRideWithGPS";
 			this.pnlHistoryUploadRideWithGPS.Padding = new System.Windows.Forms.Padding(1);
@@ -355,7 +354,6 @@ namespace CycleUploader
 			this.pnlHistoryUploadGarmin.Controls.Add(this.linkHistoryUploadGarmin);
 			this.pnlHistoryUploadGarmin.Controls.Add(this.cbkHistoryUploadGarmin);
 			this.pnlHistoryUploadGarmin.Controls.Add(this.pictureBox10);
-			this.pnlHistoryUploadGarmin.Enabled = false;
 			this.pnlHistoryUploadGarmin.Location = new System.Drawing.Point(223, 21);
 			this.pnlHistoryUploadGarmin.Name = "pnlHistoryUploadGarmin";
 			this.pnlHistoryUploadGarmin.Padding = new System.Windows.Forms.Padding(1);
@@ -403,7 +401,6 @@ namespace CycleUploader
 			this.pnlHistoryUploadStrava.Controls.Add(this.linkHistoryUploadStrava);
 			this.pnlHistoryUploadStrava.Controls.Add(this.cbkHistoryUploadStrava);
 			this.pnlHistoryUploadStrava.Controls.Add(this.pictureBox11);
-			this.pnlHistoryUploadStrava.Enabled = false;
 			this.pnlHistoryUploadStrava.Location = new System.Drawing.Point(117, 21);
 			this.pnlHistoryUploadStrava.Name = "pnlHistoryUploadStrava";
 			this.pnlHistoryUploadStrava.Padding = new System.Windows.Forms.Padding(1);
@@ -451,7 +448,6 @@ namespace CycleUploader
 			this.pnlHistoryUploadRunkeeper.Controls.Add(this.linkHistoryUploadRunkeeper);
 			this.pnlHistoryUploadRunkeeper.Controls.Add(this.cbkHistoryUploadRunkeeper);
 			this.pnlHistoryUploadRunkeeper.Controls.Add(this.pictureBox12);
-			this.pnlHistoryUploadRunkeeper.Enabled = false;
 			this.pnlHistoryUploadRunkeeper.Location = new System.Drawing.Point(11, 21);
 			this.pnlHistoryUploadRunkeeper.Name = "pnlHistoryUploadRunkeeper";
 			this.pnlHistoryUploadRunkeeper.Padding = new System.Windows.Forms.Padding(1);

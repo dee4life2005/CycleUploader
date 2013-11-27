@@ -993,14 +993,73 @@ namespace CycleUploader
 				_activityBatch.setUploadProgressStatus("Strava: Uploading activity, waiting for a response");
 			}
 
-			HttpUploadFile("https://www.strava.com/api/v3/uploads",
+			int act_id = HttpUploadFile("https://www.strava.com/api/v3/uploads",
 	           _activity_file_name,
 	           "file",
-	           "", nvc
+	           "", nvc, 
+	           _strava_access_token
 	          );
+			
+			if(act_id != 0){
+				stravaSetActivityInfo(_strava_access_token, act_id, txtActivityNotes.Text, cbkIsCommute.Checked, cbkIsStationaryTrainer.Checked);
+			}
+			
+			if(act_id != 0){
+				SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
+					
+				string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadRunkeeper = ? where idFile = ?";
+			
+				cmd.CommandText = sql;
+				cmd.Parameters.Add(new SQLiteParameter());
+				cmd.Parameters.Add(new SQLiteParameter());
+				cmd.Parameters.Add(new SQLiteParameter());
+				cmd.Parameters.Add(new SQLiteParameter());
+				// add the parameter values
+				cmd.Parameters[0].Value = txtActivityName.Text;
+				cmd.Parameters[1].Value = txtActivityNotes.Text;
+				cmd.Parameters[2].Value = "http://www.strava.com/activities/" + act_id.ToString();
+				cmd.Parameters[3].Value = _dbFileId;
+				
+				cmd.ExecuteNonQuery();
+			}
 		}
 		
-		public static void HttpUploadFile(string url, string file, string paramName, string contentType, NameValueCollection nvc) {
+		public static void stravaSetActivityInfo(string access_token, int activity, string activityNotes, bool commute, bool trainer)
+		{
+			string url = "https://www.strava.com/api/v3/activities/";
+			url += Convert.ToString(activity);
+			url += "?access_token=" + access_token;
+			url += "&commute=" + (commute ? 1 : 0).ToString();
+			url += "&trainer=" + (trainer ? 1 : 0).ToString();
+			url += "&description=" + activityNotes;
+			
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "PUT";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
+			
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					Debug.Write(text);
+					dynamic json = JsonValue.Parse(text);
+					
+					JsonValue act_id = json.id;
+					if(act_id.JsonType == JsonType.Default){
+						MessageBox.Show("Strava : error setting ride notes and commute/trainer status");
+					}
+				}
+			}
+			
+		}
+		
+		public static int HttpUploadFile(string url, string file, string paramName, string contentType, NameValueCollection nvc, string access_token) {
+			int act_id = 0;
 	        Debug.Write(string.Format("Uploading {0} to {1}", file, url));
 	        string boundary = "---------------------------" + System.DateTime.Now.Ticks.ToString("x");
 	        byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
@@ -1045,7 +1104,12 @@ namespace CycleUploader
 	            wresp = wr.GetResponse();
 	            Stream stream2 = wresp.GetResponseStream();
 	            StreamReader reader2 = new StreamReader(stream2);
-	            Debug.Write(string.Format("File uploaded, server response is: {0}", reader2.ReadToEnd()));
+	            string response = reader2.ReadToEnd();
+	            dynamic json = JsonValue.Parse(response);
+	            int strava_upload_id = (int)json.id;
+	            act_id = pollStravaUploadStatus(strava_upload_id, access_token);
+	            
+	            
 	        } catch(Exception ex) {
 	            Debug.Write("Error uploading file", ex.Message);
 	            if(wresp != null) {
@@ -1055,7 +1119,64 @@ namespace CycleUploader
 	        } finally {
 	            wr = null;
 	        }
+	        return act_id;
 	    }
+		
+		public static int pollStravaUploadStatus(int upload_id, string access_token)
+		{
+			int activity_id = 0;
+			
+			int poll_count = 0;
+			try{
+				do{
+					string url = "https://www.strava.com/api/v3/uploads/";
+					url += Convert.ToString(upload_id);
+					url += "?access_token=" + access_token;
+					HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+					httpWebRequest.Method = "GET";
+					httpWebRequest.Timeout = 5000;
+				
+					// build the url encoded form post data
+					
+					Debug.WriteLine(poll_count.ToString());
+					using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+					{
+						System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+						if (responseStream != null)
+						{
+							System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+							string text = streamReader.ReadToEnd();
+							
+							dynamic json = JsonValue.Parse(text);
+							
+							//MessageBox.Show((string)json.status);
+							//MessageBox.Show((string)json.activity_id);
+							
+							JsonValue act_id = json.activity_id;
+							JsonValue err = json.error;
+							if(act_id.JsonType != JsonType.Default){
+								return (int)json.activity_id;
+							}
+							if(err.JsonType != JsonType.Default){
+								MessageBox.Show("Poll Strava Response : " + (string)err);
+								return 0;
+							}
+						}
+					}
+					Thread.Sleep(1000);
+					
+					poll_count++;
+				}while(poll_count < 20);
+				
+				MessageBox.Show("Poll Strava Response: activity id not detected after 20 seconds, may not have uploaded successfully");
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			
+			return activity_id;
+		}
 		
 		
 		#region Fit File Processing Handlers
