@@ -150,6 +150,18 @@ namespace CycleUploader
 							    			duration_m.Minutes, 
 							    			duration_m.Seconds
 							    		);
+						
+						int hr = 0;
+						int cad= 0;
+						JsonValue hr_tmp = json[act].average_heartrate;
+						JsonValue cad_tmp= json[act].average_cadence;
+						if(hr_tmp.JsonType != JsonType.Default){
+							hr = (int)json[act].average_heartrate;
+						}
+						if(cad_tmp.JsonType != JsonType.Default){
+							cad = (int)json[act].average_cadence;
+						}
+						
 						string [] activity = {
 							json[act].id,
 							json[act].start_date,
@@ -158,9 +170,9 @@ namespace CycleUploader
 							duration_elapsed,
 							duration_moving,
 							string.Format("{0:0.00} mph",(double)json[act].average_speed * 2.23693629), // m/sec to mph
-							string.Format("{0:0} rpm",(float)json[act].average_cadence),
-							//string.Format("{0:0} bpm", (int)json[act].average_heartrate),
-							string.Format("{0:0.00} watts", (float)json[act].average_watts),
+							string.Format("{0:0} rpm", cad),
+							string.Format("{0:0} bpm", hr),
+							string.Format("{0:0.00} watts", json[act].average_watts ?? 0),
 							string.Format("{0:0.00} ft",(float)json[act].total_elevation_gain * 3.2808399), // metres to feet
 							(bool)json[act].commute ? "Y": "",
 							(bool)json[act].trainer ? "Y": "",

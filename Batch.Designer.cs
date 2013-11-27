@@ -272,7 +272,6 @@ namespace CycleUploader
 			// cbkProviderStrava
 			// 
 			this.cbkProviderStrava.AutoSize = true;
-			this.cbkProviderStrava.Enabled = false;
 			this.cbkProviderStrava.Image = ((System.Drawing.Image)(resources.GetObject("cbkProviderStrava.Image")));
 			this.cbkProviderStrava.Location = new System.Drawing.Point(89, 3);
 			this.cbkProviderStrava.Name = "cbkProviderStrava";
