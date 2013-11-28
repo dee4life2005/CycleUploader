@@ -3064,9 +3064,16 @@ namespace CycleUploader
 			//SetStatusTextThreadSafe(statusBar, "Loading GarminConnect Configuration...");
 			//checkForGarminConnectDetails();
 			
-			SetStatusProgressThreadSafe(statusBar, "Value",++step);
-			SetStatusTextThreadSafe(statusBar, "Loading Strava Configuration...");
-			checkForStravaConnectToken();
+			try{
+				SetStatusProgressThreadSafe(statusBar, "Value",++step);
+				SetStatusTextThreadSafe(statusBar, "Loading Strava Configuration...");
+				checkForStravaConnectToken();
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Strava: error initialising new access token, will try again next time.\r\n\r\nException:\r\n" + ex.Message, "Strava Initialisation Error",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				
+			}
 			
 			//SetStatusProgressThreadSafe(statusBar, "Value",++step);
 			//SetStatusTextThreadSafe(statusBar, "Loading RideWithGPS Configuration...");
