@@ -158,7 +158,8 @@ namespace CycleUploader
 						}
 						
 						// extract the userId
-						Match KeywordMatchUser = Regex.Match(text, "<a class='profile' href='/users/([^<]*)'>", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+						//Match KeywordMatchUser = Regex.Match(text, "<a class='profile' href='/users/([^<]*)/activities'>", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+						Match KeywordMatchUser = Regex.Match(text, "<a class='brand' href='/users/([^<]*)' ", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 						if(KeywordMatchUser.Success){
 							_userId = Convert.ToInt32(KeywordMatchUser.Groups[1].Value);
 						}

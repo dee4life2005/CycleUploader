@@ -30,7 +30,7 @@ namespace CycleUploader
 			pbIcon.Image = System.Drawing.SystemIcons.Question.ToBitmap();
 			tCurrentVersion.Text = currentVersion;
 			tLatestVersion.Text = latestVersion;
-			tChangeLog.Text = changeLog.Replace("• ", "\n• ").Substring(3);
+			tChangeLog.Text = changeLog.Replace("\n", System.Environment.NewLine).Substring(3);
 			// inform user that update is available to be downloaded
 			if(type == "download"){
 				this.Text = "Software Update Available";	

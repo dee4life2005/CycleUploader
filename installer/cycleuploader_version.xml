@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.36.0</version>
+<version>1.0.37.1</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>27/11/2013</date>
+<date>28/11/2013</date>
 <changes>
-• Added Strava API v3 support (uploads + profile viewer) ** experimental
+-------------------------------
+- v1.0.35.0, Added Strava API v3 support (uploads + profile viewer) ** experimental
+-------------------------------
+- v1.0.36.0, Added Strava API v3 support to set activity name, activity notes and commute/trainer status - not possible in v1/v2 of api
+-------------------------------
+- v1.0.37.0, Added exception detection around initialisation of new strava access token setting ... in case the SQLite driver throws a wobbly.
+- v1.0.37.1, Tweaked RideWithGPS support due to change on the website.
 
-• Added Strava API v3 support to set activity name, activity notes and commute/trainer status - not possible in v1/v2 of api
-
-• Added exception detection around initialisation of new strava access token setting ... in case the SQLite driver throws a wobbly.
 </changes>
 </appinfo> 
