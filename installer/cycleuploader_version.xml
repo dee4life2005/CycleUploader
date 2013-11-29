@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.37.1</version>
+<version>1.0.38.1</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
-<date>28/11/2013</date>
+<date>29/11/2013</date>
 <changes>
 
 - v1.0.35.0, Added Strava API v3 support (uploads + profile viewer) ** experimental
