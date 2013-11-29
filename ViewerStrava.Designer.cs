@@ -70,6 +70,7 @@ namespace CycleUploader
 			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader32 = new System.Windows.Forms.ColumnHeader();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.frmBikes = new System.Windows.Forms.ListView();
 			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
@@ -84,6 +85,7 @@ namespace CycleUploader
 			this.lstSplits = new ListViewNF.ListViewNF();
 			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader19 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader31 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader20 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader21 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader25 = new System.Windows.Forms.ColumnHeader();
@@ -93,7 +95,7 @@ namespace CycleUploader
 			this.columnHeader28 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader29 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader30 = new System.Windows.Forms.ColumnHeader();
-			this.lnkRunkeper = new System.Windows.Forms.LinkLabel();
+			this.lnkStrava = new System.Windows.Forms.LinkLabel();
 			this.lblTotalAscent = new System.Windows.Forms.Label();
 			this.label22 = new System.Windows.Forms.Label();
 			this.lblActivityDateTime = new System.Windows.Forms.Label();
@@ -293,7 +295,8 @@ namespace CycleUploader
 									this.columnHeader11,
 									this.columnHeader13,
 									this.columnHeader14,
-									this.columnHeader15});
+									this.columnHeader15,
+									this.columnHeader32});
 			this.frmActivities.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.frmActivities.FullRowSelect = true;
 			this.frmActivities.GridLines = true;
@@ -383,6 +386,11 @@ namespace CycleUploader
 			// 
 			this.columnHeader15.Text = "Flagged";
 			this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// columnHeader32
+			// 
+			this.columnHeader32.Text = "KOM/PR";
+			this.columnHeader32.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// groupBox1
 			// 
@@ -480,7 +488,7 @@ namespace CycleUploader
 			this.tabSummary.BackColor = System.Drawing.SystemColors.Control;
 			this.tabSummary.Controls.Add(this.label12);
 			this.tabSummary.Controls.Add(this.lstSplits);
-			this.tabSummary.Controls.Add(this.lnkRunkeper);
+			this.tabSummary.Controls.Add(this.lnkStrava);
 			this.tabSummary.Controls.Add(this.lblTotalAscent);
 			this.tabSummary.Controls.Add(this.label22);
 			this.tabSummary.Controls.Add(this.lblActivityDateTime);
@@ -519,6 +527,7 @@ namespace CycleUploader
 			this.lstSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 									this.columnHeader18,
 									this.columnHeader19,
+									this.columnHeader31,
 									this.columnHeader20,
 									this.columnHeader21,
 									this.columnHeader25,
@@ -547,6 +556,10 @@ namespace CycleUploader
 			// 
 			this.columnHeader19.Text = "Distance";
 			this.columnHeader19.Width = 88;
+			// 
+			// columnHeader31
+			// 
+			this.columnHeader31.Text = "Avg Speed";
 			// 
 			// columnHeader20
 			// 
@@ -588,16 +601,17 @@ namespace CycleUploader
 			this.columnHeader30.Text = "PR Rank";
 			this.columnHeader30.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// lnkRunkeper
+			// lnkStrava
 			// 
-			this.lnkRunkeper.ForeColor = System.Drawing.Color.SteelBlue;
-			this.lnkRunkeper.Location = new System.Drawing.Point(17, 155);
-			this.lnkRunkeper.Name = "lnkRunkeper";
-			this.lnkRunkeper.Size = new System.Drawing.Size(94, 23);
-			this.lnkRunkeper.TabIndex = 0;
-			this.lnkRunkeper.TabStop = true;
-			this.lnkRunkeper.Text = "Open in Browser";
-			this.lnkRunkeper.Visible = false;
+			this.lnkStrava.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lnkStrava.Location = new System.Drawing.Point(17, 176);
+			this.lnkStrava.Name = "lnkStrava";
+			this.lnkStrava.Size = new System.Drawing.Size(94, 23);
+			this.lnkStrava.TabIndex = 0;
+			this.lnkStrava.TabStop = true;
+			this.lnkStrava.Text = "Open in Browser";
+			this.lnkStrava.Visible = false;
+			this.lnkStrava.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkStravaLinkClicked);
 			// 
 			// lblTotalAscent
 			// 
@@ -850,6 +864,8 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ColumnHeader columnHeader32;
+		private System.Windows.Forms.ColumnHeader columnHeader31;
 		private System.Windows.Forms.ColumnHeader columnHeader30;
 		private System.Windows.Forms.ColumnHeader columnHeader29;
 		private System.Windows.Forms.ColumnHeader columnHeader28;
@@ -878,7 +894,7 @@ namespace CycleUploader
 		private System.Windows.Forms.Label lblActivityDateTime;
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.Label lblTotalAscent;
-		private System.Windows.Forms.LinkLabel lnkRunkeper;
+		private System.Windows.Forms.LinkLabel lnkStrava;
 		private System.Windows.Forms.ColumnHeader columnHeader20;
 		private System.Windows.Forms.ColumnHeader columnHeader19;
 		private System.Windows.Forms.ColumnHeader columnHeader18;

@@ -80,6 +80,21 @@ namespace CycleUploader
 			}
 		}
 		
+		private delegate void SortListViewDelegate(Control ctrl, int column, SortOrder dir);
+		private void SortListView(Control ctrl, int column, SortOrder dir)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new SortListViewDelegate(SortListView), new object[] { ctrl, column, dir});
+			}
+			else{
+				ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
+				lvwColumnSorter.Order = dir;
+				lvwColumnSorter.SortColumn = column;
+				((ListView)ctrl).ListViewItemSorter = lvwColumnSorter;
+				((ListView)ctrl).Sort();
+			}
+		}
+		
 		private delegate string GetListViewSelectedItemValueDelegate(Control ctrl, int itemIdx, int subItemIdx);			
 		private static string GetListViewSelectedItemValue(Control ctrl, int itemIdx, int subItemIdx)
 		{
@@ -147,79 +162,102 @@ namespace CycleUploader
 			//grpProfile.Refresh();
 			getActivities();
 			
-			
+		}
+		
+		public static DateTime ConvertFromUnixTimestamp(double timestamp)
+		{
+		    DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+		    return origin.AddSeconds(timestamp);
+		}
+		
+		public static double ConvertToUnixTimestamp(DateTime date)
+		{
+		    DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+		    TimeSpan diff = date.ToUniversalTime() - origin;
+		    return Math.Floor(diff.TotalSeconds);
 		}
 		
 		void getActivities()
 		{
-			string url = "https://www.strava.com/api/v3/athlete/activities?";
-			url += "access_token=" + _token;
-			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-			httpWebRequest.Method = "GET";
-			httpWebRequest.Timeout = 5000;
-		
-			// build the url encoded form post data
+			int act_count = 0;
+			int page_no = 1;
+			DateTime act_search_date_from = System.DateTime.Now.AddDays(-60);
 			
-			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-			{
-				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
-				if (responseStream != null)
+			double unix_ticks = ConvertToUnixTimestamp(act_search_date_from);
+			
+			do{
+				string url = "https://www.strava.com/api/v3/athlete/activities?";
+				url += "access_token=" + _token;
+				//url += "&after=" + Convert.ToInt32(unix_ticks);
+				url += "&per_page=50";
+				url += "&page=" + page_no.ToString();
+				HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+				httpWebRequest.Method = "GET";
+				httpWebRequest.Timeout = 5000;
+			
+				// build the url encoded form post data
+				
+				using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
 				{
-					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
-					string text = streamReader.ReadToEnd();
-					dynamic json = JsonValue.Parse(text);
-					SuspendLayout();
-					for(int act = 0; act < json.Count; act++){
-						TimeSpan duration_e = TimeSpan.FromSeconds((double)json[act].elapsed_time);
-						TimeSpan duration_m = TimeSpan.FromSeconds((double)json[act].moving_time);
-						string duration_elapsed =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
-							    			duration_e.Hours, 
-							    			duration_e.Minutes, 
-							    			duration_e.Seconds
-							    		);
-						string duration_moving=  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
-							    			duration_m.Hours, 
-							    			duration_m.Minutes, 
-							    			duration_m.Seconds
-							    		);
-						
-						int hr = 0;
-						int cad= 0;
-						JsonValue hr_tmp = json[act].average_heartrate;
-						JsonValue cad_tmp= json[act].average_cadence;
-						if(hr_tmp.JsonType != JsonType.Default){
-							hr = (int)json[act].average_heartrate;
+					System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+					if (responseStream != null)
+					{
+						System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+						string text = streamReader.ReadToEnd();
+						dynamic json = JsonValue.Parse(text);
+						act_count = json.Count;
+						for(int act = 0; act < json.Count; act++){
+							TimeSpan duration_e = TimeSpan.FromSeconds((double)json[act].elapsed_time);
+							TimeSpan duration_m = TimeSpan.FromSeconds((double)json[act].moving_time);
+							string duration_elapsed =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+								    			duration_e.Hours, 
+								    			duration_e.Minutes, 
+								    			duration_e.Seconds
+								    		);
+							string duration_moving=  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+								    			duration_m.Hours, 
+								    			duration_m.Minutes, 
+								    			duration_m.Seconds
+								    		);
+							
+							int hr = 0;
+							int cad= 0;
+							JsonValue hr_tmp = json[act].average_heartrate;
+							JsonValue cad_tmp= json[act].average_cadence;
+							if(hr_tmp.JsonType != JsonType.Default){
+								hr = (int)json[act].average_heartrate;
+							}
+							if(cad_tmp.JsonType != JsonType.Default){
+								cad = (int)json[act].average_cadence;
+							}
+							
+							string [] activity = {
+								json[act].id,
+								json[act].start_date,
+								json[act].name,
+								string.Format("{0:0.00}",(double)json[act].distance * 0.00062137) + " ml",
+								duration_elapsed,
+								duration_moving,
+								string.Format("{0:0.00} mph",(double)json[act].average_speed * 2.23693629), // m/sec to mph
+								string.Format("{0:0} rpm", cad),
+								string.Format("{0:0} bpm", hr),
+								string.Format("{0:0.00} watts", json[act].average_watts ?? 0),
+								string.Format("{0:0.00} ft",(float)json[act].total_elevation_gain * 3.2808399), // metres to feet
+								(bool)json[act].commute ? "Y": "",
+								(bool)json[act].trainer ? "Y": "",
+								(bool)json[act].manual ? "Y": "",
+								(bool)json[act]["private"] ? "Y" : "",
+								(bool)json[act].flagged ? "Y" : "",
+								((int)json[act].achievement_count).ToString()
+							};
+							AddListViewItem(frmActivities, new ListViewItem(activity));
 						}
-						if(cad_tmp.JsonType != JsonType.Default){
-							cad = (int)json[act].average_cadence;
-						}
-						
-						string [] activity = {
-							json[act].id,
-							json[act].start_date,
-							json[act].name,
-							string.Format("{0:0.00}",(double)json[act].distance * 0.00062137) + " ml",
-							duration_elapsed,
-							duration_moving,
-							string.Format("{0:0.00} mph",(double)json[act].average_speed * 2.23693629), // m/sec to mph
-							string.Format("{0:0} rpm", cad),
-							string.Format("{0:0} bpm", hr),
-							string.Format("{0:0.00} watts", json[act].average_watts ?? 0),
-							string.Format("{0:0.00} ft",(float)json[act].total_elevation_gain * 3.2808399), // metres to feet
-							(bool)json[act].commute ? "Y": "",
-							(bool)json[act].trainer ? "Y": "",
-							(bool)json[act].manual ? "Y": "",
-							(bool)json[act]["private"] ? "Y" : "",
-							(bool)json[act].flagged ? "Y" : ""
-						};
-						AddListViewItem(frmActivities, new ListViewItem(activity));
 					}
-					ResumeLayout();
-					ResizeListView(frmActivities);
-						
-					
 				}
-			}
+				page_no++;
+			}while(act_count > 0 && page_no <= 3);
+			SortListView(frmActivities, 1, SortOrder.Descending);
+			ResizeListView(frmActivities);
 		}
 		
 		void ViewerStravaLoad(object sender, EventArgs e)
@@ -273,6 +311,7 @@ namespace CycleUploader
 					
 					// add the segment effors
 					ClearListView(lstSplits);
+					
 					for(int a = 0; a < json.segment_efforts.Count; a++){
 						TimeSpan duration_e = TimeSpan.FromSeconds((double)json.segment_efforts[a].elapsed_time);
 						string duration_elapsed =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
@@ -280,9 +319,13 @@ namespace CycleUploader
 							    			duration_e.Minutes, 
 							    			duration_e.Seconds
 							    		);
+						
+						double avg_speed = 
+							((double)json.segment_efforts[a].segment.distance * 0.00062137) / ((double)json.segment_efforts[a].elapsed_time / 60 / 60);
 						string [] seg = {
 							(string)json.segment_efforts[a].name,
 							string.Format("{0:0.00} ml",(double)json.segment_efforts[a].segment.distance * 0.00062137),
+							string.Format("{0:0.00} mph",avg_speed),
 							string.Format("{0:0.0} %", (float)json.segment_efforts[a].segment.average_grade),
 							string.Format("{0:0.0} %", (float)json.segment_efforts[a].segment.maximum_grade),
 							string.Format("{0:0.00} ft", (float)json.segment_efforts[a].segment.elevation_high * 3.2808399),
@@ -297,43 +340,16 @@ namespace CycleUploader
 					}
 					ResizeListView(lstSplits);
 					
-					
+					SetControlPropertyThreadSafe(lnkStrava, "Visible", true);
 				}
 			}
-			
-			
-			
-			
-			
-			/*int progress = 0;
-
-			zedActivityChart.GraphPane.Legend.IsVisible = true;
-			zedActivityChart.GraphPane.Title.Text = "Activity Chart";
-			zedActivityChart.GraphPane.XAxis.Title.Text = "Duration from Activity Start";
-			zedActivityChart.GraphPane.YAxis.Title.Text = "";			
-			
-			SetStatusProgressThreadSafe(statusBar, "Maximum",6);
-			SetStatusProgressThreadSafe(statusBar, "Value", progress);
-			SetStatusTextThreadSafe(statusBar, "Loading selected activity...");
-			
-			// load activity
-			SetStatusTextThreadSafe(statusBar, "Downloading Activity Information from Runkeeper...");
-
-			FitnessActivitiesEndpoint activities = new FitnessActivitiesEndpoint(_tm,_user);
-			FitnessActivitiesPastModel activity = activities.GetActivity(GetListViewSelectedItemValue(lstActivities,0,5));
-			
-			
-			SetControlPropertyThreadSafe(lblActivityEquipment, "Text", string.Format("{0:0.00} ft",activity.Climb * 3.2808399));
-			
-			SetControlPropertyThreadSafe(lblActivityType, "Text", activity.Type);
-			SetControlPropertyThreadSafe(lblActivityEquipment, "Text", activity.Equipment);
-			SetControlPropertyThreadSafe(lblTotalAscent, "Text", string.Format("{0:0.00} ft", activity.Climb * 3.2808399));
-			SetControlPropertyThreadSafe(lblLastModified, "Text", activity.Source);
-			SetControlPropertyThreadSafe(txtNotes, "Text", activity.Notes);
-			
-			setTab(tabControl1, "tabSummary");
-			SetControlPropertyThreadSafe(tabMap, "Enabled", true);
-			*/
+		}
+		
+		void LnkStravaLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			int activityId = Convert.ToInt32(GetListViewSelectedItemValue(frmActivities,0,0));
+			string url = "http://www.strava.com/activities/" + activityId.ToString();
+			System.Diagnostics.Process.Start(url);
 		}
 	}
 }
