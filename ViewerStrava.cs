@@ -15,6 +15,7 @@ using System.Json;
 using System.Threading;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace CycleUploader
 {
@@ -56,6 +57,37 @@ namespace CycleUploader
 		  	}
 			else{
 				control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+			}
+		}
+		private delegate string GetListViewItemValueDelegate(Control ctrl, int itemIdx, int subItemIdx);			
+		private static string GetListViewItemValue(Control ctrl, int itemIdx, int subItemIdx)
+		{
+			if(ctrl.InvokeRequired){
+				return (string)ctrl.Invoke(new GetListViewItemValueDelegate(GetListViewItemValue), new object[] {ctrl, itemIdx, subItemIdx});
+			}
+			else{
+				return ((ListView)ctrl).Items[itemIdx].SubItems[subItemIdx].Text;
+			}
+		}
+		private delegate void ClearListViewDelegate(Control ctrl);
+		private void ClearListView(Control ctrl)
+		{
+			if(ctrl.InvokeRequired){
+				ctrl.Invoke(new ClearListViewDelegate(ClearListView), new object[] { ctrl});
+			}
+			else{
+				((ListView)ctrl).Items.Clear();
+			}
+		}
+		
+		private delegate string GetListViewSelectedItemValueDelegate(Control ctrl, int itemIdx, int subItemIdx);			
+		private static string GetListViewSelectedItemValue(Control ctrl, int itemIdx, int subItemIdx)
+		{
+			if(ctrl.InvokeRequired){
+				return (string)ctrl.Invoke(new GetListViewSelectedItemValueDelegate(GetListViewSelectedItemValue), new object[] {ctrl, itemIdx, subItemIdx});
+			}
+			else{
+				return ((ListView)ctrl).SelectedItems[itemIdx].SubItems[subItemIdx].Text;
 			}
 		}
 		
@@ -194,6 +226,114 @@ namespace CycleUploader
 		{
 			_threadProfile = new Thread(new ThreadStart(this.loadProfile));
 			_threadProfile.Start();
+		}
+		
+		void FrmActivitiesClick(object sender, EventArgs e)
+		{
+			// check if there is an activity load thread already running,
+			// if there is abort it and load based on the new click event
+			try{
+				if(_threadActivity.IsAlive){
+					_threadActivity.Abort();
+				}
+			}catch{}
+			
+			_threadActivity = new Thread(new ThreadStart(this.loadActivity));
+			_threadActivity.Start();
+		}
+		void loadActivity()
+		{
+			// get the activity information from Strava
+			
+			int activityId = Convert.ToInt32(GetListViewSelectedItemValue(frmActivities,0,0));
+			
+			string url = "https://www.strava.com/api/v3/activities/";
+			url+= activityId.ToString();
+			url += "?access_token=" + _token;
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
+			
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					dynamic json = JsonValue.Parse(text);
+					
+					SetControlPropertyThreadSafe(lblStartDate, "Text", (string)json.start_date);
+					SetControlPropertyThreadSafe(lblLocation, "Text", (string)json.location_city + "," + (string)json.location_state);
+					SetControlPropertyThreadSafe(lblAchievements, "Text", (string)json.achievement_count);
+					SetControlPropertyThreadSafe(lblSegmentCount, "Text", json.segment_efforts.Count.ToString());
+					SetControlPropertyThreadSafe(lblTotalAscent, "Text", string.Format("{0:0.00} ft", (float)json.total_elevation_gain * 3.2808399));
+					
+					// add the segment effors
+					ClearListView(lstSplits);
+					for(int a = 0; a < json.segment_efforts.Count; a++){
+						TimeSpan duration_e = TimeSpan.FromSeconds((double)json.segment_efforts[a].elapsed_time);
+						string duration_elapsed =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+							    			duration_e.Hours, 
+							    			duration_e.Minutes, 
+							    			duration_e.Seconds
+							    		);
+						string [] seg = {
+							(string)json.segment_efforts[a].name,
+							string.Format("{0:0.00} ml",(double)json.segment_efforts[a].segment.distance * 0.00062137),
+							string.Format("{0:0.0} %", (float)json.segment_efforts[a].segment.average_grade),
+							string.Format("{0:0.0} %", (float)json.segment_efforts[a].segment.maximum_grade),
+							string.Format("{0:0.00} ft", (float)json.segment_efforts[a].segment.elevation_high * 3.2808399),
+							string.Format("{0:0.00} ft", (float)json.segment_efforts[a].segment.elevation_low * 3.2808399),
+							(string)json.segment_efforts[a].segment.climb_category,
+							(string)json.segment_efforts[a].segment.city + ", " + (string)json.segment_efforts[a].segment.state,
+							duration_elapsed,
+							(string)json.segment_efforts[a].kom_rank,
+							(string)json.segment_efforts[a].pr_rank
+						};
+						AddListViewItem(lstSplits, new ListViewItem(seg));
+					}
+					ResizeListView(lstSplits);
+					
+					
+				}
+			}
+			
+			
+			
+			
+			
+			/*int progress = 0;
+
+			zedActivityChart.GraphPane.Legend.IsVisible = true;
+			zedActivityChart.GraphPane.Title.Text = "Activity Chart";
+			zedActivityChart.GraphPane.XAxis.Title.Text = "Duration from Activity Start";
+			zedActivityChart.GraphPane.YAxis.Title.Text = "";			
+			
+			SetStatusProgressThreadSafe(statusBar, "Maximum",6);
+			SetStatusProgressThreadSafe(statusBar, "Value", progress);
+			SetStatusTextThreadSafe(statusBar, "Loading selected activity...");
+			
+			// load activity
+			SetStatusTextThreadSafe(statusBar, "Downloading Activity Information from Runkeeper...");
+
+			FitnessActivitiesEndpoint activities = new FitnessActivitiesEndpoint(_tm,_user);
+			FitnessActivitiesPastModel activity = activities.GetActivity(GetListViewSelectedItemValue(lstActivities,0,5));
+			
+			
+			SetControlPropertyThreadSafe(lblActivityEquipment, "Text", string.Format("{0:0.00} ft",activity.Climb * 3.2808399));
+			
+			SetControlPropertyThreadSafe(lblActivityType, "Text", activity.Type);
+			SetControlPropertyThreadSafe(lblActivityEquipment, "Text", activity.Equipment);
+			SetControlPropertyThreadSafe(lblTotalAscent, "Text", string.Format("{0:0.00} ft", activity.Climb * 3.2808399));
+			SetControlPropertyThreadSafe(lblLastModified, "Text", activity.Source);
+			SetControlPropertyThreadSafe(txtNotes, "Text", activity.Notes);
+			
+			setTab(tabControl1, "tabSummary");
+			SetControlPropertyThreadSafe(tabMap, "Enabled", true);
+			*/
 		}
 	}
 }
