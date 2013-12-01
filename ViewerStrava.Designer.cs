@@ -36,7 +36,6 @@ namespace CycleUploader
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerStrava));
 			this.lblProfileName = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
@@ -111,11 +110,7 @@ namespace CycleUploader
 			this.tabMap = new System.Windows.Forms.TabPage();
 			this.btnMapFullscreen = new System.Windows.Forms.Button();
 			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-			this.tabChart = new System.Windows.Forms.TabPage();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.cbkChartHeart = new System.Windows.Forms.CheckBox();
-			this.cbkChartSpeed = new System.Windows.Forms.CheckBox();
-			this.zedActivityChart = new ZedGraph.ZedGraphControl();
+			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.grpProfile.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbProfile)).BeginInit();
@@ -125,8 +120,10 @@ namespace CycleUploader
 			this.tabControl1.SuspendLayout();
 			this.tabSummary.SuspendLayout();
 			this.tabMap.SuspendLayout();
-			this.tabChart.SuspendLayout();
-			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
+			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblProfileName
@@ -303,7 +300,7 @@ namespace CycleUploader
 			this.frmActivities.HideSelection = false;
 			this.frmActivities.Location = new System.Drawing.Point(3, 16);
 			this.frmActivities.Name = "frmActivities";
-			this.frmActivities.Size = new System.Drawing.Size(1144, 163);
+			this.frmActivities.Size = new System.Drawing.Size(1141, 232);
 			this.frmActivities.TabIndex = 23;
 			this.frmActivities.UseCompatibleStateImageBehavior = false;
 			this.frmActivities.View = System.Windows.Forms.View.Details;
@@ -439,9 +436,9 @@ namespace CycleUploader
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.label16);
 			this.groupBox2.Controls.Add(this.frmActivities);
-			this.groupBox2.Location = new System.Drawing.Point(8, 195);
+			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(1150, 182);
+			this.groupBox2.Size = new System.Drawing.Size(1147, 251);
 			this.groupBox2.TabIndex = 24;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Activities";
@@ -458,14 +455,13 @@ namespace CycleUploader
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.tabControl1);
+			this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.groupBox4.Location = new System.Drawing.Point(8, 383);
+			this.groupBox4.Location = new System.Drawing.Point(0, 0);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(1147, 321);
+			this.groupBox4.Size = new System.Drawing.Size(1147, 250);
 			this.groupBox4.TabIndex = 32;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Activity Details";
@@ -474,13 +470,12 @@ namespace CycleUploader
 			// 
 			this.tabControl1.Controls.Add(this.tabSummary);
 			this.tabControl1.Controls.Add(this.tabMap);
-			this.tabControl1.Controls.Add(this.tabChart);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControl1.Location = new System.Drawing.Point(3, 16);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1141, 302);
+			this.tabControl1.Size = new System.Drawing.Size(1141, 231);
 			this.tabControl1.TabIndex = 1;
 			// 
 			// tabSummary
@@ -504,17 +499,17 @@ namespace CycleUploader
 			this.tabSummary.Location = new System.Drawing.Point(4, 22);
 			this.tabSummary.Name = "tabSummary";
 			this.tabSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSummary.Size = new System.Drawing.Size(1133, 276);
+			this.tabSummary.Size = new System.Drawing.Size(1133, 205);
 			this.tabSummary.TabIndex = 0;
 			this.tabSummary.Text = "Activity Summary";
 			// 
 			// label12
 			// 
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label12.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label12.Location = new System.Drawing.Point(291, 0);
+			this.label12.Location = new System.Drawing.Point(291, 3);
 			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(100, 16);
+			this.label12.Size = new System.Drawing.Size(100, 13);
 			this.label12.TabIndex = 89;
 			this.label12.Text = "Segments";
 			// 
@@ -542,7 +537,7 @@ namespace CycleUploader
 			this.lstSplits.Location = new System.Drawing.Point(291, 19);
 			this.lstSplits.MultiSelect = false;
 			this.lstSplits.Name = "lstSplits";
-			this.lstSplits.Size = new System.Drawing.Size(836, 254);
+			this.lstSplits.Size = new System.Drawing.Size(836, 183);
 			this.lstSplits.TabIndex = 88;
 			this.lstSplits.UseCompatibleStateImageBehavior = false;
 			this.lstSplits.View = System.Windows.Forms.View.Details;
@@ -740,7 +735,7 @@ namespace CycleUploader
 			this.tabMap.Location = new System.Drawing.Point(4, 22);
 			this.tabMap.Name = "tabMap";
 			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(1133, 276);
+			this.tabMap.Size = new System.Drawing.Size(1133, 205);
 			this.tabMap.TabIndex = 2;
 			this.tabMap.Text = "Map";
 			this.tabMap.UseVisualStyleBackColor = true;
@@ -750,12 +745,13 @@ namespace CycleUploader
 			this.btnMapFullscreen.AutoSize = true;
 			this.btnMapFullscreen.Dock = System.Windows.Forms.DockStyle.Right;
 			this.btnMapFullscreen.Image = ((System.Drawing.Image)(resources.GetObject("btnMapFullscreen.Image")));
-			this.btnMapFullscreen.Location = new System.Drawing.Point(824, 3);
+			this.btnMapFullscreen.Location = new System.Drawing.Point(1096, 3);
 			this.btnMapFullscreen.Name = "btnMapFullscreen";
-			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 270);
+			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 199);
 			this.btnMapFullscreen.TabIndex = 2;
 			this.btnMapFullscreen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnMapFullscreen.UseVisualStyleBackColor = true;
+			this.btnMapFullscreen.Click += new System.EventHandler(this.BtnMapFullscreenClick);
 			// 
 			// webBrowser1
 			// 
@@ -765,89 +761,52 @@ namespace CycleUploader
 			this.webBrowser1.Location = new System.Drawing.Point(3, 3);
 			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser1.Name = "webBrowser1";
+			this.webBrowser1.ScriptErrorsSuppressed = true;
 			this.webBrowser1.ScrollBarsEnabled = false;
-			this.webBrowser1.Size = new System.Drawing.Size(815, 270);
+			this.webBrowser1.Size = new System.Drawing.Size(1087, 199);
 			this.webBrowser1.TabIndex = 0;
 			// 
-			// tabChart
+			// splitContainer1
 			// 
-			this.tabChart.Controls.Add(this.panel1);
-			this.tabChart.Controls.Add(this.zedActivityChart);
-			this.tabChart.Location = new System.Drawing.Point(4, 22);
-			this.tabChart.Name = "tabChart";
-			this.tabChart.Padding = new System.Windows.Forms.Padding(3);
-			this.tabChart.Size = new System.Drawing.Size(1133, 276);
-			this.tabChart.TabIndex = 1;
-			this.tabChart.Text = "Charts";
-			this.tabChart.UseVisualStyleBackColor = true;
-			// 
-			// panel1
-			// 
-			this.panel1.BackColor = System.Drawing.SystemColors.Control;
-			this.panel1.Controls.Add(this.cbkChartHeart);
-			this.panel1.Controls.Add(this.cbkChartSpeed);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.Location = new System.Drawing.Point(3, 3);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(1127, 33);
-			this.panel1.TabIndex = 3;
-			// 
-			// cbkChartHeart
-			// 
-			this.cbkChartHeart.Checked = true;
-			this.cbkChartHeart.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbkChartHeart.Location = new System.Drawing.Point(173, 4);
-			this.cbkChartHeart.Name = "cbkChartHeart";
-			this.cbkChartHeart.Size = new System.Drawing.Size(104, 24);
-			this.cbkChartHeart.TabIndex = 2;
-			this.cbkChartHeart.Text = "Heart-Rate";
-			this.cbkChartHeart.UseVisualStyleBackColor = true;
-			// 
-			// cbkChartSpeed
-			// 
-			this.cbkChartSpeed.Checked = true;
-			this.cbkChartSpeed.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbkChartSpeed.Location = new System.Drawing.Point(63, 4);
-			this.cbkChartSpeed.Name = "cbkChartSpeed";
-			this.cbkChartSpeed.Size = new System.Drawing.Size(104, 24);
-			this.cbkChartSpeed.TabIndex = 0;
-			this.cbkChartSpeed.Text = "Speed";
-			this.cbkChartSpeed.UseVisualStyleBackColor = true;
-			// 
-			// zedActivityChart
-			// 
-			this.zedActivityChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.zedActivityChart.IsShowPointValues = true;
-			this.zedActivityChart.Location = new System.Drawing.Point(3, 37);
-			this.zedActivityChart.Name = "zedActivityChart";
-			this.zedActivityChart.ScrollGrace = 0D;
-			this.zedActivityChart.ScrollMaxX = 0D;
-			this.zedActivityChart.ScrollMaxY = 0D;
-			this.zedActivityChart.ScrollMaxY2 = 0D;
-			this.zedActivityChart.ScrollMinX = 0D;
-			this.zedActivityChart.ScrollMinY = 0D;
-			this.zedActivityChart.ScrollMinY2 = 0D;
-			this.zedActivityChart.Size = new System.Drawing.Size(855, 236);
-			this.zedActivityChart.TabIndex = 0;
+			this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
+			this.splitContainer1.Location = new System.Drawing.Point(8, 199);
+			this.splitContainer1.Name = "splitContainer1";
+			this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer1.Panel1
+			// 
+			this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
+			this.splitContainer1.Panel1MinSize = 40;
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
+			this.splitContainer1.Panel2MinSize = 250;
+			this.splitContainer1.Size = new System.Drawing.Size(1147, 505);
+			this.splitContainer1.SplitterDistance = 251;
+			this.splitContainer1.TabIndex = 33;
 			// 
 			// ViewerStrava
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1167, 716);
-			this.Controls.Add(this.groupBox4);
+			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.grpProfile);
 			this.Controls.Add(this.label15);
 			this.Controls.Add(this.pictureBox1);
+			this.DoubleBuffered = true;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(745, 469);
 			this.Name = "ViewerStrava";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Strava Profile Viewer";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Load += new System.EventHandler(this.ViewerStravaLoad);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.grpProfile.ResumeLayout(false);
@@ -859,11 +818,14 @@ namespace CycleUploader
 			this.tabSummary.ResumeLayout(false);
 			this.tabMap.ResumeLayout(false);
 			this.tabMap.PerformLayout();
-			this.tabChart.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
+			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ColumnHeader columnHeader32;
 		private System.Windows.Forms.ColumnHeader columnHeader31;
 		private System.Windows.Forms.ColumnHeader columnHeader30;
@@ -874,11 +836,6 @@ namespace CycleUploader
 		private System.Windows.Forms.ColumnHeader columnHeader25;
 		private System.Windows.Forms.ColumnHeader columnHeader24;
 		private System.Windows.Forms.ColumnHeader columnHeader21;
-		private ZedGraph.ZedGraphControl zedActivityChart;
-		private System.Windows.Forms.CheckBox cbkChartSpeed;
-		private System.Windows.Forms.CheckBox cbkChartHeart;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TabPage tabChart;
 		private System.Windows.Forms.WebBrowser webBrowser1;
 		private System.Windows.Forms.Button btnMapFullscreen;
 		private System.Windows.Forms.TabPage tabMap;
