@@ -6,14 +6,9 @@
 <filename>CycleUploaderSetup.exe</filename>
 <date>29/11/2013</date>
 <changes>
-
-- v1.0.35.0, Added Strava API v3 support (uploads + profile viewer) ** experimental
--------------------------------
-- v1.0.36.0, Added Strava API v3 support to set activity name, activity notes and commute/trainer status - not possible in v1/v2 of api
--------------------------------
-- v1.0.37.0, Added exception detection around initialisation of new strava access token setting ... in case the SQLite driver throws a wobbly.
-- v1.0.37.1, Tweaked RideWithGPS support due to change on the website.
 -------------------------------
 - v1.0.38.0, Strava, Added retrieval of extended activity information including segment efforts. (map to follow)
+-------------------------------
+- v1.0.39.0, Strava, Tweaked activity segment information to include average speed, and added map tab detail.
 </changes>
 </appinfo> 
