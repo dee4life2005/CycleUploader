@@ -61,9 +61,9 @@ namespace CycleUploader
 			this.panel1.Controls.Add(this.btnNo);
 			this.panel1.Controls.Add(this.lineSeparator4);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 212);
+			this.panel1.Location = new System.Drawing.Point(0, 282);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(513, 45);
+			this.panel1.Size = new System.Drawing.Size(647, 45);
 			this.panel1.TabIndex = 17;
 			// 
 			// btnYes
@@ -96,7 +96,7 @@ namespace CycleUploader
 			this.lineSeparator4.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator4.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator4.Name = "lineSeparator4";
-			this.lineSeparator4.Size = new System.Drawing.Size(513, 2);
+			this.lineSeparator4.Size = new System.Drawing.Size(647, 2);
 			this.lineSeparator4.TabIndex = 17;
 			// 
 			// tLabel
@@ -141,7 +141,7 @@ namespace CycleUploader
 			// tQuestion
 			// 
 			this.tQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tQuestion.Location = new System.Drawing.Point(63, 186);
+			this.tQuestion.Location = new System.Drawing.Point(63, 246);
 			this.tQuestion.Name = "tQuestion";
 			this.tQuestion.Size = new System.Drawing.Size(256, 23);
 			this.tQuestion.TabIndex = 23;
@@ -163,7 +163,7 @@ namespace CycleUploader
 			this.tChangeLog.Name = "tChangeLog";
 			this.tChangeLog.ReadOnly = true;
 			this.tChangeLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.tChangeLog.Size = new System.Drawing.Size(424, 74);
+			this.tChangeLog.Size = new System.Drawing.Size(572, 136);
 			this.tChangeLog.TabIndex = 25;
 			// 
 			// label5
@@ -178,7 +178,7 @@ namespace CycleUploader
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(513, 257);
+			this.ClientSize = new System.Drawing.Size(647, 327);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.tChangeLog);
 			this.Controls.Add(this.pbIcon);
