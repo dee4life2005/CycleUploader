@@ -81,7 +81,7 @@ namespace CycleUploader
 		string _client_secret = "d1d13b891ffa44c891ff41f74d0a6951";
 		string _client_uri = "http://127.0.0.1/runkeeper.html";
 		string _rk_auth_token = "";
-		string _strava_access_token = "";
+		public string _strava_access_token = "";
 		string _gc_user;
 		string _gc_password;	
 		string _endomondo_authToken;
@@ -97,6 +97,7 @@ namespace CycleUploader
 
 		string _activity_file_name = "";
 		//string _activity_file_type;
+		string _activity_strava_bike_id = "";
 		
 		int _autopause;
 		
@@ -694,19 +695,6 @@ namespace CycleUploader
 			command.Parameters[6].Value = cbkIsCommute.Checked ? 1 : 0;
 			command.Parameters[7].Value = cbkIsStationaryTrainer.Checked ? 1 : 0;
 			
-			/*
-			string sql = string.Format("insert into File(fileType, fileName, filePath, fileOpenDateTime, fileActivityName, fileActivityNotes, fileIsCommute, fileIsStationaryTrainer) values (\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\", \"{5}\",{6},{7})",
-			                           Path.GetExtension(filename).ToLower(),
-			                           Path.GetFileName(filename),
-			                           Path.GetDirectoryName(filename),
-			                           System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-			                           txtActivityName.Text, 
-			                           txtActivityNotes.Text, 
-			                           cbkIsCommute.Checked ? 1 :0,
-			                           cbkIsStationaryTrainer.Checked ? 1 : 0
-			                          );
-			*/
-			
 			command.ExecuteNonQuery();				                           
 			
 			// retrieve the ID of the `file` from the database as we will need this later to 
@@ -1001,7 +989,7 @@ namespace CycleUploader
 	          );
 			
 			if(act_id != 0){
-				stravaSetActivityInfo(_strava_access_token, act_id, txtActivityNotes.Text, cbkIsCommute.Checked, cbkIsStationaryTrainer.Checked);
+				stravaSetActivityInfo(_strava_access_token, act_id, txtActivityNotes.Text, cbkIsCommute.Checked, cbkIsStationaryTrainer.Checked, _activity_strava_bike_id);
 			}
 			
 			if(act_id != 0){
@@ -1024,7 +1012,7 @@ namespace CycleUploader
 			}
 		}
 		
-		public static void stravaSetActivityInfo(string access_token, int activity, string activityNotes, bool commute, bool trainer)
+		public static void stravaSetActivityInfo(string access_token, int activity, string activityNotes, bool commute, bool trainer, string gear_id = "")
 		{
 			string url = "https://www.strava.com/api/v3/activities/";
 			url += Convert.ToString(activity);
@@ -1032,6 +1020,11 @@ namespace CycleUploader
 			url += "&commute=" + (commute ? 1 : 0).ToString();
 			url += "&trainer=" + (trainer ? 1 : 0).ToString();
 			url += "&description=" + activityNotes;
+			
+			if(gear_id != ""){
+				url += "&gear_id=" + gear_id;
+			}
+			
 			
 			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
 			httpWebRequest.Method = "PUT";
@@ -3974,13 +3967,14 @@ namespace CycleUploader
 		}
 		
 		// called from batch process
-		public void openSelectedFile(int batchItemRowIdx, string filename, string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, int courseId = 0)
+		public void openSelectedFile(int batchItemRowIdx, string filename, string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, int courseId = 0, string stravaBikeId = "")
 		{
 			_opened_file = filename;
 			SetControlPropertyThreadSafe(txtActivityName, "Text", activityName);
 			SetControlPropertyThreadSafe(txtActivityNotes, "Text", activityNotes);
 			SetControlPropertyThreadSafe(cbkIsCommute, "Checked", isCommute);
 			SetControlPropertyThreadSafe(cbkIsStationaryTrainer ,"Checked", isStationaryTrainer);
+			_activity_strava_bike_id = stravaBikeId;
 			_activityBatchRowIdx = batchItemRowIdx;
 			_bIsBatchProcessing = true;
 			_fileSummary = new FileSummary();

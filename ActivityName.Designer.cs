@@ -54,6 +54,8 @@ namespace CycleUploader
 			this.lineSeparator1 = new CycleUploader.LineSeparator();
 			this.map = new System.Windows.Forms.WebBrowser();
 			this.label5 = new System.Windows.Forms.Label();
+			this.lstStravaBike = new System.Windows.Forms.ComboBox();
+			this.lblStravaBike = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -119,12 +121,13 @@ namespace CycleUploader
 			this.txtActivityNotes.Location = new System.Drawing.Point(113, 56);
 			this.txtActivityNotes.Multiline = true;
 			this.txtActivityNotes.Name = "txtActivityNotes";
-			this.txtActivityNotes.Size = new System.Drawing.Size(329, 122);
+			this.txtActivityNotes.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtActivityNotes.Size = new System.Drawing.Size(329, 153);
 			this.txtActivityNotes.TabIndex = 1;
 			// 
 			// cbkIsCommute
 			// 
-			this.cbkIsCommute.Location = new System.Drawing.Point(113, 184);
+			this.cbkIsCommute.Location = new System.Drawing.Point(113, 213);
 			this.cbkIsCommute.Name = "cbkIsCommute";
 			this.cbkIsCommute.Size = new System.Drawing.Size(328, 24);
 			this.cbkIsCommute.TabIndex = 2;
@@ -133,7 +136,7 @@ namespace CycleUploader
 			// 
 			// cbkIsStationaryTrainer
 			// 
-			this.cbkIsStationaryTrainer.Location = new System.Drawing.Point(113, 204);
+			this.cbkIsStationaryTrainer.Location = new System.Drawing.Point(113, 233);
 			this.cbkIsStationaryTrainer.Name = "cbkIsStationaryTrainer";
 			this.cbkIsStationaryTrainer.Size = new System.Drawing.Size(328, 24);
 			this.cbkIsStationaryTrainer.TabIndex = 3;
@@ -145,7 +148,7 @@ namespace CycleUploader
 			this.cbkIsIncludedInStatistics.Checked = true;
 			this.cbkIsIncludedInStatistics.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cbkIsIncludedInStatistics.Enabled = false;
-			this.cbkIsIncludedInStatistics.Location = new System.Drawing.Point(113, 224);
+			this.cbkIsIncludedInStatistics.Location = new System.Drawing.Point(113, 253);
 			this.cbkIsIncludedInStatistics.Name = "cbkIsIncludedInStatistics";
 			this.cbkIsIncludedInStatistics.Size = new System.Drawing.Size(328, 24);
 			this.cbkIsIncludedInStatistics.TabIndex = 6;
@@ -159,7 +162,7 @@ namespace CycleUploader
 			this.panel1.Controls.Add(this.btnCancel);
 			this.panel1.Controls.Add(this.btnApply);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 301);
+			this.panel1.Location = new System.Drawing.Point(0, 257);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(769, 45);
 			this.panel1.TabIndex = 7;
@@ -178,9 +181,9 @@ namespace CycleUploader
 			// label4
 			// 
 			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(12, 257);
+			this.label4.Location = new System.Drawing.Point(12, 288);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(95, 17);
+			this.label4.Size = new System.Drawing.Size(95, 20);
 			this.label4.TabIndex = 8;
 			this.label4.Text = "Course";
 			// 
@@ -188,7 +191,7 @@ namespace CycleUploader
 			// 
 			this.lstCourse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.lstCourse.FormattingEnabled = true;
-			this.lstCourse.Location = new System.Drawing.Point(113, 253);
+			this.lstCourse.Location = new System.Drawing.Point(113, 284);
 			this.lstCourse.Name = "lstCourse";
 			this.lstCourse.Size = new System.Drawing.Size(328, 21);
 			this.lstCourse.TabIndex = 9;
@@ -198,7 +201,7 @@ namespace CycleUploader
 			// 
 			this.lineSeparator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.lineSeparator1.Location = new System.Drawing.Point(0, 300);
+			this.lineSeparator1.Location = new System.Drawing.Point(0, 256);
 			this.lineSeparator1.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
 			this.lineSeparator1.Name = "lineSeparator1";
@@ -218,24 +221,48 @@ namespace CycleUploader
 			this.map.Name = "map";
 			this.map.ScriptErrorsSuppressed = true;
 			this.map.ScrollBarsEnabled = false;
-			this.map.Size = new System.Drawing.Size(294, 286);
+			this.map.Size = new System.Drawing.Size(294, 242);
 			this.map.TabIndex = 16;
 			this.map.TabStop = false;
 			this.map.Url = new System.Uri("about:blank", System.UriKind.Absolute);
 			// 
 			// label5
 			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left)));
 			this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.label5.Location = new System.Drawing.Point(454, 15);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(2, 280);
+			this.label5.Size = new System.Drawing.Size(2, 233);
 			this.label5.TabIndex = 17;
+			// 
+			// lstStravaBike
+			// 
+			this.lstStravaBike.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.lstStravaBike.FormattingEnabled = true;
+			this.lstStravaBike.Location = new System.Drawing.Point(114, 184);
+			this.lstStravaBike.Name = "lstStravaBike";
+			this.lstStravaBike.Size = new System.Drawing.Size(328, 21);
+			this.lstStravaBike.TabIndex = 19;
+			this.lstStravaBike.Visible = false;
+			// 
+			// lblStravaBike
+			// 
+			this.lblStravaBike.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblStravaBike.Location = new System.Drawing.Point(13, 187);
+			this.lblStravaBike.Name = "lblStravaBike";
+			this.lblStravaBike.Size = new System.Drawing.Size(95, 20);
+			this.lblStravaBike.TabIndex = 18;
+			this.lblStravaBike.Text = "Strava Bike";
+			this.lblStravaBike.Visible = false;
 			// 
 			// ActivityName
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(769, 346);
+			this.ClientSize = new System.Drawing.Size(769, 302);
+			this.Controls.Add(this.lstStravaBike);
+			this.Controls.Add(this.lblStravaBike);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.map);
 			this.Controls.Add(this.lineSeparator1);
@@ -262,6 +289,8 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label lblStravaBike;
+		private System.Windows.Forms.ComboBox lstStravaBike;
 		private System.Windows.Forms.Button btnMapFullscreen;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.WebBrowser map;

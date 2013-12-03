@@ -68,6 +68,7 @@ namespace CycleUploader
 			this.label14 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lineSeparator4 = new CycleUploader.LineSeparator();
+			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.pnlProviders.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -93,7 +94,8 @@ namespace CycleUploader
 									this.colRWGPS,
 									this.colFilePath,
 									this.colAlreadyProcessed,
-									this.columnHeader3});
+									this.columnHeader3,
+									this.columnHeader1});
 			this.lstBatchFiles.FullRowSelect = true;
 			this.lstBatchFiles.GridLines = true;
 			this.lstBatchFiles.Location = new System.Drawing.Point(12, 43);
@@ -176,7 +178,7 @@ namespace CycleUploader
 			// 
 			// columnHeader3
 			// 
-			this.columnHeader3.Text = "";
+			this.columnHeader3.Text = "Strava Gear";
 			// 
 			// imageList1
 			// 
@@ -344,6 +346,10 @@ namespace CycleUploader
 			this.lineSeparator4.Size = new System.Drawing.Size(888, 2);
 			this.lineSeparator4.TabIndex = 17;
 			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Strava Gear Name";
+			// 
 			// Batch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -369,6 +375,7 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.Label label14;
 		private CycleUploader.LineSeparator lineSeparator4;
 		private System.Windows.Forms.Panel panel1;

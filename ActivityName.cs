@@ -12,6 +12,10 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Threading;
 using System.IO;
+using System.Web;
+using System.Net;
+using System.Json;
+
 
 namespace CycleUploader
 {
@@ -30,8 +34,11 @@ namespace CycleUploader
 		private Thread _loadMap;
 		public int courseId = 0;
 		public string courseName = "";
+		private MainForm mainFrm;
+		public string stravaGearId = "";
+		public string stravaGearName = "";
 		
-		public ActivityName(string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, SQLiteConnection db, bool allowSelectMap = false, int idCourse = 0, bool isIncludedInStats = true)
+		public ActivityName(string activityName, string activityNotes, bool isCommute, bool isStationaryTrainer, SQLiteConnection db, bool allowSelectMap = false, int idCourse = 0, bool isIncludedInStats = true, bool isStravaEnabled = true, MainForm fm = null, string stravaGearIdCurrent = "")
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -46,22 +53,36 @@ namespace CycleUploader
 			_activityIsCommute = isCommute;
 			_activityIsStationaryTrainer = isStationaryTrainer;
 			_activityIsIncludedInStatistics = isIncludedInStats;
+			stravaGearId = stravaGearIdCurrent;
 			
 			txtActivityName.Text = activityName;
 			txtActivityNotes.Text = activityNotes;
 			cbkIsCommute.Checked = isCommute;
 			cbkIsStationaryTrainer.Checked = isStationaryTrainer;
 			cbkIsIncludedInStatistics.Checked = isIncludedInStats;
+			mainFrm = fm;
 			
 			_db = db;
 			// resize the form if course selection is allowed
 			if(allowSelectMap){
 				this.Width = 775;
-				this.Height = 374;
+				this.Height = 387;
+				lblStravaBike.Visible = false;
+				lstStravaBike.Visible = false;
+				txtActivityNotes.Height = 153;
 			}
 			else{
 				this.Width = 459;
-				this.Height = 323;
+				this.Height = 330;
+				txtActivityNotes.Height = 122;
+				if(isStravaEnabled){
+					initialiseStravaBikes();
+					lblStravaBike.Visible = true;
+					lstStravaBike.Visible = true;
+				}
+				else{
+					txtActivityNotes.Height = 153;
+				}
 			}
 			courseId = idCourse;
 		}
@@ -75,6 +96,39 @@ namespace CycleUploader
 				}
 			}catch{}
 			this.DialogResult = DialogResult.Cancel;
+		}
+		
+		void initialiseStravaBikes()
+		{
+			string url = "https://www.strava.com/api/v3/athlete?";
+			url += "access_token=" + mainFrm._strava_access_token;
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
+			
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					dynamic json = JsonValue.Parse(text);
+					
+					for(int bike = 0; bike < json.bikes.Count; bike++){
+						
+						lstStravaBike.Items.Add(new ComboboxItem(
+							Convert.ToInt32(((string)json.bikes[bike].id).Replace("b","")),
+							(string)json.bikes[bike].name
+						));
+						if(stravaGearId != "" && stravaGearId == ((string)json.bikes[bike].id).Replace("b","")){
+							lstStravaBike.SelectedIndex = bike;
+						}
+					}
+				}
+			}
 		}
 		
 		void BtnApplyClick(object sender, EventArgs e)
@@ -92,6 +146,11 @@ namespace CycleUploader
 				courseId = 0;
 				courseName = "";
 			}
+			if(lstStravaBike.SelectedIndex != -1){
+				stravaGearId = "b" + ((ComboboxItem)lstStravaBike.SelectedItem).Value.ToString();
+				stravaGearName = ((ComboboxItem)lstStravaBike.SelectedItem).Text;
+			}
+			
 			try{
 				map.Stop();
 				if(_loadMap != null && _loadMap.IsAlive){

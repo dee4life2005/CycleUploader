@@ -188,6 +188,8 @@ namespace CycleUploader
 			lstBatchFiles.Columns[10].Width=32;
 			lstBatchFiles.Columns[11].Width=0; // hide the full file path column
 			lstBatchFiles.Columns[12].Width = 0; // hide the "already processed" column
+			lstBatchFiles.Columns[13].Width = 0;
+			lstBatchFiles.Columns[14].Width = 0;
 			lstBatchFiles.ResumeLayout();
 			if(lstBatchFiles.Items.Count == 0){
 				MessageBox.Show("There are no unprocessed files available for processing", "No Files For Processing",MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -205,7 +207,10 @@ namespace CycleUploader
 					lstBatchFiles.SelectedItems[0].SubItems[5].Text == "Y" ? true : false, // activity is commute
 					lstBatchFiles.SelectedItems[0].SubItems[6].Text == "Y" ? true : false, // activity is stationary trainer (turbo)
 					_mainFrm._m_dbConnection,
-					false
+					false,0,true,
+					cbkProviderStrava.Checked,
+					_mainFrm,
+					lstBatchFiles.SelectedItems[0].SubItems[13].Text.Replace("b","")
 				);
 				// if OK, set the activity name in the database
 				if(actName.ShowDialog() == DialogResult.OK){
@@ -214,6 +219,9 @@ namespace CycleUploader
 					lstBatchFiles.SelectedItems[0].SubItems[4].Text = actName._activityNotes;
 					lstBatchFiles.SelectedItems[0].SubItems[5].Text = actName._activityIsCommute ? "Y" : "";
 					lstBatchFiles.SelectedItems[0].SubItems[6].Text = actName._activityIsStationaryTrainer ? "Y" : "";
+					
+					lstBatchFiles.SelectedItems[0].SubItems[13].Text = actName.stravaGearId;
+					//lstBatchFiles.SelectedItems[0].SubItems[14].Text = actName.stravaGearName;
 					ResizeListView(lstBatchFiles);
 					
 					lstBatchFiles.Columns[0].Width=30;
@@ -226,6 +234,8 @@ namespace CycleUploader
 					lstBatchFiles.Columns[10].Width=32;
 					lstBatchFiles.Columns[11].Width=0; // hide the full file path column
 					lstBatchFiles.Columns[12].Width = 0; // hide the "already processed" column
+					lstBatchFiles.Columns[13].Width = 0;
+					lstBatchFiles.Columns[14].Width = 0;
 					lstBatchFiles.ResumeLayout();
 				}
 			}
@@ -272,7 +282,9 @@ namespace CycleUploader
 					//lstBatchFiles.Items[_batchCurrentIdx].SubItems[3].Text,		// activity name
 					//lstBatchFiles.Items[_batchCurrentIdx].SubItems[4].Text,		// activity notes
 					lstBatchFiles.Items[_batchCurrentIdx].SubItems[5].Text == "Y" ? true : false, // activity is commute
-					lstBatchFiles.Items[_batchCurrentIdx].SubItems[6].Text == "Y" ? true : false // activity is stationary trainer
+					lstBatchFiles.Items[_batchCurrentIdx].SubItems[6].Text == "Y" ? true : false, // activity is stationary trainer
+					0,
+					lstBatchFiles.Items[_batchCurrentIdx].SubItems[13].Text // strava bike id
 				);
 			}
 		}
