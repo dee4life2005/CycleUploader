@@ -406,6 +406,12 @@ namespace CycleUploader
 						
 						double avg_speed = 
 							((double)json.segment_efforts[a].segment.distance * 0.00062137) / ((double)json.segment_efforts[a].elapsed_time / 60 / 60);
+						
+						string climb_cat = "";
+						if((5-(int)json.segment_efforts[a].segment.climb_category) != 5){
+							climb_cat = (5-(int)json.segment_efforts[a].segment.climb_category).ToString();
+						}
+						
 						string [] seg = {
 							(string)json.segment_efforts[a].name,
 							string.Format("{0:0.00} ml",(double)json.segment_efforts[a].segment.distance * 0.00062137),
@@ -414,7 +420,7 @@ namespace CycleUploader
 							string.Format("{0:0.0} %", (float)json.segment_efforts[a].segment.maximum_grade),
 							string.Format("{0:0.00} ft", (float)json.segment_efforts[a].segment.elevation_low * 3.2808399),
 							string.Format("{0:0.00} ft", (float)json.segment_efforts[a].segment.elevation_high * 3.2808399),
-							(5 - (int)json.segment_efforts[a].segment.climb_category).ToString(),
+							climb_cat,
 							(string)json.segment_efforts[a].segment.city + ", " + (string)json.segment_efforts[a].segment.state,
 							duration_elapsed,
 							(string)json.segment_efforts[a].kom_rank,
@@ -836,7 +842,7 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 						    path: decodedPath,
 						    strokeColor: '#0000FF',
 						    strokeOpacity: 1.0,
-						    strokeWeight: 2,
+						    strokeWeight: 3,
 						    map: map_c
 						});
 						bounds = new google.maps.LatLngBounds();
