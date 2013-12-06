@@ -115,7 +115,6 @@ namespace CycleUploader
 			this.lnkStrava = new System.Windows.Forms.LinkLabel();
 			this.lblTotalAscent = new System.Windows.Forms.Label();
 			this.label22 = new System.Windows.Forms.Label();
-			this.lblActivityName = new System.Windows.Forms.Label();
 			this.lblSegmentCount = new System.Windows.Forms.Label();
 			this.lblAchievements = new System.Windows.Forms.Label();
 			this.lblLocation = new System.Windows.Forms.Label();
@@ -125,7 +124,10 @@ namespace CycleUploader
 			this.label11 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
 			this.btnActivityClose = new System.Windows.Forms.Button();
+			this.lblActivityName = new System.Windows.Forms.Label();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.grpProfile.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbProfile)).BeginInit();
@@ -136,6 +138,7 @@ namespace CycleUploader
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblProfileName
@@ -312,11 +315,11 @@ namespace CycleUploader
 			this.frmActivities.HideSelection = false;
 			this.frmActivities.Location = new System.Drawing.Point(3, 16);
 			this.frmActivities.Name = "frmActivities";
-			this.frmActivities.Size = new System.Drawing.Size(1138, 21);
+			this.frmActivities.Size = new System.Drawing.Size(1138, 89);
 			this.frmActivities.TabIndex = 23;
 			this.frmActivities.UseCompatibleStateImageBehavior = false;
 			this.frmActivities.View = System.Windows.Forms.View.Details;
-			this.frmActivities.Click += new System.EventHandler(this.FrmActivitiesClick);
+			this.frmActivities.DoubleClick += new System.EventHandler(this.FrmActivitiesClick);
 			// 
 			// columnHeader1
 			// 
@@ -450,7 +453,7 @@ namespace CycleUploader
 			this.groupBox2.Controls.Add(this.frmActivities);
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(1144, 40);
+			this.groupBox2.Size = new System.Drawing.Size(1144, 108);
 			this.groupBox2.TabIndex = 24;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Activities";
@@ -463,10 +466,11 @@ namespace CycleUploader
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(276, 12);
 			this.label16.TabIndex = 28;
-			this.label16.Text = "100 most recent activities";
+			this.label16.Text = "50 most recent activities (double-click to view)";
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.panel1);
 			this.groupBox4.Controls.Add(this.btnReset);
 			this.groupBox4.Controls.Add(this.cbkFlagged);
 			this.groupBox4.Controls.Add(this.cbkPrivate);
@@ -506,7 +510,7 @@ namespace CycleUploader
 			this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.groupBox4.Location = new System.Drawing.Point(0, 0);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(1147, 461);
+			this.groupBox4.Size = new System.Drawing.Size(1147, 393);
 			this.groupBox4.TabIndex = 32;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Activity Details";
@@ -707,7 +711,7 @@ namespace CycleUploader
 			this.webBrowser1.Name = "webBrowser1";
 			this.webBrowser1.ScriptErrorsSuppressed = true;
 			this.webBrowser1.ScrollBarsEnabled = false;
-			this.webBrowser1.Size = new System.Drawing.Size(854, 235);
+			this.webBrowser1.Size = new System.Drawing.Size(854, 167);
 			this.webBrowser1.TabIndex = 106;
 			// 
 			// label12
@@ -843,15 +847,6 @@ namespace CycleUploader
 			this.label22.TabIndex = 102;
 			this.label22.Text = "Total Ascent";
 			// 
-			// lblActivityName
-			// 
-			this.lblActivityName.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityName.ForeColor = System.Drawing.Color.SteelBlue;
-			this.lblActivityName.Location = new System.Drawing.Point(13, 16);
-			this.lblActivityName.Name = "lblActivityName";
-			this.lblActivityName.Size = new System.Drawing.Size(1090, 23);
-			this.lblActivityName.TabIndex = 101;
-			// 
 			// lblSegmentCount
 			// 
 			this.lblSegmentCount.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -944,6 +939,15 @@ namespace CycleUploader
 			this.btnActivityClose.UseVisualStyleBackColor = true;
 			this.btnActivityClose.Click += new System.EventHandler(this.BtnActivityCloseClick);
 			// 
+			// lblActivityName
+			// 
+			this.lblActivityName.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblActivityName.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblActivityName.Location = new System.Drawing.Point(13, 16);
+			this.lblActivityName.Name = "lblActivityName";
+			this.lblActivityName.Size = new System.Drawing.Size(1090, 23);
+			this.lblActivityName.TabIndex = 101;
+			// 
 			// splitContainer1
 			// 
 			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -964,8 +968,25 @@ namespace CycleUploader
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
 			this.splitContainer1.Panel2MinSize = 250;
 			this.splitContainer1.Size = new System.Drawing.Size(1147, 505);
-			this.splitContainer1.SplitterDistance = 40;
+			this.splitContainer1.SplitterDistance = 108;
 			this.splitContainer1.TabIndex = 33;
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.label2);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(3, 16);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(1141, 374);
+			this.panel1.TabIndex = 125;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(348, 196);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(177, 23);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "Loading Activity Information ...";
 			// 
 			// ViewerStrava
 			// 
@@ -996,9 +1017,12 @@ namespace CycleUploader
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ColumnHeader columnHeader33;
 		private System.Windows.Forms.Button btnReset;
 		private System.Windows.Forms.Label label3;

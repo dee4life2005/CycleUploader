@@ -270,7 +270,7 @@ namespace CycleUploader
 					}
 				}
 				page_no++;
-			}while(act_count > 0 && page_no <= 2);
+			}while(act_count > 0 && page_no <= 1);
 			SortListView(frmActivities, 1, SortOrder.Descending);
 			ResizeListView(frmActivities);
 			}
@@ -284,6 +284,8 @@ namespace CycleUploader
 		
 		void ViewerStravaLoad(object sender, EventArgs e)
 		{
+			splitContainer1.Panel1Collapsed = false;
+			splitContainer1.Panel2Collapsed = true;
 			_threadProfile = new Thread(new ThreadStart(this.loadProfile));
 			_threadProfile.Start();
 		}
@@ -297,6 +299,11 @@ namespace CycleUploader
 					_threadActivity.Abort();
 				}
 			}catch{}
+			
+			SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", true);
+			SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", false);
+			SetControlPropertyThreadSafe(panel1, "Visible", true);
+			SetControlPropertyThreadSafe(label2, "Visible", true);
 			
 			_threadActivity = new Thread(new ThreadStart(this.loadActivity));
 			_threadActivity.Start();
@@ -667,7 +674,7 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 							    	new google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' + (i+1) + '|aa0000|FFFFFF',position: points[i],map: map_c,title: (i+1).toString()});
 							    }
 							    setRegion.getPath().forEach(function(e){map_bounds.extend(e);});
-							    map_c.fitBounds(bounds);
+							    map_c.fitBounds(map_bounds);
 							    
 							}
 							
@@ -717,8 +724,11 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 						
 					}
 					
+					
 					SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", true);
 					SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", false);
+					SetControlPropertyThreadSafe(panel1, "Visible", false);
+					SetControlPropertyThreadSafe(label2, "Visible", false);
 				}
 			}
 			
