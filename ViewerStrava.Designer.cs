@@ -78,8 +78,25 @@ namespace CycleUploader
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label16 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabSummary = new System.Windows.Forms.TabPage();
+			this.btnReset = new System.Windows.Forms.Button();
+			this.cbkFlagged = new System.Windows.Forms.CheckBox();
+			this.cbkPrivate = new System.Windows.Forms.CheckBox();
+			this.cbkManual = new System.Windows.Forms.CheckBox();
+			this.cbkTrainer = new System.Windows.Forms.CheckBox();
+			this.cbkCommute = new System.Windows.Forms.CheckBox();
+			this.lblAvgPower = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.lblAvgHeartRate = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.lblAvgCadence = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.lblAvgSpeed = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.lblMovingTime = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.lblDistance = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
 			this.label12 = new System.Windows.Forms.Label();
 			this.lstSplits = new ListViewNF.ListViewNF();
 			this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
@@ -94,11 +111,11 @@ namespace CycleUploader
 			this.columnHeader28 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader29 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader30 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader33 = new System.Windows.Forms.ColumnHeader();
 			this.lnkStrava = new System.Windows.Forms.LinkLabel();
 			this.lblTotalAscent = new System.Windows.Forms.Label();
 			this.label22 = new System.Windows.Forms.Label();
-			this.lblActivityDateTime = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
+			this.lblActivityName = new System.Windows.Forms.Label();
 			this.lblSegmentCount = new System.Windows.Forms.Label();
 			this.lblAchievements = new System.Windows.Forms.Label();
 			this.lblLocation = new System.Windows.Forms.Label();
@@ -107,9 +124,7 @@ namespace CycleUploader
 			this.label5 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
-			this.tabMap = new System.Windows.Forms.TabPage();
-			this.btnMapFullscreen = new System.Windows.Forms.Button();
-			this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+			this.btnActivityClose = new System.Windows.Forms.Button();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.grpProfile.SuspendLayout();
@@ -117,9 +132,6 @@ namespace CycleUploader
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox4.SuspendLayout();
-			this.tabControl1.SuspendLayout();
-			this.tabSummary.SuspendLayout();
-			this.tabMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -300,7 +312,7 @@ namespace CycleUploader
 			this.frmActivities.HideSelection = false;
 			this.frmActivities.Location = new System.Drawing.Point(3, 16);
 			this.frmActivities.Name = "frmActivities";
-			this.frmActivities.Size = new System.Drawing.Size(1141, 232);
+			this.frmActivities.Size = new System.Drawing.Size(1138, 21);
 			this.frmActivities.TabIndex = 23;
 			this.frmActivities.UseCompatibleStateImageBehavior = false;
 			this.frmActivities.View = System.Windows.Forms.View.Details;
@@ -438,7 +450,7 @@ namespace CycleUploader
 			this.groupBox2.Controls.Add(this.frmActivities);
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(1147, 251);
+			this.groupBox2.Size = new System.Drawing.Size(1144, 40);
 			this.groupBox2.TabIndex = 24;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Activities";
@@ -451,72 +463,266 @@ namespace CycleUploader
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(276, 12);
 			this.label16.TabIndex = 28;
-			this.label16.Text = "Up to 30 most recent activities (temporary solution)";
+			this.label16.Text = "100 most recent activities";
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Controls.Add(this.tabControl1);
+			this.groupBox4.Controls.Add(this.btnReset);
+			this.groupBox4.Controls.Add(this.cbkFlagged);
+			this.groupBox4.Controls.Add(this.cbkPrivate);
+			this.groupBox4.Controls.Add(this.cbkManual);
+			this.groupBox4.Controls.Add(this.cbkTrainer);
+			this.groupBox4.Controls.Add(this.cbkCommute);
+			this.groupBox4.Controls.Add(this.lblAvgPower);
+			this.groupBox4.Controls.Add(this.label25);
+			this.groupBox4.Controls.Add(this.lblAvgHeartRate);
+			this.groupBox4.Controls.Add(this.label23);
+			this.groupBox4.Controls.Add(this.lblAvgCadence);
+			this.groupBox4.Controls.Add(this.label20);
+			this.groupBox4.Controls.Add(this.lblAvgSpeed);
+			this.groupBox4.Controls.Add(this.label18);
+			this.groupBox4.Controls.Add(this.lblMovingTime);
+			this.groupBox4.Controls.Add(this.label14);
+			this.groupBox4.Controls.Add(this.lblDistance);
+			this.groupBox4.Controls.Add(this.label3);
+			this.groupBox4.Controls.Add(this.webBrowser1);
+			this.groupBox4.Controls.Add(this.label12);
+			this.groupBox4.Controls.Add(this.lstSplits);
+			this.groupBox4.Controls.Add(this.lnkStrava);
+			this.groupBox4.Controls.Add(this.lblTotalAscent);
+			this.groupBox4.Controls.Add(this.label22);
+			this.groupBox4.Controls.Add(this.lblSegmentCount);
+			this.groupBox4.Controls.Add(this.lblAchievements);
+			this.groupBox4.Controls.Add(this.lblLocation);
+			this.groupBox4.Controls.Add(this.lblStartDate);
+			this.groupBox4.Controls.Add(this.label9);
+			this.groupBox4.Controls.Add(this.label5);
+			this.groupBox4.Controls.Add(this.label11);
+			this.groupBox4.Controls.Add(this.label13);
+			this.groupBox4.Controls.Add(this.btnActivityClose);
+			this.groupBox4.Controls.Add(this.lblActivityName);
 			this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.groupBox4.Location = new System.Drawing.Point(0, 0);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(1147, 250);
+			this.groupBox4.Size = new System.Drawing.Size(1147, 461);
 			this.groupBox4.TabIndex = 32;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Activity Details";
 			// 
-			// tabControl1
+			// btnReset
 			// 
-			this.tabControl1.Controls.Add(this.tabSummary);
-			this.tabControl1.Controls.Add(this.tabMap);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tabControl1.Location = new System.Drawing.Point(3, 16);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1141, 231);
-			this.tabControl1.TabIndex = 1;
+			this.btnReset.Location = new System.Drawing.Point(175, 429);
+			this.btnReset.Name = "btnReset";
+			this.btnReset.Size = new System.Drawing.Size(106, 23);
+			this.btnReset.TabIndex = 124;
+			this.btnReset.Text = "Reset Map Zoom";
+			this.btnReset.UseVisualStyleBackColor = true;
+			this.btnReset.Click += new System.EventHandler(this.Button1Click);
 			// 
-			// tabSummary
+			// cbkFlagged
 			// 
-			this.tabSummary.BackColor = System.Drawing.SystemColors.Control;
-			this.tabSummary.Controls.Add(this.label12);
-			this.tabSummary.Controls.Add(this.lstSplits);
-			this.tabSummary.Controls.Add(this.lnkStrava);
-			this.tabSummary.Controls.Add(this.lblTotalAscent);
-			this.tabSummary.Controls.Add(this.label22);
-			this.tabSummary.Controls.Add(this.lblActivityDateTime);
-			this.tabSummary.Controls.Add(this.label7);
-			this.tabSummary.Controls.Add(this.lblSegmentCount);
-			this.tabSummary.Controls.Add(this.lblAchievements);
-			this.tabSummary.Controls.Add(this.lblLocation);
-			this.tabSummary.Controls.Add(this.lblStartDate);
-			this.tabSummary.Controls.Add(this.label9);
-			this.tabSummary.Controls.Add(this.label5);
-			this.tabSummary.Controls.Add(this.label11);
-			this.tabSummary.Controls.Add(this.label13);
-			this.tabSummary.Location = new System.Drawing.Point(4, 22);
-			this.tabSummary.Name = "tabSummary";
-			this.tabSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSummary.Size = new System.Drawing.Size(1133, 205);
-			this.tabSummary.TabIndex = 0;
-			this.tabSummary.Text = "Activity Summary";
+			this.cbkFlagged.Enabled = false;
+			this.cbkFlagged.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkFlagged.Location = new System.Drawing.Point(13, 386);
+			this.cbkFlagged.Name = "cbkFlagged";
+			this.cbkFlagged.Size = new System.Drawing.Size(104, 24);
+			this.cbkFlagged.TabIndex = 123;
+			this.cbkFlagged.Text = "Flagged";
+			this.cbkFlagged.UseVisualStyleBackColor = true;
+			// 
+			// cbkPrivate
+			// 
+			this.cbkPrivate.Enabled = false;
+			this.cbkPrivate.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkPrivate.Location = new System.Drawing.Point(13, 365);
+			this.cbkPrivate.Name = "cbkPrivate";
+			this.cbkPrivate.Size = new System.Drawing.Size(104, 24);
+			this.cbkPrivate.TabIndex = 122;
+			this.cbkPrivate.Text = "Private";
+			this.cbkPrivate.UseVisualStyleBackColor = true;
+			// 
+			// cbkManual
+			// 
+			this.cbkManual.Enabled = false;
+			this.cbkManual.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkManual.Location = new System.Drawing.Point(13, 344);
+			this.cbkManual.Name = "cbkManual";
+			this.cbkManual.Size = new System.Drawing.Size(104, 24);
+			this.cbkManual.TabIndex = 121;
+			this.cbkManual.Text = "Manual";
+			this.cbkManual.UseVisualStyleBackColor = true;
+			// 
+			// cbkTrainer
+			// 
+			this.cbkTrainer.Enabled = false;
+			this.cbkTrainer.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkTrainer.Location = new System.Drawing.Point(13, 323);
+			this.cbkTrainer.Name = "cbkTrainer";
+			this.cbkTrainer.Size = new System.Drawing.Size(104, 24);
+			this.cbkTrainer.TabIndex = 120;
+			this.cbkTrainer.Text = "Trainer";
+			this.cbkTrainer.UseVisualStyleBackColor = true;
+			// 
+			// cbkCommute
+			// 
+			this.cbkCommute.Enabled = false;
+			this.cbkCommute.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbkCommute.Location = new System.Drawing.Point(13, 303);
+			this.cbkCommute.Name = "cbkCommute";
+			this.cbkCommute.Size = new System.Drawing.Size(104, 24);
+			this.cbkCommute.TabIndex = 119;
+			this.cbkCommute.Text = "Commute";
+			this.cbkCommute.UseVisualStyleBackColor = true;
+			this.cbkCommute.Click += new System.EventHandler(this.CbkCommuteClick);
+			// 
+			// lblAvgPower
+			// 
+			this.lblAvgPower.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgPower.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblAvgPower.Location = new System.Drawing.Point(109, 282);
+			this.lblAvgPower.Name = "lblAvgPower";
+			this.lblAvgPower.Size = new System.Drawing.Size(132, 23);
+			this.lblAvgPower.TabIndex = 118;
+			this.lblAvgPower.Text = "-";
+			// 
+			// label25
+			// 
+			this.label25.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label25.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label25.Location = new System.Drawing.Point(13, 282);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(100, 23);
+			this.label25.TabIndex = 117;
+			this.label25.Text = "Avg. Power";
+			// 
+			// lblAvgHeartRate
+			// 
+			this.lblAvgHeartRate.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgHeartRate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblAvgHeartRate.Location = new System.Drawing.Point(109, 259);
+			this.lblAvgHeartRate.Name = "lblAvgHeartRate";
+			this.lblAvgHeartRate.Size = new System.Drawing.Size(132, 23);
+			this.lblAvgHeartRate.TabIndex = 116;
+			this.lblAvgHeartRate.Text = "-";
+			// 
+			// label23
+			// 
+			this.label23.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label23.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label23.Location = new System.Drawing.Point(13, 259);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(100, 23);
+			this.label23.TabIndex = 115;
+			this.label23.Text = "Avg. Heart Rate";
+			// 
+			// lblAvgCadence
+			// 
+			this.lblAvgCadence.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgCadence.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblAvgCadence.Location = new System.Drawing.Point(109, 236);
+			this.lblAvgCadence.Name = "lblAvgCadence";
+			this.lblAvgCadence.Size = new System.Drawing.Size(132, 23);
+			this.lblAvgCadence.TabIndex = 114;
+			this.lblAvgCadence.Text = "-";
+			// 
+			// label20
+			// 
+			this.label20.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label20.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label20.Location = new System.Drawing.Point(13, 236);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(100, 23);
+			this.label20.TabIndex = 113;
+			this.label20.Text = "Avg. Cadence";
+			// 
+			// lblAvgSpeed
+			// 
+			this.lblAvgSpeed.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAvgSpeed.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblAvgSpeed.Location = new System.Drawing.Point(109, 213);
+			this.lblAvgSpeed.Name = "lblAvgSpeed";
+			this.lblAvgSpeed.Size = new System.Drawing.Size(132, 23);
+			this.lblAvgSpeed.TabIndex = 112;
+			this.lblAvgSpeed.Text = "-";
+			// 
+			// label18
+			// 
+			this.label18.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label18.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label18.Location = new System.Drawing.Point(13, 213);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(100, 23);
+			this.label18.TabIndex = 111;
+			this.label18.Text = "Avg. Speed";
+			// 
+			// lblMovingTime
+			// 
+			this.lblMovingTime.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMovingTime.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblMovingTime.Location = new System.Drawing.Point(109, 190);
+			this.lblMovingTime.Name = "lblMovingTime";
+			this.lblMovingTime.Size = new System.Drawing.Size(132, 23);
+			this.lblMovingTime.TabIndex = 110;
+			this.lblMovingTime.Text = "-";
+			// 
+			// label14
+			// 
+			this.label14.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label14.Location = new System.Drawing.Point(13, 190);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(100, 23);
+			this.label14.TabIndex = 109;
+			this.label14.Text = "Moving Time";
+			// 
+			// lblDistance
+			// 
+			this.lblDistance.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDistance.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblDistance.Location = new System.Drawing.Point(109, 167);
+			this.lblDistance.Name = "lblDistance";
+			this.lblDistance.Size = new System.Drawing.Size(132, 23);
+			this.lblDistance.TabIndex = 108;
+			this.lblDistance.Text = "-";
+			// 
+			// label3
+			// 
+			this.label3.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label3.Location = new System.Drawing.Point(13, 167);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(100, 23);
+			this.label3.TabIndex = 107;
+			this.label3.Text = "Distance";
+			// 
+			// webBrowser1
+			// 
+			this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+									| System.Windows.Forms.AnchorStyles.Left) 
+									| System.Windows.Forms.AnchorStyles.Right)));
+			this.webBrowser1.Location = new System.Drawing.Point(287, 217);
+			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowser1.Name = "webBrowser1";
+			this.webBrowser1.ScriptErrorsSuppressed = true;
+			this.webBrowser1.ScrollBarsEnabled = false;
+			this.webBrowser1.Size = new System.Drawing.Size(854, 235);
+			this.webBrowser1.TabIndex = 106;
 			// 
 			// label12
 			// 
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label12.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label12.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label12.Location = new System.Drawing.Point(291, 3);
+			this.label12.Location = new System.Drawing.Point(287, 39);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(100, 13);
-			this.label12.TabIndex = 89;
+			this.label12.TabIndex = 105;
 			this.label12.Text = "Segments";
 			// 
 			// lstSplits
 			// 
-			this.lstSplits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
+			this.lstSplits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
 			this.lstSplits.BackColor = System.Drawing.SystemColors.Window;
 			this.lstSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -531,16 +737,19 @@ namespace CycleUploader
 									this.columnHeader27,
 									this.columnHeader28,
 									this.columnHeader29,
-									this.columnHeader30});
+									this.columnHeader30,
+									this.columnHeader33});
+			this.lstSplits.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lstSplits.FullRowSelect = true;
 			this.lstSplits.GridLines = true;
-			this.lstSplits.Location = new System.Drawing.Point(291, 19);
+			this.lstSplits.Location = new System.Drawing.Point(287, 55);
 			this.lstSplits.MultiSelect = false;
 			this.lstSplits.Name = "lstSplits";
-			this.lstSplits.Size = new System.Drawing.Size(836, 183);
-			this.lstSplits.TabIndex = 88;
+			this.lstSplits.Size = new System.Drawing.Size(854, 159);
+			this.lstSplits.TabIndex = 104;
 			this.lstSplits.UseCompatibleStateImageBehavior = false;
 			this.lstSplits.View = System.Windows.Forms.View.Details;
+			this.lstSplits.Click += new System.EventHandler(this.LstSplitsClick);
 			// 
 			// columnHeader18
 			// 
@@ -596,13 +805,19 @@ namespace CycleUploader
 			this.columnHeader30.Text = "PR Rank";
 			this.columnHeader30.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
+			// columnHeader33
+			// 
+			this.columnHeader33.Text = "ID";
+			this.columnHeader33.Width = 0;
+			// 
 			// lnkStrava
 			// 
+			this.lnkStrava.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lnkStrava.ForeColor = System.Drawing.Color.SteelBlue;
-			this.lnkStrava.Location = new System.Drawing.Point(17, 176);
+			this.lnkStrava.Location = new System.Drawing.Point(13, 435);
 			this.lnkStrava.Name = "lnkStrava";
-			this.lnkStrava.Size = new System.Drawing.Size(94, 23);
-			this.lnkStrava.TabIndex = 0;
+			this.lnkStrava.Size = new System.Drawing.Size(252, 20);
+			this.lnkStrava.TabIndex = 91;
 			this.lnkStrava.TabStop = true;
 			this.lnkStrava.Text = "Open in Browser";
 			this.lnkStrava.Visible = false;
@@ -610,161 +825,124 @@ namespace CycleUploader
 			// 
 			// lblTotalAscent
 			// 
-			this.lblTotalAscent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalAscent.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblTotalAscent.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblTotalAscent.Location = new System.Drawing.Point(113, 132);
+			this.lblTotalAscent.Location = new System.Drawing.Point(109, 144);
 			this.lblTotalAscent.Name = "lblTotalAscent";
 			this.lblTotalAscent.Size = new System.Drawing.Size(132, 23);
-			this.lblTotalAscent.TabIndex = 77;
+			this.lblTotalAscent.TabIndex = 103;
 			this.lblTotalAscent.Text = "-";
 			// 
 			// label22
 			// 
-			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label22.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label22.Location = new System.Drawing.Point(17, 132);
+			this.label22.Location = new System.Drawing.Point(13, 144);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(100, 23);
-			this.label22.TabIndex = 72;
+			this.label22.TabIndex = 102;
 			this.label22.Text = "Total Ascent";
 			// 
-			// lblActivityDateTime
+			// lblActivityName
 			// 
-			this.lblActivityDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblActivityDateTime.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblActivityDateTime.Location = new System.Drawing.Point(113, 17);
-			this.lblActivityDateTime.Name = "lblActivityDateTime";
-			this.lblActivityDateTime.Size = new System.Drawing.Size(156, 23);
-			this.lblActivityDateTime.TabIndex = 67;
-			this.lblActivityDateTime.Text = "-";
-			// 
-			// label7
-			// 
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label7.Location = new System.Drawing.Point(17, 17);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(118, 23);
-			this.label7.TabIndex = 66;
-			this.label7.Text = "Activity";
+			this.lblActivityName.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblActivityName.ForeColor = System.Drawing.Color.SteelBlue;
+			this.lblActivityName.Location = new System.Drawing.Point(13, 16);
+			this.lblActivityName.Name = "lblActivityName";
+			this.lblActivityName.Size = new System.Drawing.Size(1090, 23);
+			this.lblActivityName.TabIndex = 101;
 			// 
 			// lblSegmentCount
 			// 
-			this.lblSegmentCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblSegmentCount.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblSegmentCount.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblSegmentCount.Location = new System.Drawing.Point(113, 109);
+			this.lblSegmentCount.Location = new System.Drawing.Point(109, 121);
 			this.lblSegmentCount.Name = "lblSegmentCount";
 			this.lblSegmentCount.Size = new System.Drawing.Size(156, 23);
-			this.lblSegmentCount.TabIndex = 64;
+			this.lblSegmentCount.TabIndex = 99;
 			this.lblSegmentCount.Text = "-";
 			// 
 			// lblAchievements
 			// 
-			this.lblAchievements.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAchievements.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAchievements.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblAchievements.Location = new System.Drawing.Point(113, 86);
+			this.lblAchievements.Location = new System.Drawing.Point(109, 98);
 			this.lblAchievements.Name = "lblAchievements";
 			this.lblAchievements.Size = new System.Drawing.Size(156, 23);
-			this.lblAchievements.TabIndex = 63;
+			this.lblAchievements.TabIndex = 98;
 			this.lblAchievements.Text = "-";
 			// 
 			// lblLocation
 			// 
-			this.lblLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblLocation.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblLocation.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblLocation.Location = new System.Drawing.Point(113, 63);
+			this.lblLocation.Location = new System.Drawing.Point(109, 75);
 			this.lblLocation.Name = "lblLocation";
 			this.lblLocation.Size = new System.Drawing.Size(156, 23);
-			this.lblLocation.TabIndex = 62;
+			this.lblLocation.TabIndex = 97;
 			this.lblLocation.Text = "-";
 			// 
 			// lblStartDate
 			// 
-			this.lblStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblStartDate.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblStartDate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblStartDate.Location = new System.Drawing.Point(113, 40);
+			this.lblStartDate.Location = new System.Drawing.Point(109, 52);
 			this.lblStartDate.Name = "lblStartDate";
 			this.lblStartDate.Size = new System.Drawing.Size(156, 23);
-			this.lblStartDate.TabIndex = 61;
+			this.lblStartDate.TabIndex = 96;
 			this.lblStartDate.Text = "-";
 			// 
 			// label9
 			// 
-			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label9.Location = new System.Drawing.Point(17, 109);
+			this.label9.Location = new System.Drawing.Point(13, 121);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(118, 23);
-			this.label9.TabIndex = 59;
+			this.label9.TabIndex = 95;
 			this.label9.Text = "No. Segments";
 			// 
 			// label5
 			// 
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label5.Location = new System.Drawing.Point(17, 86);
+			this.label5.Location = new System.Drawing.Point(13, 98);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(100, 23);
-			this.label5.TabIndex = 58;
+			this.label5.TabIndex = 94;
 			this.label5.Text = "Achievements";
 			// 
 			// label11
 			// 
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label11.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label11.Location = new System.Drawing.Point(17, 63);
+			this.label11.Location = new System.Drawing.Point(13, 75);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(100, 23);
-			this.label11.TabIndex = 57;
+			this.label11.TabIndex = 93;
 			this.label11.Text = "Location";
 			// 
 			// label13
 			// 
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label13.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label13.Location = new System.Drawing.Point(17, 40);
+			this.label13.Location = new System.Drawing.Point(13, 52);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(100, 23);
-			this.label13.TabIndex = 56;
+			this.label13.TabIndex = 92;
 			this.label13.Text = "Start Date";
 			// 
-			// tabMap
+			// btnActivityClose
 			// 
-			this.tabMap.Controls.Add(this.btnMapFullscreen);
-			this.tabMap.Controls.Add(this.webBrowser1);
-			this.tabMap.Location = new System.Drawing.Point(4, 22);
-			this.tabMap.Name = "tabMap";
-			this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMap.Size = new System.Drawing.Size(1133, 205);
-			this.tabMap.TabIndex = 2;
-			this.tabMap.Text = "Map";
-			this.tabMap.UseVisualStyleBackColor = true;
-			// 
-			// btnMapFullscreen
-			// 
-			this.btnMapFullscreen.AutoSize = true;
-			this.btnMapFullscreen.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnMapFullscreen.Image = ((System.Drawing.Image)(resources.GetObject("btnMapFullscreen.Image")));
-			this.btnMapFullscreen.Location = new System.Drawing.Point(1096, 3);
-			this.btnMapFullscreen.Name = "btnMapFullscreen";
-			this.btnMapFullscreen.Size = new System.Drawing.Size(34, 199);
-			this.btnMapFullscreen.TabIndex = 2;
-			this.btnMapFullscreen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btnMapFullscreen.UseVisualStyleBackColor = true;
-			this.btnMapFullscreen.Click += new System.EventHandler(this.BtnMapFullscreenClick);
-			// 
-			// webBrowser1
-			// 
-			this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
-			this.webBrowser1.Location = new System.Drawing.Point(3, 3);
-			this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-			this.webBrowser1.Name = "webBrowser1";
-			this.webBrowser1.ScriptErrorsSuppressed = true;
-			this.webBrowser1.ScrollBarsEnabled = false;
-			this.webBrowser1.Size = new System.Drawing.Size(1087, 199);
-			this.webBrowser1.TabIndex = 0;
+			this.btnActivityClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnActivityClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnActivityClose.Location = new System.Drawing.Point(1109, 19);
+			this.btnActivityClose.Name = "btnActivityClose";
+			this.btnActivityClose.Size = new System.Drawing.Size(32, 24);
+			this.btnActivityClose.TabIndex = 90;
+			this.btnActivityClose.Text = "x";
+			this.btnActivityClose.UseVisualStyleBackColor = true;
+			this.btnActivityClose.Click += new System.EventHandler(this.BtnActivityCloseClick);
 			// 
 			// splitContainer1
 			// 
@@ -786,7 +964,7 @@ namespace CycleUploader
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
 			this.splitContainer1.Panel2MinSize = 250;
 			this.splitContainer1.Size = new System.Drawing.Size(1147, 505);
-			this.splitContainer1.SplitterDistance = 251;
+			this.splitContainer1.SplitterDistance = 40;
 			this.splitContainer1.TabIndex = 33;
 			// 
 			// ViewerStrava
@@ -801,7 +979,7 @@ namespace CycleUploader
 			this.Controls.Add(this.pictureBox1);
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(745, 469);
+			this.MinimumSize = new System.Drawing.Size(1183, 754);
 			this.Name = "ViewerStrava";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -814,10 +992,6 @@ namespace CycleUploader
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
-			this.tabControl1.ResumeLayout(false);
-			this.tabSummary.ResumeLayout(false);
-			this.tabMap.ResumeLayout(false);
-			this.tabMap.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -825,6 +999,25 @@ namespace CycleUploader
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ColumnHeader columnHeader33;
+		private System.Windows.Forms.Button btnReset;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label lblDistance;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.Label lblAvgSpeed;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Label lblAvgCadence;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label lblAvgHeartRate;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.Label lblAvgPower;
+		private System.Windows.Forms.CheckBox cbkCommute;
+		private System.Windows.Forms.CheckBox cbkTrainer;
+		private System.Windows.Forms.CheckBox cbkManual;
+		private System.Windows.Forms.CheckBox cbkPrivate;
+		private System.Windows.Forms.CheckBox cbkFlagged;
+		private System.Windows.Forms.Button btnActivityClose;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ColumnHeader columnHeader32;
 		private System.Windows.Forms.ColumnHeader columnHeader31;
@@ -837,8 +1030,6 @@ namespace CycleUploader
 		private System.Windows.Forms.ColumnHeader columnHeader24;
 		private System.Windows.Forms.ColumnHeader columnHeader21;
 		private System.Windows.Forms.WebBrowser webBrowser1;
-		private System.Windows.Forms.Button btnMapFullscreen;
-		private System.Windows.Forms.TabPage tabMap;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label label5;
@@ -847,8 +1038,8 @@ namespace CycleUploader
 		private System.Windows.Forms.Label lblLocation;
 		private System.Windows.Forms.Label lblAchievements;
 		private System.Windows.Forms.Label lblSegmentCount;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Label lblActivityDateTime;
+		private System.Windows.Forms.Label lblMovingTime;
+		private System.Windows.Forms.Label lblActivityName;
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.Label lblTotalAscent;
 		private System.Windows.Forms.LinkLabel lnkStrava;
@@ -857,8 +1048,6 @@ namespace CycleUploader
 		private System.Windows.Forms.ColumnHeader columnHeader18;
 		private ListViewNF.ListViewNF lstSplits;
 		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.TabPage tabSummary;
-		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.ColumnHeader columnHeader17;

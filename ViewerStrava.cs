@@ -326,11 +326,49 @@ namespace CycleUploader
 					string text = streamReader.ReadToEnd();
 					dynamic json = JsonValue.Parse(text);
 					
+					TimeSpan duration_e_act = TimeSpan.FromSeconds((double)json.elapsed_time);
+					TimeSpan duration_m_act = TimeSpan.FromSeconds((double)json.moving_time);
+					string duration_elapsed_act =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+						    			duration_e_act.Hours, 
+						    			duration_e_act.Minutes, 
+						    			duration_e_act.Seconds
+						    		);
+					string duration_moving_act =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+						    			duration_m_act.Hours, 
+						    			duration_m_act.Minutes, 
+						    			duration_m_act.Seconds
+						    		);
+					int hr = 0;
+					int cad= 0;
+					JsonValue hr_tmp = json.average_heartrate;
+					JsonValue cad_tmp= json.average_cadence;
+					if(hr_tmp.JsonType != JsonType.Default){
+						hr = (int)json.average_heartrate;
+					}
+					if(cad_tmp.JsonType != JsonType.Default){
+						cad = (int)json.average_cadence;
+					}
+					
+					SetControlPropertyThreadSafe(lblActivityName, "Text", (string)json.name);
+					
 					SetControlPropertyThreadSafe(lblStartDate, "Text", (string)json.start_date);
 					SetControlPropertyThreadSafe(lblLocation, "Text", (string)json.location_city + "," + (string)json.location_state);
 					SetControlPropertyThreadSafe(lblAchievements, "Text", (string)json.achievement_count);
 					SetControlPropertyThreadSafe(lblSegmentCount, "Text", json.segment_efforts.Count.ToString());
 					SetControlPropertyThreadSafe(lblTotalAscent, "Text", string.Format("{0:0.00} ft", (float)json.total_elevation_gain * 3.2808399));
+					SetControlPropertyThreadSafe(lblMovingTime, "Text", duration_moving_act);
+					SetControlPropertyThreadSafe(lblDistance, "Text", string.Format("{0:0.00}",(double)json.distance * 0.00062137) + " ml");
+					SetControlPropertyThreadSafe(lblAvgSpeed, "Text", string.Format("{0:0.00} mph",(double)json.average_speed * 2.23693629)); // m/sec to mph
+					SetControlPropertyThreadSafe(lblAvgCadence, "Text", string.Format("{0:0} rpm", cad));
+					SetControlPropertyThreadSafe(lblAvgHeartRate, "Text", string.Format("{0:0} bpm", hr));
+					SetControlPropertyThreadSafe(lblAvgPower, "Text", string.Format("{0:0.00} watts", json.average_watts ?? 0));		
+
+					// flags
+					SetControlPropertyThreadSafe(cbkCommute, "Checked", (bool)json.commute);
+					SetControlPropertyThreadSafe(cbkTrainer, "Checked", (bool)json.trainer);
+					SetControlPropertyThreadSafe(cbkManual, "Checked", (bool)json.manual);
+					SetControlPropertyThreadSafe(cbkPrivate, "Checked", (bool)json["private"]);
+					SetControlPropertyThreadSafe(cbkFlagged, "Checked", (bool)json.flagged);
 					
 					// add the segment effors
 					ClearListView(lstSplits);
@@ -357,7 +395,8 @@ namespace CycleUploader
 							(string)json.segment_efforts[a].segment.city + ", " + (string)json.segment_efforts[a].segment.state,
 							duration_elapsed,
 							(string)json.segment_efforts[a].kom_rank,
-							(string)json.segment_efforts[a].pr_rank
+							(string)json.segment_efforts[a].pr_rank,
+							(string)json.segment_efforts[a].segment.id
 						};
 						AddListViewItem(lstSplits, new ListViewItem(seg));
 					}
@@ -410,8 +449,9 @@ namespace CycleUploader
 
 						    <script language=""javascript"">
 						    var map_c;
-						    var bounds; 
+						    var map_bounds; 
 						    var map_centre;
+						    var segmentRegion = null;
 						    
 						    // === first support methods that don't (yet) exist in v3
 google.maps.LatLng.prototype.distanceFrom = function(newLatLng) {
@@ -618,7 +658,7 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 							        strokeWeight: 2,
 							        map: map_c
 							    });
-							    bounds = new google.maps.LatLngBounds();
+							    map_bounds = new google.maps.LatLngBounds();
 							    " + js_mile_markers + @"
 							    var points = setRegion.GetPointsAtDistance(1609.344);
 
@@ -626,7 +666,7 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 							    for (var i=0; i<points.length; i++) {
 							    	new google.maps.Marker({icon:'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' + (i+1) + '|aa0000|FFFFFF',position: points[i],map: map_c,title: (i+1).toString()});
 							    }
-							    setRegion.getPath().forEach(function(e){bounds.extend(e);});
+							    setRegion.getPath().forEach(function(e){map_bounds.extend(e);});
 							    map_c.fitBounds(bounds);
 							    
 							}
@@ -636,7 +676,7 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 						      function pageresize()
 						      {
 						       google.maps.event.trigger(map_c, 'resize');
-						       map_c.fitBounds(bounds);
+						       map_c.fitBounds(map_bounds);
 						      }
 
 							function decodeLevels(encodedLevelsString) {
@@ -669,17 +709,16 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 			            fs.Dispose();
 						
 			            NavigateWebControl(webBrowser1, Application.StartupPath + "\\strava_route.html");
-			            SetControlPropertyThreadSafe(tabMap, "Enabled", true);
 					}
 					catch{
 						MessageBox.Show("Map Update Failed. Try re-selecting the activity.","Error loading map", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 					}
 					finally{
-						SetControlPropertyThreadSafe(tabMap, "Enabled", true);
+						
 					}
-					//SetStatusProgressThreadSafe(statusBar, "Value", ++progress);
 					
-					//SetStatusTextThreadSafe(statusBar, "Done.");
+					SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", true);
+					SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", false);
 				}
 			}
 			
@@ -705,6 +744,85 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 			
 			fsMap = new FullscreenMap(Application.StartupPath + "\\strava_route.html");
 			fsMap.ShowDialog();	
+		}
+		
+		void BtnActivityCloseClick(object sender, EventArgs e)
+		{
+			SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", false);
+			SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", true);
+		}
+		
+		void CbkCommuteClick(object sender, EventArgs e)
+		{
+		}
+		
+		void Button1Click(object sender, EventArgs e)
+		{
+			HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+			HtmlElement s = webBrowser1.Document.CreateElement("script");
+			
+			string seg_path = @"
+				if(segmentRegion != null){
+					segmentRegion.setMap(null);
+				}
+				map_c.fitBounds(map_bounds);			
+			";
+			
+			s.SetAttribute("text",seg_path);//"alert('hello');");
+			head.AppendChild(s);
+		}
+		
+		void LstSplitsClick(object sender, EventArgs e)
+		{
+			int segmentId = Convert.ToInt32(GetListViewSelectedItemValue(lstSplits,0,12));
+			
+			string url = "https://www.strava.com/api/v3/segments/";
+			url+= segmentId.ToString();
+			url += "?access_token=" + _token;
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.Timeout = 5000;
+		
+			// build the url encoded form post data
+			
+			using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+			{
+				System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+				if (responseStream != null)
+				{
+					System.IO.StreamReader streamReader = new System.IO.StreamReader(responseStream);
+					string text = streamReader.ReadToEnd();
+					dynamic json = JsonValue.Parse(text);
+					string seg_polyline = (string)json.map.polyline;
+					
+					HtmlElement head = webBrowser1.Document.GetElementsByTagName("head")[0];
+					HtmlElement s = webBrowser1.Document.CreateElement("script");
+					
+					string seg_path = @"
+						if(segmentRegion != null){
+							segmentRegion.setMap(null);
+						}
+						var decodedPath = google.maps.geometry.encoding.decodePath('" + seg_polyline.Replace("\\","\\\\") + @"'); 
+						
+						segmentRegion = new google.maps.Polyline({
+						    path: decodedPath,
+						    strokeColor: '#0000FF',
+						    strokeOpacity: 1.0,
+						    strokeWeight: 2,
+						    map: map_c
+						});
+						bounds = new google.maps.LatLngBounds();
+						segmentRegion.getPath().forEach(function(e){bounds.extend(e);});
+						map_c.fitBounds(bounds);			
+					";
+					
+					s.SetAttribute("text",seg_path);//"alert('hello');");
+					head.AppendChild(s);
+					
+				}
+			}
+			
+			
 		}
 	}
 }
