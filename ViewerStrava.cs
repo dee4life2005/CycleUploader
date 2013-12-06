@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 
 namespace CycleUploader
 {
@@ -286,6 +287,8 @@ namespace CycleUploader
 		{
 			splitContainer1.Panel1Collapsed = false;
 			splitContainer1.Panel2Collapsed = true;
+			pnlActivityDetails.Visible = false;
+			pnlLoadingActivity.Visible = true;
 			_threadProfile = new Thread(new ThreadStart(this.loadProfile));
 			_threadProfile.Start();
 		}
@@ -302,7 +305,7 @@ namespace CycleUploader
 			
 			SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", true);
 			SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", false);
-			SetControlPropertyThreadSafe(panel1, "Visible", true);
+			SetControlPropertyThreadSafe(pnlLoadingActivity, "Visible", true);
 			SetControlPropertyThreadSafe(label2, "Visible", true);
 			
 			_threadActivity = new Thread(new ThreadStart(this.loadActivity));
@@ -335,30 +338,38 @@ namespace CycleUploader
 					
 					TimeSpan duration_e_act = TimeSpan.FromSeconds((double)json.elapsed_time);
 					TimeSpan duration_m_act = TimeSpan.FromSeconds((double)json.moving_time);
-					string duration_elapsed_act =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+					string duration_elapsed_act =  string.Format("{0:D2}:{1:D2}:{2:D2}", 
 						    			duration_e_act.Hours, 
 						    			duration_e_act.Minutes, 
 						    			duration_e_act.Seconds
 						    		);
-					string duration_moving_act =  string.Format("{0:D2} h {1:D2} m {2:D2} s", 
+					string duration_moving_act =  string.Format("{0:D2}:{1:D2}:{2:D2}", 
 						    			duration_m_act.Hours, 
 						    			duration_m_act.Minutes, 
 						    			duration_m_act.Seconds
 						    		);
-					int hr = 0;
-					int cad= 0;
+					int hr_avg = 0;
+					int cad_avg = 0;
+					int hr_max = 0;
+					int cad_max = 0;
 					JsonValue hr_tmp = json.average_heartrate;
 					JsonValue cad_tmp= json.average_cadence;
 					if(hr_tmp.JsonType != JsonType.Default){
-						hr = (int)json.average_heartrate;
+						hr_avg = (int)json.average_heartrate;
 					}
 					if(cad_tmp.JsonType != JsonType.Default){
-						cad = (int)json.average_cadence;
+						cad_avg = (int)json.average_cadence;
 					}
+					hr_tmp = json.maximum_heartrate;
+					
+					if(hr_tmp.JsonType != JsonType.Default){
+						hr_max = (int)json.max_heartrate;
+					}
+					DateTime dtStartDate= DateTime.Parse((string)json.start_date,  null, DateTimeStyles.RoundtripKind);
 					
 					SetControlPropertyThreadSafe(lblActivityName, "Text", (string)json.name);
 					
-					SetControlPropertyThreadSafe(lblStartDate, "Text", (string)json.start_date);
+					SetControlPropertyThreadSafe(lblStartDate, "Text", dtStartDate.ToString("dd/MM/yyyy HH:mm"));
 					SetControlPropertyThreadSafe(lblLocation, "Text", (string)json.location_city + "," + (string)json.location_state);
 					SetControlPropertyThreadSafe(lblAchievements, "Text", (string)json.achievement_count);
 					SetControlPropertyThreadSafe(lblSegmentCount, "Text", json.segment_efforts.Count.ToString());
@@ -366,9 +377,14 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(lblMovingTime, "Text", duration_moving_act);
 					SetControlPropertyThreadSafe(lblDistance, "Text", string.Format("{0:0.00}",(double)json.distance * 0.00062137) + " ml");
 					SetControlPropertyThreadSafe(lblAvgSpeed, "Text", string.Format("{0:0.00} mph",(double)json.average_speed * 2.23693629)); // m/sec to mph
-					SetControlPropertyThreadSafe(lblAvgCadence, "Text", string.Format("{0:0} rpm", cad));
-					SetControlPropertyThreadSafe(lblAvgHeartRate, "Text", string.Format("{0:0} bpm", hr));
-					SetControlPropertyThreadSafe(lblAvgPower, "Text", string.Format("{0:0.00} watts", json.average_watts ?? 0));		
+					SetControlPropertyThreadSafe(lblAvgCadence, "Text", string.Format("{0:0} rpm", cad_avg));
+					SetControlPropertyThreadSafe(lblAvgHeartRate, "Text", string.Format("{0:0} bpm", hr_avg));
+					SetControlPropertyThreadSafe(lblAvgPower, "Text", string.Format("{0:0} watts", json.average_watts ?? 0));		
+					
+					SetControlPropertyThreadSafe(lblMaxSpeed, "Text", string.Format("{0:0.00} mph",(double)json.max_speed * 2.23693629)); // m/sec to mph
+					//SetControlPropertyThreadSafe(lblMaxCadence, "Text", string.Format("{0:0} rpm", cad_max));
+					SetControlPropertyThreadSafe(lblMaxHeartRate, "Text", string.Format("{0:0} bpm", hr_max));
+					//SetControlPropertyThreadSafe(lblAvgPower, "Text", string.Format("{0:0.00} watts", json.average_watts ?? 0));		
 
 					// flags
 					SetControlPropertyThreadSafe(cbkCommute, "Checked", (bool)json.commute);
@@ -727,8 +743,8 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 					
 					SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", true);
 					SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", false);
-					SetControlPropertyThreadSafe(panel1, "Visible", false);
-					SetControlPropertyThreadSafe(label2, "Visible", false);
+					SetControlPropertyThreadSafe(pnlLoadingActivity, "Visible", false);
+					SetControlPropertyThreadSafe(pnlActivityDetails, "Visible", true);
 				}
 			}
 			
@@ -760,6 +776,8 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 		{
 			SetControlPropertyThreadSafe(splitContainer1, "Panel1Collapsed", false);
 			SetControlPropertyThreadSafe(splitContainer1, "Panel2Collapsed", true);
+			SetControlPropertyThreadSafe(pnlActivityDetails, "Visible", false);
+			SetControlPropertyThreadSafe(pnlLoadingActivity, "Visible", true);
 		}
 		
 		void CbkCommuteClick(object sender, EventArgs e)
@@ -831,8 +849,6 @@ google.maps.Polyline.prototype.Bearing              = google.maps.Polygon.protot
 					
 				}
 			}
-			
-			
 		}
 	}
 }
