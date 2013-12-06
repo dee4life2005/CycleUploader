@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.40.0</version>
+<version>1.0.41.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
 <date>03/12/2013</date>
 <changes>
 -------------------------------
-- v1.0.38.0, Strava, Added retrieval of extended activity information including segment efforts. (map to follow)
--------------------------------
-- v1.0.39.0, Strava, Tweaked activity segment information to include average speed, and added map tab detail.
--------------------------------
 - v1.0.40.0, Strava, added support for setting bike used when specifying activity details
+-------------------------------
+- v1.0.41.0, Redesigned Strava Viewer (activity section)
 </changes>
 </appinfo> 
