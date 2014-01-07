@@ -38,8 +38,8 @@ namespace CycleUploader
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileSummary));
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Please Wait ...");
-			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Calculating");
+			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Please Wait ...");
+			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Calculating");
 			this.tabControlHistory = new System.Windows.Forms.TabControl();
 			this.tabHistorySummary = new System.Windows.Forms.TabPage();
 			this.txtGradientDebug = new System.Windows.Forms.TextBox();
@@ -48,9 +48,9 @@ namespace CycleUploader
 			this.btnSaveFit = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lstMileSplits = new ListViewNF.ListViewNF();
-			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.pnlHistoryUploadRideWithGPS = new System.Windows.Forms.Panel();
 			this.linkHistoryUploadRideWithGPS = new System.Windows.Forms.LinkLabel();
@@ -107,9 +107,9 @@ namespace CycleUploader
 			this.zedHistoryCadence = new ZedGraph.ZedGraphControl();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.lstHeartRateZones = new System.Windows.Forms.ListView();
-			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.zedHistoryHeart = new ZedGraph.ZedGraphControl();
 			this.lblHistoryName = new System.Windows.Forms.Label();
 			this.lblHistoryDate = new System.Windows.Forms.Label();
@@ -138,8 +138,8 @@ namespace CycleUploader
 			// tabControlHistory
 			// 
 			this.tabControlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControlHistory.Controls.Add(this.tabHistorySummary);
 			this.tabControlHistory.Controls.Add(this.tabHistoryMap);
 			this.tabControlHistory.Controls.Add(this.tabPage8);
@@ -198,7 +198,7 @@ namespace CycleUploader
 			// txtGradientDebug
 			// 
 			this.txtGradientDebug.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left)));
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtGradientDebug.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtGradientDebug.Location = new System.Drawing.Point(110, 283);
 			this.txtGradientDebug.Multiline = true;
@@ -243,7 +243,7 @@ namespace CycleUploader
 			// groupBox1
 			// 
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left)));
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.groupBox1.Controls.Add(this.lstMileSplits);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(701, 111);
@@ -258,9 +258,9 @@ namespace CycleUploader
 			this.lstMileSplits.BackColor = System.Drawing.SystemColors.Window;
 			this.lstMileSplits.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.lstMileSplits.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.columnHeader11,
-									this.columnHeader12,
-									this.columnHeader13});
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13});
 			this.lstMileSplits.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lstMileSplits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lstMileSplits.FullRowSelect = true;
@@ -325,6 +325,7 @@ namespace CycleUploader
 			this.linkHistoryUploadRideWithGPS.TabIndex = 61;
 			this.linkHistoryUploadRideWithGPS.TabStop = true;
 			this.linkHistoryUploadRideWithGPS.Text = "Click to View";
+			this.linkHistoryUploadRideWithGPS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHistoryUpload_LinkClicked);
 			// 
 			// cbkHistoryUploadRideWithGPS
 			// 
@@ -372,6 +373,7 @@ namespace CycleUploader
 			this.linkHistoryUploadGarmin.TabIndex = 61;
 			this.linkHistoryUploadGarmin.TabStop = true;
 			this.linkHistoryUploadGarmin.Text = "Click to View";
+			this.linkHistoryUploadGarmin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHistoryUpload_LinkClicked);
 			// 
 			// cbkHistoryUploadGarmin
 			// 
@@ -419,6 +421,7 @@ namespace CycleUploader
 			this.linkHistoryUploadStrava.TabIndex = 61;
 			this.linkHistoryUploadStrava.TabStop = true;
 			this.linkHistoryUploadStrava.Text = "Click to View";
+			this.linkHistoryUploadStrava.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHistoryUpload_LinkClicked);
 			// 
 			// cbkHistoryUploadStrava
 			// 
@@ -466,6 +469,7 @@ namespace CycleUploader
 			this.linkHistoryUploadRunkeeper.TabIndex = 60;
 			this.linkHistoryUploadRunkeeper.TabStop = true;
 			this.linkHistoryUploadRunkeeper.Text = "Click to View";
+			this.linkHistoryUploadRunkeeper.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHistoryUpload_LinkClicked);
 			// 
 			// cbkHistoryUploadRunkeeper
 			// 
@@ -907,13 +911,13 @@ namespace CycleUploader
 			// 
 			this.lstHeartRateZones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lstHeartRateZones.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.columnHeader14,
-									this.columnHeader15,
-									this.columnHeader16});
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader16});
 			this.lstHeartRateZones.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lstHeartRateZones.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-									listViewItem1,
-									listViewItem2});
+            listViewItem3,
+            listViewItem4});
 			this.lstHeartRateZones.Location = new System.Drawing.Point(781, 3);
 			this.lstHeartRateZones.Name = "lstHeartRateZones";
 			this.lstHeartRateZones.Size = new System.Drawing.Size(230, 162);
@@ -939,8 +943,8 @@ namespace CycleUploader
 			// zedHistoryHeart
 			// 
 			this.zedHistoryHeart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-									| System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.zedHistoryHeart.IsAntiAlias = true;
 			this.zedHistoryHeart.IsShowPointValues = true;
 			this.zedHistoryHeart.Location = new System.Drawing.Point(3, 3);
@@ -985,7 +989,7 @@ namespace CycleUploader
 			// lineSeparator1
 			// 
 			this.lineSeparator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-									| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lineSeparator1.Location = new System.Drawing.Point(0, 55);
 			this.lineSeparator1.MaximumSize = new System.Drawing.Size(2000, 2);
 			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
@@ -1034,6 +1038,7 @@ namespace CycleUploader
 			this.tabPage10.ResumeLayout(false);
 			this.tabPage11.ResumeLayout(false);
 			this.ResumeLayout(false);
+
 		}
 		private System.Windows.Forms.TextBox txtGradientDebug;
 		private CycleUploader.LineSeparator lineSeparator1;

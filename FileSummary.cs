@@ -15,6 +15,7 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using Dynastream.Fit;
+using System.Diagnostics;
 
 namespace CycleUploader
 {
@@ -150,6 +151,20 @@ namespace CycleUploader
 				((TabControl)ctrl).SelectTab(tabName);
 			}
 		}
+
+		private delegate void SetLinkLabelUrlDelegate(Control ctrl, string url);
+		private static void SetLinkLabelUrl(Control ctrl, string url)
+		{
+			if (ctrl.InvokeRequired)
+			{
+				ctrl.Invoke(new SetLinkLabelUrlDelegate(SetLinkLabelUrl), new object[] { ctrl, url });
+			}
+			else
+			{
+				((LinkLabel)ctrl).Links.Clear();
+				((LinkLabel)ctrl).Links.Add(0, ((LinkLabel)ctrl).Text.Length, url);
+			}
+		}
 		
 		
 		void loadFileHistoryInformation()
@@ -196,6 +211,9 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadRunkeeper, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRunkeeper, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRunkeeper, "BackColor", Color.PaleGreen);
+
+					SetLinkLabelUrl(linkHistoryUploadStrava, rdrSummary["fileUploadRunkeeper"].ToString());
+					SetControlPropertyThreadSafe(linkHistoryUploadRunkeeper, "Enabled", true);
 				}
 				//
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadStrava"))){
@@ -206,6 +224,9 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadStrava, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadStrava, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadStrava, "BackColor", Color.PaleGreen);
+
+					SetLinkLabelUrl(linkHistoryUploadStrava, rdrSummary["fileUploadStrava"].ToString());
+					SetControlPropertyThreadSafe(linkHistoryUploadStrava, "Enabled", true);
 				}
 				// 
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadGarmin"))){
@@ -216,6 +237,9 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadGarmin, "Checked",true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadGarmin, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadGarmin, "BackColor", Color.PaleGreen);
+
+					SetLinkLabelUrl(linkHistoryUploadStrava, rdrSummary["fileUploadGarmin"].ToString());
+					SetControlPropertyThreadSafe(linkHistoryUploadGarmin, "Enabled", true);
 				}
 				// 
 				if(rdrSummary.IsDBNull(rdrSummary.GetOrdinal("fileUploadRWGPS"))){
@@ -226,6 +250,9 @@ namespace CycleUploader
 					SetControlPropertyThreadSafe(cbkHistoryUploadRideWithGPS, "Checked", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRideWithGPS, "Enabled", true);
 					SetControlPropertyThreadSafe(pnlHistoryUploadRideWithGPS, "BackColor", Color.PaleGreen);
+
+					SetLinkLabelUrl(linkHistoryUploadStrava, rdrSummary["fileUploadRWGPS"].ToString());
+					SetControlPropertyThreadSafe(linkHistoryUploadRideWithGPS, "Enabled", true);
 				}
 				
 				// display the activity "is commute" flag
@@ -748,6 +775,13 @@ namespace CycleUploader
 			else{
 				
 			}
+		}
+
+		private void linkHistoryUpload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			if (e.Link == null)
+				return;
+			Process.Start(e.Link.LinkData as string);
 		}
 	}
 }

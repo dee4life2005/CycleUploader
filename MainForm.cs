@@ -995,7 +995,7 @@ namespace CycleUploader
 			if(act_id != 0){
 				SQLiteCommand cmd = new SQLiteCommand(_m_dbConnection);
 					
-				string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadRunkeeper = ? where idFile = ?";
+				string sql = "update File set fileActivityName = ?, fileActivityNotes = ?, fileUploadStrava = ? where idFile = ?";
 			
 				cmd.CommandText = sql;
 				cmd.Parameters.Add(new SQLiteParameter());
