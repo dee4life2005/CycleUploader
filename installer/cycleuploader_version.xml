@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <appinfo>
-<version>1.0.42.0</version>
+<version>1.0.43.0</version>
 <url>https://raw.github.com/dee4life2005/CycleUploader/master/installer/</url>
 <installer>https://raw.github.com/dee4life2005/CycleUploader/master/installer/CycleUploaderSetup.exe</installer>
 <filename>CycleUploaderSetup.exe</filename>
 <date>03/12/2013</date>
 <changes>
 -------------------------------
+- v1.0.43.0, Fixed script error with map viewer, and ordered the monthly stats by descending date order
 - v1.0.42.0, Tweak to Strava Viewer again.
 - v1.0.41.0, Redesigned Strava Viewer (activity section)
 - v1.0.40.0, Strava, added support for setting bike used when specifying activity details
